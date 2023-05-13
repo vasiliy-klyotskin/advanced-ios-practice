@@ -18,3 +18,9 @@ func anyNSError() -> NSError {
 func anyData() -> Data {
     .init("any data".utf8)
 }
+
+func anyUrlRequest() -> URLRequest {
+    var request = URLRequest(url: anyURL())
+    request.httpMethod = "PUT"
+    return request
+}

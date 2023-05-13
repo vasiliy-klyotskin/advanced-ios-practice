@@ -28,8 +28,8 @@ public final class URLSessionHTTPClient {
     public typealias Cancellable = () -> Void
     
     @discardableResult
-    public func get(from url: URL, completion: @escaping (Result) -> Void) -> Cancellable {
-        let task = session.dataTask(with: url) { data, response, error in
+    public func perform(_ request: URLRequest, completion: @escaping (Result) -> Void) -> Cancellable {
+        let task = session.dataTask(with: request) { data, response, error in
             completion(Result {
                 if let error = error {
                     throw error
