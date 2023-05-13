@@ -8,8 +8,11 @@
 
 /* Begin PBXBuildFile section */
 		F7FC0DAD2A0FC5A6009FD50B /* Pokepedia.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F7FC0DA42A0FC5A6009FD50B /* Pokepedia.framework */; };
-		F7FC0DB22A0FC5A6009FD50B /* PokepediaTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7FC0DB12A0FC5A6009FD50B /* PokepediaTests.swift */; };
-		F7FC0DB32A0FC5A6009FD50B /* Pokepedia.h in Headers */ = {isa = PBXBuildFile; fileRef = F7FC0DA72A0FC5A6009FD50B /* Pokepedia.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		F7FC0DBF2A0FC7EF009FD50B /* URLSessionHTTPClientTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7FC0DBE2A0FC7EF009FD50B /* URLSessionHTTPClientTests.swift */; };
+		F7FC0DC12A0FC803009FD50B /* URLSessionHTTPClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7FC0DC02A0FC803009FD50B /* URLSessionHTTPClient.swift */; };
+		F7FC0DC32A0FC97D009FD50B /* SharedTestHelpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7FC0DC22A0FC97D009FD50B /* SharedTestHelpers.swift */; };
+		F7FC0DC62A0FCA13009FD50B /* URLProtocolStub.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7FC0DC52A0FCA13009FD50B /* URLProtocolStub.swift */; };
+		F7FC0DC92A0FCB00009FD50B /* XCTestCase+MemoryLeakTracking.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7FC0DC82A0FCB00009FD50B /* XCTestCase+MemoryLeakTracking.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -24,9 +27,12 @@
 
 /* Begin PBXFileReference section */
 		F7FC0DA42A0FC5A6009FD50B /* Pokepedia.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pokepedia.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		F7FC0DA72A0FC5A6009FD50B /* Pokepedia.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Pokepedia.h; sourceTree = "<group>"; };
 		F7FC0DAC2A0FC5A6009FD50B /* PokepediaTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = PokepediaTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		F7FC0DB12A0FC5A6009FD50B /* PokepediaTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PokepediaTests.swift; sourceTree = "<group>"; };
+		F7FC0DBE2A0FC7EF009FD50B /* URLSessionHTTPClientTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = URLSessionHTTPClientTests.swift; sourceTree = "<group>"; };
+		F7FC0DC02A0FC803009FD50B /* URLSessionHTTPClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = URLSessionHTTPClient.swift; sourceTree = "<group>"; };
+		F7FC0DC22A0FC97D009FD50B /* SharedTestHelpers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SharedTestHelpers.swift; sourceTree = "<group>"; };
+		F7FC0DC52A0FCA13009FD50B /* URLProtocolStub.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = URLProtocolStub.swift; sourceTree = "<group>"; };
+		F7FC0DC82A0FCB00009FD50B /* XCTestCase+MemoryLeakTracking.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "XCTestCase+MemoryLeakTracking.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -69,7 +75,7 @@
 		F7FC0DA62A0FC5A6009FD50B /* Pokepedia */ = {
 			isa = PBXGroup;
 			children = (
-				F7FC0DA72A0FC5A6009FD50B /* Pokepedia.h */,
+				F7FC0DBC2A0FC7C4009FD50B /* Shared API */,
 			);
 			path = Pokepedia;
 			sourceTree = "<group>";
@@ -77,9 +83,44 @@
 		F7FC0DB02A0FC5A6009FD50B /* PokepediaTests */ = {
 			isa = PBXGroup;
 			children = (
-				F7FC0DB12A0FC5A6009FD50B /* PokepediaTests.swift */,
+				F7FC0DC72A0FCAC3009FD50B /* Helpers */,
+				F7FC0DBD2A0FC7D0009FD50B /* Shared API */,
 			);
 			path = PokepediaTests;
+			sourceTree = "<group>";
+		};
+		F7FC0DBC2A0FC7C4009FD50B /* Shared API */ = {
+			isa = PBXGroup;
+			children = (
+				F7FC0DC02A0FC803009FD50B /* URLSessionHTTPClient.swift */,
+			);
+			path = "Shared API";
+			sourceTree = "<group>";
+		};
+		F7FC0DBD2A0FC7D0009FD50B /* Shared API */ = {
+			isa = PBXGroup;
+			children = (
+				F7FC0DC42A0FC9B7009FD50B /* Helpers */,
+				F7FC0DBE2A0FC7EF009FD50B /* URLSessionHTTPClientTests.swift */,
+			);
+			path = "Shared API";
+			sourceTree = "<group>";
+		};
+		F7FC0DC42A0FC9B7009FD50B /* Helpers */ = {
+			isa = PBXGroup;
+			children = (
+				F7FC0DC52A0FCA13009FD50B /* URLProtocolStub.swift */,
+			);
+			path = Helpers;
+			sourceTree = "<group>";
+		};
+		F7FC0DC72A0FCAC3009FD50B /* Helpers */ = {
+			isa = PBXGroup;
+			children = (
+				F7FC0DC22A0FC97D009FD50B /* SharedTestHelpers.swift */,
+				F7FC0DC82A0FCB00009FD50B /* XCTestCase+MemoryLeakTracking.swift */,
+			);
+			path = Helpers;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -89,7 +130,6 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				F7FC0DB32A0FC5A6009FD50B /* Pokepedia.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -144,6 +184,7 @@
 				TargetAttributes = {
 					F7FC0DA32A0FC5A6009FD50B = {
 						CreatedOnToolsVersion = 14.1;
+						LastSwiftMigration = 1410;
 					};
 					F7FC0DAB2A0FC5A6009FD50B = {
 						CreatedOnToolsVersion = 14.1;
@@ -191,6 +232,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F7FC0DC12A0FC803009FD50B /* URLSessionHTTPClient.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -198,7 +240,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				F7FC0DB22A0FC5A6009FD50B /* PokepediaTests.swift in Sources */,
+				F7FC0DBF2A0FC7EF009FD50B /* URLSessionHTTPClientTests.swift in Sources */,
+				F7FC0DC92A0FCB00009FD50B /* XCTestCase+MemoryLeakTracking.swift in Sources */,
+				F7FC0DC62A0FCA13009FD50B /* URLProtocolStub.swift in Sources */,
+				F7FC0DC32A0FC97D009FD50B /* SharedTestHelpers.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -335,6 +380,7 @@
 		F7FC0DB72A0FC5A6009FD50B /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				CURRENT_PROJECT_VERSION = 1;
@@ -355,6 +401,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
 				SKIP_INSTALL = YES;
 				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
 			};
 			name = Debug;
@@ -362,6 +409,7 @@
 		F7FC0DB82A0FC5A6009FD50B /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				CURRENT_PROJECT_VERSION = 1;
@@ -389,6 +437,7 @@
 		F7FC0DBA2A0FC5A6009FD50B /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				GENERATE_INFOPLIST_FILE = YES;
@@ -403,6 +452,7 @@
 		F7FC0DBB2A0FC5A6009FD50B /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				GENERATE_INFOPLIST_FILE = YES;
