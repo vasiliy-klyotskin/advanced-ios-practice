@@ -26,8 +26,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		D6E721C82A12A17F0092C5E6 /* CI_macOS.xctestplan */ = {isa = PBXFileReference; lastKnownFileType = text; path = CI_macOS.xctestplan; sourceTree = "<group>"; };
-		D6E721C92A12A17F0092C5E6 /* Pokepedia.xctestplan */ = {isa = PBXFileReference; lastKnownFileType = text; path = Pokepedia.xctestplan; sourceTree = "<group>"; };
+		D6E721C82A12A17F0092C5E6 /* CI_macOS_TP.xctestplan */ = {isa = PBXFileReference; lastKnownFileType = text; path = CI_macOS_TP.xctestplan; sourceTree = "<group>"; };
+		D6E721C92A12A17F0092C5E6 /* Pokepedia_TP.xctestplan */ = {isa = PBXFileReference; lastKnownFileType = text; path = Pokepedia_TP.xctestplan; sourceTree = "<group>"; };
 		F7FC0DA42A0FC5A6009FD50B /* Pokepedia.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pokepedia.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		F7FC0DAC2A0FC5A6009FD50B /* PokepediaTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = PokepediaTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		F7FC0DBE2A0FC7EF009FD50B /* URLSessionHTTPClientTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = URLSessionHTTPClientTests.swift; sourceTree = "<group>"; };
@@ -59,8 +59,8 @@
 		F7FC0D9A2A0FC5A6009FD50B = {
 			isa = PBXGroup;
 			children = (
-				D6E721C82A12A17F0092C5E6 /* CI_macOS.xctestplan */,
-				D6E721C92A12A17F0092C5E6 /* Pokepedia.xctestplan */,
+				D6E721C82A12A17F0092C5E6 /* CI_macOS_TP.xctestplan */,
+				D6E721C92A12A17F0092C5E6 /* Pokepedia_TP.xctestplan */,
 				F7FC0DA62A0FC5A6009FD50B /* Pokepedia */,
 				F7FC0DB02A0FC5A6009FD50B /* PokepediaTests */,
 				F7FC0DA52A0FC5A6009FD50B /* Products */,
