@@ -6,3 +6,9 @@
 //
 
 import Foundation
+
+public enum PokemonListRemoteMapper {
+    public static func map(remote: PokemonListRemote) throws -> PokemonList {
+        []
+    }
+}
