@@ -23,7 +23,11 @@ class URLProtocolStub: URLProtocol {
     
     private static let queue = DispatchQueue(label: "URLProtocolStub.queue")
     
-    static func stub(data: Data?, response: URLResponse?, error: Error?) {
+    static func stub(
+        data: Data?,
+        response: URLResponse?,
+        error: Error?
+    ) {
         stub = Stub(data: data, response: response, error: error, requestObserver: nil)
     }
     
