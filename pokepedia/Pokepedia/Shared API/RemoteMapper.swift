@@ -7,8 +7,15 @@
 
 import Foundation
 
-public final class RemoteMapper {
-    public static func map(data: Data, response: HTTPURLResponse) throws {
-        throw NSError(domain: "", code: 1)
+public final class RemoteMapper<Item: Decodable> {
+    struct APIError: Error {}
+    
+    public static func map(data: Data, response: HTTPURLResponse) throws -> Item {
+        guard isOk(response) else { throw APIError() }
+        return try JSONDecoder().decode(Item.self, from: data)
+    }
+    
+    private static func isOk(_ response: HTTPURLResponse) -> Bool {
+        return response.statusCode == 200
     }
 }
