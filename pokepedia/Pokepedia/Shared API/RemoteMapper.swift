@@ -7,7 +7,7 @@
 
 import Foundation
 
-public final class RemoteMapper<Item: Decodable> {
+public enum RemoteMapper<Item: Decodable> {
     struct APIError: Error {}
     
     public static func map(data: Data, response: HTTPURLResponse) throws -> Item {
