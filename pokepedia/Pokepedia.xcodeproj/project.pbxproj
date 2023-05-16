@@ -79,7 +79,7 @@
 		F7FC0DA62A0FC5A6009FD50B /* Pokepedia */ = {
 			isa = PBXGroup;
 			children = (
-				F7FC0DBC2A0FC7C4009FD50B /* Shared API */,
+				F7FC0DBC2A0FC7C4009FD50B /* Shared API Infra */,
 			);
 			path = Pokepedia;
 			sourceTree = "<group>";
@@ -88,26 +88,26 @@
 			isa = PBXGroup;
 			children = (
 				F7FC0DC72A0FCAC3009FD50B /* Helpers */,
-				F7FC0DBD2A0FC7D0009FD50B /* Shared API */,
+				F7FC0DBD2A0FC7D0009FD50B /* Shared API Infra */,
 			);
 			path = PokepediaTests;
 			sourceTree = "<group>";
 		};
-		F7FC0DBC2A0FC7C4009FD50B /* Shared API */ = {
+		F7FC0DBC2A0FC7C4009FD50B /* Shared API Infra */ = {
 			isa = PBXGroup;
 			children = (
 				F7FC0DC02A0FC803009FD50B /* URLSessionHTTPClient.swift */,
 			);
-			path = "Shared API";
+			path = "Shared API Infra";
 			sourceTree = "<group>";
 		};
-		F7FC0DBD2A0FC7D0009FD50B /* Shared API */ = {
+		F7FC0DBD2A0FC7D0009FD50B /* Shared API Infra */ = {
 			isa = PBXGroup;
 			children = (
 				F7FC0DC42A0FC9B7009FD50B /* Helpers */,
 				F7FC0DBE2A0FC7EF009FD50B /* URLSessionHTTPClientTests.swift */,
 			);
-			path = "Shared API";
+			path = "Shared API Infra";
 			sourceTree = "<group>";
 		};
 		F7FC0DC42A0FC9B7009FD50B /* Helpers */ = {
