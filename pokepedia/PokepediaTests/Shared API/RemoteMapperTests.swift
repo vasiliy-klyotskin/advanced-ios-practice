@@ -39,7 +39,7 @@ final class RemoteMapperTests: XCTestCase {
         XCTAssertEqual(expectedItem, resultItem)
     }
 
-    // MARK: Helpers
+    // MARK: - Helpers
     
     private func response(code: Int) -> HTTPURLResponse {
         .init(
