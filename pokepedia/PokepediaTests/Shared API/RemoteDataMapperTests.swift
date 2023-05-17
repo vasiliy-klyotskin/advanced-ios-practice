@@ -26,16 +26,13 @@ final class RemoteDataMapperTests: XCTestCase {
             try RemoteDataMapper.map(data: emptyData, response: response(code: 200))
         )
     }
-//
-//    func test_map_deliversRemoteItemOnValid200Response() throws {
-//        let (validData, expectedItem) = makeRemoteItem(
-//            string: "any string value",
-//            int: 10,
-//            optionalString: nil
-//        )
-//
-//        let resultItem: RemoteItem = try RemoteMapper.map(data: validData, response: response(code: 200))
-//
-//        XCTAssertEqual(expectedItem, resultItem)
-//    }
+
+    func test_map_deliversDataOnNotEmpty200Response() throws {
+        let notEmptyData = Data("some data".utf8)
+        let expectedData = notEmptyData
+
+        let resultData = try RemoteDataMapper.map(data: notEmptyData, response: response(code: 200))
+
+        XCTAssertEqual(expectedData, resultData)
+    }
 }
