@@ -9,7 +9,7 @@ import XCTest
 @testable import Pokepedia
 
 final class PokemonListRemoteMapperTests: XCTestCase {
-    func test_map_returnsEmptyListOnEmptyRemote() throws {
+    func test_map_deliversEmptyListOnEmptyRemote() throws {
         let emptryRemote: PokemonListRemote = []
         
         let list = try PokemonListRemoteMapper.map(remote: emptryRemote)
@@ -31,6 +31,26 @@ final class PokemonListRemoteMapperTests: XCTestCase {
         XCTAssertThrowsError(
             try PokemonListRemoteMapper.map(remote: remote)
         )
+    }
+    
+    func test_map_deliversListOnValidRemote() throws {
+        let (remote0, model0) = makeItem(
+            remoteTypes: [("color 1", "name 1"), ("color 2", "name 2")],
+            physicalType: ("color 1", "name 1"),
+            specialType: ("color 2", "name 2")
+        )
+        let (remote1, model1) = makeItem(
+            remoteTypes: [("color 1", "name 1")],
+            physicalType: ("color 1", "name 1"),
+            specialType: nil
+        )
+        let remote = [remote0, remote1]
+        let expectedList = [model0, model1]
+        
+        
+        let resultList = try PokemonListRemoteMapper.map(remote: remote)
+        
+        XCTAssertEqual(resultList, expectedList)
     }
     
     // MARK: - Helpers
