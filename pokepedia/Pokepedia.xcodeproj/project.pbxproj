@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		D654E36A2A147F220039F033 /* RemoteDataMapperTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D654E3692A147F220039F033 /* RemoteDataMapperTests.swift */; };
+		D654E36C2A147FA80039F033 /* RemoteDataMapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = D654E36B2A147FA80039F033 /* RemoteDataMapper.swift */; };
 		D66D7C702A13DB2E00F360EF /* RemoteMapperTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D66D7C6F2A13DB2E00F360EF /* RemoteMapperTests.swift */; };
 		D66D7C732A13DCCC00F360EF /* RemoteMapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = D66D7C722A13DCCC00F360EF /* RemoteMapper.swift */; };
 		D66D7C792A13EB3700F360EF /* PokemonList.swift in Sources */ = {isa = PBXBuildFile; fileRef = D66D7C782A13EB3700F360EF /* PokemonList.swift */; };
@@ -32,6 +34,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		D654E3692A147F220039F033 /* RemoteDataMapperTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RemoteDataMapperTests.swift; sourceTree = "<group>"; };
+		D654E36B2A147FA80039F033 /* RemoteDataMapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RemoteDataMapper.swift; sourceTree = "<group>"; };
 		D66D7C6F2A13DB2E00F360EF /* RemoteMapperTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RemoteMapperTests.swift; sourceTree = "<group>"; };
 		D66D7C722A13DCCC00F360EF /* RemoteMapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RemoteMapper.swift; sourceTree = "<group>"; };
 		D66D7C782A13EB3700F360EF /* PokemonList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PokemonList.swift; sourceTree = "<group>"; };
@@ -72,6 +76,7 @@
 			isa = PBXGroup;
 			children = (
 				D66D7C6F2A13DB2E00F360EF /* RemoteMapperTests.swift */,
+				D654E3692A147F220039F033 /* RemoteDataMapperTests.swift */,
 			);
 			path = "Shared API";
 			sourceTree = "<group>";
@@ -80,6 +85,7 @@
 			isa = PBXGroup;
 			children = (
 				D66D7C722A13DCCC00F360EF /* RemoteMapper.swift */,
+				D654E36B2A147FA80039F033 /* RemoteDataMapper.swift */,
 			);
 			path = "Shared API";
 			sourceTree = "<group>";
@@ -312,6 +318,7 @@
 			files = (
 				D66D7C732A13DCCC00F360EF /* RemoteMapper.swift in Sources */,
 				D66D7C802A13EF8900F360EF /* PokemonListRemoteMapper.swift in Sources */,
+				D654E36C2A147FA80039F033 /* RemoteDataMapper.swift in Sources */,
 				F7FC0DC12A0FC803009FD50B /* URLSessionHTTPClient.swift in Sources */,
 				D66D7C792A13EB3700F360EF /* PokemonList.swift in Sources */,
 				D66D7C7B2A13EE5700F360EF /* PokemonListRemote.swift in Sources */,
@@ -323,6 +330,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				D66D7C702A13DB2E00F360EF /* RemoteMapperTests.swift in Sources */,
+				D654E36A2A147F220039F033 /* RemoteDataMapperTests.swift in Sources */,
 				F7FC0DBF2A0FC7EF009FD50B /* URLSessionHTTPClientTests.swift in Sources */,
 				F7FC0DC92A0FCB00009FD50B /* XCTestCase+MemoryLeakTracking.swift in Sources */,
 				F7FC0DC62A0FCA13009FD50B /* URLProtocolStub.swift in Sources */,

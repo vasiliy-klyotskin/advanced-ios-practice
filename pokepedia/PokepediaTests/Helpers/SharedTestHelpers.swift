@@ -27,6 +27,15 @@ func anyName() -> String {
     "name \(anyId())"
 }
 
+func response(code: Int) -> HTTPURLResponse {
+    .init(
+        url: anyURL(),
+        statusCode: code,
+        httpVersion: nil,
+        headerFields: nil
+    )!
+}
+
 func anyUrlRequest() -> URLRequest {
     var request = URLRequest(url: anyURL())
     request.httpMethod = "PUT"
