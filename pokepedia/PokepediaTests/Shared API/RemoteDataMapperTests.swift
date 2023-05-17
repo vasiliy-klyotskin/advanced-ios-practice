@@ -19,13 +19,13 @@ final class RemoteDataMapperTests: XCTestCase {
         }
     }
     
-//    func test_map_deliversErrorOnInvalid200Response() {
-//        let invalidData = Data("invalid data".utf8)
-//
-//        XCTAssertThrowsError(
-//            try RemoteDataMapper.map(data: invalidData, response: response(code: 200))
-//        )
-//    }
+    func test_map_deliversErrorOnEmpty200Response() {
+        let emptyData = Data()
+
+        XCTAssertThrowsError(
+            try RemoteDataMapper.map(data: emptyData, response: response(code: 200))
+        )
+    }
 //
 //    func test_map_deliversRemoteItemOnValid200Response() throws {
 //        let (validData, expectedItem) = makeRemoteItem(

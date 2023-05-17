@@ -8,7 +8,10 @@
 import Foundation
 
 public enum RemoteDataMapper {
+    struct APIError: Error {}
+    
     public static func map(data: Data, response: HTTPURLResponse) throws {
+        //if data.isEmpty { throw APIError() }
         throw NSError()
     }
 }
