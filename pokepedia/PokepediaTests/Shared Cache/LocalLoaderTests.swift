@@ -14,8 +14,8 @@ final class LocalLoader {
         self.store = store
     }
     
-    func load() {
-        store.retrieve()
+    func load() throws {
+        try store.retrieve()
     }
 }
 
@@ -26,12 +26,22 @@ final class LocalLoaderTests: XCTestCase {
         XCTAssertEqual(store.messages.count, 0)
     }
     
-    func test_load_retrievesData() {
+    func test_load_retrievesData() throws {
         let (sut, store) = makeSut()
         
-        sut.load()
+        try sut.load()
         
         XCTAssertEqual(store.messages, [.retrieve])
+    }
+    
+    func test_load_deliversErrorOnRetrievalError() throws {
+        let (sut, store) = makeSut()
+        
+        store.stubRetrieve(result: .failure(anyNSError()))
+        
+        XCTAssertThrowsError(
+            try sut.load()
+        )
     }
     
     // MARK: - Helpers
@@ -50,8 +60,14 @@ final class StoreMock {
         case retrieve
     }
     var messages: [Message] = []
+    var retrieveStub: Result<Any, Error>?
     
-    func retrieve() {
+    func retrieve() throws {
         messages.append(.retrieve)
+        _ = try retrieveStub?.get()
+    }
+    
+    func stubRetrieve(result: Result<Any, Error>) {
+        retrieveStub = result
     }
 }
