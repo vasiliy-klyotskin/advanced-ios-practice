@@ -5,21 +5,24 @@
 
 
 
-## Pokemon List Feature
+## Abstract Usecases
 
-## Use Cases
 
-### Load Pokemon List From Remote Use Case
+
+### Load Model From Network
 
 #### Data:
 - URL
 
 #### Primary course (happy path):
-1. Execute "Load Pokemon Feed" command with above data.
+1. Execute "Load Model From Network" command with above data.
 2. System downloads data from the URL.
 3. System validates downloaded data.
-4. System creates pokemon list from valid data.
-5. System delivers pokemon list.
+4. System creates Model instance from valid data.
+5. System delivers Model.
+
+#### Cancel course:
+1. System does not deliver JSON nor error.
 
 #### Invalid data – error course (sad path):
 1. System delivers error.
@@ -29,7 +32,7 @@
 
 
 
-### Load Image Data From Remote Use Case
+### Load Image Data From Network
 
 #### Data:
 - URL
@@ -44,7 +47,31 @@
 1. System does not deliver image data nor error.
 
 #### Invalid data – error course (sad path):
-1. System delivers invalid data error.
+1. System delivers error.
 
 #### No connectivity – error course (sad path):
-1. System delivers connectivity error.
+1. System delivers error.
+
+
+
+### Load Model From Cache
+
+#### Data:
+- Key
+
+#### Primary course (happy path):
+1. Execute "Load Model From Cache" command with above data.
+2. System loads data from the cache.
+3. System validstes cache is less than X days old.
+4. System creates model from valid data.
+5. System delivers model.
+
+#### Cache expired – error course (sad path):
+1. System deletes cache
+1. System delivers error.
+
+#### Retrieving error – error course (sad path):
+1. System delivers error
+
+#### Empty cache course (sad path): 
+1. System delivers error.
