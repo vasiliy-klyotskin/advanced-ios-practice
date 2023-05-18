@@ -21,20 +21,27 @@ final class LocalLoader {
 
 final class LocalLoaderTests: XCTestCase {
     func test_init_hasNoSideEffects() {
-        let store = StoreMock()
-        
-        _ = LocalLoader(store: store)
+        let (_, store) = makeSut()
         
         XCTAssertEqual(store.messages.count, 0)
     }
     
     func test_load_retrievesData() {
-        let store = StoreMock()
-        let sut = LocalLoader(store: store)
+        let (sut, store) = makeSut()
         
         sut.load()
         
         XCTAssertEqual(store.messages, [.retrieve])
+    }
+    
+    // MARK: - Helpers
+    
+    private func makeSut(file: StaticString = #filePath, line: UInt = #line) -> (LocalLoader, StoreMock) {
+        let store = StoreMock()
+        let sut = LocalLoader(store: store)
+        trackForMemoryLeaks(store)
+        trackForMemoryLeaks(sut)
+        return (sut, store)
     }
 }
 
