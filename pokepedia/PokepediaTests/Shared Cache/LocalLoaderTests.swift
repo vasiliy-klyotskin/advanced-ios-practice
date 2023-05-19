@@ -34,7 +34,7 @@ final class LocalLoader {
         let result = try store.retrieve(for: key)
         guard let result = result else { throw EmptyCache() }
         if !validation(result.timestamp, current()) {
-            store.delete()
+            store.delete(for: key)
             throw NSError()
         }
     }
@@ -58,37 +58,38 @@ final class LocalLoaderTests: XCTestCase {
     
     func test_load_deliversErrorOnRetrievalError() {
         let (sut, store) = makeSut()
-        store.stubRetrieve(result: .failure(anyNSError()))
+        let key = anyKey()
+        store.stubRetrieve(result: .failure(anyNSError()), for: key)
         
         XCTAssertThrowsError(
-            try sut.load(for: anyKey())
+            try sut.load(for: key)
         )
     }
     
     func test_load_deliversErrorOnExpiredTimestamp() {
-        let (sut, _) = makeSutWith(expiredCache: true)
+        let (sut, _, key) = makeSutWith(expiredCache: true)
         
         XCTAssertThrowsError(
-            try sut.load(for: anyKey())
+            try sut.load(for: key)
         )
     }
     
     func test_load_deletesCacheOnExpiredTimestamp() {
-        let (sut, store) = makeSutWith(expiredCache: true)
-        let key = anyKey()
+        let (sut, store, key) = makeSutWith(expiredCache: true)
         
         try? sut.load(for: key)
         
-        XCTAssertEqual(store.messages, [.retrieve(key), .delete])
+        XCTAssertEqual(store.messages, [.retrieve(key), .delete(key)])
     }
     
     func test_load_deliversErrorOnEmptyCache() {
         let (sut, store) = makeSut()
+        let key = anyKey()
         
-        store.stubRetrieve(result: .success(nil))
+        store.stubRetrieve(result: .success(nil), for: key)
         
         XCTAssertThrowsError(
-            try sut.load(for: anyKey())
+            try sut.load(for: key)
         )
     }
     
@@ -98,7 +99,8 @@ final class LocalLoaderTests: XCTestCase {
         expiredCache: Bool,
         file: StaticString = #filePath,
         line: UInt = #line
-    ) -> (LocalLoader, StoreMock) {
+    ) -> (LocalLoader, StoreMock, String) {
+        let key = anyKey()
         let current = Date()
         let timestamp = anyPreviousDate()
         let expiredValidation = validation(
@@ -112,8 +114,8 @@ final class LocalLoaderTests: XCTestCase {
             current: current,
             validate: expiredValidation
         )
-        store.stubRetrieve(result: .success(.init(timestamp: timestamp)))
-        return (sut, store)
+        store.stubRetrieve(result: .success(.init(timestamp: timestamp)), for: key)
+        return (sut, store, key)
     }
     
     private func makeSut(
@@ -176,25 +178,25 @@ final class StoreMock {
     struct Unexpected: Error {}
     enum Message: Equatable {
         case retrieve(String)
-        case delete
+        case delete(String)
     }
     
     var messages: [Message] = []
-    var retrieveStub: Result<StoreRetrieval?, Error>?
+    var retrieveStubs = [String: Result<StoreRetrieval?, Error>]()
     
     func retrieve(for key: String) throws -> StoreRetrieval? {
         messages.append(.retrieve(key))
-        if let stub = retrieveStub {
+        if let stub = retrieveStubs[key] {
             return try stub.get()
         }
         throw Unexpected()
     }
     
-    func delete() {
-        messages.append(.delete)
+    func delete(for key: String) {
+        messages.append(.delete(key))
     }
     
-    func stubRetrieve(result: Result<StoreRetrieval?, Error>) {
-        retrieveStub = result
+    func stubRetrieve(result: Result<StoreRetrieval?, Error>, for key: String) {
+        retrieveStubs[key] = result
     }
 }
