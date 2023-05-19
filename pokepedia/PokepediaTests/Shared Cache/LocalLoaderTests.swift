@@ -63,15 +63,7 @@ final class LocalLoaderTests: XCTestCase {
     }
     
     func test_load_deliversErrorOnExpiredTimestamp() {
-        let current = Date()
-        let timestamp = anyPreviousDate()
-        let expiredValidation = validation(
-            expired: true,
-            current: current,
-            timestamp: timestamp
-        )
-        let (sut, store) = makeSut(current: current, validate: expiredValidation)
-        store.stubRetrieve(result: .success(.init(timestamp: timestamp)))
+        let (sut, _) = makeSutWith(expiredCache: true)
         
         XCTAssertThrowsError(
             try sut.load(for: anyKey())
@@ -79,15 +71,7 @@ final class LocalLoaderTests: XCTestCase {
     }
     
     func test_load_deletesCacheOnExpiredTimestamp() {
-        let current = Date()
-        let timestamp = anyPreviousDate()
-        let expiredValidation = validation(
-            expired: true,
-            current: current,
-            timestamp: timestamp
-        )
-        let (sut, store) = makeSut(current: current, validate: expiredValidation)
-        store.stubRetrieve(result: .success(.init(timestamp: timestamp)))
+        let (sut, store) = makeSutWith(expiredCache: true)
         let key = anyKey()
         
         try? sut.load(for: key)
@@ -96,6 +80,28 @@ final class LocalLoaderTests: XCTestCase {
     }
     
     // MARK: - Helpers
+    
+    private func makeSutWith(
+        expiredCache: Bool,
+        file: StaticString = #filePath,
+        line: UInt = #line
+    ) -> (LocalLoader, StoreMock) {
+        let current = Date()
+        let timestamp = anyPreviousDate()
+        let expiredValidation = validation(
+            expired: expiredCache,
+            current: current,
+            timestamp: timestamp
+        )
+        let (sut, store) = makeSut(
+            file: file,
+            line: line,
+            current: current,
+            validate: expiredValidation
+        )
+        store.stubRetrieve(result: .success(.init(timestamp: timestamp)))
+        return (sut, store)
+    }
     
     private func makeSut(
         file: StaticString = #filePath,
