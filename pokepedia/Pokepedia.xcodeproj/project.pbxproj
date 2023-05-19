@@ -8,6 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		D63084992A1683AD0097BC5C /* LocalLoaderTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D63084982A1683AD0097BC5C /* LocalLoaderTests.swift */; };
+		D645BD1A2A17EAEF00E6E145 /* LocalLoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = D645BD192A17EAEF00E6E145 /* LocalLoader.swift */; };
+		D645BD1D2A17EB7900E6E145 /* StoreMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = D645BD1C2A17EB7900E6E145 /* StoreMock.swift */; };
 		D654E36A2A147F220039F033 /* RemoteDataMapperTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D654E3692A147F220039F033 /* RemoteDataMapperTests.swift */; };
 		D654E36C2A147FA80039F033 /* RemoteDataMapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = D654E36B2A147FA80039F033 /* RemoteDataMapper.swift */; };
 		D654E36E2A1482040039F033 /* HTTPURLResponse+CodeChecking.swift in Sources */ = {isa = PBXBuildFile; fileRef = D654E36D2A1482040039F033 /* HTTPURLResponse+CodeChecking.swift */; };
@@ -37,6 +39,8 @@
 
 /* Begin PBXFileReference section */
 		D63084982A1683AD0097BC5C /* LocalLoaderTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalLoaderTests.swift; sourceTree = "<group>"; };
+		D645BD192A17EAEF00E6E145 /* LocalLoader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalLoader.swift; sourceTree = "<group>"; };
+		D645BD1C2A17EB7900E6E145 /* StoreMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoreMock.swift; sourceTree = "<group>"; };
 		D654E3692A147F220039F033 /* RemoteDataMapperTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RemoteDataMapperTests.swift; sourceTree = "<group>"; };
 		D654E36B2A147FA80039F033 /* RemoteDataMapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RemoteDataMapper.swift; sourceTree = "<group>"; };
 		D654E36D2A1482040039F033 /* HTTPURLResponse+CodeChecking.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "HTTPURLResponse+CodeChecking.swift"; sourceTree = "<group>"; };
@@ -79,9 +83,26 @@
 		D63084962A1682BD0097BC5C /* Shared Cache */ = {
 			isa = PBXGroup;
 			children = (
+				D645BD1B2A17EB5B00E6E145 /* Helpers */,
 				D63084982A1683AD0097BC5C /* LocalLoaderTests.swift */,
 			);
 			path = "Shared Cache";
+			sourceTree = "<group>";
+		};
+		D645BD182A17EAD900E6E145 /* Shared Cache */ = {
+			isa = PBXGroup;
+			children = (
+				D645BD192A17EAEF00E6E145 /* LocalLoader.swift */,
+			);
+			path = "Shared Cache";
+			sourceTree = "<group>";
+		};
+		D645BD1B2A17EB5B00E6E145 /* Helpers */ = {
+			isa = PBXGroup;
+			children = (
+				D645BD1C2A17EB7900E6E145 /* StoreMock.swift */,
+			);
+			path = Helpers;
 			sourceTree = "<group>";
 		};
 		D66D7C6D2A13DA9D00F360EF /* Shared API */ = {
@@ -171,6 +192,7 @@
 				D66D7C742A13EA4400F360EF /* Pokemon List Feature */,
 				D66D7C712A13DC5F00F360EF /* Shared API */,
 				F7FC0DBC2A0FC7C4009FD50B /* Shared API Infra */,
+				D645BD182A17EAD900E6E145 /* Shared Cache */,
 			);
 			path = Pokepedia;
 			sourceTree = "<group>";
@@ -336,6 +358,7 @@
 				F7FC0DC12A0FC803009FD50B /* URLSessionHTTPClient.swift in Sources */,
 				D66D7C792A13EB3700F360EF /* PokemonList.swift in Sources */,
 				D66D7C7B2A13EE5700F360EF /* PokemonListRemote.swift in Sources */,
+				D645BD1A2A17EAEF00E6E145 /* LocalLoader.swift in Sources */,
 				D654E36E2A1482040039F033 /* HTTPURLResponse+CodeChecking.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -349,6 +372,7 @@
 				F7FC0DBF2A0FC7EF009FD50B /* URLSessionHTTPClientTests.swift in Sources */,
 				F7FC0DC92A0FCB00009FD50B /* XCTestCase+MemoryLeakTracking.swift in Sources */,
 				F7FC0DC62A0FCA13009FD50B /* URLProtocolStub.swift in Sources */,
+				D645BD1D2A17EB7900E6E145 /* StoreMock.swift in Sources */,
 				D66D7C7E2A13EF7700F360EF /* PokemonListRemoteMapperTests.swift in Sources */,
 				D63084992A1683AD0097BC5C /* LocalLoaderTests.swift in Sources */,
 				F7FC0DC32A0FC97D009FD50B /* SharedTestHelpers.swift in Sources */,

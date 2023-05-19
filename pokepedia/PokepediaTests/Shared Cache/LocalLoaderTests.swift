@@ -6,46 +6,7 @@
 //
 
 import XCTest
-
-struct StoreRetrieval<Local> {
-    let local: Local
-    let timestamp: Date
-}
-
-final class LocalLoader<Local, Model> {
-    public typealias Validation = (_ timestamp: Date, _ against: Date) -> Bool
-    public typealias Mapping = (Local) -> Model
-    
-    struct EmptyCache: Error {}
-    
-    private let store: StoreMock
-    private let mapping: Mapping
-    private let validation: Validation
-    private let current: () -> Date
-    
-    init(
-        store: StoreMock,
-        mapping: @escaping Mapping,
-        validation: @escaping Validation,
-        current: @escaping () -> Date
-    ) {
-        self.store = store
-        self.validation = validation
-        self.current = current
-        self.mapping = mapping
-    }
-    
-    func load(for key: String) throws -> Model {
-        let result = try store.retrieve(for: key)
-        guard let result = result else { throw EmptyCache() }
-        if !validation(result.timestamp, current()) {
-            store.delete(for: key)
-            throw NSError()
-        } else {
-            return mapping(result.local as! Local)
-        }
-    }
-}
+import Pokepedia
 
 final class LocalLoaderTests: XCTestCase {
     func test_init_hasNoSideEffects() {
@@ -114,7 +75,7 @@ final class LocalLoaderTests: XCTestCase {
     
     // MARK: - Helpers
     
-    typealias Loader = LocalLoader<LocalStub, ModelStub>
+    typealias Loader = LocalLoader<LocalStub, ModelStub, StoreMock>
     
     private func makeSutWith(
         cacheExpired: Bool,
@@ -131,8 +92,10 @@ final class LocalLoaderTests: XCTestCase {
             current: current,
             timestamp: timestamp
         )
-        let (sut, store) = makeSut(mapping:
-            mappingMock(local: local, mapped: expectedModel ?? .init()),
+        let (sut, store) = makeSut(
+            file: file,
+            line: line,
+            mapping: mappingMock(local: local, mapped: expectedModel ?? .init()),
             current: current,
             validate: expiredValidation
         )
@@ -214,39 +177,5 @@ final class LocalLoaderTests: XCTestCase {
     
     private func adding(days: Int, to date: Date) -> Date {
         return Calendar(identifier: .gregorian).date(byAdding: .day, value: days, to: date)!
-    }
-}
-
-struct LocalStub: Equatable {
-    let id: UUID = .init()
-}
-struct ModelStub: Equatable {
-    let id: UUID = .init()
-}
-
-final class StoreMock {
-    struct Unexpected: Error {}
-    enum Message: Equatable {
-        case retrieve(String)
-        case delete(String)
-    }
-    
-    var messages: [Message] = []
-    var retrieveStubs = [String: Result<StoreRetrieval<LocalStub>?, Error>]()
-    
-    func retrieve(for key: String) throws -> StoreRetrieval<LocalStub>? {
-        messages.append(.retrieve(key))
-        if let stub = retrieveStubs[key] {
-            return try stub.get()
-        }
-        throw Unexpected()
-    }
-    
-    func delete(for key: String) {
-        messages.append(.delete(key))
-    }
-    
-    func stubRetrieve(result: Result<StoreRetrieval<LocalStub>?, Error>, for key: String) {
-        retrieveStubs[key] = result
     }
 }
