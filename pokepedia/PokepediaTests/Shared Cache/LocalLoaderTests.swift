@@ -73,7 +73,7 @@ final class LocalLoaderTests: XCTestCase {
     }
     
     func test_load_deliversErrorOnExpiredTimestamp() {
-        let (sut, _, key) = makeSutWithexpiredCache()
+        let (sut, _, key) = makeSutWith(cacheExpired: true)
         
         XCTAssertThrowsError(
             try sut.load(for: key)
@@ -81,7 +81,7 @@ final class LocalLoaderTests: XCTestCase {
     }
     
     func test_load_deletesCacheOnExpiredTimestamp() {
-        let (sut, store, key) = makeSutWithexpiredCache()
+        let (sut, store, key) = makeSutWith(cacheExpired: true)
         
         _ = try? sut.load(for: key)
         
@@ -100,21 +100,11 @@ final class LocalLoaderTests: XCTestCase {
     }
     
     func test_load_deliversModelOnNotExpiredCache() throws {
-        let key = anyKey()
-        let current = Date()
-        let timestamp = anyPreviousDate()
-        let expiredValidation = validationMock(
-            expired: false,
-            current: current,
-            timestamp: timestamp
-        )
-        let (sut, store) = makeSut(current: current, validate: expiredValidation)
-        let local = Local()
         let expectedModel = Model()
-        
-        let storeRetrieval: StoreRetrieval = .init(local: local, timestamp: timestamp)
-        
-        store.stubRetrieve(result: .success(.init(storeRetrieval)), for: key)
+        let (sut, _, key) = makeSutWith(
+            cacheExpired: false,
+            expectedModel: expectedModel
+        )
         
         let actualModel = try sut.load(for: key)
     
@@ -123,22 +113,28 @@ final class LocalLoaderTests: XCTestCase {
     
     // MARK: - Helpers
     
-    private func makeSutWithexpiredCache(file: StaticString = #filePath, line: UInt = #line) -> (LocalLoader<Local, Model>, StoreMock, String) {
+    private func makeSutWith(
+        cacheExpired: Bool,
+        expectedModel: Model? = nil,
+        file: StaticString = #filePath,
+        line: UInt = #line
+    ) -> (LocalLoader<Local, Model>, StoreMock, String) {
         let key = anyKey()
         let current = Date()
         let timestamp = anyPreviousDate()
+        let local = Local()
         let expiredValidation = validationMock(
-            expired: true,
+            expired: expectedModel == nil,
             current: current,
             timestamp: timestamp
         )
-        let (sut, store) = makeSut(
-            file: file,
-            line: line,
+        let (sut, store) = makeSut(mapping:
+            mappingMock(local: local, mapped: expectedModel ?? .init()),
             current: current,
             validate: expiredValidation
         )
-            store.stubRetrieve(result: .success(.init(local: .init(), timestamp: timestamp)), for: key)
+        let storeRetrieval: StoreRetrieval = .init(local: local, timestamp: timestamp)
+        store.stubRetrieve(result: .success(.init(storeRetrieval)), for: key)
         return (sut, store, key)
     }
     
@@ -218,8 +214,12 @@ final class LocalLoaderTests: XCTestCase {
     }
 }
 
-struct Local: Equatable {}
-struct Model: Equatable {}
+struct Local: Equatable {
+    let id: UUID = .init()
+}
+struct Model: Equatable {
+    let id: UUID = .init()
+}
 
 final class StoreMock {
     struct Unexpected: Error {}
