@@ -31,6 +31,7 @@ final class LocalLoader {
     func load() throws {
         let result = try store.retrieve()
         if !validation(result.timestamp, current()) {
+            store.delete()
             throw NSError()
         }
     }
@@ -60,7 +61,7 @@ final class LocalLoaderTests: XCTestCase {
         )
     }
     
-    func test_load_deliversErrorOnExpiredCache() {
+    func test_load_deliversErrorOnExpiredTimestamp() {
         let current = Date()
         let timestamp = anyPreviousDate()
         let expiredValidation = validation(
@@ -69,13 +70,27 @@ final class LocalLoaderTests: XCTestCase {
             timestamp: timestamp
         )
         let (sut, store) = makeSut(current: current, validate: expiredValidation)
-        
         store.stubRetrieve(result: .success(.init(timestamp: timestamp)))
         
         XCTAssertThrowsError(
             try sut.load()
         )
+    }
+    
+    func test_load_deletesCacheOnExpiredTimestamp() {
+        let current = Date()
+        let timestamp = anyPreviousDate()
+        let expiredValidation = validation(
+            expired: true,
+            current: current,
+            timestamp: timestamp
+        )
+        let (sut, store) = makeSut(current: current, validate: expiredValidation)
+        store.stubRetrieve(result: .success(.init(timestamp: timestamp)))
         
+        try? sut.load()
+        
+        XCTAssertEqual(store.messages, [.retrieve, .delete])
     }
     
     // MARK: - Helpers
@@ -136,6 +151,7 @@ final class StoreMock {
     struct Unexpected: Error {}
     enum Message {
         case retrieve
+        case delete
     }
     
     var messages: [Message] = []
@@ -147,6 +163,10 @@ final class StoreMock {
             return try stub.get()
         }
         throw Unexpected()
+    }
+    
+    func delete() {
+        messages.append(.delete)
     }
     
     func stubRetrieve(result: Result<StoreRetrieval, Error>) {
