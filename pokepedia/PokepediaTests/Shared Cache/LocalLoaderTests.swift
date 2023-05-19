@@ -14,6 +14,8 @@ struct StoreRetrieval {
 }
 
 final class LocalLoader {
+    struct EmptyCache: Error {}
+    
     private let store: StoreMock
     private let validation: TimestampValidation
     private let current: () -> Date
@@ -30,6 +32,7 @@ final class LocalLoader {
     
     func load(for key: String) throws {
         let result = try store.retrieve(for: key)
+        guard let result = result else { throw EmptyCache() }
         if !validation(result.timestamp, current()) {
             store.delete()
             throw NSError()
@@ -77,6 +80,16 @@ final class LocalLoaderTests: XCTestCase {
         try? sut.load(for: key)
         
         XCTAssertEqual(store.messages, [.retrieve(key), .delete])
+    }
+    
+    func test_load_deliversErrorOnEmptyCache() {
+        let (sut, store) = makeSut()
+        
+        store.stubRetrieve(result: .success(nil))
+        
+        XCTAssertThrowsError(
+            try sut.load(for: anyKey())
+        )
     }
     
     // MARK: - Helpers
@@ -167,9 +180,9 @@ final class StoreMock {
     }
     
     var messages: [Message] = []
-    var retrieveStub: Result<StoreRetrieval, Error>?
+    var retrieveStub: Result<StoreRetrieval?, Error>?
     
-    func retrieve(for key: String) throws -> StoreRetrieval {
+    func retrieve(for key: String) throws -> StoreRetrieval? {
         messages.append(.retrieve(key))
         if let stub = retrieveStub {
             return try stub.get()
@@ -181,7 +194,7 @@ final class StoreMock {
         messages.append(.delete)
     }
     
-    func stubRetrieve(result: Result<StoreRetrieval, Error>) {
+    func stubRetrieve(result: Result<StoreRetrieval?, Error>) {
         retrieveStub = result
     }
 }
