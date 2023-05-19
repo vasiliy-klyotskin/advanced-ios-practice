@@ -28,7 +28,10 @@ public final class LocalLoader<Local, Model, Store: LocalLoaderStore> where Stor
     public typealias Validation = (_ timestamp: Date, _ against: Date) -> Bool
     public typealias Mapping = (Local) -> Model
     
-    struct EmptyCache: Error {}
+    enum Error: Swift.Error {
+        case empty
+        case expired
+    }
     
     private let store: Store
     private let mapping: Mapping
@@ -48,13 +51,16 @@ public final class LocalLoader<Local, Model, Store: LocalLoaderStore> where Stor
     }
     
     public func load(for key: String) throws -> Model {
-        let result = try store.retrieve(for: key)
-        guard let result = result else { throw EmptyCache() }
-        if !validation(result.timestamp, current()) {
+        let retrieved = try store.retrieve(for: key)
+        guard let retrieved = retrieved else { throw Error.empty }
+        try checkExpiration(of: retrieved.timestamp, for: key)
+        return mapping(retrieved.local)
+    }
+
+    private func checkExpiration(of timestamp: Date, for key: String) throws {
+        if !validation(timestamp, current()) {
             store.delete(for: key)
-            throw NSError()
-        } else {
-            return mapping(result.local)
+            throw Error.expired
         }
     }
 }
