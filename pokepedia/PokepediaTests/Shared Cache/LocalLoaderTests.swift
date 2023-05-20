@@ -42,12 +42,12 @@ final class LocalLoaderTests: XCTestCase {
         )
     }
     
-    func test_load_deletesCacheOnExpiredTimestamp() {
+    func test_load_hasNoSideEffectsOnExpiredCache() {
         let (sut, store, key) = makeSutWith(cacheExpired: true)
         
         _ = try? sut.load(for: key)
         
-        XCTAssertEqual(store.messages, [.retrieve(key), .delete(key)])
+        XCTAssertEqual(store.messages, [.retrieve(key)])
     }
     
     func test_load_deliversErrorOnEmptyCache() {

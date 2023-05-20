@@ -12,7 +12,6 @@ final class StoreMock: LocalLoaderStore {
     struct Unexpected: Error {}
     enum Message: Equatable {
         case retrieve(String)
-        case delete(String)
     }
     
     var messages: [Message] = []
@@ -24,10 +23,6 @@ final class StoreMock: LocalLoaderStore {
             return try stub.get()
         }
         throw Unexpected()
-    }
-    
-    func delete(for key: String) {
-        messages.append(.delete(key))
     }
     
     func stubRetrieve(result: Result<StoreRetrieval<LocalStub>?, Error>, for key: String) {

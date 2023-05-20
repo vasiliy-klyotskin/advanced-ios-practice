@@ -21,7 +21,6 @@ public protocol LocalLoaderStore {
     associatedtype Local
     
     func retrieve(for key: String) throws -> StoreRetrieval<Local>?
-    func delete(for key: String)
 }
 
 public final class LocalLoader<Local, Model, Store: LocalLoaderStore> where Store.Local == Local {
@@ -53,13 +52,12 @@ public final class LocalLoader<Local, Model, Store: LocalLoaderStore> where Stor
     public func load(for key: String) throws -> Model {
         let retrieved = try store.retrieve(for: key)
         guard let retrieved = retrieved else { throw Error.empty }
-        try checkExpiration(of: retrieved.timestamp, for: key)
+        try checkExpiration(of: retrieved.timestamp)
         return mapping(retrieved.local)
     }
 
-    private func checkExpiration(of timestamp: Date, for key: String) throws {
+    private func checkExpiration(of timestamp: Date) throws {
         if !validation(timestamp, current()) {
-            store.delete(for: key)
             throw Error.expired
         }
     }
