@@ -8,10 +8,12 @@
 import Foundation
 import Pokepedia
 
-final class StoreMock: LocalLoaderStore {
+final class StoreMock: LocalLoaderStore, LocalSaverStore {
     struct Unexpected: Error {}
     enum Message: Equatable {
         case retrieve(String)
+        case delete(String)
+        case insert(LocalStub, Date, String)
     }
     
     var messages: [Message] = []
@@ -23,6 +25,14 @@ final class StoreMock: LocalLoaderStore {
             return try stub.get()
         }
         throw Unexpected()
+    }
+    
+    func delete(for key: String) {
+        messages.append(.delete(key))
+    }
+    
+    func insert(data: LocalInserting<LocalStub>, for key: String) {
+        messages.append(.insert(data.local, data.timestamp, key))
     }
     
     func stubRetrieve(result: Result<StoreRetrieval<LocalStub>?, Error>, for key: String) {

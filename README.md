@@ -88,6 +88,3 @@
 3. System encodes model.
 4. System timestamps the new cache.
 5. System saves new cache data.
-
-#### Cache expired – error course (sad path):
-1. System deletes cache.
