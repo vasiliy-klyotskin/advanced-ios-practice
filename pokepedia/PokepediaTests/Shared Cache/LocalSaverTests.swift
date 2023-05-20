@@ -8,44 +8,6 @@
 import XCTest
 import Pokepedia
 
-struct LocalInserting<Local> {
-    let timestamp: Date
-    let local: Local
-}
-
-protocol LocalSaverStore {
-    associatedtype Local
-    
-    func insert(data: LocalInserting<Local>, for key: String)
-    func delete(for key: String)
-}
-
-final class LocalSaver<Local, Model, Store: LocalSaverStore> where Store.Local == Local {
-    typealias Mapping = (Model) -> Local
-    
-    private let store: Store
-    private let mapping: Mapping
-    private let current: () -> Date
-    
-    init(
-        store: Store,
-        mapping: @escaping Mapping,
-        current: @escaping () -> Date = Date.init
-    ) {
-        self.store = store
-        self.mapping = mapping
-        self.current = current
-    }
-    
-    func save(_ model: Model, for key: String) {
-        store.delete(for: key)
-        let timestamp = current()
-        let local = mapping(model)
-        let inserting = LocalInserting(timestamp: timestamp, local: local)
-        store.insert(data: inserting, for: key)
-    }
-}
-
 final class LocalSaverTests: XCTestCase {
     func test_init_hasNoSideEffects() {
         let (_, store) = makeSut()
