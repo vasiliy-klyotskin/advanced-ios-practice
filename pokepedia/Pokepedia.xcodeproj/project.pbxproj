@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		D62098E52A193E8C00AA2249 /* LocalSaverTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D62098E42A193E8C00AA2249 /* LocalSaverTests.swift */; };
 		D63084992A1683AD0097BC5C /* LocalLoaderTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D63084982A1683AD0097BC5C /* LocalLoaderTests.swift */; };
 		D645BD1A2A17EAEF00E6E145 /* LocalLoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = D645BD192A17EAEF00E6E145 /* LocalLoader.swift */; };
 		D645BD1D2A17EB7900E6E145 /* StoreMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = D645BD1C2A17EB7900E6E145 /* StoreMock.swift */; };
@@ -38,6 +39,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		D62098E42A193E8C00AA2249 /* LocalSaverTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalSaverTests.swift; sourceTree = "<group>"; };
 		D63084982A1683AD0097BC5C /* LocalLoaderTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalLoaderTests.swift; sourceTree = "<group>"; };
 		D645BD192A17EAEF00E6E145 /* LocalLoader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalLoader.swift; sourceTree = "<group>"; };
 		D645BD1C2A17EB7900E6E145 /* StoreMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoreMock.swift; sourceTree = "<group>"; };
@@ -85,6 +87,7 @@
 			children = (
 				D645BD1B2A17EB5B00E6E145 /* Helpers */,
 				D63084982A1683AD0097BC5C /* LocalLoaderTests.swift */,
+				D62098E42A193E8C00AA2249 /* LocalSaverTests.swift */,
 			);
 			path = "Shared Cache";
 			sourceTree = "<group>";
@@ -372,6 +375,7 @@
 				F7FC0DBF2A0FC7EF009FD50B /* URLSessionHTTPClientTests.swift in Sources */,
 				F7FC0DC92A0FCB00009FD50B /* XCTestCase+MemoryLeakTracking.swift in Sources */,
 				F7FC0DC62A0FCA13009FD50B /* URLProtocolStub.swift in Sources */,
+				D62098E52A193E8C00AA2249 /* LocalSaverTests.swift in Sources */,
 				D645BD1D2A17EB7900E6E145 /* StoreMock.swift in Sources */,
 				D66D7C7E2A13EF7700F360EF /* PokemonListRemoteMapperTests.swift in Sources */,
 				D63084992A1683AD0097BC5C /* LocalLoaderTests.swift in Sources */,
