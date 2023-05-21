@@ -62,8 +62,4 @@ final class LocalSaverTests: XCTestCase {
             return local
         }
     }
-    
-    private func anyKey() -> String {
-        anyId()
-    }
 }

@@ -24,7 +24,7 @@ public protocol LocalLoaderStore {
 }
 
 public final class LocalLoader<Local, Model, Store: LocalLoaderStore> where Store.Local == Local {
-    public typealias Validation = (_ timestamp: Date, _ against: Date) -> Bool
+    public typealias Validation = (Date) -> Bool
     public typealias Mapping = (Local) -> Model
     
     enum Error: Swift.Error {
@@ -35,17 +35,14 @@ public final class LocalLoader<Local, Model, Store: LocalLoaderStore> where Stor
     private let store: Store
     private let mapping: Mapping
     private let validation: Validation
-    private let current: () -> Date
     
     public init(
         store: Store,
         mapping: @escaping Mapping,
-        validation: @escaping Validation,
-        current: @escaping () -> Date
+        validation: @escaping Validation
     ) {
         self.store = store
         self.validation = validation
-        self.current = current
         self.mapping = mapping
     }
     
@@ -57,7 +54,7 @@ public final class LocalLoader<Local, Model, Store: LocalLoaderStore> where Stor
     }
 
     private func checkExpiration(of timestamp: Date) throws {
-        if !validation(timestamp, current()) {
+        if !validation(timestamp) {
             throw Error.expired
         }
     }

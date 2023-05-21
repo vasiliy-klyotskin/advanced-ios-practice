@@ -43,8 +43,6 @@ final class StoreMock: LocalLoaderStore, LocalSaverStore, LocalValidatorStore {
     func stubRetrieve(result: Result<StoreRetrieval<LocalStub>?, Error>, for key: String) {
         retrieveStubs[key] = result
     }
-    
-
 }
 
 struct LocalStub: Equatable {

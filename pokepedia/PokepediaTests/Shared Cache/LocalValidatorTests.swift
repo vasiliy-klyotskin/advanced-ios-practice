@@ -52,18 +52,19 @@ final class LocalValidatorTests: XCTestCase {
     // MARK: - Helpers
     
     typealias Validator = LocalValidator
+    typealias Key = String
     
     private func makeSut(
         expired: Bool = false,
         file: StaticString = #filePath,
         line: UInt = #line
-    ) -> (Validator, StoreMock, String) {
-        let timestamp = Date()
+    ) -> (Validator, StoreMock, Key) {
+        let timestamp = anyDate()
         let key = anyKey()
         let (sut, store) = makeBaseSut(
             file: file,
             line: line,
-            validation: validationStub(isValid: !expired, timestamp: timestamp)
+            validation: validationStub(expired: expired, timestamp: timestamp)
         )
         store.stubRetrieve(result: .success(.init(local: .init(), timestamp: timestamp)), for: key)
         return (sut, store, key)
@@ -79,27 +80,5 @@ final class LocalValidatorTests: XCTestCase {
         trackForMemoryLeaks(store)
         trackForMemoryLeaks(sut)
         return (sut, store)
-    }
-    
-    private func anyKey() -> String {
-        anyId()
-    }
-    
-    private func validationStub(
-        isValid: Bool,
-        timestamp: Date,
-        file: StaticString = #filePath,
-        line: UInt = #line
-    ) -> Validator.Validation {
-        { actualTimestamp in
-            XCTAssertEqual(
-                timestamp,
-                actualTimestamp,
-                "Validation should be called with correct timestamp",
-                file: file,
-                line: line
-            )
-            return isValid
-        }
     }
 }

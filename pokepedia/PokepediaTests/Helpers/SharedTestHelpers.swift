@@ -19,6 +19,10 @@ func anyData() -> Data {
     .init("any data".utf8)
 }
 
+func anyDate() -> Date {
+    .distantPast
+}
+
 func anyId() -> String {
     UUID().uuidString
 }

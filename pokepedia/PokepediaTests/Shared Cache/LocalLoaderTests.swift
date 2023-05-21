@@ -10,14 +10,13 @@ import Pokepedia
 
 final class LocalLoaderTests: XCTestCase {
     func test_init_hasNoSideEffects() {
-        let (_, store) = makeSut()
+        let (_, store, _) = makeSut()
         
         XCTAssertEqual(store.messages.count, 0)
     }
     
     func test_load_retrievesDataForKey() {
-        let (sut, store) = makeSut()
-        let key = anyKey()
+        let (sut, store, key) = makeSut()
         
         _ = try? sut.load(for: key)
         
@@ -25,8 +24,7 @@ final class LocalLoaderTests: XCTestCase {
     }
     
     func test_load_deliversErrorOnRetrievalError() {
-        let (sut, store) = makeSut()
-        let key = anyKey()
+        let (sut, store, key) = makeSut()
         store.stubRetrieve(result: .failure(anyNSError()), for: key)
         
         XCTAssertThrowsError(
@@ -35,7 +33,7 @@ final class LocalLoaderTests: XCTestCase {
     }
     
     func test_load_deliversErrorOnExpiredTimestamp() {
-        let (sut, _, key) = makeSutWith(cacheExpired: true)
+        let (sut, _, key) = makeSut(cacheExpired: true)
         
         XCTAssertThrowsError(
             try sut.load(for: key)
@@ -43,7 +41,7 @@ final class LocalLoaderTests: XCTestCase {
     }
     
     func test_load_hasNoSideEffectsOnExpiredCache() {
-        let (sut, store, key) = makeSutWith(cacheExpired: true)
+        let (sut, store, key) = makeSut(cacheExpired: true)
         
         _ = try? sut.load(for: key)
         
@@ -51,8 +49,7 @@ final class LocalLoaderTests: XCTestCase {
     }
     
     func test_load_deliversErrorOnEmptyCache() {
-        let (sut, store) = makeSut()
-        let key = anyKey()
+        let (sut, store, key) = makeSut()
         
         store.stubRetrieve(result: .success(nil), for: key)
         
@@ -63,7 +60,7 @@ final class LocalLoaderTests: XCTestCase {
     
     func test_load_deliversModelOnNotExpiredCache() throws {
         let expectedModel = ModelStub()
-        let (sut, _, key) = makeSutWith(
+        let (sut, _, key) = makeSut(
             cacheExpired: false,
             expectedModel: expectedModel
         )
@@ -76,27 +73,25 @@ final class LocalLoaderTests: XCTestCase {
     // MARK: - Helpers
     
     typealias Loader = LocalLoader<LocalStub, ModelStub, StoreMock>
+    typealias Key = String
     
-    private func makeSutWith(
-        cacheExpired: Bool,
+    private func makeSut(
+        cacheExpired: Bool = true,
         expectedModel: ModelStub? = nil,
         file: StaticString = #filePath,
         line: UInt = #line
-    ) -> (Loader, StoreMock, String) {
+    ) -> (Loader, StoreMock, Key) {
         let key = anyKey()
-        let current = Date()
-        let timestamp = anyPreviousDate()
+        let timestamp = anyDate()
         let local = LocalStub()
-        let expiredValidation = validationMock(
+        let expiredValidation = validationStub(
             expired: expectedModel == nil,
-            current: current,
             timestamp: timestamp
         )
-        let (sut, store) = makeSut(
+        let (sut, store) = makeBaseSut(
             file: file,
             line: line,
-            mapping: mappingMock(local: local, mapped: expectedModel ?? .init()),
-            current: current,
+            mapping: mappingStub(local: local, mapped: expectedModel ?? .init()),
             validate: expiredValidation
         )
         let storeRetrieval: StoreRetrieval = .init(local: local, timestamp: timestamp)
@@ -104,30 +99,24 @@ final class LocalLoaderTests: XCTestCase {
         return (sut, store, key)
     }
     
-    private func makeSut(
+    private func makeBaseSut(
         file: StaticString = #filePath,
         line: UInt = #line,
         mapping: ((LocalStub) -> ModelStub)? = nil,
-        current: Date = .init(),
-        validate: @escaping Loader.Validation = { _, _ in false }
+        validate: @escaping Loader.Validation = { _ in false }
     ) -> (Loader, StoreMock) {
         let store = StoreMock()
         let sut = LocalLoader(
             store: store,
             mapping: mapping ?? { _ in .init() },
-            validation: validate,
-            current: { current }
+            validation: validate
         )
         trackForMemoryLeaks(store)
         trackForMemoryLeaks(sut)
         return (sut, store)
     }
     
-    private func anyKey() -> String {
-        anyId()
-    }
-    
-    private func mappingMock(
+    private func mappingStub(
         file: StaticString = #filePath,
         line: UInt = #line,
         local: LocalStub,
@@ -143,39 +132,5 @@ final class LocalLoaderTests: XCTestCase {
             )
             return mapped
         }
-    }
-    
-    private func validationMock(
-        file: StaticString = #filePath,
-        line: UInt = #line,
-        expired: Bool,
-        current: Date,
-        timestamp: Date
-    ) -> Loader.Validation {
-        { actualTimestamp, actualCurrent in
-            XCTAssertEqual(
-                actualTimestamp,
-                timestamp,
-                "Validation should be called with right timestamp",
-                file: file,
-                line: line
-            )
-            XCTAssertEqual(
-                actualCurrent,
-                current,
-                "Validation should be called with right current date",
-                file: file,
-                line: line
-            )
-            return !expired
-        }
-    }
-    
-    private func anyPreviousDate() -> Date {
-        adding(days: -1, to: Date())
-    }
-    
-    private func adding(days: Int, to date: Date) -> Date {
-        return Calendar(identifier: .gregorian).date(byAdding: .day, value: days, to: date)!
     }
 }
