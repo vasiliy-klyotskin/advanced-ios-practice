@@ -8,8 +8,8 @@
 import Foundation
 
 public struct StoreRetrieval<Local> {
-    let local: Local
-    let timestamp: Date
+    public let local: Local
+    public let timestamp: Date
     
     public init(local: Local, timestamp: Date) {
         self.local = local

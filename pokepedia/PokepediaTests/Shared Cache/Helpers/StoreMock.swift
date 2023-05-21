@@ -8,7 +8,7 @@
 import Foundation
 import Pokepedia
 
-final class StoreMock: LocalLoaderStore, LocalSaverStore {
+final class StoreMock: LocalLoaderStore, LocalSaverStore, LocalValidatorStore {
     struct Unexpected: Error {}
     enum Message: Equatable {
         case retrieve(String)
@@ -27,6 +27,11 @@ final class StoreMock: LocalLoaderStore, LocalSaverStore {
         throw Unexpected()
     }
     
+    func retrieve(for key: String) -> Date? {
+        let a: StoreRetrieval<LocalStub>? = try? retrieve(for: key)
+        return a.map { $0.timestamp }
+    }
+    
     func delete(for key: String) {
         messages.append(.delete(key))
     }
@@ -38,6 +43,8 @@ final class StoreMock: LocalLoaderStore, LocalSaverStore {
     func stubRetrieve(result: Result<StoreRetrieval<LocalStub>?, Error>, for key: String) {
         retrieveStubs[key] = result
     }
+    
+
 }
 
 struct LocalStub: Equatable {
