@@ -9,15 +9,19 @@ import Foundation
 import Pokepedia
 
 final class StoreMock: LocalLoaderStore, LocalSaverStore, LocalValidatorStore {
+    typealias Key = String
+    typealias Timestamp = Date
+    
     struct Unexpected: Error {}
+    
     enum Message: Equatable {
-        case retrieve(String)
-        case delete(String)
-        case insert(LocalStub, Date, String)
+        case retrieve(Key)
+        case delete(Key)
+        case insert(LocalStub, Timestamp, Key)
     }
     
     var messages: [Message] = []
-    var retrieveStubs = [String: Result<StoreRetrieval<LocalStub>?, Error>]()
+    var retrieveStubs = [Key: Result<StoreRetrieval<LocalStub>?, Error>]()
     
     func retrieve(for key: String) throws -> StoreRetrieval<LocalStub>? {
         messages.append(.retrieve(key))
@@ -27,16 +31,16 @@ final class StoreMock: LocalLoaderStore, LocalSaverStore, LocalValidatorStore {
         throw Unexpected()
     }
     
-    func retrieve(for key: String) -> Date? {
+    func retrieve(for key: Key) -> Timestamp? {
         let a: StoreRetrieval<LocalStub>? = try? retrieve(for: key)
         return a.map { $0.timestamp }
     }
     
-    func delete(for key: String) {
+    func delete(for key: Key) {
         messages.append(.delete(key))
     }
     
-    func insert(data: LocalInserting<LocalStub>, for key: String) {
+    func insert(data: LocalInserting<LocalStub>, for key: Key) {
         messages.append(.insert(data.local, data.timestamp, key))
     }
     
