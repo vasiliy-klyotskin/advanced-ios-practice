@@ -10,6 +10,7 @@
 		D62098E52A193E8C00AA2249 /* LocalSaverTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D62098E42A193E8C00AA2249 /* LocalSaverTests.swift */; };
 		D62098E72A194CF500AA2249 /* LocalSaver.swift in Sources */ = {isa = PBXBuildFile; fileRef = D62098E62A194CF500AA2249 /* LocalSaver.swift */; };
 		D62098E92A1A247F00AA2249 /* LocalValidatorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D62098E82A1A247F00AA2249 /* LocalValidatorTests.swift */; };
+		D62098EB2A1A304000AA2249 /* LocalValidator.swift in Sources */ = {isa = PBXBuildFile; fileRef = D62098EA2A1A304000AA2249 /* LocalValidator.swift */; };
 		D63084992A1683AD0097BC5C /* LocalLoaderTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D63084982A1683AD0097BC5C /* LocalLoaderTests.swift */; };
 		D645BD1A2A17EAEF00E6E145 /* LocalLoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = D645BD192A17EAEF00E6E145 /* LocalLoader.swift */; };
 		D645BD1D2A17EB7900E6E145 /* StoreMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = D645BD1C2A17EB7900E6E145 /* StoreMock.swift */; };
@@ -44,6 +45,7 @@
 		D62098E42A193E8C00AA2249 /* LocalSaverTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalSaverTests.swift; sourceTree = "<group>"; };
 		D62098E62A194CF500AA2249 /* LocalSaver.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalSaver.swift; sourceTree = "<group>"; };
 		D62098E82A1A247F00AA2249 /* LocalValidatorTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalValidatorTests.swift; sourceTree = "<group>"; };
+		D62098EA2A1A304000AA2249 /* LocalValidator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalValidator.swift; sourceTree = "<group>"; };
 		D63084982A1683AD0097BC5C /* LocalLoaderTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalLoaderTests.swift; sourceTree = "<group>"; };
 		D645BD192A17EAEF00E6E145 /* LocalLoader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalLoader.swift; sourceTree = "<group>"; };
 		D645BD1C2A17EB7900E6E145 /* StoreMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoreMock.swift; sourceTree = "<group>"; };
@@ -102,6 +104,7 @@
 			children = (
 				D645BD192A17EAEF00E6E145 /* LocalLoader.swift */,
 				D62098E62A194CF500AA2249 /* LocalSaver.swift */,
+				D62098EA2A1A304000AA2249 /* LocalValidator.swift */,
 			);
 			path = "Shared Cache";
 			sourceTree = "<group>";
@@ -369,6 +372,7 @@
 				D66D7C792A13EB3700F360EF /* PokemonList.swift in Sources */,
 				D66D7C7B2A13EE5700F360EF /* PokemonListRemote.swift in Sources */,
 				D645BD1A2A17EAEF00E6E145 /* LocalLoader.swift in Sources */,
+				D62098EB2A1A304000AA2249 /* LocalValidator.swift in Sources */,
 				D654E36E2A1482040039F033 /* HTTPURLResponse+CodeChecking.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

@@ -8,29 +8,6 @@
 import XCTest
 import Pokepedia
 
-protocol LocalValidatorStore {
-    func retrieve(for key: String) -> Date?
-    func delete(for key: String)
-}
-
-final class LocalValidator {
-    typealias Validation = (Date) -> Bool
-    
-    private let validation: Validation
-    private let store: LocalValidatorStore
-    
-    init(store: LocalValidatorStore, validation: @escaping Validation) {
-        self.validation = validation
-        self.store = store
-    }
-    
-    func validate(for key: String) {
-        guard let timestamp = store.retrieve(for: key) else { return }
-        guard !validation(timestamp) else { return }
-        store.delete(for: key)
-    }
-}
-
 final class LocalValidatorTests: XCTestCase {
     func test_init_hasNoSideEffects() {
         let (_, store, _) = makeSut()
