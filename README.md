@@ -88,3 +88,12 @@
 3. System encodes model.
 4. System timestamps the new cache.
 5. System saves new cache data.
+
+
+
+### Validate Cache Use Case
+
+#### Primary course:
+1. Execute "Validate Cache" command with above data.
+2. System retrieves data from cache.
+3. System validates cache is less than X days old.
