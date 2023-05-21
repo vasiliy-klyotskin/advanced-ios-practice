@@ -10,6 +10,7 @@ import Pokepedia
 
 protocol LocalValidatorStore {
     func retrieve(for key: String) -> Date?
+    func delete(for key: String)
 }
 
 final class LocalValidator {
@@ -24,20 +25,21 @@ final class LocalValidator {
     }
     
     func validate(for key: String) {
-        store.retrieve(for: key)
+        guard let timestamp = store.retrieve(for: key) else { return }
+        guard !validation(timestamp) else { return }
+        store.delete(for: key)
     }
 }
 
 final class LocalValidatorTests: XCTestCase {
     func test_init_hasNoSideEffects() {
-        let (_, store) = makeSut()
+        let (_, store, _) = makeSut()
         
         XCTAssertTrue(store.messages.isEmpty)
     }
     
     func test_validate_doesNotDeleteOnRetrievalErrorForKey() {
-        let key = anyKey()
-        let (sut, store) = makeSut()
+        let (sut, store, key) = makeSut()
         store.stubRetrieve(result: .failure(anyNSError()), for: key)
         
         sut.validate(for: key)
@@ -46,24 +48,28 @@ final class LocalValidatorTests: XCTestCase {
     }
     
     func test_validate_doesNotDeleteOnEmptyCacheForKey() {
-        let timestamp = Date()
-        let key = anyKey()
-        let (sut, store) = makeSut()
-        
+        let (sut, store, key) = makeSut()
         store.stubRetrieve(result: .success(nil), for: key)
+        
         sut.validate(for: key)
         
         XCTAssertEqual(store.messages, [.retrieve(key)])
     }
     
     func test_validate_doesNotDeleteOnNotExpiredCacheForKey() {
-        let timestamp = Date()
-        let key = anyKey()
-        let (sut, store) = makeSut(validation: validationStub(isValid: true, timestamp: timestamp))
+        let (sut, store, key) = makeSut(expired: false)
         
         sut.validate(for: key)
-        
+
         XCTAssertEqual(store.messages, [.retrieve(key)])
+    }
+    
+    func test_validate_deletesOnExpiredCacheForKey() {
+        let (sut, store, key) = makeSut(expired: true)
+        
+        sut.validate(for: key)
+
+        XCTAssertEqual(store.messages, [.retrieve(key), .delete(key)])
     }
     
     // MARK: - Helpers
@@ -71,6 +77,22 @@ final class LocalValidatorTests: XCTestCase {
     typealias Validator = LocalValidator
     
     private func makeSut(
+        expired: Bool = false,
+        file: StaticString = #filePath,
+        line: UInt = #line
+    ) -> (Validator, StoreMock, String) {
+        let timestamp = Date()
+        let key = anyKey()
+        let (sut, store) = makeBaseSut(
+            file: file,
+            line: line,
+            validation: validationStub(isValid: !expired, timestamp: timestamp)
+        )
+        store.stubRetrieve(result: .success(.init(local: .init(), timestamp: timestamp)), for: key)
+        return (sut, store, key)
+    }
+    
+    private func makeBaseSut(
         file: StaticString = #filePath,
         line: UInt = #line,
         validation: @escaping Validator.Validation = { _ in true }
