@@ -12,6 +12,7 @@
 		D62098E92A1A247F00AA2249 /* LocalValidatorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D62098E82A1A247F00AA2249 /* LocalValidatorTests.swift */; };
 		D62098EB2A1A304000AA2249 /* LocalValidator.swift in Sources */ = {isa = PBXBuildFile; fileRef = D62098EA2A1A304000AA2249 /* LocalValidator.swift */; };
 		D62098ED2A1A314900AA2249 /* CacheTestsHelpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = D62098EC2A1A314900AA2249 /* CacheTestsHelpers.swift */; };
+		D62098F02A1BAAF400AA2249 /* LoadingResourcePresenterTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D62098EF2A1BAAF400AA2249 /* LoadingResourcePresenterTests.swift */; };
 		D63084992A1683AD0097BC5C /* LocalLoaderTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D63084982A1683AD0097BC5C /* LocalLoaderTests.swift */; };
 		D645BD1A2A17EAEF00E6E145 /* LocalLoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = D645BD192A17EAEF00E6E145 /* LocalLoader.swift */; };
 		D645BD1D2A17EB7900E6E145 /* StoreMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = D645BD1C2A17EB7900E6E145 /* StoreMock.swift */; };
@@ -48,6 +49,7 @@
 		D62098E82A1A247F00AA2249 /* LocalValidatorTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalValidatorTests.swift; sourceTree = "<group>"; };
 		D62098EA2A1A304000AA2249 /* LocalValidator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalValidator.swift; sourceTree = "<group>"; };
 		D62098EC2A1A314900AA2249 /* CacheTestsHelpers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CacheTestsHelpers.swift; sourceTree = "<group>"; };
+		D62098EF2A1BAAF400AA2249 /* LoadingResourcePresenterTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingResourcePresenterTests.swift; sourceTree = "<group>"; };
 		D63084982A1683AD0097BC5C /* LocalLoaderTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalLoaderTests.swift; sourceTree = "<group>"; };
 		D645BD192A17EAEF00E6E145 /* LocalLoader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalLoader.swift; sourceTree = "<group>"; };
 		D645BD1C2A17EB7900E6E145 /* StoreMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoreMock.swift; sourceTree = "<group>"; };
@@ -90,6 +92,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		D62098EE2A1BAA1200AA2249 /* Shared Presentation */ = {
+			isa = PBXGroup;
+			children = (
+				D62098EF2A1BAAF400AA2249 /* LoadingResourcePresenterTests.swift */,
+			);
+			path = "Shared Presentation";
+			sourceTree = "<group>";
+		};
 		D63084962A1682BD0097BC5C /* Shared Cache */ = {
 			isa = PBXGroup;
 			children = (
@@ -219,6 +229,7 @@
 				D66D7C6D2A13DA9D00F360EF /* Shared API */,
 				F7FC0DBD2A0FC7D0009FD50B /* Shared API Infra */,
 				D63084962A1682BD0097BC5C /* Shared Cache */,
+				D62098EE2A1BAA1200AA2249 /* Shared Presentation */,
 				F7FC0DC72A0FCAC3009FD50B /* Helpers */,
 			);
 			path = PokepediaTests;
@@ -390,6 +401,7 @@
 				F7FC0DBF2A0FC7EF009FD50B /* URLSessionHTTPClientTests.swift in Sources */,
 				F7FC0DC92A0FCB00009FD50B /* XCTestCase+MemoryLeakTracking.swift in Sources */,
 				F7FC0DC62A0FCA13009FD50B /* URLProtocolStub.swift in Sources */,
+				D62098F02A1BAAF400AA2249 /* LoadingResourcePresenterTests.swift in Sources */,
 				D62098E52A193E8C00AA2249 /* LocalSaverTests.swift in Sources */,
 				D645BD1D2A17EB7900E6E145 /* StoreMock.swift in Sources */,
 				D66D7C7E2A13EF7700F360EF /* PokemonListRemoteMapperTests.swift in Sources */,
