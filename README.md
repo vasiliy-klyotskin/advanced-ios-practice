@@ -103,3 +103,23 @@
 
 #### Empty cache course (sad path): 
 1. System does nothing.
+
+
+
+### Present Loading Resource Use Case
+
+#### Data:
+- Resource
+
+#### Primary courses:
+1a. Execute "Start Loading" command.
+2a. System hides error.
+3a. System starts loading.
+
+1a. Execute "End With Error" command.
+2a. System finishes loading.
+3a. System shows general error with above message.
+
+1a. Execute "End With Resource" command with Resource data.
+2a. System finishes loading.
+3a. System shows Resource data.
