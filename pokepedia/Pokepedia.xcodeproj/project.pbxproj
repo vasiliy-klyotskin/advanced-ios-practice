@@ -13,6 +13,8 @@
 		D62098EB2A1A304000AA2249 /* LocalValidator.swift in Sources */ = {isa = PBXBuildFile; fileRef = D62098EA2A1A304000AA2249 /* LocalValidator.swift */; };
 		D62098ED2A1A314900AA2249 /* CacheTestsHelpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = D62098EC2A1A314900AA2249 /* CacheTestsHelpers.swift */; };
 		D62098F02A1BAAF400AA2249 /* LoadingResourcePresenterTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D62098EF2A1BAAF400AA2249 /* LoadingResourcePresenterTests.swift */; };
+		D62098F32A1C5C7D00AA2249 /* Shared.strings in Resources */ = {isa = PBXBuildFile; fileRef = D62098F52A1C5C7D00AA2249 /* Shared.strings */; };
+		D62098F92A1C5DB400AA2249 /* LoadingResourcePresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = D62098F82A1C5DB400AA2249 /* LoadingResourcePresenter.swift */; };
 		D63084992A1683AD0097BC5C /* LocalLoaderTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D63084982A1683AD0097BC5C /* LocalLoaderTests.swift */; };
 		D645BD1A2A17EAEF00E6E145 /* LocalLoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = D645BD192A17EAEF00E6E145 /* LocalLoader.swift */; };
 		D645BD1D2A17EB7900E6E145 /* StoreMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = D645BD1C2A17EB7900E6E145 /* StoreMock.swift */; };
@@ -50,6 +52,9 @@
 		D62098EA2A1A304000AA2249 /* LocalValidator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalValidator.swift; sourceTree = "<group>"; };
 		D62098EC2A1A314900AA2249 /* CacheTestsHelpers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CacheTestsHelpers.swift; sourceTree = "<group>"; };
 		D62098EF2A1BAAF400AA2249 /* LoadingResourcePresenterTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingResourcePresenterTests.swift; sourceTree = "<group>"; };
+		D62098F42A1C5C7D00AA2249 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Shared.strings; sourceTree = "<group>"; };
+		D62098F62A1C5CB900AA2249 /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ru; path = ru.lproj/Shared.strings; sourceTree = "<group>"; };
+		D62098F82A1C5DB400AA2249 /* LoadingResourcePresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingResourcePresenter.swift; sourceTree = "<group>"; };
 		D63084982A1683AD0097BC5C /* LocalLoaderTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalLoaderTests.swift; sourceTree = "<group>"; };
 		D645BD192A17EAEF00E6E145 /* LocalLoader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalLoader.swift; sourceTree = "<group>"; };
 		D645BD1C2A17EB7900E6E145 /* StoreMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoreMock.swift; sourceTree = "<group>"; };
@@ -96,6 +101,15 @@
 			isa = PBXGroup;
 			children = (
 				D62098EF2A1BAAF400AA2249 /* LoadingResourcePresenterTests.swift */,
+			);
+			path = "Shared Presentation";
+			sourceTree = "<group>";
+		};
+		D62098F72A1C5D6D00AA2249 /* Shared Presentation */ = {
+			isa = PBXGroup;
+			children = (
+				D62098F52A1C5C7D00AA2249 /* Shared.strings */,
+				D62098F82A1C5DB400AA2249 /* LoadingResourcePresenter.swift */,
 			);
 			path = "Shared Presentation";
 			sourceTree = "<group>";
@@ -218,6 +232,7 @@
 				D66D7C712A13DC5F00F360EF /* Shared API */,
 				F7FC0DBC2A0FC7C4009FD50B /* Shared API Infra */,
 				D645BD182A17EAD900E6E145 /* Shared Cache */,
+				D62098F72A1C5D6D00AA2249 /* Shared Presentation */,
 			);
 			path = Pokepedia;
 			sourceTree = "<group>";
@@ -344,6 +359,7 @@
 			knownRegions = (
 				en,
 				Base,
+				ru,
 			);
 			mainGroup = F7FC0D9A2A0FC5A6009FD50B;
 			productRefGroup = F7FC0DA52A0FC5A6009FD50B /* Products */;
@@ -361,6 +377,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D62098F32A1C5C7D00AA2249 /* Shared.strings in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -380,6 +397,7 @@
 			files = (
 				D66D7C732A13DCCC00F360EF /* RemoteMapper.swift in Sources */,
 				D66D7C802A13EF8900F360EF /* PokemonListRemoteMapper.swift in Sources */,
+				D62098F92A1C5DB400AA2249 /* LoadingResourcePresenter.swift in Sources */,
 				D654E36C2A147FA80039F033 /* RemoteDataMapper.swift in Sources */,
 				F7FC0DC12A0FC803009FD50B /* URLSessionHTTPClient.swift in Sources */,
 				D62098E72A194CF500AA2249 /* LocalSaver.swift in Sources */,
@@ -421,11 +439,24 @@
 		};
 /* End PBXTargetDependency section */
 
+/* Begin PBXVariantGroup section */
+		D62098F52A1C5C7D00AA2249 /* Shared.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				D62098F42A1C5C7D00AA2249 /* en */,
+				D62098F62A1C5CB900AA2249 /* ru */,
+			);
+			name = Shared.strings;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
 /* Begin XCBuildConfiguration section */
 		F7FC0DB42A0FC5A6009FD50B /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
@@ -490,6 +521,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";

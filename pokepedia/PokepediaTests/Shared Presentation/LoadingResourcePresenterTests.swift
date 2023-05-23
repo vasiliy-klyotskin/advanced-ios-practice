@@ -8,37 +8,6 @@
 import XCTest
 import Pokepedia
 
-protocol ResourceView {
-    
-}
-
-protocol ResourceLoadingView {
-    func display(loadingViewModel: Bool)
-}
-
-protocol ResourceErrorView {
-    func display(errorViewModel: String?)
-}
-
-final class LoadingResourcePresenter {
-    private let errorView: ResourceErrorView
-    private let loadingView: ResourceLoadingView
-    
-    init(
-        view: ResourceView,
-        errorView: ResourceErrorView,
-        loadingView: ResourceLoadingView
-    ) {
-        self.errorView = errorView
-        self.loadingView = loadingView
-    }
-    
-    func didStartLoading() {
-        errorView.display(errorViewModel: nil)
-        loadingView.display(loadingViewModel: true)
-    }
-}
-
 final class LoadingResourcePresenterTests: XCTestCase {
     func test_init_hasNoSideEffects() {
         let (_, view) = makeSut()
@@ -57,6 +26,18 @@ final class LoadingResourcePresenterTests: XCTestCase {
         ])
     }
     
+    func test_didFinishWithError_finishesLoadingAndShowsError() {
+        let (sut, view) = makeSut()
+        let message = localized("GENERIC_CONNECTION_ERROR")
+        
+        sut.didFinishLoadingWithError()
+        
+        XCTAssertEqual(view.messages, [
+            .display(errorMessage: message),
+            .display(isLoading: false)
+        ])
+    }
+    
     // MARK: - Helpers
     
     typealias Presenter = LoadingResourcePresenter
@@ -66,6 +47,16 @@ final class LoadingResourcePresenterTests: XCTestCase {
         let sut = Presenter(view: view, errorView: view, loadingView: view)
         trackForMemoryLeaks(sut, file: file, line: line)
         return (sut, view)
+    }
+    
+    private func localized(_ key: String, file: StaticString = #file, line: UInt = #line) -> String {
+        let table = "Shared"
+        let bundle = Bundle(for: Presenter.self)
+        let value = bundle.localizedString(forKey: key, value: nil, table: table)
+        if value == key {
+            XCTFail("Missing localized string for key: \(key) in table: \(table)", file: file, line: line)
+        }
+        return value
     }
 }
 

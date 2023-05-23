@@ -1,0 +1,9 @@
+/* 
+  Shared.strings
+  Pokepedia
+
+  Created by Василий Клецкин on 5/22/23.
+  
+*/
+
+"GENERIC_CONNECTION_ERROR" = "Something went wrong\nTry again later";
