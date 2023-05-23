@@ -8,9 +8,17 @@
 import XCTest
 import Pokepedia
 
-final class InMemoryStore {
-    func retrieve(for key: String) -> StoreRetrieval<Any>? {
-        nil
+final class InMemoryStore<Local> {
+    typealias Timestamp = Date
+    
+    private var stored: (local: Local, timestamp: Timestamp)?
+    
+    func retrieve(for key: String) -> StoreRetrieval<Local>? {
+        stored.map { .init(local: $0.local, timestamp: $0.timestamp) }
+    }
+    
+    func insert(_ data: LocalInserting<Local>, for key: String) {
+        stored = (data.local, data.timestamp)
     }
 }
 
@@ -32,13 +40,24 @@ final class InMemoryStoreTests: XCTestCase {
         XCTAssertNil(cache)
     }
     
+    func test_retrieve_deliversCacheOnNotEmpty() {
+        let (sut, key) = makeSut()
+        let timestamp = Date()
+        let data = anyData()
+        sut.insert(.init(timestamp: timestamp, local: data), for: key)
+        
+        let cache = sut.retrieve(for: key)
+        
+        XCTAssertEqual(cache?.local, data)
+    }
+    
     // MARK: - Helpers
     
-    typealias Store = InMemoryStore
+    typealias Store = InMemoryStore<Data>
     typealias Key = String
     
     private func makeSut() -> (Store, Key) {
-        let sut = InMemoryStore()
+        let sut = Store()
         let key = anyKey()
         trackForMemoryLeaks(sut)
         return (sut, key)
