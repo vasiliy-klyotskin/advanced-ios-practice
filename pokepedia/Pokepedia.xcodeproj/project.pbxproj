@@ -16,6 +16,8 @@
 		D62098F32A1C5C7D00AA2249 /* Shared.strings in Resources */ = {isa = PBXBuildFile; fileRef = D62098F52A1C5C7D00AA2249 /* Shared.strings */; };
 		D62098F92A1C5DB400AA2249 /* LoadingResourcePresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = D62098F82A1C5DB400AA2249 /* LoadingResourcePresenter.swift */; };
 		D62098FB2A1C628800AA2249 /* ResourceView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D62098FA2A1C628800AA2249 /* ResourceView.swift */; };
+		D62098FE2A1C684400AA2249 /* LocalizationHelpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = D62098FD2A1C684400AA2249 /* LocalizationHelpers.swift */; };
+		D62099002A1C689900AA2249 /* SharedLocalizationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D62098FF2A1C689900AA2249 /* SharedLocalizationTests.swift */; };
 		D63084992A1683AD0097BC5C /* LocalLoaderTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D63084982A1683AD0097BC5C /* LocalLoaderTests.swift */; };
 		D645BD1A2A17EAEF00E6E145 /* LocalLoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = D645BD192A17EAEF00E6E145 /* LocalLoader.swift */; };
 		D645BD1D2A17EB7900E6E145 /* StoreMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = D645BD1C2A17EB7900E6E145 /* StoreMock.swift */; };
@@ -57,6 +59,8 @@
 		D62098F62A1C5CB900AA2249 /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ru; path = ru.lproj/Shared.strings; sourceTree = "<group>"; };
 		D62098F82A1C5DB400AA2249 /* LoadingResourcePresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingResourcePresenter.swift; sourceTree = "<group>"; };
 		D62098FA2A1C628800AA2249 /* ResourceView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResourceView.swift; sourceTree = "<group>"; };
+		D62098FD2A1C684400AA2249 /* LocalizationHelpers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalizationHelpers.swift; sourceTree = "<group>"; };
+		D62098FF2A1C689900AA2249 /* SharedLocalizationTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SharedLocalizationTests.swift; sourceTree = "<group>"; };
 		D63084982A1683AD0097BC5C /* LocalLoaderTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalLoaderTests.swift; sourceTree = "<group>"; };
 		D645BD192A17EAEF00E6E145 /* LocalLoader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalLoader.swift; sourceTree = "<group>"; };
 		D645BD1C2A17EB7900E6E145 /* StoreMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoreMock.swift; sourceTree = "<group>"; };
@@ -102,7 +106,9 @@
 		D62098EE2A1BAA1200AA2249 /* Shared Presentation */ = {
 			isa = PBXGroup;
 			children = (
+				D62098FC2A1C683400AA2249 /* Helpers */,
 				D62098EF2A1BAAF400AA2249 /* LoadingResourcePresenterTests.swift */,
+				D62098FF2A1C689900AA2249 /* SharedLocalizationTests.swift */,
 			);
 			path = "Shared Presentation";
 			sourceTree = "<group>";
@@ -115,6 +121,14 @@
 				D62098F52A1C5C7D00AA2249 /* Shared.strings */,
 			);
 			path = "Shared Presentation";
+			sourceTree = "<group>";
+		};
+		D62098FC2A1C683400AA2249 /* Helpers */ = {
+			isa = PBXGroup;
+			children = (
+				D62098FD2A1C684400AA2249 /* LocalizationHelpers.swift */,
+			);
+			path = Helpers;
 			sourceTree = "<group>";
 		};
 		D63084962A1682BD0097BC5C /* Shared Cache */ = {
@@ -418,11 +432,13 @@
 			buildActionMask = 2147483647;
 			files = (
 				D62098ED2A1A314900AA2249 /* CacheTestsHelpers.swift in Sources */,
+				D62099002A1C689900AA2249 /* SharedLocalizationTests.swift in Sources */,
 				D66D7C702A13DB2E00F360EF /* RemoteMapperTests.swift in Sources */,
 				D654E36A2A147F220039F033 /* RemoteDataMapperTests.swift in Sources */,
 				F7FC0DBF2A0FC7EF009FD50B /* URLSessionHTTPClientTests.swift in Sources */,
 				F7FC0DC92A0FCB00009FD50B /* XCTestCase+MemoryLeakTracking.swift in Sources */,
 				F7FC0DC62A0FCA13009FD50B /* URLProtocolStub.swift in Sources */,
+				D62098FE2A1C684400AA2249 /* LocalizationHelpers.swift in Sources */,
 				D62098F02A1BAAF400AA2249 /* LoadingResourcePresenterTests.swift in Sources */,
 				D62098E52A193E8C00AA2249 /* LocalSaverTests.swift in Sources */,
 				D645BD1D2A17EB7900E6E145 /* StoreMock.swift in Sources */,
