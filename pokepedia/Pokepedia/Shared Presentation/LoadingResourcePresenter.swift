@@ -8,7 +8,8 @@
 import Foundation
 
 public protocol ResourceView {
-    
+    associatedtype ViewModel
+    func display(resourceViewModel: ViewModel)
 }
 
 public protocol ResourceLoadingView {
@@ -19,17 +20,24 @@ public protocol ResourceErrorView {
     func display(errorViewModel: String?)
 }
 
-public final class LoadingResourcePresenter {
+public final class LoadingResourcePresenter<Resource, View: ResourceView> {
+    public typealias Mapping = (Resource) -> View.ViewModel
+    
     private let errorView: ResourceErrorView
     private let loadingView: ResourceLoadingView
+    private let view: View
+    private let mapping: Mapping
     
     public init(
-        view: ResourceView,
+        view: View,
         errorView: ResourceErrorView,
-        loadingView: ResourceLoadingView
+        loadingView: ResourceLoadingView,
+        mapping: @escaping Mapping
     ) {
         self.errorView = errorView
         self.loadingView = loadingView
+        self.view = view
+        self.mapping = mapping
     }
     
     private static var loadError: String {
@@ -49,5 +57,10 @@ public final class LoadingResourcePresenter {
     public func didFinishLoadingWithError() {
         errorView.display(errorViewModel: Self.loadError)
         loadingView.display(loadingViewModel: false)
+    }
+    
+    public func didFinishLWithResource(_ resource: Resource) {
+        loadingView.display(loadingViewModel: false)
+        view.display(resourceViewModel: mapping(resource))
     }
 }

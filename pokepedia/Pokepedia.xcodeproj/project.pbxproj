@@ -108,8 +108,8 @@
 		D62098F72A1C5D6D00AA2249 /* Shared Presentation */ = {
 			isa = PBXGroup;
 			children = (
-				D62098F52A1C5C7D00AA2249 /* Shared.strings */,
 				D62098F82A1C5DB400AA2249 /* LoadingResourcePresenter.swift */,
+				D62098F52A1C5C7D00AA2249 /* Shared.strings */,
 			);
 			path = "Shared Presentation";
 			sourceTree = "<group>";

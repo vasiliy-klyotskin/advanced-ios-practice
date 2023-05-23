@@ -38,13 +38,30 @@ final class LoadingResourcePresenterTests: XCTestCase {
         ])
     }
     
+    func test_didFinishWithResource_finishesLoadingAndDisplaysResource() {
+        let (sut, view) = makeSut {
+            $0 + " view model"
+        }
+        
+        sut.didFinishLWithResource("resource")
+        
+        XCTAssertEqual(view.messages, [
+            .display(isLoading: false),
+            .display(viewModel: "resource view model")
+        ])
+    }
+    
     // MARK: - Helpers
     
-    typealias Presenter = LoadingResourcePresenter
+    typealias Presenter = LoadingResourcePresenter<String, ResourceViewMock>
     
-    private func makeSut(file: StaticString = #filePath, line: UInt = #line) -> (Presenter, ResourceViewMock){
+    private func makeSut(
+        mapping: @escaping (String) -> String = { _ in "" },
+        file: StaticString = #filePath,
+        line: UInt = #line
+    ) -> (Presenter, ResourceViewMock){
         let view = ResourceViewMock()
-        let sut = Presenter(view: view, errorView: view, loadingView: view)
+        let sut = Presenter(view: view, errorView: view, loadingView: view, mapping: mapping)
         trackForMemoryLeaks(sut, file: file, line: line)
         return (sut, view)
     }
@@ -61,9 +78,12 @@ final class LoadingResourcePresenterTests: XCTestCase {
 }
 
 final class ResourceViewMock: ResourceView, ResourceLoadingView, ResourceErrorView {
+    typealias Resource = String
+    
     enum Message: Hashable, Equatable {
         case display(errorMessage: String?)
         case display(isLoading: Bool)
+        case display(viewModel: String)
     }
     
     var messages: Set<Message> = []
@@ -74,5 +94,9 @@ final class ResourceViewMock: ResourceView, ResourceLoadingView, ResourceErrorVi
     
     func display(errorViewModel: String?) {
         messages.insert(.display(errorMessage: errorViewModel))
+    }
+    
+    func display(resourceViewModel: String) {
+        messages.insert(.display(viewModel: resourceViewModel))
     }
 }
