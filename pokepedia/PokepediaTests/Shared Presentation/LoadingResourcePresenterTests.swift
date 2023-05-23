@@ -88,12 +88,12 @@ final class ResourceViewMock: ResourceView, ResourceLoadingView, ResourceErrorVi
     
     var messages: Set<Message> = []
     
-    func display(loadingViewModel: Bool) {
-        messages.insert(.display(isLoading: loadingViewModel))
+    func display(loadingViewModel: LoadingViewModel) {
+        messages.insert(.display(isLoading: loadingViewModel.isLoading))
     }
     
-    func display(errorViewModel: String?) {
-        messages.insert(.display(errorMessage: errorViewModel))
+    func display(errorViewModel: ErrorViewModel) {
+        messages.insert(.display(errorMessage: errorViewModel.errorMessage))
     }
     
     func display(resourceViewModel: String) {

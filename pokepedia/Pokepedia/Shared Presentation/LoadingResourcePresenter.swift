@@ -7,19 +7,6 @@
 
 import Foundation
 
-public protocol ResourceView {
-    associatedtype ViewModel
-    func display(resourceViewModel: ViewModel)
-}
-
-public protocol ResourceLoadingView {
-    func display(loadingViewModel: Bool)
-}
-
-public protocol ResourceErrorView {
-    func display(errorViewModel: String?)
-}
-
 public final class LoadingResourcePresenter<Resource, View: ResourceView> {
     public typealias Mapping = (Resource) -> View.ViewModel
     
@@ -50,17 +37,17 @@ public final class LoadingResourcePresenter<Resource, View: ResourceView> {
     }
     
     public func didStartLoading() {
-        errorView.display(errorViewModel: nil)
-        loadingView.display(loadingViewModel: true)
+        errorView.display(errorViewModel: .init(errorMessage: nil))
+        loadingView.display(loadingViewModel: .init(isLoading: true))
     }
     
     public func didFinishLoadingWithError() {
-        errorView.display(errorViewModel: Self.loadError)
-        loadingView.display(loadingViewModel: false)
+        errorView.display(errorViewModel: .init(errorMessage: Self.loadError))
+        loadingView.display(loadingViewModel: .init(isLoading: false))
     }
     
     public func didFinishLWithResource(_ resource: Resource) {
-        loadingView.display(loadingViewModel: false)
+        loadingView.display(loadingViewModel: .init(isLoading: false))
         view.display(resourceViewModel: mapping(resource))
     }
 }
