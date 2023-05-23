@@ -23,6 +23,15 @@ final class InMemoryStoreTests: XCTestCase {
         XCTAssertNil(cache)
     }
     
+    func test_retrieve_hasNoSideEffects() {
+        let (sut, key) = makeSut()
+        _ = sut.retrieve(for: key)
+        
+        let cache = sut.retrieve(for: key)
+        
+        XCTAssertNil(cache)
+    }
+    
     // MARK: - Helpers
     
     typealias Store = InMemoryStore
