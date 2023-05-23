@@ -9,16 +9,18 @@ import XCTest
 import Pokepedia
 
 final class InMemoryStore<Local> {
+    typealias Key = String
     typealias Timestamp = Date
+    typealias Cache = (local: Local, timestamp: Timestamp)
     
-    private var stored: (local: Local, timestamp: Timestamp)?
+    private var stored = [Key: Cache]()
     
     func retrieve(for key: String) -> StoreRetrieval<Local>? {
-        stored.map { .init(local: $0.local, timestamp: $0.timestamp) }
+        stored[key].map { .init(local: $0.local, timestamp: $0.timestamp) }
     }
     
     func insert(_ data: LocalInserting<Local>, for key: String) {
-        stored = (data.local, data.timestamp)
+        stored[key] = (data.local, data.timestamp)
     }
 }
 
@@ -42,18 +44,30 @@ final class InMemoryStoreTests: XCTestCase {
     
     func test_retrieve_deliversCacheOnNotEmpty() {
         let (sut, key) = makeSut()
-        let timestamp = Date()
-        let data = anyData()
-        sut.insert(.init(timestamp: timestamp, local: data), for: key)
+        let (insertion, timestamp, data) = anyInsertion()
+        sut.insert(insertion, for: key)
         
         let cache = sut.retrieve(for: key)
         
         XCTAssertEqual(cache?.local, data)
+        XCTAssertEqual(cache?.timestamp, timestamp)
+    }
+    
+    func test_retrieve_doesNotDeliverCacheOnDifferentKey() {
+        let (sut, key) = makeSut()
+        let (insertion, _, _) = anyInsertion()
+        let differentKey = anyKey()
+        sut.insert(insertion, for: key)
+        
+        let cache = sut.retrieve(for: differentKey)
+        
+        XCTAssertNil(cache)
     }
     
     // MARK: - Helpers
     
-    typealias Store = InMemoryStore<Data>
+    typealias Local = Data
+    typealias Store = InMemoryStore<Local>
     typealias Key = String
     
     private func makeSut() -> (Store, Key) {
@@ -61,5 +75,11 @@ final class InMemoryStoreTests: XCTestCase {
         let key = anyKey()
         trackForMemoryLeaks(sut)
         return (sut, key)
+    }
+    
+    private func anyInsertion() -> (LocalInserting<Local>, Date, Local) {
+        let timestamp = Date()
+        let data = anyData()
+        return (.init(timestamp: timestamp, local: data), timestamp, data)
     }
 }
