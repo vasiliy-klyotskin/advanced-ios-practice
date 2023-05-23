@@ -18,6 +18,7 @@
 		D62098FB2A1C628800AA2249 /* ResourceView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D62098FA2A1C628800AA2249 /* ResourceView.swift */; };
 		D62098FE2A1C684400AA2249 /* LocalizationHelpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = D62098FD2A1C684400AA2249 /* LocalizationHelpers.swift */; };
 		D62099002A1C689900AA2249 /* SharedLocalizationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D62098FF2A1C689900AA2249 /* SharedLocalizationTests.swift */; };
+		D62099032A1C6A8800AA2249 /* InMemoryStoreTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D62099022A1C6A8800AA2249 /* InMemoryStoreTests.swift */; };
 		D63084992A1683AD0097BC5C /* LocalLoaderTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D63084982A1683AD0097BC5C /* LocalLoaderTests.swift */; };
 		D645BD1A2A17EAEF00E6E145 /* LocalLoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = D645BD192A17EAEF00E6E145 /* LocalLoader.swift */; };
 		D645BD1D2A17EB7900E6E145 /* StoreMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = D645BD1C2A17EB7900E6E145 /* StoreMock.swift */; };
@@ -61,6 +62,7 @@
 		D62098FA2A1C628800AA2249 /* ResourceView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResourceView.swift; sourceTree = "<group>"; };
 		D62098FD2A1C684400AA2249 /* LocalizationHelpers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalizationHelpers.swift; sourceTree = "<group>"; };
 		D62098FF2A1C689900AA2249 /* SharedLocalizationTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SharedLocalizationTests.swift; sourceTree = "<group>"; };
+		D62099022A1C6A8800AA2249 /* InMemoryStoreTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InMemoryStoreTests.swift; sourceTree = "<group>"; };
 		D63084982A1683AD0097BC5C /* LocalLoaderTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalLoaderTests.swift; sourceTree = "<group>"; };
 		D645BD192A17EAEF00E6E145 /* LocalLoader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalLoader.swift; sourceTree = "<group>"; };
 		D645BD1C2A17EB7900E6E145 /* StoreMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoreMock.swift; sourceTree = "<group>"; };
@@ -129,6 +131,14 @@
 				D62098FD2A1C684400AA2249 /* LocalizationHelpers.swift */,
 			);
 			path = Helpers;
+			sourceTree = "<group>";
+		};
+		D62099012A1C6A2000AA2249 /* Shared Cache Infra */ = {
+			isa = PBXGroup;
+			children = (
+				D62099022A1C6A8800AA2249 /* InMemoryStoreTests.swift */,
+			);
+			path = "Shared Cache Infra";
 			sourceTree = "<group>";
 		};
 		D63084962A1682BD0097BC5C /* Shared Cache */ = {
@@ -246,10 +256,10 @@
 			isa = PBXGroup;
 			children = (
 				D66D7C742A13EA4400F360EF /* Pokemon List Feature */,
+				D62098F72A1C5D6D00AA2249 /* Shared Presentation */,
 				D66D7C712A13DC5F00F360EF /* Shared API */,
 				F7FC0DBC2A0FC7C4009FD50B /* Shared API Infra */,
 				D645BD182A17EAD900E6E145 /* Shared Cache */,
-				D62098F72A1C5D6D00AA2249 /* Shared Presentation */,
 			);
 			path = Pokepedia;
 			sourceTree = "<group>";
@@ -258,10 +268,11 @@
 			isa = PBXGroup;
 			children = (
 				D66D7C762A13EA6F00F360EF /* Pokemon List Feature */,
+				D62098EE2A1BAA1200AA2249 /* Shared Presentation */,
 				D66D7C6D2A13DA9D00F360EF /* Shared API */,
 				F7FC0DBD2A0FC7D0009FD50B /* Shared API Infra */,
 				D63084962A1682BD0097BC5C /* Shared Cache */,
-				D62098EE2A1BAA1200AA2249 /* Shared Presentation */,
+				D62099012A1C6A2000AA2249 /* Shared Cache Infra */,
 				F7FC0DC72A0FCAC3009FD50B /* Helpers */,
 			);
 			path = PokepediaTests;
@@ -434,6 +445,7 @@
 				D62098ED2A1A314900AA2249 /* CacheTestsHelpers.swift in Sources */,
 				D62099002A1C689900AA2249 /* SharedLocalizationTests.swift in Sources */,
 				D66D7C702A13DB2E00F360EF /* RemoteMapperTests.swift in Sources */,
+				D62099032A1C6A8800AA2249 /* InMemoryStoreTests.swift in Sources */,
 				D654E36A2A147F220039F033 /* RemoteDataMapperTests.swift in Sources */,
 				F7FC0DBF2A0FC7EF009FD50B /* URLSessionHTTPClientTests.swift in Sources */,
 				F7FC0DC92A0FCB00009FD50B /* XCTestCase+MemoryLeakTracking.swift in Sources */,
