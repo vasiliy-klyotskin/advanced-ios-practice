@@ -24,7 +24,7 @@ final class InMemoryStore<Local> {
     }
     
     func delete(for key: String) {
-        stored = [:]
+        stored[key] = nil
     }
 }
 
@@ -105,6 +105,30 @@ final class InMemoryStoreTests: XCTestCase {
         XCTAssertEqual(cache1?.timestamp, timestamp1)
         XCTAssertEqual(cache2?.local, data2)
         XCTAssertEqual(cache2?.timestamp, timestamp2)
+    }
+    
+    func test_delete_deleteDifferentCacheOnDifferentKey() {
+        let (sut, key1) = makeSut()
+        let key2 = anyKey()
+        let (insertion1, timestamp1, data1) = anyInsertion()
+        let (insertion2, _, _) = anyInsertion()
+        sut.insert(insertion1, for: key1)
+        sut.insert(insertion2, for: key2)
+        
+        sut.delete(for: key2)
+        let cache1 = sut.retrieve(for: key1)
+        let cache2 = sut.retrieve(for: key2)
+        
+        XCTAssertEqual(cache1?.local, data1)
+        XCTAssertEqual(cache1?.timestamp, timestamp1)
+        XCTAssertNil(cache2)
+        
+        sut.delete(for: key1)
+        let cache1_ = sut.retrieve(for: key1)
+        let cache2_ = sut.retrieve(for: key2)
+        
+        XCTAssertNil(cache1_)
+        XCTAssertNil(cache2_)
     }
     
     // MARK: - Helpers
