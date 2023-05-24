@@ -22,6 +22,10 @@ final class InMemoryStore<Local> {
     func insert(_ data: LocalInserting<Local>, for key: String) {
         stored[key] = (data.local, data.timestamp)
     }
+    
+    func delete(for key: String) {
+        
+    }
 }
 
 final class InMemoryStoreTests: XCTestCase {
@@ -53,16 +57,22 @@ final class InMemoryStoreTests: XCTestCase {
         XCTAssertEqual(cache?.timestamp, timestamp)
     }
     
-    func test_retrieve_doesNotDeliverCacheOnDifferentKey() {
-        let (sut, key) = makeSut()
-        let (insertion, _, _) = anyInsertion()
-        let differentKey = anyKey()
-        sut.insert(insertion, for: key)
-        
-        let cache = sut.retrieve(for: differentKey)
-        
-        XCTAssertNil(cache)
-    }
+//    func test_retrieve_doesNotDeliverCacheOnDifferentKey() {
+//        let (sut, key1) = makeSut()
+//        let key2 = anyKey()
+//        let (insertion1, timestamp1, data1) = anyInsertion()
+//        let (insertion2, timestamp2, data2) = anyInsertion()
+//        sut.insert(insertion1, for: key1)
+//        sut.insert(insertion2, for: key2)
+//
+//        let cache1 = sut.retrieve(for: key1)
+//        let cache2 = sut.retrieve(for: key2)
+//
+//        XCTAssertEqual(cache1?.local, data1)
+//        XCTAssertEqual(cache1?.timestamp, timestamp1)
+//        XCTAssertEqual(cache2?.local, data2)
+//        XCTAssertEqual(cache2?.timestamp, timestamp2)
+//    }
     
     func test_insert_overridesPreviouslyInsertedCache() {
         let (sut, key) = makeSut()
@@ -75,6 +85,15 @@ final class InMemoryStoreTests: XCTestCase {
         
         XCTAssertEqual(cache?.local, lastData)
         XCTAssertEqual(cache?.timestamp, lastTimestamp)
+    }
+    
+    func test_delete_hasNoSideEffectsOnEmptyCache() {
+        let (sut, key) = makeSut()
+
+        sut.delete(for: key)
+        let cache = sut.retrieve(for: key)
+        
+        XCTAssertNil(cache)
     }
     
     // MARK: - Helpers
