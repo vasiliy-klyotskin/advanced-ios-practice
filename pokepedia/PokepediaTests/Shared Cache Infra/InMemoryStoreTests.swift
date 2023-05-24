@@ -57,23 +57,6 @@ final class InMemoryStoreTests: XCTestCase {
         XCTAssertEqual(cache?.timestamp, timestamp)
     }
     
-//    func test_retrieve_doesNotDeliverCacheOnDifferentKey() {
-//        let (sut, key1) = makeSut()
-//        let key2 = anyKey()
-//        let (insertion1, timestamp1, data1) = anyInsertion()
-//        let (insertion2, timestamp2, data2) = anyInsertion()
-//        sut.insert(insertion1, for: key1)
-//        sut.insert(insertion2, for: key2)
-//
-//        let cache1 = sut.retrieve(for: key1)
-//        let cache2 = sut.retrieve(for: key2)
-//
-//        XCTAssertEqual(cache1?.local, data1)
-//        XCTAssertEqual(cache1?.timestamp, timestamp1)
-//        XCTAssertEqual(cache2?.local, data2)
-//        XCTAssertEqual(cache2?.timestamp, timestamp2)
-//    }
-    
     func test_insert_overridesPreviouslyInsertedCache() {
         let (sut, key) = makeSut()
         let (insertion, _, _) = anyInsertion()
@@ -105,6 +88,23 @@ final class InMemoryStoreTests: XCTestCase {
         let cache = sut.retrieve(for: key)
         
         XCTAssertNil(cache)
+    }
+    
+    func test_retrieve_deliversDifferentCacheOnDifferentKey() {
+        let (sut, key1) = makeSut()
+        let key2 = anyKey()
+        let (insertion1, timestamp1, data1) = anyInsertion()
+        let (insertion2, timestamp2, data2) = anyInsertion()
+        sut.insert(insertion1, for: key1)
+        sut.insert(insertion2, for: key2)
+
+        let cache1 = sut.retrieve(for: key1)
+        let cache2 = sut.retrieve(for: key2)
+
+        XCTAssertEqual(cache1?.local, data1)
+        XCTAssertEqual(cache1?.timestamp, timestamp1)
+        XCTAssertEqual(cache2?.local, data2)
+        XCTAssertEqual(cache2?.timestamp, timestamp2)
     }
     
     // MARK: - Helpers
