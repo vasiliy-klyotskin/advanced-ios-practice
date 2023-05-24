@@ -16,7 +16,7 @@ func anyNSError() -> NSError {
 }
 
 func anyData() -> Data {
-    .init("any data".utf8)
+    .init("any \(anyId()) data".utf8)
 }
 
 func anyDate() -> Date {

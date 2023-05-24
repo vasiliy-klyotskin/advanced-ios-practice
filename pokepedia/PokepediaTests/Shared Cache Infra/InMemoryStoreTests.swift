@@ -64,6 +64,19 @@ final class InMemoryStoreTests: XCTestCase {
         XCTAssertNil(cache)
     }
     
+    func test_insert_overridesPreviouslyInsertedCache() {
+        let (sut, key) = makeSut()
+        let (insertion, _, _) = anyInsertion()
+        let (lastInsertion, lastTimestamp, lastData) = anyInsertion()
+        sut.insert(insertion, for: key)
+        sut.insert(lastInsertion, for: key)
+        
+        let cache = sut.retrieve(for: key)
+        
+        XCTAssertEqual(cache?.local, lastData)
+        XCTAssertEqual(cache?.timestamp, lastTimestamp)
+    }
+    
     // MARK: - Helpers
     
     typealias Local = Data
