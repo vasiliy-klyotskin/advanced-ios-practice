@@ -24,7 +24,7 @@ final class InMemoryStore<Local> {
     }
     
     func delete(for key: String) {
-        
+        stored = [:]
     }
 }
 
@@ -89,6 +89,17 @@ final class InMemoryStoreTests: XCTestCase {
     
     func test_delete_hasNoSideEffectsOnEmptyCache() {
         let (sut, key) = makeSut()
+
+        sut.delete(for: key)
+        let cache = sut.retrieve(for: key)
+        
+        XCTAssertNil(cache)
+    }
+    
+    func test_delete_deletesPreviouslyInsertedCache() {
+        let (sut, key) = makeSut()
+        let (insertion, _, _) = anyInsertion()
+        sut.insert(insertion, for: key)
 
         sut.delete(for: key)
         let cache = sut.retrieve(for: key)
