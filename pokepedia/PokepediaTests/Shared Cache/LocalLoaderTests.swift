@@ -94,7 +94,7 @@ final class LocalLoaderTests: XCTestCase {
             mapping: mappingStub(local: local, mapped: expectedModel ?? .init()),
             validate: expiredValidation
         )
-        let storeRetrieval: StoreRetrieval = .init(local: local, timestamp: timestamp)
+        let storeRetrieval: LocalRetrieval = .init(local: local, timestamp: timestamp)
         store.stubRetrieve(result: .success(.init(storeRetrieval)), for: key)
         return (sut, store, key)
     }

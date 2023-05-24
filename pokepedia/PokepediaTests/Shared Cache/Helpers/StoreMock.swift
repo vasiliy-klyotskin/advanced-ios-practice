@@ -21,9 +21,9 @@ final class StoreMock: LocalLoaderStore, LocalSaverStore, LocalValidatorStore {
     }
     
     var messages: [Message] = []
-    var retrieveStubs = [Key: Result<StoreRetrieval<LocalStub>?, Error>]()
+    var retrieveStubs = [Key: Result<LocalRetrieval<LocalStub>?, Error>]()
     
-    func retrieve(for key: String) throws -> StoreRetrieval<LocalStub>? {
+    func retrieve(for key: String) throws -> LocalRetrieval<LocalStub>? {
         messages.append(.retrieve(key))
         if let stub = retrieveStubs[key] {
             return try stub.get()
@@ -32,7 +32,7 @@ final class StoreMock: LocalLoaderStore, LocalSaverStore, LocalValidatorStore {
     }
     
     func retrieve(for key: Key) -> Timestamp? {
-        let a: StoreRetrieval<LocalStub>? = try? retrieve(for: key)
+        let a: LocalRetrieval<LocalStub>? = try? retrieve(for: key)
         return a.map { $0.timestamp }
     }
     
@@ -44,7 +44,7 @@ final class StoreMock: LocalLoaderStore, LocalSaverStore, LocalValidatorStore {
         messages.append(.insert(data.local, data.timestamp, key))
     }
     
-    func stubRetrieve(result: Result<StoreRetrieval<LocalStub>?, Error>, for key: String) {
+    func stubRetrieve(result: Result<LocalRetrieval<LocalStub>?, Error>, for key: String) {
         retrieveStubs[key] = result
     }
 }

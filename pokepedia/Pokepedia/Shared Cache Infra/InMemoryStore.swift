@@ -16,7 +16,7 @@ public final class InMemoryStore<Local> {
     
     private var stored = [Key: Cache]()
     
-    public func retrieve(for key: Key) -> StoreRetrieval<Local>? {
+    public func retrieve(for key: Key) -> LocalRetrieval<Local>? {
         stored[key].map { .init(local: $0.local, timestamp: $0.timestamp) }
     }
     

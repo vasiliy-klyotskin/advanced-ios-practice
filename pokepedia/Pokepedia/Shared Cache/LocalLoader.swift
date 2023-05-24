@@ -7,7 +7,7 @@
 
 import Foundation
 
-public struct StoreRetrieval<Local> {
+public struct LocalRetrieval<Local> {
     public let local: Local
     public let timestamp: Date
     
@@ -20,7 +20,7 @@ public struct StoreRetrieval<Local> {
 public protocol LocalLoaderStore {
     associatedtype Local
     
-    func retrieve(for key: String) throws -> StoreRetrieval<Local>?
+    func retrieve(for key: String) throws -> LocalRetrieval<Local>?
 }
 
 public final class LocalLoader<Local, Model, Store: LocalLoaderStore> where Store.Local == Local {
