@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		D61ABF7C2A1DCB7100A623C2 /* InMemoryStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = D61ABF7B2A1DCB7100A623C2 /* InMemoryStore.swift */; };
 		D62098E52A193E8C00AA2249 /* LocalSaverTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D62098E42A193E8C00AA2249 /* LocalSaverTests.swift */; };
 		D62098E72A194CF500AA2249 /* LocalSaver.swift in Sources */ = {isa = PBXBuildFile; fileRef = D62098E62A194CF500AA2249 /* LocalSaver.swift */; };
 		D62098E92A1A247F00AA2249 /* LocalValidatorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D62098E82A1A247F00AA2249 /* LocalValidatorTests.swift */; };
@@ -50,6 +51,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		D61ABF7B2A1DCB7100A623C2 /* InMemoryStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InMemoryStore.swift; sourceTree = "<group>"; };
 		D62098E42A193E8C00AA2249 /* LocalSaverTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalSaverTests.swift; sourceTree = "<group>"; };
 		D62098E62A194CF500AA2249 /* LocalSaver.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalSaver.swift; sourceTree = "<group>"; };
 		D62098E82A1A247F00AA2249 /* LocalValidatorTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalValidatorTests.swift; sourceTree = "<group>"; };
@@ -105,6 +107,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		D61ABF7A2A1DCB5900A623C2 /* Shared Cache Infra */ = {
+			isa = PBXGroup;
+			children = (
+				D61ABF7B2A1DCB7100A623C2 /* InMemoryStore.swift */,
+			);
+			path = "Shared Cache Infra";
+			sourceTree = "<group>";
+		};
 		D62098EE2A1BAA1200AA2249 /* Shared Presentation */ = {
 			isa = PBXGroup;
 			children = (
@@ -260,6 +270,7 @@
 				D66D7C712A13DC5F00F360EF /* Shared API */,
 				F7FC0DBC2A0FC7C4009FD50B /* Shared API Infra */,
 				D645BD182A17EAD900E6E145 /* Shared Cache */,
+				D61ABF7A2A1DCB5900A623C2 /* Shared Cache Infra */,
 			);
 			path = Pokepedia;
 			sourceTree = "<group>";
@@ -426,6 +437,7 @@
 				D66D7C732A13DCCC00F360EF /* RemoteMapper.swift in Sources */,
 				D66D7C802A13EF8900F360EF /* PokemonListRemoteMapper.swift in Sources */,
 				D62098F92A1C5DB400AA2249 /* LoadingResourcePresenter.swift in Sources */,
+				D61ABF7C2A1DCB7100A623C2 /* InMemoryStore.swift in Sources */,
 				D654E36C2A147FA80039F033 /* RemoteDataMapper.swift in Sources */,
 				F7FC0DC12A0FC803009FD50B /* URLSessionHTTPClient.swift in Sources */,
 				D62098E72A194CF500AA2249 /* LocalSaver.swift in Sources */,

@@ -8,26 +8,6 @@
 import XCTest
 import Pokepedia
 
-final class InMemoryStore<Local> {
-    typealias Key = String
-    typealias Timestamp = Date
-    typealias Cache = (local: Local, timestamp: Timestamp)
-    
-    private var stored = [Key: Cache]()
-    
-    func retrieve(for key: String) -> StoreRetrieval<Local>? {
-        stored[key].map { .init(local: $0.local, timestamp: $0.timestamp) }
-    }
-    
-    func insert(_ data: LocalInserting<Local>, for key: String) {
-        stored[key] = (data.local, data.timestamp)
-    }
-    
-    func delete(for key: String) {
-        stored[key] = nil
-    }
-}
-
 final class InMemoryStoreTests: XCTestCase {
     func test_retrieve_deliversEmptyOnEmptyCache() {
         let (sut, key) = makeSut()
