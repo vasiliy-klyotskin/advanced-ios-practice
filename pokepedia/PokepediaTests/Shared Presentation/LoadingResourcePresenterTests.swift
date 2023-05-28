@@ -28,7 +28,11 @@ final class LoadingResourcePresenterTests: XCTestCase {
     
     func test_didFinishWithError_finishesLoadingAndShowsError() {
         let (sut, view) = makeSut()
-        let message = localized("GENERIC_CONNECTION_ERROR")
+        let message = localized(
+            "GENERIC_CONNECTION_ERROR",
+            table: "Shared",
+            bundleType: Presenter.self
+        )
         
         sut.didFinishLoadingWithError()
         
@@ -64,16 +68,6 @@ final class LoadingResourcePresenterTests: XCTestCase {
         let sut = Presenter(view: view, errorView: view, loadingView: view, mapping: mapping)
         trackForMemoryLeaks(sut, file: file, line: line)
         return (sut, view)
-    }
-    
-    private func localized(_ key: String, file: StaticString = #file, line: UInt = #line) -> String {
-        let table = "Shared"
-        let bundle = Bundle(for: Presenter.self)
-        let value = bundle.localizedString(forKey: key, value: nil, table: table)
-        if value == key {
-            XCTFail("Missing localized string for key: \(key) in table: \(table)", file: file, line: line)
-        }
-        return value
     }
 }
 

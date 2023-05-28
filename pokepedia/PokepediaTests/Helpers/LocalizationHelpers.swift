@@ -2,10 +2,28 @@
 //  LocalizationHelpers.swift
 //  PokepediaTests
 //
-//  Created by Василий Клецкин on 5/22/23.
+//  Created by Василий Клецкин on 5/28/23.
 //
 
 import XCTest
+
+extension XCTestCase {
+    func localized(
+        _ key: String,
+        table: String,
+        bundleType: AnyClass,
+        file: StaticString = #file,
+        line: UInt = #line
+    ) -> String {
+        let table = table
+        let bundle = Bundle(for: bundleType)
+        let value = bundle.localizedString(forKey: key, value: nil, table: table)
+        if value == key {
+            XCTFail("Missing localized string for key: \(key) in table: \(table)", file: file, line: line)
+        }
+        return value
+    }
+}
 
 func assertLocalizedKeyAndValuesExist(in presentationBundle: Bundle, _ table: String, file: StaticString = #filePath, line: UInt = #line) {
     let localizationBundles = allLocalizationBundles(in: presentationBundle, file: file, line: line)

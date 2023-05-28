@@ -7,6 +7,13 @@
 
 import Foundation
 
-public enum PokemonListPresenter {
-    public static var title: String { "some value" }
+public final class PokemonListPresenter {
+    public static var title: String {
+        NSLocalizedString(
+            "POKEMON_LIST_TITLE",
+            tableName: "PokemonList",
+            bundle: Bundle(for: Self.self),
+            comment: "Title for Pokemon list"
+        )
+    }
 }
