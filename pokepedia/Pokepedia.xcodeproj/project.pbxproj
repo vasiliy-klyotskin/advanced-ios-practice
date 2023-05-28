@@ -21,6 +21,7 @@
 		D62099002A1C689900AA2249 /* SharedLocalizationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D62098FF2A1C689900AA2249 /* SharedLocalizationTests.swift */; };
 		D62099032A1C6A8800AA2249 /* InMemoryStoreTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D62099022A1C6A8800AA2249 /* InMemoryStoreTests.swift */; };
 		D63084992A1683AD0097BC5C /* LocalLoaderTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D63084982A1683AD0097BC5C /* LocalLoaderTests.swift */; };
+		D6360FE72A234B3800A28F11 /* PokemonListPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6360FE62A234B3800A28F11 /* PokemonListPresenter.swift */; };
 		D645BD1A2A17EAEF00E6E145 /* LocalLoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = D645BD192A17EAEF00E6E145 /* LocalLoader.swift */; };
 		D645BD1D2A17EB7900E6E145 /* StoreMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = D645BD1C2A17EB7900E6E145 /* StoreMock.swift */; };
 		D654E36A2A147F220039F033 /* RemoteDataMapperTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D654E3692A147F220039F033 /* RemoteDataMapperTests.swift */; };
@@ -66,6 +67,7 @@
 		D62098FF2A1C689900AA2249 /* SharedLocalizationTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SharedLocalizationTests.swift; sourceTree = "<group>"; };
 		D62099022A1C6A8800AA2249 /* InMemoryStoreTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InMemoryStoreTests.swift; sourceTree = "<group>"; };
 		D63084982A1683AD0097BC5C /* LocalLoaderTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalLoaderTests.swift; sourceTree = "<group>"; };
+		D6360FE62A234B3800A28F11 /* PokemonListPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PokemonListPresenter.swift; sourceTree = "<group>"; };
 		D645BD192A17EAEF00E6E145 /* LocalLoader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalLoader.swift; sourceTree = "<group>"; };
 		D645BD1C2A17EB7900E6E145 /* StoreMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoreMock.swift; sourceTree = "<group>"; };
 		D654E3692A147F220039F033 /* RemoteDataMapperTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RemoteDataMapperTests.swift; sourceTree = "<group>"; };
@@ -170,6 +172,14 @@
 			path = "Shared Cache";
 			sourceTree = "<group>";
 		};
+		D6360FE52A234B2000A28F11 /* Presentation */ = {
+			isa = PBXGroup;
+			children = (
+				D6360FE62A234B3800A28F11 /* PokemonListPresenter.swift */,
+			);
+			path = Presentation;
+			sourceTree = "<group>";
+		};
 		D645BD182A17EAD900E6E145 /* Shared Cache */ = {
 			isa = PBXGroup;
 			children = (
@@ -212,6 +222,7 @@
 			isa = PBXGroup;
 			children = (
 				D66D7C772A13EA9100F360EF /* Domain */,
+				D6360FE52A234B2000A28F11 /* Presentation */,
 				D66D7C752A13EA5600F360EF /* API */,
 			);
 			path = "Pokemon List Feature";
@@ -496,6 +507,7 @@
 				D66D7C792A13EB3700F360EF /* PokemonList.swift in Sources */,
 				D66D7C7B2A13EE5700F360EF /* PokemonListRemote.swift in Sources */,
 				D62098FB2A1C628800AA2249 /* ResourceView.swift in Sources */,
+				D6360FE72A234B3800A28F11 /* PokemonListPresenter.swift in Sources */,
 				D645BD1A2A17EAEF00E6E145 /* LocalLoader.swift in Sources */,
 				D62098EB2A1A304000AA2249 /* LocalValidator.swift in Sources */,
 				D654E36E2A1482040039F033 /* HTTPURLResponse+CodeChecking.swift in Sources */,
@@ -574,8 +586,12 @@
 				PRODUCT_BUNDLE_IDENTIFIER = "klyotskin.Pokepedia-iOS";
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
 				SKIP_INSTALL = YES;
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
 		};
@@ -605,8 +621,12 @@
 				PRODUCT_BUNDLE_IDENTIFIER = "klyotskin.Pokepedia-iOS";
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
 				SKIP_INSTALL = YES;
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;
 		};
@@ -760,9 +780,13 @@
 				PRODUCT_BUNDLE_IDENTIFIER = klyotskin.Pokepedia;
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
 				SKIP_INSTALL = YES;
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator macosx";
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
 		};
@@ -793,8 +817,12 @@
 				PRODUCT_BUNDLE_IDENTIFIER = klyotskin.Pokepedia;
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
 				SKIP_INSTALL = YES;
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator macosx";
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;
 		};
