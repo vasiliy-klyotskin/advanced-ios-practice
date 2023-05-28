@@ -29,7 +29,7 @@
       shouldUseLaunchSchemeArgsEnv = "YES">
       <TestPlans>
          <TestPlanReference
-            reference = "container:Pokepedia_TP.xctestplan"
+            reference = "container:Pokepedia-TP.xctestplan"
             default = "YES">
          </TestPlanReference>
       </TestPlans>

@@ -41,6 +41,7 @@
 			isa = PBXGroup;
 			children = (
 				D6A4C8E82A2129AB0065ECF4 /* Pokepedia-iOS-App */,
+				D6A4C8FD2A212AFC0065ECF4 /* Pokepedia-iOS-AppTests */,
 				D6A4C8E72A2129AB0065ECF4 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -65,6 +66,13 @@
 				D6A4C8F72A2129AB0065ECF4 /* Info.plist */,
 			);
 			path = "Pokepedia-iOS-App";
+			sourceTree = "<group>";
+		};
+		D6A4C8FD2A212AFC0065ECF4 /* Pokepedia-iOS-AppTests */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = "Pokepedia-iOS-AppTests";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
