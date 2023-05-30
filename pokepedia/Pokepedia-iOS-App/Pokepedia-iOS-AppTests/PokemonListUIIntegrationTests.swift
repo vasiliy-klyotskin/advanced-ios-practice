@@ -40,6 +40,22 @@ final class PokemonListUIIntegrationTests: XCTestCase {
         XCTAssertEqual(loader.loadListCallCount, 3, "Expected yet another loading request once user initiates another reload")
     }
     
+    func test_loadingListIndicator_isVisibleWhileLoadingList() {
+        let (sut, loader) = makeSut()
+        
+        sut.loadViewIfNeeded()
+        XCTAssertTrue(sut.isShowingLoadingIndicator, "Expected loading indicator once view is loaded")
+        
+        loader.completeListLoading(at: 0)
+        XCTAssertFalse(sut.isShowingLoadingIndicator, "Expected no loading indicator once loading completes successfully")
+        
+        sut.simulateUserInitiatedReload()
+        XCTAssertTrue(sut.isShowingLoadingIndicator, "Expected loading indicator once user initiates a reload")
+        
+        loader.completeListLoadingWithError(at: 1)
+        XCTAssertFalse(sut.isShowingLoadingIndicator, "Expected no loading indicator once user initiated loading completes with error")
+    }
+    
     // MARK: - Helpers
     
     private func makeSut(file: StaticString = #filePath, line: UInt = #line) -> (PokemonListViewController, MockLoader) {
@@ -68,6 +84,10 @@ final class PokemonListUIIntegrationTests: XCTestCase {
             requests[index].send([])
             requests[index].send(completion: .finished)
         }
+        
+        func completeListLoadingWithError(at index: Int) {
+            requests[index].send(completion: .failure(anyNSError()))
+        }
     }
 }
 
@@ -90,5 +110,9 @@ extension UIRefreshControl {
 extension PokemonListViewController {
     func simulateUserInitiatedReload() {
         refreshControl?.simulatePullToRefresh()
+    }
+    
+    var isShowingLoadingIndicator: Bool {
+        refreshControl?.isRefreshing == true
     }
 }

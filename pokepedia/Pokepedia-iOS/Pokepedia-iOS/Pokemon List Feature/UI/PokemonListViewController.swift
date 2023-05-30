@@ -25,4 +25,12 @@ public final class PokemonListViewController: UITableViewController {
     @objc private func refresh() {
         onRefresh?()
     }
+    
+    public func display(isLoading: Bool) {
+        if isLoading {
+            refreshControl?.beginRefreshing()
+        } else {
+            refreshControl?.endRefreshing()
+        }
+    }
 }

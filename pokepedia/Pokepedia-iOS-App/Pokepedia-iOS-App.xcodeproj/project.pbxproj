@@ -20,6 +20,7 @@
 		D6E445432A25CBEA00E388A7 /* XCTestCase+MemoryLeakTracking.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6E445422A25CBEA00E388A7 /* XCTestCase+MemoryLeakTracking.swift */; };
 		D6E445642A25CE8700E388A7 /* Pokepedia_iOS.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D6E445632A25CE8700E388A7 /* Pokepedia_iOS.framework */; };
 		D6E445652A25CE8700E388A7 /* Pokepedia_iOS.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = D6E445632A25CE8700E388A7 /* Pokepedia_iOS.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		D6EC8BAF2A264997004A525E /* SharedTestHelpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6EC8BAE2A264997004A525E /* SharedTestHelpers.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -63,6 +64,7 @@
 		D6A4C8F72A2129AB0065ECF4 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		D6E445422A25CBEA00E388A7 /* XCTestCase+MemoryLeakTracking.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "XCTestCase+MemoryLeakTracking.swift"; sourceTree = "<group>"; };
 		D6E445632A25CE8700E388A7 /* Pokepedia_iOS.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = Pokepedia_iOS.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		D6EC8BAE2A264997004A525E /* SharedTestHelpers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SharedTestHelpers.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -142,6 +144,7 @@
 			isa = PBXGroup;
 			children = (
 				D6E445422A25CBEA00E388A7 /* XCTestCase+MemoryLeakTracking.swift */,
+				D6EC8BAE2A264997004A525E /* SharedTestHelpers.swift */,
 			);
 			path = Helpers;
 			sourceTree = "<group>";
@@ -250,6 +253,7 @@
 			files = (
 				D65A2E142A2342D000C9168F /* PokemonListUIIntegrationTests.swift in Sources */,
 				D6E445432A25CBEA00E388A7 /* XCTestCase+MemoryLeakTracking.swift in Sources */,
+				D6EC8BAF2A264997004A525E /* SharedTestHelpers.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
