@@ -8,6 +8,7 @@
 import XCTest
 import UIKit
 import Pokepedia_iOS_App
+import Pokepedia_iOS
 import Pokepedia
 import Combine
 

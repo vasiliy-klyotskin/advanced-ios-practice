@@ -8,26 +8,7 @@
 import Pokepedia
 import UIKit
 import Combine
-
-public final class PokemonListViewController: UITableViewController {
-    private var onRefresh: (() -> Void)?
-    
-    convenience init(onRefresh: @escaping () -> Void) {
-        self.init()
-        self.onRefresh = onRefresh
-    }
-    
-    public override func viewDidLoad() {
-        super.viewDidLoad()
-        refreshControl = UIRefreshControl()
-        refreshControl?.addTarget(self, action: #selector(refresh), for: .valueChanged)
-        refresh()
-    }
-    
-    @objc private func refresh() {
-        onRefresh?()
-    }
-}
+import Pokepedia_iOS
 
 public enum PokemonListUIComposer {
     public static func compose(loader: @escaping () -> AnyPublisher<PokemonList, Error>) -> PokemonListViewController {

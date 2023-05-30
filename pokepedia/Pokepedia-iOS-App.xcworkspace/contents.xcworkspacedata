@@ -5,6 +5,9 @@
       location = "group:Pokepedia-iOS-App/Pokepedia-iOS-App.xcodeproj">
    </FileRef>
    <FileRef
+      location = "group:Pokepedia-iOS/Pokepedia-iOS.xcodeproj">
+   </FileRef>
+   <FileRef
       location = "group:Pokepedia.xcodeproj">
    </FileRef>
 </Workspace>
