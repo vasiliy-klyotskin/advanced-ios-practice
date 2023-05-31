@@ -27,7 +27,7 @@ public final class LoadingResourcePresenter<Resource, View: ResourceView> {
         self.mapping = mapping
     }
     
-    private static var loadError: String {
+    public static var loadError: String {
         NSLocalizedString(
             "GENERIC_CONNECTION_ERROR",
             tableName: "Shared",

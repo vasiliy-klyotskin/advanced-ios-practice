@@ -56,6 +56,19 @@ final class PokemonListUIIntegrationTests: XCTestCase {
         XCTAssertFalse(sut.isShowingLoadingIndicator, "Expected no loading indicator once user initiated loading completes with error")
     }
     
+    func test_loadListCompletion_rendersErrorMessageOnErrorUntilNextReload() {
+        let (sut, loader) = makeSut()
+        
+        sut.loadViewIfNeeded()
+        XCTAssertEqual(sut.errorMessage, nil, "Expected no error message once view is loaded")
+        
+        loader.completeListLoadingWithError(at: 0)
+        XCTAssertEqual(sut.errorMessage, loadError, "Expected error message once loading completes with error")
+        
+        sut.simulateUserInitiatedReload()
+        XCTAssertEqual(sut.errorMessage, nil, "Expected no error message once list is reloaded")
+    }
+    
     // MARK: - Helpers
     
     private func makeSut(file: StaticString = #filePath, line: UInt = #line) -> (PokemonListViewController, MockLoader) {
@@ -64,10 +77,6 @@ final class PokemonListUIIntegrationTests: XCTestCase {
         trackForMemoryLeaks(loader, file: file)
         trackForMemoryLeaks(sut, line: line)
         return (sut, loader)
-    }
-    
-    private var pokemonListTitle: String {
-        PokemonListPresenter.title
     }
     
     private final class MockLoader {
@@ -88,31 +97,5 @@ final class PokemonListUIIntegrationTests: XCTestCase {
         func completeListLoadingWithError(at index: Int) {
             requests[index].send(completion: .failure(anyNSError()))
         }
-    }
-}
-
-extension UIControl {
-    func simulate(event: UIControl.Event) {
-        allTargets.forEach { target in
-            actions(forTarget: target, forControlEvent: event)?.forEach {
-                (target as NSObject).perform(Selector($0))
-            }
-        }
-    }
-}
-
-extension UIRefreshControl {
-    func simulatePullToRefresh() {
-        simulate(event: .valueChanged)
-    }
-}
-
-extension PokemonListViewController {
-    func simulateUserInitiatedReload() {
-        refreshControl?.simulatePullToRefresh()
-    }
-    
-    var isShowingLoadingIndicator: Bool {
-        refreshControl?.isRefreshing == true
     }
 }

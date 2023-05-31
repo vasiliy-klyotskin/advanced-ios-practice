@@ -6,9 +6,12 @@
 //
 
 import UIKit
+import Pokepedia
 
-public final class PokemonListViewController: UITableViewController {
+public final class PokemonListViewController: UITableViewController, ResourceLoadingView, ResourceErrorView {
     private var onRefresh: (() -> Void)?
+    
+    let errorView = ErrorView()
     
     public convenience init(onRefresh: @escaping () -> Void) {
         self.init()
@@ -26,11 +29,19 @@ public final class PokemonListViewController: UITableViewController {
         onRefresh?()
     }
     
-    public func display(isLoading: Bool) {
-        if isLoading {
+    public func display(loadingViewModel: LoadingViewModel) {
+        if loadingViewModel.isLoading {
             refreshControl?.beginRefreshing()
         } else {
             refreshControl?.endRefreshing()
         }
     }
+    
+    public func display(errorViewModel: ErrorViewModel) {
+        errorView.errorMessageLabel.text = errorViewModel.errorMessage
+    }
+}
+
+final class ErrorView: UIView {
+    let errorMessageLabel = UILabel()
 }

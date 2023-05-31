@@ -26,4 +26,6 @@ public protocol ResourceErrorView {
 
 public struct ErrorViewModel {
     public let errorMessage: String?
+    
+    public var needToShowError: Bool { errorMessage != nil }
 }

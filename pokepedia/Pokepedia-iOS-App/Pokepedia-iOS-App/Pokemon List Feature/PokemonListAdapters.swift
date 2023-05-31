@@ -37,14 +37,14 @@ final class PokemonListLoadingAdapter {
     }
 }
 
-extension PokemonListViewController: ResourceLoadingView {
-    public func display(loadingViewModel: LoadingViewModel) {
-        display(isLoading: loadingViewModel.isLoading)
-    }
-}
-
 extension WeakProxy: ResourceLoadingView where T: ResourceLoadingView {
     func display(loadingViewModel: LoadingViewModel) {
         object?.display(loadingViewModel: loadingViewModel)
+    }
+}
+
+extension WeakProxy: ResourceErrorView where T: ResourceErrorView {
+    func display(errorViewModel: ErrorViewModel) {
+        object?.display(errorViewModel: errorViewModel)
     }
 }
