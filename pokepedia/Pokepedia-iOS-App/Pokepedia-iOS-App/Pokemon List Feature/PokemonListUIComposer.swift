@@ -11,19 +11,33 @@ import Combine
 import Pokepedia_iOS
 
 public enum PokemonListUIComposer {
-    typealias Presetner = LoadingResourcePresenter<PokemonList, WeakProxy<PokemonListViewController>>
+    typealias Presetner = LoadingResourcePresenter<PokemonList, PokemonListViewAdapter>
     
     public static func compose(loader: @escaping () -> AnyPublisher<PokemonList, Error>) -> PokemonListViewController {
-        let adapter = PokemonListLoadingAdapter(loader: loader)
-        let controller = PokemonListViewController(onRefresh: adapter.load)
+        let loadingAdapter = PokemonListLoadingAdapter(loader: loader)
+        let controller = PokemonListViewController(onRefresh: loadingAdapter.load)
         let presenter = Presetner(
-            view: WeakProxy(controller),
-            errorView: WeakProxy(controller),
+            view: PokemonListViewAdapter(controller: controller),
             loadingView: WeakProxy(controller),
-            mapping: PokemonListPresenter.map
+            errorView: WeakProxy(controller)
         )
-        adapter.presenter = presenter
+        loadingAdapter.presenter = presenter
         controller.title = PokemonListPresenter.title
         return controller
+    }
+}
+
+final class PokemonListViewAdapter: ResourceView {
+    weak var controller: PokemonListViewController?
+    
+    init(controller: PokemonListViewController) {
+        self.controller = controller
+    }
+
+    func display(viewModel: PokemonList) {
+        let controllers = PokemonListPresenter
+            .map(list: viewModel)
+            .map(ListPokemonItemViewController.init)
+        controller?.display(controllers: controllers)
     }
 }

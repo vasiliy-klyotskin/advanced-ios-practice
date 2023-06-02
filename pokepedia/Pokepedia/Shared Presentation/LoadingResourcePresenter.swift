@@ -27,6 +27,17 @@ public final class LoadingResourcePresenter<Resource, View: ResourceView> {
         self.mapping = mapping
     }
     
+    public init(
+        view: View,
+        loadingView: ResourceLoadingView,
+        errorView: ResourceErrorView
+    ) where Resource == View.ViewModel {
+        self.view = view
+        self.loadingView = loadingView
+        self.errorView = errorView
+        self.mapping = { $0 }
+    }
+    
     public static var loadError: String {
         NSLocalizedString(
             "GENERIC_CONNECTION_ERROR",
@@ -48,6 +59,6 @@ public final class LoadingResourcePresenter<Resource, View: ResourceView> {
     
     public func didFinishLWithResource(_ resource: Resource) {
         loadingView.display(loadingViewModel: .init(isLoading: false))
-        view.display(resourceViewModel: mapping(resource))
+        view.display(viewModel: mapping(resource))
     }
 }

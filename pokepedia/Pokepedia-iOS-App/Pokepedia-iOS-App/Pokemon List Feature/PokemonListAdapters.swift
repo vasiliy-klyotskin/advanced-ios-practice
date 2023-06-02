@@ -10,7 +10,7 @@ import Pokepedia
 import Pokepedia_iOS
 
 final class PokemonListLoadingAdapter {
-    var presenter: LoadingResourcePresenter<PokemonList, WeakProxy<PokemonListViewController>>?
+    var presenter: LoadingResourcePresenter<PokemonList, PokemonListViewAdapter>?
     
     private let loader: () -> AnyPublisher<PokemonList, Error>
     private var cancellable: AnyCancellable?
@@ -47,11 +47,5 @@ extension WeakProxy: ResourceLoadingView where T: ResourceLoadingView {
 extension WeakProxy: ResourceErrorView where T: ResourceErrorView {
     func display(errorViewModel: ErrorViewModel) {
         object?.display(errorViewModel: errorViewModel)
-    }
-}
-
-extension WeakProxy: ResourceView where T: ResourceView {
-    func display(resourceViewModel: T.ViewModel) {
-        object?.display(resourceViewModel: resourceViewModel)
     }
 }

@@ -143,5 +143,5 @@ final class PokemonListUIIntegrationTests: XCTestCase {
 }
 
 private struct DummyView: ResourceView {
-    func display(resourceViewModel: Any) {}
+    func display(viewModel: Any) {}
 }

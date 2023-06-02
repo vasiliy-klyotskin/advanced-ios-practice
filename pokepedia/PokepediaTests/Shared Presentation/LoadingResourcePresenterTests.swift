@@ -90,7 +90,7 @@ final class ResourceViewMock: ResourceView, ResourceLoadingView, ResourceErrorVi
         messages.insert(.display(errorMessage: errorViewModel.errorMessage))
     }
     
-    func display(resourceViewModel: String) {
-        messages.insert(.display(viewModel: resourceViewModel))
+    func display(viewModel: String) {
+        messages.insert(.display(viewModel: viewModel))
     }
 }

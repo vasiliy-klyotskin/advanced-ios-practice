@@ -9,7 +9,7 @@ import Foundation
 
 public protocol ResourceView {
     associatedtype ViewModel
-    func display(resourceViewModel: ViewModel)
+    func display(viewModel: ViewModel)
 }
 
 public protocol ResourceLoadingView {

@@ -17,6 +17,6 @@ class SharedLocalizationTests: XCTestCase {
     }
     
     private class DummyView: ResourceView {
-        func display(resourceViewModel: Any) {}
+        func display(viewModel: Any) {}
     }
 }
