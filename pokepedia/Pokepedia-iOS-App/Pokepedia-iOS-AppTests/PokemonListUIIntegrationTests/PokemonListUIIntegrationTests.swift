@@ -89,6 +89,20 @@ final class PokemonListUIIntegrationTests: XCTestCase {
         assertThat(sut, isRendering: [pokemon0])
     }
     
+    func test_errorMessage_isHiddenAfterReload() {
+        let (sut, loader) = makeSut()
+        
+        sut.loadViewIfNeeded()
+        loader.completeListLoadingWithError(at: 0)
+        XCTAssertEqual(sut.errorMessage, loadError, "Expected error message once loading completes with error first time")
+        
+        sut.simulateUserInitiatedReload()
+        XCTAssertEqual(sut.errorMessage, nil, "Expected no error message after user initiated reloading")
+        
+        loader.completeListLoadingWithError(at: 1)
+        XCTAssertEqual(sut.errorMessage, loadError, "Expected error message once loading completes with error second time")
+    }
+    
     func test_loadListCompletion_dispatchesFromBackgroundToMainThread() {
         let (sut, loader) = makeSut()
         sut.loadViewIfNeeded()
@@ -111,7 +125,7 @@ final class PokemonListUIIntegrationTests: XCTestCase {
         return (sut, loader)
     }
     
-    private func makeListPokemon(specialType: PokemonListItemType?) -> PokemonListItem {
+    private func makeListPokemon(specialType: PokemonListItemType? = nil) -> PokemonListItem {
         .init(
             id: anyId(),
             name: anyName(),
