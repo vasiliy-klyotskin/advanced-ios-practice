@@ -13,6 +13,8 @@ import Pokepedia
 import Combine
 
 final class PokemonListUIIntegrationTests: XCTestCase {
+    // MARK: - Pokemon List
+    
     func test_pokemonList_hasTitle() throws {
         let (sut, _) = makeSut()
         
@@ -104,11 +106,33 @@ final class PokemonListUIIntegrationTests: XCTestCase {
         wait(for: [exp], timeout: 1.0)
     }
     
+    // MARK: - Pokemon Item
+    
+    func test_pokemonItemView_loadsImageURLWhenVisible() {
+        let pokemon0 = makeListPokemon()
+        let pokemon1 = makeListPokemon()
+        let (sut, loader) = makeSut()
+        
+        sut.loadViewIfNeeded()
+        loader.completeListLoading(with: [pokemon0, pokemon1], at: 0)
+        
+        XCTAssertEqual(loader.imageUrls, [], "Expected no image URL requests until views become visible")
+        
+        sut.simulateFeedImageViewVisible(at: 0)
+        XCTAssertEqual(loader.imageUrls, [pokemon0.imageUrl], "Expected first image URL request once first view becomes visible")
+        
+        sut.simulateFeedImageViewVisible(at: 1)
+        XCTAssertEqual(loader.imageUrls, [pokemon0.imageUrl, pokemon1.imageUrl], "Expected second image URL request once second view also becomes visible")
+    }
+    
     // MARK: - Helpers
     
     private func makeSut(file: StaticString = #filePath, line: UInt = #line) -> (PokemonListViewController, MockLoader) {
         let loader = MockLoader()
-        let sut = PokemonListUIComposer.compose(loader: loader.load)
+        let sut = PokemonListUIComposer.compose(
+            loader: loader.load,
+            imageLoader: loader.loadImage
+        )
         trackForMemoryLeaks(loader, file: file)
         trackForMemoryLeaks(sut, line: line)
         return (sut, loader)
@@ -118,7 +142,7 @@ final class PokemonListUIIntegrationTests: XCTestCase {
         .init(
             id: anyId(),
             name: anyName(),
-            iconUrl: anyURL(),
+            imageUrl: anyURL(),
             physicalType: itemType(),
             specialType: specialType
         )
@@ -137,22 +161,29 @@ final class PokemonListUIIntegrationTests: XCTestCase {
     }
     
     private final class MockLoader {
-        var loadListCallCount: Int { requests.count }
-        var requests = [PassthroughSubject<PokemonList, Error>]()
+        var loadListCallCount: Int { listRequests.count }
+        var listRequests = [PassthroughSubject<PokemonList, Error>]()
+        var imageUrls = [URL]()
         
         func load() -> AnyPublisher<PokemonList, Error> {
             let request = PassthroughSubject<PokemonList, Error>()
-            requests.append(request)
+            listRequests.append(request)
+            return request.eraseToAnyPublisher()
+        }
+        
+        func loadImage(for url: URL) -> AnyPublisher<ListPokemonItemImage, Error> {
+            let request = PassthroughSubject<ListPokemonItemImage, Error>()
+            imageUrls.append(url)
             return request.eraseToAnyPublisher()
         }
         
         func completeListLoading(with list: PokemonList = [], at index: Int) {
-            requests[index].send(list)
-            requests[index].send(completion: .finished)
+            listRequests[index].send(list)
+            listRequests[index].send(completion: .finished)
         }
         
         func completeListLoadingWithError(at index: Int) {
-            requests[index].send(completion: .failure(anyNSError()))
+            listRequests[index].send(completion: .failure(anyNSError()))
         }
     }
 }

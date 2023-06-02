@@ -17,7 +17,7 @@ public enum PokemonListRemoteMapper {
             return .init(
                 id: item.id,
                 name: item.name,
-                iconUrl: item.imageUrl,
+                imageUrl: item.imageUrl,
                 physicalType: .init(color: firstType.color, name: firstType.name),
                 specialType: secondType.map { .init(color: $0.color, name: $0.name) }
             )

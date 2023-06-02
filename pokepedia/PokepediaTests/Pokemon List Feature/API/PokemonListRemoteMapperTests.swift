@@ -72,7 +72,7 @@ final class PokemonListRemoteMapperTests: XCTestCase {
         let model = PokemonListItem(
             id: remote.id,
             name: remote.name,
-            iconUrl: remote.imageUrl,
+            imageUrl: remote.imageUrl,
             physicalType: .init(
                 color: physicalType?.color ?? anyId(),
                 name: physicalType?.name ?? anyId()

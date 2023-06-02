@@ -17,11 +17,7 @@ public final class PokemonListPresenter {
         )
     }
     
-    public static func map(list: PokemonList) -> PokemonListViewModel {
-        list.map(map(item:))
-    }
-    
-    private static func map(item: PokemonListItem) -> ListPokemonItemViewModel {
+    public static func map(item: PokemonListItem) -> ListPokemonItemViewModel {
         .init(
             name: item.name,
             id: item.id,

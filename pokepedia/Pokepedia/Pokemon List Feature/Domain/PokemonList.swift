@@ -12,20 +12,20 @@ public typealias PokemonList = [PokemonListItem]
 public struct PokemonListItem: Equatable {
     public let id: String
     public let name: String
-    public let iconUrl: URL
+    public let imageUrl: URL
     public let physicalType: PokemonListItemType
     public let specialType: PokemonListItemType?
     
     public init(
         id: String,
         name: String,
-        iconUrl: URL,
+        imageUrl: URL,
         physicalType: PokemonListItemType,
         specialType: PokemonListItemType?
     ) {
         self.id = id
         self.name = name
-        self.iconUrl = iconUrl
+        self.imageUrl = imageUrl
         self.physicalType = physicalType
         self.specialType = specialType
     }

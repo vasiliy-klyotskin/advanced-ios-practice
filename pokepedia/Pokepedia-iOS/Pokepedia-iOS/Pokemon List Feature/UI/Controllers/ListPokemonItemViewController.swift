@@ -8,11 +8,13 @@
 import UIKit
 import Pokepedia
 
-public final class ListPokemonItemViewController: NSObject, UITableViewDataSource {
+public final class ListPokemonItemViewController: NSObject, UITableViewDataSource, UITableViewDelegate {
     let viewModel: ListPokemonItemViewModel
+    let onImageRequest: () -> Void
     
-    public init(viewModel: ListPokemonItemViewModel) {
+    public init(viewModel: ListPokemonItemViewModel, onImageRequest: @escaping () -> Void) {
         self.viewModel = viewModel
+        self.onImageRequest = onImageRequest
     }
     
     public func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int { 1 }
@@ -23,6 +25,7 @@ public final class ListPokemonItemViewController: NSObject, UITableViewDataSourc
         cell.nameLabel.text = viewModel.name
         cell.physicalTypeLabel.text = viewModel.physicalType
         cell.specialTypeLabel.text = viewModel.specialType
+        onImageRequest()
         return cell
     }
 }

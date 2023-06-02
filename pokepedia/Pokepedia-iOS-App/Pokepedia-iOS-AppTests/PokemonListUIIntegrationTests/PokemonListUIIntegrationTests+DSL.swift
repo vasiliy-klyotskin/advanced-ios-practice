@@ -15,6 +15,10 @@ extension PokemonListViewController {
         refreshControl?.simulatePullToRefresh()
     }
     
+    func simulateFeedImageViewVisible(at index: Int) {
+        _ = pokemonItemView(at: index)
+    }
+    
     var isShowingLoadingIndicator: Bool {
         refreshControl?.isRefreshing == true
     }
