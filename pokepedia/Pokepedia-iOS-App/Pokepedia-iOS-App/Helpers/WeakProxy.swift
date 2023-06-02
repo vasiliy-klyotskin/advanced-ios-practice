@@ -14,3 +14,15 @@ final class WeakProxy<T: AnyObject> {
         self.object = object
     }
 }
+
+extension WeakProxy: ResourceLoadingView where T: ResourceLoadingView {
+    func display(loadingViewModel: LoadingViewModel) {
+        object?.display(loadingViewModel: loadingViewModel)
+    }
+}
+
+extension WeakProxy: ResourceErrorView where T: ResourceErrorView {
+    func display(errorViewModel: ErrorViewModel) {
+        object?.display(errorViewModel: errorViewModel)
+    }
+}

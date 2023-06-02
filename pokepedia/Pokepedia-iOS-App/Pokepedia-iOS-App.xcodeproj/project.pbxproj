@@ -13,6 +13,8 @@
 		D65A2E142A2342D000C9168F /* PokemonListUIIntegrationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D65A2E132A2342D000C9168F /* PokemonListUIIntegrationTests.swift */; };
 		D66787CC2A29CA1500F8CC3C /* PokemonListUIIntegrationTests+Assertions.swift in Sources */ = {isa = PBXBuildFile; fileRef = D66787CB2A29CA1500F8CC3C /* PokemonListUIIntegrationTests+Assertions.swift */; };
 		D66787D92A29F4F900F8CC3C /* CombineHelpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = D66787D82A29F4F900F8CC3C /* CombineHelpers.swift */; };
+		D66787DD2A2A0F6900F8CC3C /* ResourceLoadingAdapter.swift in Sources */ = {isa = PBXBuildFile; fileRef = D66787DC2A2A0F6900F8CC3C /* ResourceLoadingAdapter.swift */; };
+		D66787DF2A2A0FC100F8CC3C /* PokemonListViewAdapter.swift in Sources */ = {isa = PBXBuildFile; fileRef = D66787DE2A2A0FC100F8CC3C /* PokemonListViewAdapter.swift */; };
 		D6A4C8EA2A2129AB0065ECF4 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6A4C8E92A2129AB0065ECF4 /* AppDelegate.swift */; };
 		D6A4C8EC2A2129AB0065ECF4 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6A4C8EB2A2129AB0065ECF4 /* SceneDelegate.swift */; };
 		D6A4C8EE2A2129AB0065ECF4 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6A4C8ED2A2129AB0065ECF4 /* ViewController.swift */; };
@@ -24,7 +26,6 @@
 		D6E445642A25CE8700E388A7 /* Pokepedia_iOS.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D6E445632A25CE8700E388A7 /* Pokepedia_iOS.framework */; };
 		D6E445652A25CE8700E388A7 /* Pokepedia_iOS.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = D6E445632A25CE8700E388A7 /* Pokepedia_iOS.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		D6EC8BAF2A264997004A525E /* SharedTestHelpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6EC8BAE2A264997004A525E /* SharedTestHelpers.swift */; };
-		D6EC8BB22A264FD2004A525E /* PokemonListAdapters.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6EC8BB12A264FD2004A525E /* PokemonListAdapters.swift */; };
 		D6EC8BB52A265018004A525E /* WeakProxy.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6EC8BB42A265018004A525E /* WeakProxy.swift */; };
 /* End PBXBuildFile section */
 
@@ -61,6 +62,8 @@
 		D65A2E132A2342D000C9168F /* PokemonListUIIntegrationTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PokemonListUIIntegrationTests.swift; sourceTree = "<group>"; };
 		D66787CB2A29CA1500F8CC3C /* PokemonListUIIntegrationTests+Assertions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "PokemonListUIIntegrationTests+Assertions.swift"; sourceTree = "<group>"; };
 		D66787D82A29F4F900F8CC3C /* CombineHelpers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CombineHelpers.swift; sourceTree = "<group>"; };
+		D66787DC2A2A0F6900F8CC3C /* ResourceLoadingAdapter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResourceLoadingAdapter.swift; sourceTree = "<group>"; };
+		D66787DE2A2A0FC100F8CC3C /* PokemonListViewAdapter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PokemonListViewAdapter.swift; sourceTree = "<group>"; };
 		D6A4C8E62A2129AB0065ECF4 /* Pokepedia-iOS-App.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Pokepedia-iOS-App.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		D6A4C8E92A2129AB0065ECF4 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		D6A4C8EB2A2129AB0065ECF4 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -73,7 +76,6 @@
 		D6E445422A25CBEA00E388A7 /* XCTestCase+MemoryLeakTracking.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "XCTestCase+MemoryLeakTracking.swift"; sourceTree = "<group>"; };
 		D6E445632A25CE8700E388A7 /* Pokepedia_iOS.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = Pokepedia_iOS.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		D6EC8BAE2A264997004A525E /* SharedTestHelpers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SharedTestHelpers.swift; sourceTree = "<group>"; };
-		D6EC8BB12A264FD2004A525E /* PokemonListAdapters.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PokemonListAdapters.swift; sourceTree = "<group>"; };
 		D6EC8BB42A265018004A525E /* WeakProxy.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeakProxy.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -174,7 +176,7 @@
 			isa = PBXGroup;
 			children = (
 				D6360FE82A234C1200A28F11 /* PokemonListUIComposer.swift */,
-				D6EC8BB12A264FD2004A525E /* PokemonListAdapters.swift */,
+				D66787DE2A2A0FC100F8CC3C /* PokemonListViewAdapter.swift */,
 			);
 			path = "Pokemon List Feature";
 			sourceTree = "<group>";
@@ -184,6 +186,7 @@
 			children = (
 				D6EC8BB42A265018004A525E /* WeakProxy.swift */,
 				D66787D82A29F4F900F8CC3C /* CombineHelpers.swift */,
+				D66787DC2A2A0F6900F8CC3C /* ResourceLoadingAdapter.swift */,
 			);
 			path = Helpers;
 			sourceTree = "<group>";
@@ -302,12 +305,13 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D66787DF2A2A0FC100F8CC3C /* PokemonListViewAdapter.swift in Sources */,
 				D6EC8BB52A265018004A525E /* WeakProxy.swift in Sources */,
 				D6A4C8EE2A2129AB0065ECF4 /* ViewController.swift in Sources */,
 				D66787D92A29F4F900F8CC3C /* CombineHelpers.swift in Sources */,
-				D6EC8BB22A264FD2004A525E /* PokemonListAdapters.swift in Sources */,
 				D6360FE92A234C1200A28F11 /* PokemonListUIComposer.swift in Sources */,
 				D6A4C8EA2A2129AB0065ECF4 /* AppDelegate.swift in Sources */,
+				D66787DD2A2A0F6900F8CC3C /* ResourceLoadingAdapter.swift in Sources */,
 				D6A4C8EC2A2129AB0065ECF4 /* SceneDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

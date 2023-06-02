@@ -1,23 +1,21 @@
 //
-//  PokemonListLoadingAdapter.swift
+//  ResourceLoadingAdapter.swift
 //  Pokepedia-iOS-App
 //
-//  Created by Василий Клецкин on 5/30/23.
+//  Created by Василий Клецкин on 6/2/23.
 //
 
-import Foundation
 import Combine
 import Pokepedia
-import Pokepedia_iOS
 
-final class PokemonListLoadingAdapter {
-    var presenter: LoadingResourcePresenter<PokemonList, PokemonListViewAdapter>?
+final class ResourceLoadingPresentationAdapter<Resource, View: ResourceView> {
+    var presenter: LoadingResourcePresenter<Resource, View>?
     
-    private let loader: () -> AnyPublisher<PokemonList, Error>
+    private let loader: () -> AnyPublisher<Resource, Error>
     private var cancellable: AnyCancellable?
     private var isLoading = false
     
-    init(loader: @escaping () -> AnyPublisher<PokemonList, Error>) {
+    init(loader: @escaping () -> AnyPublisher<Resource, Error>) {
         self.loader = loader
     }
     
@@ -38,17 +36,5 @@ final class PokemonListLoadingAdapter {
                 self?.presenter?.didFinishLWithResource(list)
             }
         )
-    }
-}
-
-extension WeakProxy: ResourceLoadingView where T: ResourceLoadingView {
-    func display(loadingViewModel: LoadingViewModel) {
-        object?.display(loadingViewModel: loadingViewModel)
-    }
-}
-
-extension WeakProxy: ResourceErrorView where T: ResourceErrorView {
-    func display(errorViewModel: ErrorViewModel) {
-        object?.display(errorViewModel: errorViewModel)
     }
 }
