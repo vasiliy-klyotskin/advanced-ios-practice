@@ -125,6 +125,28 @@ final class PokemonListUIIntegrationTests: XCTestCase {
         XCTAssertEqual(loader.imageUrls, [pokemon0.imageUrl, pokemon1.imageUrl], "Expected second image URL request once second view also becomes visible")
     }
     
+    func test_pokemonItemViewLoadingIndicator_isVisibleWhileLoadingImage() {
+        let pokemon0 = makeListPokemon()
+        let pokemon1 = makeListPokemon()
+        let (sut, loader) = makeSut()
+        
+        sut.loadViewIfNeeded()
+        loader.completeListLoading(with: [pokemon0, pokemon1], at: 0)
+        
+        let view0 = sut.simulateFeedImageViewVisible(at: 0)
+        let view1 = sut.simulateFeedImageViewVisible(at: 1)
+        XCTAssertEqual(view0?.isLoading, true, "Expected loading indicator for first view while loading first image")
+        XCTAssertEqual(view1?.isLoading, true, "Expected loading indicator for second view while loading second image")
+        
+        loader.completeImageLoading(at: 0)
+        XCTAssertEqual(view0?.isLoading, false, "Expected no loading indicator for first view once first image loading completes successfully")
+        XCTAssertEqual(view1?.isLoading, true, "Expected no loading indicator for second view once first image loading completes successfully")
+        
+        loader.completeImageLoadingWithError(at: 1)
+        XCTAssertEqual(view0?.isLoading, false, "Expected no loading indicator state change for first view once second image loading completes with error")
+        XCTAssertEqual(view1?.isLoading, false, "Expected loading indicator state change for second view on retry action")
+    }
+    
     // MARK: - Helpers
     
     private func makeSut(file: StaticString = #filePath, line: UInt = #line) -> (PokemonListViewController, MockLoader) {
@@ -133,8 +155,8 @@ final class PokemonListUIIntegrationTests: XCTestCase {
             loader: loader.load,
             imageLoader: loader.loadImage
         )
-        trackForMemoryLeaks(loader, file: file)
-        trackForMemoryLeaks(sut, line: line)
+        trackForMemoryLeaks(loader, file: file, line: line)
+        trackForMemoryLeaks(sut, file: file, line: line)
         return (sut, loader)
     }
     
@@ -163,7 +185,9 @@ final class PokemonListUIIntegrationTests: XCTestCase {
     private final class MockLoader {
         var loadListCallCount: Int { listRequests.count }
         var listRequests = [PassthroughSubject<PokemonList, Error>]()
+        
         var imageUrls = [URL]()
+        var imageRequests = [PassthroughSubject<ListPokemonItemImage, Error>]()
         
         func load() -> AnyPublisher<PokemonList, Error> {
             let request = PassthroughSubject<PokemonList, Error>()
@@ -174,7 +198,17 @@ final class PokemonListUIIntegrationTests: XCTestCase {
         func loadImage(for url: URL) -> AnyPublisher<ListPokemonItemImage, Error> {
             let request = PassthroughSubject<ListPokemonItemImage, Error>()
             imageUrls.append(url)
+            imageRequests.append(request)
             return request.eraseToAnyPublisher()
+        }
+        
+        func completeImageLoading(with image: ListPokemonItemImage = .init(), at index: Int) {
+            imageRequests[index].send(image)
+            imageRequests[index].send(completion: .finished)
+        }
+        
+        func completeImageLoadingWithError(at index: Int) {
+            imageRequests[index].send(completion: .failure(anyNSError()))
         }
         
         func completeListLoading(with list: PokemonList = [], at index: Int) {

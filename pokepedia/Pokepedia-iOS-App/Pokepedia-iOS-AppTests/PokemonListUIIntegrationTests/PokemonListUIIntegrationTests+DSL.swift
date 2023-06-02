@@ -15,8 +15,9 @@ extension PokemonListViewController {
         refreshControl?.simulatePullToRefresh()
     }
     
-    func simulateFeedImageViewVisible(at index: Int) {
-        _ = pokemonItemView(at: index)
+    @discardableResult
+    func simulateFeedImageViewVisible(at index: Int) -> ListPokemonItemCell? {
+        pokemonItemView(at: index) as? ListPokemonItemCell
     }
     
     var isShowingLoadingIndicator: Bool {
@@ -53,5 +54,9 @@ extension ListPokemonItemCell {
     
     var idText: String? {
         idLabel.text
+    }
+    
+    var isLoading: Bool {
+        loading
     }
 }

@@ -12,6 +12,8 @@ public final class ListPokemonItemViewController: NSObject, UITableViewDataSourc
     private let viewModel: ListPokemonItemViewModel
     private let onImageRequest: () -> Void
     
+    let cell = ListPokemonItemCell()
+    
     public init(viewModel: ListPokemonItemViewModel, onImageRequest: @escaping () -> Void) {
         self.viewModel = viewModel
         self.onImageRequest = onImageRequest
@@ -20,12 +22,17 @@ public final class ListPokemonItemViewController: NSObject, UITableViewDataSourc
     public func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int { 1 }
     
     public func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = ListPokemonItemCell()
         cell.idLabel.text = viewModel.id
         cell.nameLabel.text = viewModel.name
         cell.physicalTypeLabel.text = viewModel.physicalType
         cell.specialTypeLabel.text = viewModel.specialType
         onImageRequest()
         return cell
+    }
+}
+
+extension ListPokemonItemViewController: ResourceLoadingView {
+    public func display(loadingViewModel: LoadingViewModel) {
+        cell.loading = loadingViewModel.isLoading
     }
 }

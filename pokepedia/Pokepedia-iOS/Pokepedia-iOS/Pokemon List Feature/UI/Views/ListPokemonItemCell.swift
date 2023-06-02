@@ -12,4 +12,6 @@ final class ListPokemonItemCell: UITableViewCell {
     let idLabel = UILabel()
     let specialTypeLabel = UILabel()
     let physicalTypeLabel = UILabel()
+    
+    var loading: Bool = false
 }
