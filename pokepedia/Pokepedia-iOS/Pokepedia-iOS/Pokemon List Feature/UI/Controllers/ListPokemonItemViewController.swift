@@ -9,8 +9,8 @@ import UIKit
 import Pokepedia
 
 public final class ListPokemonItemViewController: NSObject, UITableViewDataSource, UITableViewDelegate {
-    let viewModel: ListPokemonItemViewModel
-    let onImageRequest: () -> Void
+    private let viewModel: ListPokemonItemViewModel
+    private let onImageRequest: () -> Void
     
     public init(viewModel: ListPokemonItemViewModel, onImageRequest: @escaping () -> Void) {
         self.viewModel = viewModel
