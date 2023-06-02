@@ -7,7 +7,7 @@
 
 import XCTest
 import Pokepedia
-import Pokepedia_iOS
+@testable import Pokepedia_iOS
 
 extension PokemonListUIIntegrationTests {
     func assertThat(
