@@ -5,6 +5,7 @@
 //  Created by Василий Клецкин on 5/30/23.
 //
 
+import Foundation
 import Combine
 import Pokepedia
 import Pokepedia_iOS
@@ -24,7 +25,9 @@ final class PokemonListLoadingAdapter {
         guard !isLoading else { return }
         presenter?.didStartLoading()
         isLoading = true
-        cancellable = loader().sink(
+        cancellable = loader()
+            .dispatchOnMainQueue()
+            .sink(
             receiveCompletion: { [weak self] completion in
                 if case .failure = completion {
                     self?.presenter?.didFinishLoadingWithError()

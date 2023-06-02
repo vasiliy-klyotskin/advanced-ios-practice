@@ -9,7 +9,10 @@
     }
   ],
   "defaultOptions" : {
+    "commandLineArgumentEntries" : [
 
+    ],
+    "testExecutionOrdering" : "random"
   },
   "testTargets" : [
     {
