@@ -63,10 +63,13 @@ final class PokemonListUIIntegrationTests: XCTestCase {
         XCTAssertEqual(sut.errorMessage, nil, "Expected no error message once view is loaded")
         
         loader.completeListLoadingWithError(at: 0)
-        XCTAssertEqual(sut.errorMessage, loadError, "Expected error message once loading completes with error")
+        XCTAssertEqual(sut.errorMessage, loadError, "Expected error message once loading completes with error first time")
         
         sut.simulateUserInitiatedReload()
-        XCTAssertEqual(sut.errorMessage, nil, "Expected no error message once list is reloaded")
+        XCTAssertEqual(sut.errorMessage, nil, "Expected no error message after user initiated reloading")
+        
+        loader.completeListLoadingWithError(at: 1)
+        XCTAssertEqual(sut.errorMessage, loadError, "Expected error message once loading completes with error second time")
     }
     
     func test_loadListCompletion_rendersSuccessfullyLoadedList() {
@@ -87,20 +90,6 @@ final class PokemonListUIIntegrationTests: XCTestCase {
         sut.simulateUserInitiatedReload()
         loader.completeListLoading(with: [pokemon0], at: 2)
         assertThat(sut, isRendering: [pokemon0])
-    }
-    
-    func test_errorMessage_isHiddenAfterReload() {
-        let (sut, loader) = makeSut()
-        
-        sut.loadViewIfNeeded()
-        loader.completeListLoadingWithError(at: 0)
-        XCTAssertEqual(sut.errorMessage, loadError, "Expected error message once loading completes with error first time")
-        
-        sut.simulateUserInitiatedReload()
-        XCTAssertEqual(sut.errorMessage, nil, "Expected no error message after user initiated reloading")
-        
-        loader.completeListLoadingWithError(at: 1)
-        XCTAssertEqual(sut.errorMessage, loadError, "Expected error message once loading completes with error second time")
     }
     
     func test_loadListCompletion_dispatchesFromBackgroundToMainThread() {
