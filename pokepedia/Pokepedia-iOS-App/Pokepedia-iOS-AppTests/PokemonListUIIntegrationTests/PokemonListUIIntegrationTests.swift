@@ -69,6 +69,26 @@ final class PokemonListUIIntegrationTests: XCTestCase {
         XCTAssertEqual(sut.errorMessage, nil, "Expected no error message once list is reloaded")
     }
     
+    func test_loadListCompletion_rendersSuccessfullyLoadedList() {
+        let pokemon0 = makeListPokemon(specialType: nil)
+        let pokemon1 = makeListPokemon(specialType: itemType())
+        let (sut, loader) = makeSut()
+        
+        sut.loadViewIfNeeded()
+        assertThat(sut, isRendering: [])
+        
+        loader.completeListLoading(with: [pokemon0, pokemon1], at: 0)
+        assertThat(sut, isRendering: [pokemon0, pokemon1])
+        
+        sut.simulateUserInitiatedReload()
+        loader.completeListLoadingWithError(at: 1)
+        assertThat(sut, isRendering: [pokemon0, pokemon1])
+        
+        sut.simulateUserInitiatedReload()
+        loader.completeListLoading(with: [pokemon0], at: 2)
+        assertThat(sut, isRendering: [pokemon0])
+    }
+    
     // MARK: - Helpers
     
     private func makeSut(file: StaticString = #filePath, line: UInt = #line) -> (PokemonListViewController, MockLoader) {
@@ -77,6 +97,28 @@ final class PokemonListUIIntegrationTests: XCTestCase {
         trackForMemoryLeaks(loader, file: file)
         trackForMemoryLeaks(sut, line: line)
         return (sut, loader)
+    }
+    
+    private func makeListPokemon(specialType: PokemonListItemType?) -> PokemonListItem {
+        .init(
+            id: anyId(),
+            name: anyName(),
+            iconUrl: anyURL(),
+            physicalType: itemType(),
+            specialType: specialType
+        )
+    }
+    
+    private func itemType() -> PokemonListItemType {
+        .init(color: anyId(), name: anyName())
+    }
+    
+    private var pokemonListTitle: String {
+        PokemonListPresenter.title
+    }
+    
+    private var loadError: String {
+        LoadingResourcePresenter<Any, DummyView>.loadError
     }
     
     private final class MockLoader {
@@ -89,8 +131,8 @@ final class PokemonListUIIntegrationTests: XCTestCase {
             return request.eraseToAnyPublisher()
         }
         
-        func completeListLoading(at index: Int) {
-            requests[index].send([])
+        func completeListLoading(with list: PokemonList = [], at index: Int) {
+            requests[index].send(list)
             requests[index].send(completion: .finished)
         }
         
@@ -98,4 +140,8 @@ final class PokemonListUIIntegrationTests: XCTestCase {
             requests[index].send(completion: .failure(anyNSError()))
         }
     }
+}
+
+private struct DummyView: ResourceView {
+    func display(resourceViewModel: Any) {}
 }

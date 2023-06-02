@@ -7,6 +7,26 @@
 
 import UIKit
 
+func anyURL() -> URL {
+    .init(string: "http://any-url.com")!
+}
+
+func anyData() -> Data {
+    .init("any \(anyId()) data".utf8)
+}
+
+func anyDate() -> Date {
+    .distantPast
+}
+
+func anyId() -> String {
+    UUID().uuidString
+}
+
+func anyName() -> String {
+    "name \(anyId())"
+}
+
 func anyNSError() -> NSError {
     .init(domain: "any domain", code: 1)
 }

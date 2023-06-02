@@ -11,6 +11,7 @@
 		D6360FE32A234ABA00A28F11 /* Pokepedia.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = D6360FE12A234ABA00A28F11 /* Pokepedia.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		D6360FE92A234C1200A28F11 /* PokemonListUIComposer.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6360FE82A234C1200A28F11 /* PokemonListUIComposer.swift */; };
 		D65A2E142A2342D000C9168F /* PokemonListUIIntegrationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D65A2E132A2342D000C9168F /* PokemonListUIIntegrationTests.swift */; };
+		D66787CC2A29CA1500F8CC3C /* PokemonListUIIntegrationTests+Assertions.swift in Sources */ = {isa = PBXBuildFile; fileRef = D66787CB2A29CA1500F8CC3C /* PokemonListUIIntegrationTests+Assertions.swift */; };
 		D6A4C8EA2A2129AB0065ECF4 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6A4C8E92A2129AB0065ECF4 /* AppDelegate.swift */; };
 		D6A4C8EC2A2129AB0065ECF4 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6A4C8EB2A2129AB0065ECF4 /* SceneDelegate.swift */; };
 		D6A4C8EE2A2129AB0065ECF4 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6A4C8ED2A2129AB0065ECF4 /* ViewController.swift */; };
@@ -57,6 +58,7 @@
 		D6360FE82A234C1200A28F11 /* PokemonListUIComposer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PokemonListUIComposer.swift; sourceTree = "<group>"; };
 		D65A2E112A2342D000C9168F /* Pokepedia-iOS-AppTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Pokepedia-iOS-AppTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		D65A2E132A2342D000C9168F /* PokemonListUIIntegrationTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PokemonListUIIntegrationTests.swift; sourceTree = "<group>"; };
+		D66787CB2A29CA1500F8CC3C /* PokemonListUIIntegrationTests+Assertions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "PokemonListUIIntegrationTests+Assertions.swift"; sourceTree = "<group>"; };
 		D6A4C8E62A2129AB0065ECF4 /* Pokepedia-iOS-App.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Pokepedia-iOS-App.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		D6A4C8E92A2129AB0065ECF4 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		D6A4C8EB2A2129AB0065ECF4 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -106,9 +108,19 @@
 			isa = PBXGroup;
 			children = (
 				D6E445442A25CBEF00E388A7 /* Helpers */,
-				D65A2E132A2342D000C9168F /* PokemonListUIIntegrationTests.swift */,
+				D66787CD2A29CA2800F8CC3C /* PokemonListUIIntegrationTests */,
 			);
 			path = "Pokepedia-iOS-AppTests";
+			sourceTree = "<group>";
+		};
+		D66787CD2A29CA2800F8CC3C /* PokemonListUIIntegrationTests */ = {
+			isa = PBXGroup;
+			children = (
+				D65A2E132A2342D000C9168F /* PokemonListUIIntegrationTests.swift */,
+				D66787CB2A29CA1500F8CC3C /* PokemonListUIIntegrationTests+Assertions.swift */,
+				D6CBFCFD2A27813F00CE40C7 /* PokemonListUIIntegrationTests+DSL.swift */,
+			);
+			path = PokemonListUIIntegrationTests;
 			sourceTree = "<group>";
 		};
 		D6A4C8DD2A2129AB0065ECF4 = {
@@ -152,7 +164,6 @@
 			children = (
 				D6E445422A25CBEA00E388A7 /* XCTestCase+MemoryLeakTracking.swift */,
 				D6EC8BAE2A264997004A525E /* SharedTestHelpers.swift */,
-				D6CBFCFD2A27813F00CE40C7 /* PokemonListUIIntegrationTests+DSL.swift */,
 			);
 			path = Helpers;
 			sourceTree = "<group>";
@@ -279,6 +290,7 @@
 				D6CBFCFE2A27813F00CE40C7 /* PokemonListUIIntegrationTests+DSL.swift in Sources */,
 				D65A2E142A2342D000C9168F /* PokemonListUIIntegrationTests.swift in Sources */,
 				D6E445432A25CBEA00E388A7 /* XCTestCase+MemoryLeakTracking.swift in Sources */,
+				D66787CC2A29CA1500F8CC3C /* PokemonListUIIntegrationTests+Assertions.swift in Sources */,
 				D6EC8BAF2A264997004A525E /* SharedTestHelpers.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
