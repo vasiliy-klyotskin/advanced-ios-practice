@@ -145,6 +145,10 @@ final class PokemonListUIIntegrationTests: XCTestCase {
         loader.completeImageLoadingWithError(at: 1)
         XCTAssertEqual(view0?.isLoading, false, "Expected no loading indicator state change for first view once second image loading completes with error")
         XCTAssertEqual(view1?.isLoading, false, "Expected loading indicator state change for second view on retry action")
+        
+        view0?.simulateReload()
+        XCTAssertEqual(view0?.isLoading, true, "Expected loading indicator state change for first view once first image reloaded")
+        XCTAssertEqual(view1?.isLoading, false, "Expected loading indicator state change for second view once first image reloaded")
     }
     
     func test_pokemonImageReloadControl_isVisibleWhenImageLoadingFailed() {
