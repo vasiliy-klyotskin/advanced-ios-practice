@@ -59,4 +59,12 @@ extension ListPokemonItemCell {
     var isLoading: Bool {
         loading
     }
+    
+    var isReloadControlShown: Bool {
+        reload
+    }
+    
+    func simulateReload() {
+        reloadButton.simulate(event: .touchUpInside)
+    }
 }

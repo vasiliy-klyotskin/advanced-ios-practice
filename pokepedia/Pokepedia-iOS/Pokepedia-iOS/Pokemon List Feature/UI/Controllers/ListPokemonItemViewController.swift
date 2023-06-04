@@ -22,6 +22,7 @@ public final class ListPokemonItemViewController: NSObject, UITableViewDataSourc
     public func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int { 1 }
     
     public func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        cell.onReload = onImageRequest
         cell.idLabel.text = viewModel.id
         cell.nameLabel.text = viewModel.name
         cell.physicalTypeLabel.text = viewModel.physicalType
@@ -34,5 +35,11 @@ public final class ListPokemonItemViewController: NSObject, UITableViewDataSourc
 extension ListPokemonItemViewController: ResourceLoadingView {
     public func display(loadingViewModel: LoadingViewModel) {
         cell.loading = loadingViewModel.isLoading
+    }
+}
+
+extension ListPokemonItemViewController: ResourceErrorView {
+    public func display(errorViewModel: ErrorViewModel) {
+        cell.reload = errorViewModel.needToShowError
     }
 }

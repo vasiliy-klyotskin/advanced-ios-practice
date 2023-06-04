@@ -26,7 +26,7 @@ enum ListPokemonItemUIComposer {
         let presenter = Presetner(
             view: DummyView(),
             loadingView: WeakProxy(controller),
-            errorView: DummyView()
+            errorView: WeakProxy(controller)
         )
         loadingAdapter.presenter = presenter
         return controller

@@ -147,6 +147,32 @@ final class PokemonListUIIntegrationTests: XCTestCase {
         XCTAssertEqual(view1?.isLoading, false, "Expected loading indicator state change for second view on retry action")
     }
     
+    func test_pokemonImageReloadControl_isVisibleWhenImageLoadingFailed() {
+        let pokemon0 = makeListPokemon()
+        let pokemon1 = makeListPokemon()
+        let (sut, loader) = makeSut()
+        
+        sut.loadViewIfNeeded()
+        loader.completeListLoading(with: [pokemon0, pokemon1], at: 0)
+        
+        let view0 = sut.simulateFeedImageViewVisible(at: 0)
+        let view1 = sut.simulateFeedImageViewVisible(at: 1)
+        XCTAssertEqual(view0?.isReloadControlShown, false, "Expected no reload control for first view while loading first image")
+        XCTAssertEqual(view1?.isReloadControlShown, false, "Expected no reload control for second view while loading second image")
+        
+        loader.completeImageLoadingWithError(at: 0)
+        XCTAssertEqual(view0?.isReloadControlShown, true, "Expected reload control for first view once first image loading completes with error")
+        XCTAssertEqual(view1?.isReloadControlShown, false, "Expected no reload control indicator for second view once first image loading completes with error")
+        
+        loader.completeImageLoading(at: 1)
+        XCTAssertEqual(view0?.isReloadControlShown, true, "Expected reload control for first view once second image loading completes with success")
+        XCTAssertEqual(view1?.isReloadControlShown, false, "Expected no reload control indicator for second view once second image loading completes with success")
+        
+        view0?.simulateReload()
+        XCTAssertEqual(view0?.isReloadControlShown, false, "Expected no reload control for first view once first view reloaded")
+        XCTAssertEqual(view1?.isReloadControlShown, false, "Expected no reload control for second view once first view reloaded")
+    }
+    
     // MARK: - Helpers
     
     private func makeSut(file: StaticString = #filePath, line: UInt = #line) -> (PokemonListViewController, MockLoader) {
