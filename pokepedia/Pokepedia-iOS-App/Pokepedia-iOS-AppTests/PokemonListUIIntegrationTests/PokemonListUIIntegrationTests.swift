@@ -118,11 +118,19 @@ final class PokemonListUIIntegrationTests: XCTestCase {
         
         XCTAssertEqual(loader.imageUrls, [], "Expected no image URL requests until views become visible")
         
-        sut.simulateFeedImageViewVisible(at: 0)
+        let view0 = sut.simulateFeedImageViewVisible(at: 0)
         XCTAssertEqual(loader.imageUrls, [pokemon0.imageUrl], "Expected first image URL request once first view becomes visible")
         
-        sut.simulateFeedImageViewVisible(at: 1)
+        let view1 = sut.simulateFeedImageViewVisible(at: 1)
         XCTAssertEqual(loader.imageUrls, [pokemon0.imageUrl, pokemon1.imageUrl], "Expected second image URL request once second view also becomes visible")
+        
+        loader.completeImageLoadingWithError(at: 0)
+        view0?.simulateReload()
+        XCTAssertEqual(loader.imageUrls, [pokemon0.imageUrl, pokemon1.imageUrl, pokemon0.imageUrl], "Expected first image URL request once first image is reloaded")
+        
+        loader.completeImageLoadingWithError(at: 1)
+        view1?.simulateReload()
+        XCTAssertEqual(loader.imageUrls, [pokemon0.imageUrl, pokemon1.imageUrl, pokemon0.imageUrl, pokemon1.imageUrl], "Expected second image URL request once second image is reloaded")
     }
     
     func test_pokemonItemViewLoadingIndicator_isVisibleWhileLoadingImage() {
