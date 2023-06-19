@@ -112,7 +112,6 @@ final class PokemonListUIIntegrationTests: XCTestCase {
         let pokemon0 = makeListPokemon()
         let pokemon1 = makeListPokemon()
         let (sut, loader) = makeSut()
-        
         sut.loadViewIfNeeded()
         loader.completeListLoading(with: [pokemon0, pokemon1], at: 0)
         
@@ -137,7 +136,6 @@ final class PokemonListUIIntegrationTests: XCTestCase {
         let pokemon0 = makeListPokemon()
         let pokemon1 = makeListPokemon()
         let (sut, loader) = makeSut()
-        
         sut.loadViewIfNeeded()
         loader.completeListLoading(with: [pokemon0, pokemon1], at: 0)
         
@@ -163,10 +161,9 @@ final class PokemonListUIIntegrationTests: XCTestCase {
         let pokemon0 = makeListPokemon()
         let pokemon1 = makeListPokemon()
         let (sut, loader) = makeSut()
-        
         sut.loadViewIfNeeded()
         loader.completeListLoading(with: [pokemon0, pokemon1], at: 0)
-        
+
         let view0 = sut.simulateFeedImageViewVisible(at: 0)
         let view1 = sut.simulateFeedImageViewVisible(at: 1)
         XCTAssertEqual(view0?.isReloadControlShown, false, "Expected no reload control for first view while loading first image")
@@ -183,6 +180,30 @@ final class PokemonListUIIntegrationTests: XCTestCase {
         view0?.simulateReload()
         XCTAssertEqual(view0?.isReloadControlShown, false, "Expected no reload control for first view once first view reloaded")
         XCTAssertEqual(view1?.isReloadControlShown, false, "Expected no reload control for second view once first view reloaded")
+    }
+    
+    
+    func test_pokemonImageView_isVisibleOnLoadingSuccessWithValidData() {
+        let pokemon0 = makeListPokemon()
+        let pokemon1 = makeListPokemon()
+        let (sut, loader) = makeSut()
+        
+        sut.loadViewIfNeeded()
+        loader.completeListLoading(with: [pokemon0, pokemon1], at: 0)
+        let view0 = sut.simulateFeedImageViewVisible(at: 0)
+        let view1 = sut.simulateFeedImageViewVisible(at: 1)
+        XCTAssertEqual(view0?.renderedImage, nil, "Expcted no rendered image for first view while loading first image")
+        XCTAssertEqual(view1?.renderedImage, nil, "Expcted no rendered image for second view while loading second image")
+        
+        let image0 = makeImage().pngData()
+        loader.completeImageLoading(with: image0, at: 0)
+        XCTAssertEqual(view0?.renderedImage, image0, "Expected rendered image for first view when first image loaded")
+        XCTAssertEqual(view1?.renderedImage, nil, "Expcted no rendered image for second view when first image loaded")
+        
+        let image1 = makeImage().pngData()
+        loader.completeImageLoading(with: image0, at: 1)
+        XCTAssertEqual(view0?.renderedImage, image0, "Expected rendered image for first view when second image loaded")
+        XCTAssertEqual(view1?.renderedImage, image1, "Expcted rendered image for second view when second image loaded")
     }
     
     // MARK: - Helpers
@@ -220,6 +241,10 @@ final class PokemonListUIIntegrationTests: XCTestCase {
         LoadingResourcePresenter<Any, DummyView>.loadError
     }
     
+    private func makeImage() -> UIImage {
+        UIImage.make(withColor: .blue)
+    }
+    
     private final class MockLoader {
         var loadListCallCount: Int { listRequests.count }
         var listRequests = [PassthroughSubject<PokemonList, Error>]()
@@ -240,8 +265,9 @@ final class PokemonListUIIntegrationTests: XCTestCase {
             return request.eraseToAnyPublisher()
         }
         
-        func completeImageLoading(with image: ListPokemonItemImage = .init(), at index: Int) {
-            imageRequests[index].send(image)
+        func completeImageLoading(with image: ListPokemonItemImage? = nil, at index: Int) {
+            let defaultImage = UIImage.make(withColor: .blue).pngData()!
+            imageRequests[index].send(image ?? defaultImage)
             imageRequests[index].send(completion: .finished)
         }
         

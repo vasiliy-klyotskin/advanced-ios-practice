@@ -26,3 +26,9 @@ extension WeakProxy: ResourceErrorView where T: ResourceErrorView {
         object?.display(errorViewModel: errorViewModel)
     }
 }
+
+extension WeakProxy: ResourceView where T: ResourceView {
+    func display(viewModel: T.ViewModel) {
+        object?.display(viewModel: viewModel)
+    }
+}

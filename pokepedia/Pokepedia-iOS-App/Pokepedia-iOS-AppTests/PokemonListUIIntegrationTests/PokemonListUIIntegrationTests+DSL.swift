@@ -64,6 +64,10 @@ extension ListPokemonItemCell {
         reload
     }
     
+    var renderedImage: Data? {
+        pokemonIconView.image?.pngData()
+    }
+    
     func simulateReload() {
         reloadButton.simulate(event: .touchUpInside)
     }

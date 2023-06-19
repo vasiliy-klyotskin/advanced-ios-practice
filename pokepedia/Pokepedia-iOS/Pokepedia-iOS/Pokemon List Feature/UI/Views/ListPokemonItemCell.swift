@@ -7,13 +7,14 @@
 
 import UIKit
 
-final class ListPokemonItemCell: UITableViewCell {
+public final class ListPokemonItemCell: UITableViewCell {
     var onReload: (() -> Void)?
     
     let nameLabel = UILabel()
     let idLabel = UILabel()
     let specialTypeLabel = UILabel()
     let physicalTypeLabel = UILabel()
+    let pokemonIconView = UIImageView()
     
     var loading: Bool = false
     var reload: Bool = false

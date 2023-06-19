@@ -11,8 +11,8 @@ import Combine
 import Pokepedia_iOS
 
 enum ListPokemonItemUIComposer {
-    typealias Presetner = LoadingResourcePresenter<ListPokemonItemImage, DummyView>
-    typealias PresentationAdapter = ResourceLoadingPresentationAdapter<ListPokemonItemImage, DummyView>
+    typealias Presetner = LoadingResourcePresenter<Data, WeakProxy<ListPokemonItemViewController>>
+    typealias PresentationAdapter = ResourceLoadingPresentationAdapter<ListPokemonItemImage, WeakProxy<ListPokemonItemViewController>>
     
     static func compose(
         item: PokemonListItem,
@@ -24,19 +24,12 @@ enum ListPokemonItemUIComposer {
             onImageRequest: loadingAdapter.load
         )
         let presenter = Presetner(
-            view: DummyView(),
+            view: WeakProxy(controller),
+            errorView: WeakProxy(controller),
             loadingView: WeakProxy(controller),
-            errorView: WeakProxy(controller)
+            mapping: { UIImage.init(data: $0)! }
         )
         loadingAdapter.presenter = presenter
         return controller
-    }
-}
-
-struct DummyView: ResourceView, ResourceErrorView {
-    func display(viewModel: Data) {
-    }
-    
-    func display(errorViewModel: ErrorViewModel) {
     }
 }

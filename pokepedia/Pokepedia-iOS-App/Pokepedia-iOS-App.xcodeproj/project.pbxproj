@@ -15,6 +15,7 @@
 		D66787D92A29F4F900F8CC3C /* CombineHelpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = D66787D82A29F4F900F8CC3C /* CombineHelpers.swift */; };
 		D66787DD2A2A0F6900F8CC3C /* ResourceLoadingAdapter.swift in Sources */ = {isa = PBXBuildFile; fileRef = D66787DC2A2A0F6900F8CC3C /* ResourceLoadingAdapter.swift */; };
 		D66787DF2A2A0FC100F8CC3C /* PokemonListViewAdapter.swift in Sources */ = {isa = PBXBuildFile; fileRef = D66787DE2A2A0FC100F8CC3C /* PokemonListViewAdapter.swift */; };
+		D69DE81C2A40DDE600F4A121 /* UIImage+Creation.swift in Sources */ = {isa = PBXBuildFile; fileRef = D69DE81B2A40DDE600F4A121 /* UIImage+Creation.swift */; };
 		D6A4C8EA2A2129AB0065ECF4 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6A4C8E92A2129AB0065ECF4 /* AppDelegate.swift */; };
 		D6A4C8EC2A2129AB0065ECF4 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6A4C8EB2A2129AB0065ECF4 /* SceneDelegate.swift */; };
 		D6A4C8EE2A2129AB0065ECF4 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6A4C8ED2A2129AB0065ECF4 /* ViewController.swift */; };
@@ -65,6 +66,7 @@
 		D66787D82A29F4F900F8CC3C /* CombineHelpers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CombineHelpers.swift; sourceTree = "<group>"; };
 		D66787DC2A2A0F6900F8CC3C /* ResourceLoadingAdapter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResourceLoadingAdapter.swift; sourceTree = "<group>"; };
 		D66787DE2A2A0FC100F8CC3C /* PokemonListViewAdapter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PokemonListViewAdapter.swift; sourceTree = "<group>"; };
+		D69DE81B2A40DDE600F4A121 /* UIImage+Creation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImage+Creation.swift"; sourceTree = "<group>"; };
 		D6A4C8E62A2129AB0065ECF4 /* Pokepedia-iOS-App.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Pokepedia-iOS-App.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		D6A4C8E92A2129AB0065ECF4 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		D6A4C8EB2A2129AB0065ECF4 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -170,6 +172,7 @@
 			children = (
 				D6E445422A25CBEA00E388A7 /* XCTestCase+MemoryLeakTracking.swift */,
 				D6EC8BAE2A264997004A525E /* SharedTestHelpers.swift */,
+				D69DE81B2A40DDE600F4A121 /* UIImage+Creation.swift */,
 			);
 			path = Helpers;
 			sourceTree = "<group>";
@@ -300,6 +303,7 @@
 				D65A2E142A2342D000C9168F /* PokemonListUIIntegrationTests.swift in Sources */,
 				D6E445432A25CBEA00E388A7 /* XCTestCase+MemoryLeakTracking.swift in Sources */,
 				D66787CC2A29CA1500F8CC3C /* PokemonListUIIntegrationTests+Assertions.swift in Sources */,
+				D69DE81C2A40DDE600F4A121 /* UIImage+Creation.swift in Sources */,
 				D6EC8BAF2A264997004A525E /* SharedTestHelpers.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

@@ -43,3 +43,9 @@ extension ListPokemonItemViewController: ResourceErrorView {
         cell.reload = errorViewModel.needToShowError
     }
 }
+
+extension ListPokemonItemViewController: ResourceView {
+    public func display(viewModel image: UIImage) {
+        cell.pokemonIconView.image = image
+    }
+}
