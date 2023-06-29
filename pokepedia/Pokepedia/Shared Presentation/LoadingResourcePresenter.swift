@@ -8,7 +8,7 @@
 import Foundation
 
 public final class LoadingResourcePresenter<Resource, View: ResourceView> {
-    public typealias Mapping = (Resource) -> View.ViewModel
+    public typealias Mapping = (Resource) throws -> View.ViewModel
     
     private let errorView: ResourceErrorView
     private let loadingView: ResourceLoadingView
@@ -59,6 +59,10 @@ public final class LoadingResourcePresenter<Resource, View: ResourceView> {
     
     public func didFinishLWithResource(_ resource: Resource) {
         loadingView.display(loadingViewModel: .init(isLoading: false))
-        view.display(viewModel: mapping(resource))
+        if let mapped = try? mapping(resource) {
+            view.display(viewModel: mapped)
+        } else {
+            errorView.display(errorViewModel: .init(errorMessage: Self.loadError))
+        }
     }
 }
