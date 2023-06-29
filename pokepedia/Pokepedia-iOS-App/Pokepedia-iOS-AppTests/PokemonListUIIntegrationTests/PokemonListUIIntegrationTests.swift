@@ -203,6 +203,18 @@ final class PokemonListUIIntegrationTests: XCTestCase {
         XCTAssertEqual(view1?.renderedImage, image1, "Expected rendered image for second view when second valid image loaded")
     }
     
+    func test_loadImageCompletion_dispatchesFromBackgroundToMainThread() {
+        let (loader, _, _) = setupForShownItems()
+        let image = makeImage().pngData()
+        
+        let exp = expectation(description: "Wait for background queue")
+        DispatchQueue.global().async {
+            loader.completeImageLoading(with: image, at: 0)
+            exp.fulfill()
+        }
+        wait(for: [exp], timeout: 1.0)
+    }
+    
     // MARK: - Helpers
     
     private func setupForShownItems(file: StaticString = #filePath, line: UInt = #line) -> (MockLoader, ListPokemonItemCell?, ListPokemonItemCell?) {
