@@ -158,14 +158,8 @@ final class PokemonListUIIntegrationTests: XCTestCase {
     }
     
     func test_pokemonImageReloadControl_isVisibleWhenImageLoadingFailed() {
-        let pokemon0 = makeListPokemon()
-        let pokemon1 = makeListPokemon()
-        let (sut, loader) = makeSut()
-        sut.loadViewIfNeeded()
-        loader.completeListLoading(with: [pokemon0, pokemon1], at: 0)
-
-        let view0 = sut.simulateFeedImageViewVisible(at: 0)
-        let view1 = sut.simulateFeedImageViewVisible(at: 1)
+        let (loader, view0, view1) = setupForShownItems()
+        
         XCTAssertEqual(view0?.isReloadControlShown, false, "Expected no reload control for first view while loading first image")
         XCTAssertEqual(view1?.isReloadControlShown, false, "Expected no reload control for second view while loading second image")
         
@@ -184,14 +178,8 @@ final class PokemonListUIIntegrationTests: XCTestCase {
     
     
     func test_pokemonImageView_isVisibleOnLoadingSuccessWithValidData() {
-        let pokemon0 = makeListPokemon()
-        let pokemon1 = makeListPokemon()
-        let (sut, loader) = makeSut()
+        let (loader, view0, view1) = setupForShownItems()
         
-        sut.loadViewIfNeeded()
-        loader.completeListLoading(with: [pokemon0, pokemon1], at: 0)
-        let view0 = sut.simulateFeedImageViewVisible(at: 0)
-        let view1 = sut.simulateFeedImageViewVisible(at: 1)
         XCTAssertEqual(view0?.renderedImage, nil, "Expcted no rendered image for first view while loading first image")
         XCTAssertEqual(view1?.renderedImage, nil, "Expcted no rendered image for second view while loading second image")
         
@@ -207,6 +195,18 @@ final class PokemonListUIIntegrationTests: XCTestCase {
     }
     
     // MARK: - Helpers
+    
+    private func setupForShownItems(file: StaticString = #filePath, line: UInt = #line) -> (MockLoader, ListPokemonItemCell?, ListPokemonItemCell?) {
+        let pokemon0 = makeListPokemon()
+        let pokemon1 = makeListPokemon()
+        let (sut, loader) = makeSut(file: file, line: line)
+        
+        sut.loadViewIfNeeded()
+        loader.completeListLoading(with: [pokemon0, pokemon1], at: 0)
+        let view0 = sut.simulateFeedImageViewVisible(at: 0)
+        let view1 = sut.simulateFeedImageViewVisible(at: 1)
+        return (loader, view0, view1)
+    }
     
     private func makeSut(file: StaticString = #filePath, line: UInt = #line) -> (PokemonListViewController, MockLoader) {
         let loader = MockLoader()
