@@ -27,9 +27,21 @@ enum ListPokemonItemUIComposer {
             view: WeakProxy(controller),
             errorView: WeakProxy(controller),
             loadingView: WeakProxy(controller),
-            mapping: { UIImage.init(data: $0)! }
+            mapping: UIImage.tryFrom
         )
         loadingAdapter.presenter = presenter
         return controller
+    }
+}
+
+private struct InvalidDataError: Error {}
+
+extension UIImage {
+    static func tryFrom(data: Data) throws -> UIImage {
+        if let image = UIImage(data: data) {
+            return image
+        } else {
+            throw InvalidDataError()
+        }
     }
 }

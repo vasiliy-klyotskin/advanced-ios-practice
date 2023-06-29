@@ -176,22 +176,31 @@ final class PokemonListUIIntegrationTests: XCTestCase {
         XCTAssertEqual(view1?.isReloadControlShown, false, "Expected no reload control for second view once first view reloaded")
     }
     
-    
-    func test_pokemonImageView_isVisibleOnLoadingSuccessWithValidData() {
+    func test_pokemonImageView_imageVisibility() {
         let (loader, view0, view1) = setupForShownItems()
+        XCTAssertEqual(view0?.renderedImage, nil, "Expected no rendered image for first view initially")
+        XCTAssertEqual(view1?.renderedImage, nil, "Expected no rendered image for second view initially")
         
-        XCTAssertEqual(view0?.renderedImage, nil, "Expcted no rendered image for first view while loading first image")
-        XCTAssertEqual(view1?.renderedImage, nil, "Expcted no rendered image for second view while loading second image")
+        loader.completeImageLoadingWithError(at: 0)
+        XCTAssertEqual(view0?.renderedImage, nil, "Expected no rendered image for first view when first image loading failed")
+        XCTAssertEqual(view1?.renderedImage, nil, "Expected no rendered image for second view when first image loading failed")
         
+        let invalidImage = Data("ivalid data".utf8)
+        loader.completeImageLoading(with: invalidImage, at: 1)
+        XCTAssertEqual(view0?.renderedImage, nil, "Expected no rendered image for first view when second invalid image loaded")
+        XCTAssertEqual(view1?.renderedImage, nil, "Expected no rendered image for second view when second invalid image loaded")
+        
+        view0?.simulateReload()
         let image0 = makeImage().pngData()
-        loader.completeImageLoading(with: image0, at: 0)
-        XCTAssertEqual(view0?.renderedImage, image0, "Expected rendered image for first view when first image loaded")
-        XCTAssertEqual(view1?.renderedImage, nil, "Expcted no rendered image for second view when first image loaded")
+        loader.completeImageLoading(with: image0, at: 2)
+        XCTAssertEqual(view0?.renderedImage, image0, "Expected rendered image for first view when first image reloaded")
+        XCTAssertEqual(view1?.renderedImage, nil, "Expected no rendered image for second view when first image reloaded")
         
+        view1?.simulateReload()
         let image1 = makeImage().pngData()
-        loader.completeImageLoading(with: image0, at: 1)
-        XCTAssertEqual(view0?.renderedImage, image0, "Expected rendered image for first view when second image loaded")
-        XCTAssertEqual(view1?.renderedImage, image1, "Expcted rendered image for second view when second image loaded")
+        loader.completeImageLoading(with: image1, at: 3)
+        XCTAssertEqual(view0?.renderedImage, image0, "Expected rendered image for first view when second valid image loaded")
+        XCTAssertEqual(view1?.renderedImage, image1, "Expected rendered image for second view when second valid image loaded")
     }
     
     // MARK: - Helpers
