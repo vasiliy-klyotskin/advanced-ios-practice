@@ -11,27 +11,30 @@ import Pokepedia
 final class PokemonListCacheFacade {
     private let loader: LocalLoader<PokemonList, PokemonList>
     private let saver: LocalSaver<PokemonList, PokemonList>
+    private let validation: LocalValidator
     
-    private var storeKey: String { "pokemonList.cache" }
+    private var key: String { "pokemonList.cache" }
     
     init(
         loader: LocalLoader<PokemonList, PokemonList>,
-        saver: LocalSaver<PokemonList, PokemonList>
+        saver: LocalSaver<PokemonList, PokemonList>,
+        validation: LocalValidator
     ) {
         self.loader = loader
         self.saver = saver
+        self.validation = validation
     }
     
     func loadList() throws -> PokemonList {
-        try loader.load(for: storeKey)
+        try loader.load(for: key)
     }
     
     func save(list: PokemonList) {
-        saver.save(list, for: storeKey)
+        saver.save(list, for: key)
     }
     
     func validate() {
-        
+        validation.validate(for: key)
     }
 }
 
@@ -51,6 +54,10 @@ enum PokemonListCacheComposer {
                 store: store,
                 mapping: { $0 },
                 current: timestamp
+            ),
+            validation: .init(
+                store: store,
+                validation: against(loadMomentDate: loadMomentDate)
             )
         )
     }
@@ -100,7 +107,26 @@ final class PokemonListCacheIntegrationTests: XCTestCase {
         sut.save(list: listForSaving)
 
         XCTAssertThrowsError(try sut.loadList()) { error in
-            XCTAssertEqual(error as? CacheError, LocalLoader.Error.expired)
+            XCTAssertEqual(error as? CacheError, CacheError.expired)
+        }
+    }
+    
+    func test_validateDeletesCacheOnExpiredDate() {
+        let timestamp = Date()
+        let expiredDate = timestamp.plusFeedCacheMaxAge().adding(seconds: 1)
+        let sut = makeSut(
+            timestamp: timestamp,
+            loadMomentDate: expiredDate
+        )
+        let pokemon0 = makeListPokemon()
+        let pokemon1 = makeListPokemon(specialType: .init(color: "type color", name: "type name"))
+        let listForSaving = [pokemon0, pokemon1]
+        sut.save(list: listForSaving)
+        
+        sut.validate()
+
+        XCTAssertThrowsError(try sut.loadList()) { error in
+            XCTAssertEqual(error as? CacheError, CacheError.empty)
         }
     }
     
