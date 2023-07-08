@@ -19,6 +19,7 @@
 		D62098FB2A1C628800AA2249 /* ResourceView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D62098FA2A1C628800AA2249 /* ResourceView.swift */; };
 		D62099002A1C689900AA2249 /* SharedLocalizationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D62098FF2A1C689900AA2249 /* SharedLocalizationTests.swift */; };
 		D62099032A1C6A8800AA2249 /* InMemoryStoreTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D62099022A1C6A8800AA2249 /* InMemoryStoreTests.swift */; };
+		D62EF3A32A596AD100CE968B /* PokemonListCachePolicy.swift in Sources */ = {isa = PBXBuildFile; fileRef = D62EF3A22A596AD100CE968B /* PokemonListCachePolicy.swift */; };
 		D63084992A1683AD0097BC5C /* LocalLoaderTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D63084982A1683AD0097BC5C /* LocalLoaderTests.swift */; };
 		D6360FE72A234B3800A28F11 /* PokemonListPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6360FE62A234B3800A28F11 /* PokemonListPresenter.swift */; };
 		D6360FEC2A234E4C00A28F11 /* PokemonListPresenterTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6360FEB2A234E4C00A28F11 /* PokemonListPresenterTests.swift */; };
@@ -69,6 +70,7 @@
 		D62098FA2A1C628800AA2249 /* ResourceView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResourceView.swift; sourceTree = "<group>"; };
 		D62098FF2A1C689900AA2249 /* SharedLocalizationTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SharedLocalizationTests.swift; sourceTree = "<group>"; };
 		D62099022A1C6A8800AA2249 /* InMemoryStoreTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InMemoryStoreTests.swift; sourceTree = "<group>"; };
+		D62EF3A22A596AD100CE968B /* PokemonListCachePolicy.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PokemonListCachePolicy.swift; sourceTree = "<group>"; };
 		D63084982A1683AD0097BC5C /* LocalLoaderTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalLoaderTests.swift; sourceTree = "<group>"; };
 		D6360FE62A234B3800A28F11 /* PokemonListPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PokemonListPresenter.swift; sourceTree = "<group>"; };
 		D6360FEB2A234E4C00A28F11 /* PokemonListPresenterTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PokemonListPresenterTests.swift; sourceTree = "<group>"; };
@@ -253,6 +255,7 @@
 			children = (
 				D66D7C782A13EB3700F360EF /* PokemonList.swift */,
 				D66787DA2A29FC2900F8CC3C /* ListPokemonItemImage.swift */,
+				D62EF3A22A596AD100CE968B /* PokemonListCachePolicy.swift */,
 			);
 			path = Domain;
 			sourceTree = "<group>";
@@ -462,6 +465,7 @@
 				D66D7C732A13DCCC00F360EF /* RemoteMapper.swift in Sources */,
 				D66D7C802A13EF8900F360EF /* PokemonListRemoteMapper.swift in Sources */,
 				D62098F92A1C5DB400AA2249 /* LoadingResourcePresenter.swift in Sources */,
+				D62EF3A32A596AD100CE968B /* PokemonListCachePolicy.swift in Sources */,
 				D61ABF7C2A1DCB7100A623C2 /* InMemoryStore.swift in Sources */,
 				D654E36C2A147FA80039F033 /* RemoteDataMapper.swift in Sources */,
 				F7FC0DC12A0FC803009FD50B /* URLSessionHTTPClient.swift in Sources */,
