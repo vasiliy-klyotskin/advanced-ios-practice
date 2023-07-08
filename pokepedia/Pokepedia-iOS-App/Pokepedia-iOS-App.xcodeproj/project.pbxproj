@@ -8,6 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		D62EF3A12A595C5300CE968B /* PokemonListCacheIntegrationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D62EF3A02A595C5300CE968B /* PokemonListCacheIntegrationTests.swift */; };
+		D62EF3A52A598E5E00CE968B /* PokemonListCacheFacade.swift in Sources */ = {isa = PBXBuildFile; fileRef = D62EF3A42A598E5E00CE968B /* PokemonListCacheFacade.swift */; };
+		D62EF3A72A598E7500CE968B /* PokemonListCacheComposer.swift in Sources */ = {isa = PBXBuildFile; fileRef = D62EF3A62A598E7500CE968B /* PokemonListCacheComposer.swift */; };
 		D6360FE22A234ABA00A28F11 /* Pokepedia.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D6360FE12A234ABA00A28F11 /* Pokepedia.framework */; };
 		D6360FE32A234ABA00A28F11 /* Pokepedia.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = D6360FE12A234ABA00A28F11 /* Pokepedia.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		D6360FE92A234C1200A28F11 /* PokemonListUIComposer.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6360FE82A234C1200A28F11 /* PokemonListUIComposer.swift */; };
@@ -59,6 +61,8 @@
 
 /* Begin PBXFileReference section */
 		D62EF3A02A595C5300CE968B /* PokemonListCacheIntegrationTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PokemonListCacheIntegrationTests.swift; sourceTree = "<group>"; };
+		D62EF3A42A598E5E00CE968B /* PokemonListCacheFacade.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PokemonListCacheFacade.swift; sourceTree = "<group>"; };
+		D62EF3A62A598E7500CE968B /* PokemonListCacheComposer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PokemonListCacheComposer.swift; sourceTree = "<group>"; };
 		D6360FDF2A23434B00A28F11 /* Pokepedia-iOS-App-TP.xctestplan */ = {isa = PBXFileReference; lastKnownFileType = text; name = "Pokepedia-iOS-App-TP.xctestplan"; path = "../Pokepedia-iOS-App-TP.xctestplan"; sourceTree = "<group>"; };
 		D6360FE12A234ABA00A28F11 /* Pokepedia.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = Pokepedia.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		D6360FE82A234C1200A28F11 /* PokemonListUIComposer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PokemonListUIComposer.swift; sourceTree = "<group>"; };
@@ -111,6 +115,16 @@
 				D62EF3A02A595C5300CE968B /* PokemonListCacheIntegrationTests.swift */,
 			);
 			path = PokemonListCacheIntegrationTests;
+			sourceTree = "<group>";
+		};
+		D62EF3A82A598ED300CE968B /* Composers */ = {
+			isa = PBXGroup;
+			children = (
+				D62EF3A62A598E7500CE968B /* PokemonListCacheComposer.swift */,
+				D6360FE82A234C1200A28F11 /* PokemonListUIComposer.swift */,
+				D6B958E32A2A21CF0050DCB9 /* ListPokemonItemUIComposer.swift */,
+			);
+			path = Composers;
 			sourceTree = "<group>";
 		};
 		D6360FE02A234ABA00A28F11 /* Frameworks */ = {
@@ -191,9 +205,9 @@
 		D6EC8BB02A264FBB004A525E /* Pokemon List Feature */ = {
 			isa = PBXGroup;
 			children = (
-				D6360FE82A234C1200A28F11 /* PokemonListUIComposer.swift */,
-				D6B958E32A2A21CF0050DCB9 /* ListPokemonItemUIComposer.swift */,
+				D62EF3A82A598ED300CE968B /* Composers */,
 				D66787DE2A2A0FC100F8CC3C /* PokemonListViewAdapter.swift */,
+				D62EF3A42A598E5E00CE968B /* PokemonListCacheFacade.swift */,
 			);
 			path = "Pokemon List Feature";
 			sourceTree = "<group>";
@@ -326,7 +340,9 @@
 			files = (
 				D66787DF2A2A0FC100F8CC3C /* PokemonListViewAdapter.swift in Sources */,
 				D6EC8BB52A265018004A525E /* WeakProxy.swift in Sources */,
+				D62EF3A52A598E5E00CE968B /* PokemonListCacheFacade.swift in Sources */,
 				D6B958E42A2A21CF0050DCB9 /* ListPokemonItemUIComposer.swift in Sources */,
+				D62EF3A72A598E7500CE968B /* PokemonListCacheComposer.swift in Sources */,
 				D6A4C8EE2A2129AB0065ECF4 /* ViewController.swift in Sources */,
 				D66787D92A29F4F900F8CC3C /* CombineHelpers.swift in Sources */,
 				D6360FE92A234C1200A28F11 /* PokemonListUIComposer.swift in Sources */,

@@ -7,70 +7,9 @@
 
 import XCTest
 import Pokepedia
-
-final class PokemonListCacheFacade {
-    private let loader: LocalLoader<PokemonList, PokemonList>
-    private let saver: LocalSaver<PokemonList, PokemonList>
-    private let validation: LocalValidator
-    
-    private var key: String { "pokemonList.cache" }
-    
-    init(
-        loader: LocalLoader<PokemonList, PokemonList>,
-        saver: LocalSaver<PokemonList, PokemonList>,
-        validation: LocalValidator
-    ) {
-        self.loader = loader
-        self.saver = saver
-        self.validation = validation
-    }
-    
-    func loadList() throws -> PokemonList {
-        try loader.load(for: key)
-    }
-    
-    func save(list: PokemonList) {
-        saver.save(list, for: key)
-    }
-    
-    func validate() {
-        validation.validate(for: key)
-    }
-}
-
-enum PokemonListCacheComposer {
-    static func compose(
-        timestamp: @escaping () -> Date = Date.init,
-        loadMomentDate: @escaping () -> Date = Date.init
-    ) -> PokemonListCacheFacade {
-        let store = InMemoryStore<PokemonList>()
-        return PokemonListCacheFacade(
-            loader: .init(
-                store: store,
-                mapping: { $0 },
-                validation: against(loadMomentDate: loadMomentDate)
-            ),
-            saver: .init(
-                store: store,
-                mapping: { $0 },
-                current: timestamp
-            ),
-            validation: .init(
-                store: store,
-                validation: against(loadMomentDate: loadMomentDate)
-            )
-        )
-    }
-    
-    private static func against(loadMomentDate: @escaping () -> Date) -> (Date) -> Bool {
-        { timestamp in
-            PokemonListCachePolicy.validate(timestamp, against: loadMomentDate())
-        }
-    }
-}
+import Pokepedia_iOS_App
 
 final class PokemonListCacheIntegrationTests: XCTestCase {
-    
     func test_deliverNoListOnEmptyCache() {
         let sut = makeSut()
         
