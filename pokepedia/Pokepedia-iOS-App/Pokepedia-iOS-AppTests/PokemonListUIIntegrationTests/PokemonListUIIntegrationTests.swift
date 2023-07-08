@@ -240,20 +240,6 @@ final class PokemonListUIIntegrationTests: XCTestCase {
         return (sut, loader)
     }
     
-    private func makeListPokemon(specialType: PokemonListItemType? = nil) -> PokemonListItem {
-        .init(
-            id: anyId(),
-            name: anyName(),
-            imageUrl: anyURL(),
-            physicalType: itemType(),
-            specialType: specialType
-        )
-    }
-    
-    private func itemType() -> PokemonListItemType {
-        .init(color: anyId(), name: anyName())
-    }
-    
     private var pokemonListTitle: String {
         PokemonListPresenter.title
     }

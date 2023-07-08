@@ -82,13 +82,12 @@ final class PokemonListCacheIntegrationTests: XCTestCase {
     func test_loadDeliversCacheOnNotExpiredDate() {
         let timestamp = Date()
         let notExpiredDate = timestamp.plusFeedCacheMaxAge().adding(seconds: -1)
+        let listForSaving = makeList()
         let sut = makeSut(
             timestamp: timestamp,
             loadMomentDate: notExpiredDate
         )
-        let pokemon0 = makeListPokemon()
-        let pokemon1 = makeListPokemon(specialType: .init(color: "type color", name: "type name"))
-        let listForSaving = [pokemon0, pokemon1]
+        
         sut.save(list: listForSaving)
 
         XCTAssertNoThrow(try sut.loadList())
@@ -97,13 +96,12 @@ final class PokemonListCacheIntegrationTests: XCTestCase {
     func test_loadDoesNotDeliverCacheOnExpiredDate() {
         let timestamp = Date()
         let expiredDate = timestamp.plusFeedCacheMaxAge().adding(seconds: 1)
+        let listForSaving = makeList()
         let sut = makeSut(
             timestamp: timestamp,
             loadMomentDate: expiredDate
         )
-        let pokemon0 = makeListPokemon()
-        let pokemon1 = makeListPokemon(specialType: .init(color: "type color", name: "type name"))
-        let listForSaving = [pokemon0, pokemon1]
+        
         sut.save(list: listForSaving)
 
         XCTAssertThrowsError(try sut.loadList()) { error in
@@ -114,15 +112,13 @@ final class PokemonListCacheIntegrationTests: XCTestCase {
     func test_validateDeletesCacheOnExpiredDate() {
         let timestamp = Date()
         let expiredDate = timestamp.plusFeedCacheMaxAge().adding(seconds: 1)
+        let listForSaving = makeList()
         let sut = makeSut(
             timestamp: timestamp,
             loadMomentDate: expiredDate
         )
-        let pokemon0 = makeListPokemon()
-        let pokemon1 = makeListPokemon(specialType: .init(color: "type color", name: "type name"))
-        let listForSaving = [pokemon0, pokemon1]
-        sut.save(list: listForSaving)
         
+        sut.save(list: listForSaving)
         sut.validate()
 
         XCTAssertThrowsError(try sut.loadList()) { error in
@@ -145,17 +141,11 @@ final class PokemonListCacheIntegrationTests: XCTestCase {
         )
     }
     
-    private func makeListPokemon(specialType: PokemonListItemType? = nil) -> PokemonListItem {
-        .init(
-            id: anyId(),
-            name: anyName(),
-            imageUrl: anyURL(),
-            physicalType: itemType(),
-            specialType: specialType
+    private func makeList() -> PokemonList {
+        let pokemon0 = makeListPokemon()
+        let pokemon1 = makeListPokemon(specialType:
+            .init(color: "type color", name: "type name")
         )
-    }
-    
-    private func itemType() -> PokemonListItemType {
-        .init(color: anyId(), name: anyName())
+        return [pokemon0, pokemon1]
     }
 }

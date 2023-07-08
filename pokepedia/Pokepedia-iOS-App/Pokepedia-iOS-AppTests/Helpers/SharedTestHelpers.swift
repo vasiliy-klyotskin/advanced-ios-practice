@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import Pokepedia
 
 func anyURL() -> URL {
     .init(string: "http://any-url.com")!
@@ -29,6 +30,20 @@ func anyName() -> String {
 
 func anyNSError() -> NSError {
     .init(domain: "any domain", code: 1)
+}
+
+func makeListPokemon(specialType: PokemonListItemType? = nil) -> PokemonListItem {
+    .init(
+        id: anyId(),
+        name: anyName(),
+        imageUrl: anyURL(),
+        physicalType: itemType(),
+        specialType: specialType
+    )
+}
+
+func itemType() -> PokemonListItemType {
+    .init(color: anyId(), name: anyName())
 }
 
 extension UIView {
