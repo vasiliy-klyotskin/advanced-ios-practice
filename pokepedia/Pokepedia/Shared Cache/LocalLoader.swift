@@ -27,7 +27,7 @@ public final class LocalLoader<Local, Model> {
     public typealias Validation = (Date) -> Bool
     public typealias Mapping = (Local) -> Model
     
-    enum Error: Swift.Error {
+    public enum Error: Swift.Error {
         case empty
         case expired
     }

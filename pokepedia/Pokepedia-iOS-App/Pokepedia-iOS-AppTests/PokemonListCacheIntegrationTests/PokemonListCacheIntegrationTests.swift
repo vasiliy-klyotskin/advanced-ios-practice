@@ -72,19 +72,7 @@ final class PokemonListCacheIntegrationTests: XCTestCase {
         XCTAssertNil(list)
     }
     
-    func test_deliversListOnNotEmptyCache() {
-        let sut = makeSut()
-        let pokemon0 = makeListPokemon()
-        let pokemon1 = makeListPokemon(specialType: .init(color: "type color", name: "type name"))
-        let listForSaving = [pokemon0, pokemon1]
-        sut.save(list: listForSaving)
-        
-        let loadedList = try? sut.loadList()
-        
-        XCTAssertEqual(listForSaving, loadedList)
-    }
-    
-    func test_validateDoesNotDeleteCacheOnNotExpiredDate() {
+    func test_loadDeliversCacheOnNotExpiredDate() {
         let timestamp = Date()
         let notExpiredDate = timestamp.plusFeedCacheMaxAge().adding(seconds: -1)
         let sut = makeSut(
@@ -95,14 +83,29 @@ final class PokemonListCacheIntegrationTests: XCTestCase {
         let pokemon1 = makeListPokemon(specialType: .init(color: "type color", name: "type name"))
         let listForSaving = [pokemon0, pokemon1]
         sut.save(list: listForSaving)
-        sut.validate()
-        
-        let loadedList = try? sut.loadList()
-        
-        XCTAssertEqual(listForSaving, loadedList)
+
+        XCTAssertNoThrow(try sut.loadList())
+    }
+    
+    func test_loadDoesNotDeliverCacheOnExpiredDate() {
+        let timestamp = Date()
+        let expiredDate = timestamp.plusFeedCacheMaxAge().adding(seconds: 1)
+        let sut = makeSut(
+            timestamp: timestamp,
+            loadMomentDate: expiredDate
+        )
+        let pokemon0 = makeListPokemon()
+        let pokemon1 = makeListPokemon(specialType: .init(color: "type color", name: "type name"))
+        let listForSaving = [pokemon0, pokemon1]
+        sut.save(list: listForSaving)
+
+        XCTAssertThrowsError(try sut.loadList()) { error in
+            XCTAssertEqual(error as? CacheError, LocalLoader.Error.expired)
+        }
     }
     
     // MARK: - Helpers
+    typealias CacheError = LocalLoader<PokemonList, PokemonList>.Error
     
     private func makeSut(
         timestamp: Date = .init(),
