@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		D62EF3A12A595C5300CE968B /* PokemonListCacheIntegrationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D62EF3A02A595C5300CE968B /* PokemonListCacheIntegrationTests.swift */; };
 		D6360FE22A234ABA00A28F11 /* Pokepedia.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D6360FE12A234ABA00A28F11 /* Pokepedia.framework */; };
 		D6360FE32A234ABA00A28F11 /* Pokepedia.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = D6360FE12A234ABA00A28F11 /* Pokepedia.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		D6360FE92A234C1200A28F11 /* PokemonListUIComposer.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6360FE82A234C1200A28F11 /* PokemonListUIComposer.swift */; };
@@ -57,6 +58,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		D62EF3A02A595C5300CE968B /* PokemonListCacheIntegrationTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PokemonListCacheIntegrationTests.swift; sourceTree = "<group>"; };
 		D6360FDF2A23434B00A28F11 /* Pokepedia-iOS-App-TP.xctestplan */ = {isa = PBXFileReference; lastKnownFileType = text; name = "Pokepedia-iOS-App-TP.xctestplan"; path = "../Pokepedia-iOS-App-TP.xctestplan"; sourceTree = "<group>"; };
 		D6360FE12A234ABA00A28F11 /* Pokepedia.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = Pokepedia.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		D6360FE82A234C1200A28F11 /* PokemonListUIComposer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PokemonListUIComposer.swift; sourceTree = "<group>"; };
@@ -103,6 +105,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		D62EF39F2A595C2900CE968B /* PokemonListCacheIntegrationTests */ = {
+			isa = PBXGroup;
+			children = (
+				D62EF3A02A595C5300CE968B /* PokemonListCacheIntegrationTests.swift */,
+			);
+			path = PokemonListCacheIntegrationTests;
+			sourceTree = "<group>";
+		};
 		D6360FE02A234ABA00A28F11 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
@@ -117,6 +127,7 @@
 			children = (
 				D6E445442A25CBEF00E388A7 /* Helpers */,
 				D66787CD2A29CA2800F8CC3C /* PokemonListUIIntegrationTests */,
+				D62EF39F2A595C2900CE968B /* PokemonListCacheIntegrationTests */,
 			);
 			path = "Pokepedia-iOS-AppTests";
 			sourceTree = "<group>";
@@ -303,6 +314,7 @@
 				D65A2E142A2342D000C9168F /* PokemonListUIIntegrationTests.swift in Sources */,
 				D6E445432A25CBEA00E388A7 /* XCTestCase+MemoryLeakTracking.swift in Sources */,
 				D66787CC2A29CA1500F8CC3C /* PokemonListUIIntegrationTests+Assertions.swift in Sources */,
+				D62EF3A12A595C5300CE968B /* PokemonListCacheIntegrationTests.swift in Sources */,
 				D69DE81C2A40DDE600F4A121 /* UIImage+Creation.swift in Sources */,
 				D6EC8BAF2A264997004A525E /* SharedTestHelpers.swift in Sources */,
 			);
