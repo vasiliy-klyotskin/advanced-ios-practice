@@ -31,7 +31,7 @@ final class StoreMock: LocalLoaderStore, LocalSaverStore, LocalValidatorStore {
         throw Unexpected()
     }
     
-    func retrieve(for key: Key) -> Timestamp? {
+    func retrieveTimestamp(for key: Key) -> Timestamp? {
         let a: LocalRetrieval<LocalStub>? = try? retrieve(for: key)
         return a.map { $0.timestamp }
     }
@@ -40,7 +40,7 @@ final class StoreMock: LocalLoaderStore, LocalSaverStore, LocalValidatorStore {
         messages.append(.delete(key))
     }
     
-    func insert(data: LocalInserting<LocalStub>, for key: Key) {
+    func insert(_ data: LocalInserting<LocalStub>, for key: Key) {
         messages.append(.insert(data.local, data.timestamp, key))
     }
     

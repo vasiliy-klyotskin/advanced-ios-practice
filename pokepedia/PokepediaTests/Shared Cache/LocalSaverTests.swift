@@ -32,7 +32,7 @@ final class LocalSaverTests: XCTestCase {
     
     // MARK: - Helpers
     
-    typealias Saver = LocalSaver<LocalStub, ModelStub, StoreMock>
+    typealias Saver = LocalSaver<LocalStub, ModelStub>
     
     private func makeSut(
         file: StaticString = #filePath,

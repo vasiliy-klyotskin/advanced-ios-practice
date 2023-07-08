@@ -72,7 +72,7 @@ final class LocalLoaderTests: XCTestCase {
     
     // MARK: - Helpers
     
-    typealias Loader = LocalLoader<LocalStub, ModelStub, StoreMock>
+    typealias Loader = LocalLoader<LocalStub, ModelStub>
     typealias Key = String
     
     private func makeSut(

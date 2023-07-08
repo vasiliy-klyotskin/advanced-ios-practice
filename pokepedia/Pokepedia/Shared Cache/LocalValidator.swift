@@ -8,7 +8,7 @@
 import Foundation
 
 public protocol LocalValidatorStore {
-    func retrieve(for key: String) -> Date?
+    func retrieveTimestamp(for key: String) -> Date?
     func delete(for key: String)
 }
 
@@ -24,7 +24,7 @@ public final class LocalValidator {
     }
     
     public func validate(for key: String) {
-        guard let timestamp = store.retrieve(for: key) else { return }
+        guard let timestamp = store.retrieveTimestamp(for: key) else { return }
         guard !validation(timestamp) else { return }
         store.delete(for: key)
     }

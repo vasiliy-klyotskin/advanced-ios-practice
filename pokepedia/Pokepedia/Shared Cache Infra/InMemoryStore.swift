@@ -7,7 +7,7 @@
 
 import Foundation
 
-public final class InMemoryStore<Local> {
+public final class InMemoryStore<Local>: LocalSaverStore, LocalLoaderStore, LocalValidatorStore {
     public typealias Key = String
     private typealias Timestamp = Date
     private typealias Cache = (local: Local, timestamp: Timestamp)
@@ -18,6 +18,10 @@ public final class InMemoryStore<Local> {
     
     public func retrieve(for key: Key) -> LocalRetrieval<Local>? {
         stored[key].map { .init(local: $0.local, timestamp: $0.timestamp) }
+    }
+    
+    public func retrieveTimestamp(for key: String) -> Date? {
+        retrieve(for: key)?.timestamp
     }
     
     public func insert(_ data: LocalInserting<Local>, for key: Key) {

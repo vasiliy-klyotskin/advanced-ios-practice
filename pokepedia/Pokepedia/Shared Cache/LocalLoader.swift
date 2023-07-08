@@ -23,7 +23,7 @@ public protocol LocalLoaderStore {
     func retrieve(for key: String) throws -> LocalRetrieval<Local>?
 }
 
-public final class LocalLoader<Local, Model, Store: LocalLoaderStore> where Store.Local == Local {
+public final class LocalLoader<Local, Model> {
     public typealias Validation = (Date) -> Bool
     public typealias Mapping = (Local) -> Model
     
@@ -32,22 +32,22 @@ public final class LocalLoader<Local, Model, Store: LocalLoaderStore> where Stor
         case expired
     }
     
-    private let store: Store
+    private let retrieve: (String) throws -> LocalRetrieval<Local>?
     private let mapping: Mapping
     private let validation: Validation
     
-    public init(
+    public init<Store: LocalLoaderStore>(
         store: Store,
         mapping: @escaping Mapping,
         validation: @escaping Validation
-    ) {
-        self.store = store
+    ) where Store.Local == Local {
+        self.retrieve = store.retrieve
         self.validation = validation
         self.mapping = mapping
     }
     
     public func load(for key: String) throws -> Model {
-        let retrieved = try store.retrieve(for: key)
+        let retrieved = try retrieve(key)
         guard let retrieved = retrieved else { throw Error.empty }
         try checkExpiration(of: retrieved.timestamp)
         return mapping(retrieved.local)
