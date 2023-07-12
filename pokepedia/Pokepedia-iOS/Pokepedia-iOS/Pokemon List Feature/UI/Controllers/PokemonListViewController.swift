@@ -12,7 +12,7 @@ public final class PokemonListViewController: UITableViewController, ResourceLoa
     
     private var onRefresh: (() -> Void)?
     
-    let errorView = PokemonListErrorView()
+    let errorView = ErrorView()
     
     private lazy var dataSource: UITableViewDiffableDataSource<Int, ListPokemonItemViewController> = {
         .init(tableView: tableView) { (tableView, index, controller) in
@@ -29,7 +29,13 @@ public final class PokemonListViewController: UITableViewController, ResourceLoa
         super.viewDidLoad()
         refreshControl = UIRefreshControl()
         refreshControl?.addTarget(self, action: #selector(refresh), for: .valueChanged)
+        tableView.tableHeaderView = errorView.makeContainer()
         refresh()
+    }
+    
+    public override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+        tableView.sizeTableHeaderToFit()
     }
     
     @objc private func refresh() {
@@ -45,7 +51,7 @@ public final class PokemonListViewController: UITableViewController, ResourceLoa
     }
     
     public func display(errorViewModel: ErrorViewModel) {
-        errorView.errorMessageLabel.text = errorViewModel.errorMessage
+        errorView.message = errorViewModel.errorMessage
     }
 
     public func display(controllers: [ListPokemonItemViewController]) {

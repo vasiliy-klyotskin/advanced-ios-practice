@@ -25,7 +25,7 @@ extension PokemonListViewController {
     }
     
     var errorMessage: String? {
-        return errorView.errorMessageLabel.text
+        return errorView.message
     }
     
     func numberOfRenderedListPokemons() -> Int {
