@@ -13,6 +13,8 @@
 		D6360FE22A234ABA00A28F11 /* Pokepedia.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D6360FE12A234ABA00A28F11 /* Pokepedia.framework */; };
 		D6360FE32A234ABA00A28F11 /* Pokepedia.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = D6360FE12A234ABA00A28F11 /* Pokepedia.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		D6360FE92A234C1200A28F11 /* PokemonListUIComposer.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6360FE82A234C1200A28F11 /* PokemonListUIComposer.swift */; };
+		D64F13FF2A5F0A9B00F88826 /* UIViewController+Snapshot.swift in Sources */ = {isa = PBXBuildFile; fileRef = D64F13FE2A5F0A9B00F88826 /* UIViewController+Snapshot.swift */; };
+		D64F14012A5F0AA600F88826 /* XCTestCase+Snapshot.swift in Sources */ = {isa = PBXBuildFile; fileRef = D64F14002A5F0AA600F88826 /* XCTestCase+Snapshot.swift */; };
 		D65A2E142A2342D000C9168F /* PokemonListUIIntegrationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D65A2E132A2342D000C9168F /* PokemonListUIIntegrationTests.swift */; };
 		D66787CC2A29CA1500F8CC3C /* PokemonListUIIntegrationTests+Assertions.swift in Sources */ = {isa = PBXBuildFile; fileRef = D66787CB2A29CA1500F8CC3C /* PokemonListUIIntegrationTests+Assertions.swift */; };
 		D66787D92A29F4F900F8CC3C /* CombineHelpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = D66787D82A29F4F900F8CC3C /* CombineHelpers.swift */; };
@@ -66,6 +68,8 @@
 		D6360FDF2A23434B00A28F11 /* Pokepedia-iOS-App-TP.xctestplan */ = {isa = PBXFileReference; lastKnownFileType = text; name = "Pokepedia-iOS-App-TP.xctestplan"; path = "../Pokepedia-iOS-App-TP.xctestplan"; sourceTree = "<group>"; };
 		D6360FE12A234ABA00A28F11 /* Pokepedia.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = Pokepedia.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		D6360FE82A234C1200A28F11 /* PokemonListUIComposer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PokemonListUIComposer.swift; sourceTree = "<group>"; };
+		D64F13FE2A5F0A9B00F88826 /* UIViewController+Snapshot.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIViewController+Snapshot.swift"; sourceTree = "<group>"; };
+		D64F14002A5F0AA600F88826 /* XCTestCase+Snapshot.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "XCTestCase+Snapshot.swift"; sourceTree = "<group>"; };
 		D65A2E112A2342D000C9168F /* Pokepedia-iOS-AppTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Pokepedia-iOS-AppTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		D65A2E132A2342D000C9168F /* PokemonListUIIntegrationTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PokemonListUIIntegrationTests.swift; sourceTree = "<group>"; };
 		D66787CB2A29CA1500F8CC3C /* PokemonListUIIntegrationTests+Assertions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "PokemonListUIIntegrationTests+Assertions.swift"; sourceTree = "<group>"; };
@@ -197,6 +201,8 @@
 			children = (
 				D6E445422A25CBEA00E388A7 /* XCTestCase+MemoryLeakTracking.swift */,
 				D6EC8BAE2A264997004A525E /* SharedTestHelpers.swift */,
+				D64F14002A5F0AA600F88826 /* XCTestCase+Snapshot.swift */,
+				D64F13FE2A5F0A9B00F88826 /* UIViewController+Snapshot.swift */,
 				D69DE81B2A40DDE600F4A121 /* UIImage+Creation.swift */,
 			);
 			path = Helpers;
@@ -324,8 +330,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D64F14012A5F0AA600F88826 /* XCTestCase+Snapshot.swift in Sources */,
 				D6CBFCFE2A27813F00CE40C7 /* PokemonListUIIntegrationTests+DSL.swift in Sources */,
 				D65A2E142A2342D000C9168F /* PokemonListUIIntegrationTests.swift in Sources */,
+				D64F13FF2A5F0A9B00F88826 /* UIViewController+Snapshot.swift in Sources */,
 				D6E445432A25CBEA00E388A7 /* XCTestCase+MemoryLeakTracking.swift in Sources */,
 				D66787CC2A29CA1500F8CC3C /* PokemonListUIIntegrationTests+Assertions.swift in Sources */,
 				D62EF3A12A595C5300CE968B /* PokemonListCacheIntegrationTests.swift in Sources */,
