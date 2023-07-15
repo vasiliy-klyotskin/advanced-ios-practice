@@ -31,6 +31,16 @@ final class PokemonListSnapshotTests: XCTestCase {
         assert(snapshot: sut.snapshot(for: .iPhone13(style: .light, contentSize: .extraExtraExtraLarge)), named: "POKEMON_LIST_ERROR_light_extraExtraExtraLarge")
     }
     
+    func test_listLoadedWithSuccess() {
+        let (sut, loader) = makeSut()
+        
+        loader.completeListLoading(with: makeList(), at: 0)
+        
+        assert(snapshot: sut.snapshot(for: .iPhone13(style: .light)), named: "POKEMON_LIST_SUCCESS_light")
+        assert(snapshot: sut.snapshot(for: .iPhone13(style: .dark)), named: "POKEMON_LIST_SUCCESS_dark")
+        assert(snapshot: sut.snapshot(for: .iPhone13(style: .light, contentSize: .extraExtraExtraLarge)), named: "POKEMON_LIST_SUCCESS_light_extraExtraExtraLarge")
+    }
+    
     // MARK: - Helpers
     
     private func makeSut(
@@ -46,5 +56,33 @@ final class PokemonListSnapshotTests: XCTestCase {
         sut.tableView.showsVerticalScrollIndicator = false
         sut.tableView.showsHorizontalScrollIndicator = false
         return (sut, mock)
+    }
+    
+    private func makeList() -> PokemonList {
+        [
+            .init(
+                id: "1007",
+                name: "Koraidon",
+                imageUrl: anyURL(),
+                physicalType: .init(
+                    color: "CC0066",
+                    name: "Dragon"
+                ),
+                specialType: .init(
+                    color: "CC0000",
+                    name: "Fighting"
+                )
+            ),
+            .init(
+                id: "0004",
+                name: "Charmander",
+                imageUrl: anyURL(),
+                physicalType: .init(
+                    color: "FF8000",
+                    name: "Fire"
+                ),
+                specialType: nil
+            )
+        ]
     }
 }

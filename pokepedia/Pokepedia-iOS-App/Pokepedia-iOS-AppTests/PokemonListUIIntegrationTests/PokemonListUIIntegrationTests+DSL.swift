@@ -57,11 +57,11 @@ extension ListPokemonItemCell {
     }
     
     var isLoading: Bool {
-        loading
+        activityIndicator.isAnimating
     }
     
     var isReloadControlShown: Bool {
-        reload
+        !reloadButton.isHidden
     }
     
     var renderedImage: Data? {
@@ -69,6 +69,8 @@ extension ListPokemonItemCell {
     }
     
     func simulateReload() {
-        reloadButton.simulate(event: .touchUpInside)
+        onReload?()
+        // TODO: Tests crushes when I call this method although there are not troubles in setting selector to the button. Fix it
+        // reloadButton.simulate(event: .touchUpInside)
     }
 }

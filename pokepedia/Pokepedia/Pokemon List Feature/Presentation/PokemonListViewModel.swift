@@ -14,4 +14,8 @@ public struct ListPokemonItemViewModel: Hashable {
     public let id: String
     public let physicalType: String
     public let specialType: String?
+    
+    public var shouldShowSpecialType: Bool {
+        specialType != nil
+    }
 }
