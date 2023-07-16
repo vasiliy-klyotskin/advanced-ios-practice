@@ -9,12 +9,12 @@ import UIKit
 import Pokepedia
 
 public final class ListPokemonItemViewController: NSObject, UITableViewDataSource, UITableViewDelegate {
-    private let viewModel: ListPokemonItemViewModel
+    private let viewModel: ListPokemonItemViewModel<UIColor>
     private let onImageRequest: () -> Void
     
     let cell = ListPokemonItemCell()
     
-    public init(viewModel: ListPokemonItemViewModel, onImageRequest: @escaping () -> Void) {
+    public init(viewModel: ListPokemonItemViewModel<UIColor>, onImageRequest: @escaping () -> Void) {
         self.viewModel = viewModel
         self.onImageRequest = onImageRequest
     }

@@ -16,6 +16,7 @@
                 <outlet property="content" destination="OKF-KR-XKK" id="u4o-AU-hK1"/>
                 <outlet property="idLabel" destination="FAc-f8-TqS" id="tEi-mi-uvG"/>
                 <outlet property="nameLabel" destination="APF-gK-2Dm" id="Ga2-tj-FUp"/>
+                <outlet property="physicalTypeContainer" destination="sXr-YI-sBS" id="EqK-kh-0bj"/>
                 <outlet property="physicalTypeLabel" destination="G5p-bS-gcA" id="JA5-Yf-R0b"/>
                 <outlet property="pokemonIconView" destination="bYK-N9-HZW" id="4Zo-fK-Byn"/>
                 <outlet property="reloadButton" destination="Yap-oF-ISB" id="WPY-FM-Wuk"/>

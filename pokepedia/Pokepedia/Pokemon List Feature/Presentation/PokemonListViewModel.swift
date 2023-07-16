@@ -7,13 +7,15 @@
 
 import Foundation
 
-public typealias PokemonListViewModel = [ListPokemonItemViewModel]
+public typealias PokemonListViewModel<Color: Hashable> = [ListPokemonItemViewModel<Color>]
 
-public struct ListPokemonItemViewModel: Hashable {
+public struct ListPokemonItemViewModel<Color: Hashable>: Hashable {
     public let name: String
     public let id: String
     public let physicalType: String
     public let specialType: String?
+    public let physicalTypeColor: Color
+    public let specialTypeColor: Color?
     
     public var shouldShowSpecialType: Bool {
         specialType != nil

@@ -15,6 +15,7 @@ public final class ListPokemonItemCell: UITableViewCell {
     @IBOutlet weak var idLabel: UILabel!
     @IBOutlet weak var specialTypeLabel: UILabel!
     @IBOutlet weak var specialTypeContainer: UIView!
+    @IBOutlet weak var physicalTypeContainer: UIView!
     @IBOutlet weak var physicalTypeLabel: UILabel!
     @IBOutlet weak var pokemonIconView: UIImageView!
     @IBOutlet weak var activityIndicatorContainer: UIView!
@@ -35,12 +36,14 @@ public final class ListPokemonItemCell: UITableViewCell {
         idLabel.font = .preferredFont(forTextStyle: .body)
     }
     
-    func configure(with viewModel: ListPokemonItemViewModel) {
+    func configure(with viewModel: ListPokemonItemViewModel<UIColor>) {
         idLabel.text = viewModel.id
         nameLabel.text = viewModel.name
         physicalTypeLabel.text = viewModel.physicalType
         specialTypeLabel.text = viewModel.specialType
         specialTypeContainer.isHidden = !viewModel.shouldShowSpecialType
+        physicalTypeContainer.backgroundColor = viewModel.physicalTypeColor
+        specialTypeContainer.backgroundColor = viewModel.specialTypeColor
     }
     
     func display(isLoading: Bool) {

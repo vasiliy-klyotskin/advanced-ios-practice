@@ -17,12 +17,18 @@ public final class PokemonListPresenter {
         )
     }
     
-    public static func map(item: PokemonListItem) -> ListPokemonItemViewModel {
-        .init(
+    public static func map<Color: Hashable>(
+        item: PokemonListItem,
+        colorMapping: (String) -> Color
+    ) -> ListPokemonItemViewModel<Color> {
+        let specialColor = (item.specialType?.color).map { colorMapping($0) }
+        return .init(
             name: item.name,
             id: item.id,
             physicalType: item.physicalType.name,
-            specialType: item.specialType?.name
+            specialType: item.specialType?.name,
+            physicalTypeColor: colorMapping(item.physicalType.color),
+            specialTypeColor: specialColor
         )
     }
 }
