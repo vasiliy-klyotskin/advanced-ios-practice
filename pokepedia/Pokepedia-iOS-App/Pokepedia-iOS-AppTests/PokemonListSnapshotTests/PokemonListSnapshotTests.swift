@@ -82,6 +82,19 @@ final class PokemonListSnapshotTests: XCTestCase {
                     name: "Fire"
                 ),
                 specialType: nil
+            ),
+            .init(
+                id: "9999",
+                name: "Some Pokemon with very loooong name",
+                imageUrl: anyURL(),
+                physicalType: .init(
+                    color: "CCAB18",
+                    name: "Electric"
+                ),
+                specialType: .init(
+                    color: "4C2FAD",
+                    name: "Poison"
+                )
             )
         ]
     }

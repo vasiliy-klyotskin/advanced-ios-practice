@@ -32,8 +32,10 @@ public final class ListPokemonItemCell: UITableViewCell {
     private func configureUI() {
         content.fit(in: contentView)
         reloadButton.addTarget(self, action: #selector(onReloadTapped), for: .touchUpInside)
-        nameLabel.font = .preferredFont(forTextStyle: .body)
-        idLabel.font = .preferredFont(forTextStyle: .body)
+        nameLabel.font = .standard(size: .title, weight: .semibold)
+        idLabel.font = .standard(size: .body, weight: .regular)
+        physicalTypeLabel.font = .standard(size: .caption, weight: .regular)
+        specialTypeLabel.font = .standard(size: .caption, weight: .regular)
     }
     
     func configure(with viewModel: ListPokemonItemViewModel<UIColor>) {

@@ -10,6 +10,8 @@
 		D604FBE32A62613B007BAF00 /* ListPokemonItemCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = D604FBE22A62613B007BAF00 /* ListPokemonItemCell.xib */; };
 		D604FBEC2A626FC4007BAF00 /* NSObject+Nib.swift in Sources */ = {isa = PBXBuildFile; fileRef = D604FBEB2A626FC4007BAF00 /* NSObject+Nib.swift */; };
 		D604FBEE2A6273D4007BAF00 /* UIView+Constraints.swift in Sources */ = {isa = PBXBuildFile; fileRef = D604FBED2A6273D4007BAF00 /* UIView+Constraints.swift */; };
+		D60E15AE2A63D39500F21958 /* UIColor+Creation.swift in Sources */ = {isa = PBXBuildFile; fileRef = D60E15AD2A63D39500F21958 /* UIColor+Creation.swift */; };
+		D60E15B02A63D44000F21958 /* UIFont+Creation.swift in Sources */ = {isa = PBXBuildFile; fileRef = D60E15AF2A63D44000F21958 /* UIFont+Creation.swift */; };
 		D64F14162A5F160500F88826 /* UIView+Container.swift in Sources */ = {isa = PBXBuildFile; fileRef = D64F14152A5F160500F88826 /* UIView+Container.swift */; };
 		D64F14182A5F169800F88826 /* UITableView+HeaderSizing.swift in Sources */ = {isa = PBXBuildFile; fileRef = D64F14172A5F169800F88826 /* UITableView+HeaderSizing.swift */; };
 		D66787D12A29E8CC00F8CC3C /* ListPokemonItemViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D66787D02A29E8CC00F8CC3C /* ListPokemonItemViewController.swift */; };
@@ -38,6 +40,8 @@
 		D604FBE22A62613B007BAF00 /* ListPokemonItemCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ListPokemonItemCell.xib; sourceTree = "<group>"; };
 		D604FBEB2A626FC4007BAF00 /* NSObject+Nib.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NSObject+Nib.swift"; sourceTree = "<group>"; };
 		D604FBED2A6273D4007BAF00 /* UIView+Constraints.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+Constraints.swift"; sourceTree = "<group>"; };
+		D60E15AD2A63D39500F21958 /* UIColor+Creation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+Creation.swift"; sourceTree = "<group>"; };
+		D60E15AF2A63D44000F21958 /* UIFont+Creation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIFont+Creation.swift"; sourceTree = "<group>"; };
 		D64F14152A5F160500F88826 /* UIView+Container.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+Container.swift"; sourceTree = "<group>"; };
 		D64F14172A5F169800F88826 /* UITableView+HeaderSizing.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITableView+HeaderSizing.swift"; sourceTree = "<group>"; };
 		D66787D02A29E8CC00F8CC3C /* ListPokemonItemViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListPokemonItemViewController.swift; sourceTree = "<group>"; };
@@ -84,6 +88,8 @@
 				D64F14172A5F169800F88826 /* UITableView+HeaderSizing.swift */,
 				D604FBEB2A626FC4007BAF00 /* NSObject+Nib.swift */,
 				D604FBED2A6273D4007BAF00 /* UIView+Constraints.swift */,
+				D60E15AD2A63D39500F21958 /* UIColor+Creation.swift */,
+				D60E15AF2A63D44000F21958 /* UIFont+Creation.swift */,
 			);
 			path = Helpers;
 			sourceTree = "<group>";
@@ -242,6 +248,8 @@
 				D64F14182A5F169800F88826 /* UITableView+HeaderSizing.swift in Sources */,
 				D64F14162A5F160500F88826 /* UIView+Container.swift in Sources */,
 				D6E445622A25CE4800E388A7 /* PokemonListViewController.swift in Sources */,
+				D60E15AE2A63D39500F21958 /* UIColor+Creation.swift in Sources */,
+				D60E15B02A63D44000F21958 /* UIFont+Creation.swift in Sources */,
 				D66787D52A29E95300F8CC3C /* ListPokemonItemCell.swift in Sources */,
 				D66787D12A29E8CC00F8CC3C /* ListPokemonItemViewController.swift in Sources */,
 				D66787D72A29E96400F8CC3C /* ErrorView.swift in Sources */,
