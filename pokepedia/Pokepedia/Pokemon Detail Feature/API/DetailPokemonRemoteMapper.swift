@@ -14,7 +14,9 @@ public enum DetailPokemonRemoteMapper {
                 title: $0.title,
                 subtitle: $0.subtitle,
                 damageClass: $0.damageClass,
-                type: $0.type
+                damageClassColor: $0.damageClassColor,
+                type: $0.type,
+                typeColor: $0.typeColor
             )
         }
         return .init(

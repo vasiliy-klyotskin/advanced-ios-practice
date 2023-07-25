@@ -26,5 +26,7 @@ public struct DetailPokemonAbility: Equatable {
     let title: String
     let subtitle: String
     let damageClass: String
+    let damageClassColor: String
     let type: String
+    let typeColor: String
 }

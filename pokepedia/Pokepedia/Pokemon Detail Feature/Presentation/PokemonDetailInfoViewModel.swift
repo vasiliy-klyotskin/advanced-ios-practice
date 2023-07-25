@@ -7,9 +7,9 @@
 
 import Foundation
 
-public struct DetailPokemonViewModel: Equatable {
+public struct DetailPokemonViewModel<Color: Equatable>: Equatable {
     let info: DetailPokemonInfoViewModel
-    let abilities: DetailPokemonAbilitiesViewModel
+    let abilities: DetailPokemonAbilitiesViewModel<Color>
 }
 
 public struct DetailPokemonInfoViewModel: Equatable {
@@ -20,11 +20,13 @@ public struct DetailPokemonInfoViewModel: Equatable {
     let flavorText: String
 }
 
-public typealias DetailPokemonAbilitiesViewModel = [DetailPokemonAbilityViewModel]
+public typealias DetailPokemonAbilitiesViewModel<Color: Equatable> = [DetailPokemonAbilityViewModel<Color>]
 
-public struct DetailPokemonAbilityViewModel: Equatable {
+public struct DetailPokemonAbilityViewModel<Color: Equatable>: Equatable {
     let title: String
     let subtitle: String
     let damageClass: String
+    let damageClassColor: Color
     let type: String
+    let typeColor: Color
 }

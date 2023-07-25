@@ -32,7 +32,9 @@ final class DetailPokemonRemoteMapperTests: XCTestCase {
                     title: "title",
                     subtitle: "subtitle",
                     damageClass: "class",
-                    type: "type"
+                    damageClassColor: "class color",
+                    type: "type",
+                    typeColor: "type color"
                 )
             ]
         )
@@ -50,7 +52,9 @@ final class DetailPokemonRemoteMapperTests: XCTestCase {
                     title: "title",
                     subtitle: "subtitle",
                     damageClass: "class",
-                    type: "type"
+                    damageClassColor: "class color",
+                    type: "type",
+                    typeColor: "type color"
                 )
             ]
         )

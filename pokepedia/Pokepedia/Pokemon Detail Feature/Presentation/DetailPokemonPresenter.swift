@@ -8,13 +8,18 @@
 import Foundation
 
 public enum DetailPokemonPresenter {
-    public static func map(model: DetailPokemon) -> DetailPokemonViewModel {
+    public static func map<Color>(
+        model: DetailPokemon,
+        colorMapping: (String) -> Color
+    ) -> DetailPokemonViewModel<Color> {
         let abilities = model.abilities.map {
             DetailPokemonAbilityViewModel(
                 title: $0.title,
                 subtitle: $0.subtitle,
                 damageClass: $0.damageClass,
-                type: $0.type
+                damageClassColor: colorMapping($0.damageClassColor),
+                type: $0.type,
+                typeColor: colorMapping($0.typeColor)
             )
         }
         return .init(

@@ -19,6 +19,8 @@ public struct DetailPokemonRemote: Decodable {
         let title: String
         let subtitle: String
         let damageClass: String
+        let damageClassColor: String
         let type: String
+        let typeColor: String
     }
 }
