@@ -7,28 +7,24 @@
 
 import Foundation
 
-public struct DetailPokemon {
-    public let imageUrl: URL
-    public let id: String
-    public let name: String
-    public let genus: String
-    public let flavorText: String
-    
-    init(imageUrl: URL, id: String, name: String, genus: String, flavorText: String) {
-        self.imageUrl = imageUrl
-        self.id = id
-        self.name = name
-        self.genus = genus
-        self.flavorText = flavorText
-    }
+public struct DetailPokemon: Equatable {
+    let info: DetailPokemonInfo
+    let abilities: DetailPokemonAbilities
 }
 
-public struct DetailPokemonType: Equatable {
-    public let color: String
-    public let name: String
-    
-    public init(color: String, name: String) {
-        self.color = color
-        self.name = name
-    }
+public struct DetailPokemonInfo: Equatable {
+    let imageUrl: URL
+    let id: String
+    let name: String
+    let genus: String
+    let flavorText: String
+}
+
+public typealias DetailPokemonAbilities = [DetailPokemonAbility]
+
+public struct DetailPokemonAbility: Equatable {
+    let title: String
+    let subtitle: String
+    let damageClass: String
+    let type: String
 }
