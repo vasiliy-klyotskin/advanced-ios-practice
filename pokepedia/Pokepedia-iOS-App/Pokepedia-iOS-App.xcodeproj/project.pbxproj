@@ -231,8 +231,8 @@
 		D6A4C8E82A2129AB0065ECF4 /* Pokepedia-iOS-App */ = {
 			isa = PBXGroup;
 			children = (
-				D6EC8BB32A26500B004A525E /* Helpers */,
 				D6EC8BB02A264FBB004A525E /* Pokemon List Feature */,
+				D6EC8BB32A26500B004A525E /* Helpers */,
 				D6A4C8E92A2129AB0065ECF4 /* AppDelegate.swift */,
 				D6A4C8EB2A2129AB0065ECF4 /* SceneDelegate.swift */,
 				D6A4C8ED2A2129AB0065ECF4 /* ViewController.swift */,
