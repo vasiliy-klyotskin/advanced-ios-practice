@@ -7,14 +7,16 @@
 
 import XCTest
 import Combine
-import Pokepedia
 import Pokepedia_iOS
 import Pokepedia_iOS_App
+@testable import Pokepedia
 
 final class PokemonListSnapshotTests: XCTestCase {
     
     func test_listIsLoadingSnapshot() {
-        let (sut, _) = makeSut()
+        let sut = makeSut()
+        
+        sut.display(loadingViewModel: .init(isLoading: true))
         
         assert(snapshot: sut.snapshot(for: .iPhone13(style: .light)), named: "POKEMON_LIST_LOADING_light")
         assert(snapshot: sut.snapshot(for: .iPhone13(style: .dark)), named: "POKEMON_LIST_LOADING_dark")
@@ -22,9 +24,9 @@ final class PokemonListSnapshotTests: XCTestCase {
     }
     
     func test_listLoadedWithErrorSnapshot() {
-        let (sut, loader) = makeSut()
+        let sut = makeSut()
         
-        loader.completeListLoadingWithError(at: 0)
+        sut.display(errorViewModel: .init(errorMessage: "Some multiline \nerror message text"))
         
         assert(snapshot: sut.snapshot(for: .iPhone13(style: .light)), named: "POKEMON_LIST_ERROR_light")
         assert(snapshot: sut.snapshot(for: .iPhone13(style: .dark)), named: "POKEMON_LIST_ERROR_dark")
@@ -32,9 +34,9 @@ final class PokemonListSnapshotTests: XCTestCase {
     }
     
     func test_listLoadedWithSuccess() {
-        let (sut, loader) = makeSut()
-        
-        loader.completeListLoading(with: makeList(), at: 0)
+        let sut = makeSut()
+
+        sut.display(listWithLoadedContent())
         
         assert(snapshot: sut.snapshot(for: .iPhone13(style: .light)), named: "POKEMON_LIST_SUCCESS_light")
         assert(snapshot: sut.snapshot(for: .iPhone13(style: .dark)), named: "POKEMON_LIST_SUCCESS_dark")
@@ -46,56 +48,95 @@ final class PokemonListSnapshotTests: XCTestCase {
     private func makeSut(
         file: StaticString = #filePath,
         line: UInt = #line
-    ) -> (PokemonListViewController, PokemonListMockLoader) {
-        let mock = PokemonListMockLoader()
-        let sut = PokemonListUIComposer.compose(
-            loader: mock.load,
-            imageLoader: mock.loadImage
-        )
+    ) -> PokemonListViewController {
+        let sut = PokemonListViewController(onRefresh: {})
         sut.loadViewIfNeeded()
         sut.tableView.showsVerticalScrollIndicator = false
         sut.tableView.showsHorizontalScrollIndicator = false
-        return (sut, mock)
+        return sut
     }
     
-    private func makeList() -> PokemonList {
+    private func listWithLoadedContent() -> [PokemonListItemStub] {
         [
-            .init(
-                id: "1007",
-                name: "Koraidon",
-                imageUrl: anyURL(),
-                physicalType: .init(
-                    color: "CC0066",
-                    name: "Dragon"
-                ),
-                specialType: .init(
-                    color: "CC0000",
-                    name: "Fighting"
-                )
-            ),
-            .init(
-                id: "0004",
-                name: "Charmander",
-                imageUrl: anyURL(),
-                physicalType: .init(
-                    color: "FF8000",
-                    name: "Fire"
-                ),
-                specialType: nil
-            ),
-            .init(
-                id: "9999",
-                name: "Some Pokemon with very loooong name",
-                imageUrl: anyURL(),
-                physicalType: .init(
-                    color: "CCAB18",
-                    name: "Electric"
-                ),
-                specialType: .init(
-                    color: "4C2FAD",
-                    name: "Poison"
-                )
-            )
+            .init(viewModel: pokemonWithSpecialType, image: UIImage.make(withColor: .brown)),
+            .init(viewModel: pokemonWithoutSpecialType, image: nil),
+            .init(viewModel: pokemonWithLongName, isLoading: true)
         ]
+    }
+    
+    private var pokemonWithSpecialType: ListPokemonItemViewModel<UIColor> {
+        .init(
+            name: "Koraidon",
+            id: "0005",
+            physicalType: "Fighting",
+            specialType: "Dragon",
+            physicalTypeColor: .red,
+            specialTypeColor: .purple
+        )
+    }
+    
+    private var pokemonWithoutSpecialType: ListPokemonItemViewModel<UIColor> {
+        .init(
+            name: "Charmander",
+            id: "0003",
+            physicalType: "Fire",
+            specialType: nil,
+            physicalTypeColor: .orange,
+            specialTypeColor: nil
+        )
+    }
+    
+    private var pokemonWithLongName: ListPokemonItemViewModel<UIColor> {
+        .init(
+            name: "Some Pokemon with very loooong name",
+            id: "0007",
+            physicalType: "Fighting",
+            specialType: "Dragon",
+            physicalTypeColor: .red,
+            specialTypeColor: .purple
+        )
+    }
+}
+
+private extension PokemonListViewController {
+    func display(_ stubs: [PokemonListItemStub]) {
+        let controllers = stubs.map { stub in
+            let controller = ListPokemonItemViewController(
+                viewModel: stub.viewModel,
+                onImageRequest: stub.didRequestImage
+            )
+            stub.controller = controller
+            return controller
+        }
+        
+        display(controllers: controllers)
+    }
+}
+
+
+class PokemonListItemStub {
+    let viewModel: ListPokemonItemViewModel<UIColor>
+    let image: UIImage?
+    let isLoading: Bool
+    weak var controller: ListPokemonItemViewController?
+    
+    init(viewModel: ListPokemonItemViewModel<UIColor>, image: UIImage? = nil, isLoading: Bool = false) {
+        self.viewModel = viewModel
+        self.image = image
+        self.isLoading = isLoading
+    }
+    
+    func didRequestImage() {
+        if isLoading {
+            controller?.display(loadingViewModel: .init(isLoading: true))
+            return
+        }
+        controller?.display(loadingViewModel: .init(isLoading: false))
+        if let image = image {
+            controller?.display(viewModel: image)
+            controller?.display(errorViewModel: .init(errorMessage: nil))
+        } else {
+            controller?.display(errorViewModel: .init(errorMessage: "any"))
+        }
     }
 }

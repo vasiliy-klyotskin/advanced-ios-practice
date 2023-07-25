@@ -49,12 +49,12 @@ public final class ListPokemonItemCell: UITableViewCell {
     }
     
     func display(isLoading: Bool) {
-        activityIndicatorContainer.isHidden = !isLoading
         if isLoading {
             activityIndicator.startAnimating()
         } else {
             activityIndicator.stopAnimating()
         }
+        activityIndicatorContainer.isHidden = !isLoading
     }
     
     func display(reload: Bool) {
@@ -63,6 +63,7 @@ public final class ListPokemonItemCell: UITableViewCell {
     
     func display(image: UIImage) {
         pokemonIconView.image = image
+        pokemonIconView.isHidden = false
     }
     
     @objc private func onReloadTapped(_ sender: UIButton) {

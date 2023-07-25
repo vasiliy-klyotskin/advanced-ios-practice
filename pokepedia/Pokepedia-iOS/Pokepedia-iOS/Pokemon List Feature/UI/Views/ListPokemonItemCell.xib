@@ -35,7 +35,7 @@
                         <stackView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Reo-Gs-QSo">
                             <rect key="frame" x="0.0" y="3" width="48" height="48"/>
                             <subviews>
-                                <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Yap-oF-ISB">
+                                <button hidden="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Yap-oF-ISB">
                                     <rect key="frame" x="0.0" y="0.0" width="48" height="48"/>
                                     <constraints>
                                         <constraint firstAttribute="height" constant="48" id="OQk-sa-kjT"/>
@@ -161,7 +161,7 @@
         </view>
     </objects>
     <resources>
-        <image name="arrow.clockwise" catalog="system" width="113" height="128"/>
+        <image name="arrow.clockwise" catalog="system" width="32" height="32"/>
         <image name="chevron.forward" catalog="system" width="97" height="128"/>
         <systemColor name="labelColor">
             <color red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
