@@ -10,7 +10,7 @@ import Pokepedia_iOS_App
 import Pokepedia
 @testable import Pokepedia_iOS
 
-extension PokemonListViewController {
+extension ListViewController {
     func simulateUserInitiatedReload() {
         refreshControl?.simulatePullToRefresh()
     }

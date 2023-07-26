@@ -1,22 +1,21 @@
 //
-//  PokemonListViewController.swift
+//  ListViewController.swift
 //  Pokepedia-iOS
 //
-//  Created by Василий Клецкин on 5/29/23.
+//  Created by Василий Клецкин on 7/26/23.
 //
 
-import UIKit
 import Pokepedia
+import UIKit
 
-public final class PokemonListViewController: UITableViewController, ResourceLoadingView, ResourceErrorView {
-    
+public final class ListViewController: UITableViewController, ResourceLoadingView, ResourceErrorView {
     private var onRefresh: (() -> Void)?
     
     let errorView = ErrorView()
     
-    private lazy var dataSource: UITableViewDiffableDataSource<Int, ListPokemonItemViewController> = {
+    private lazy var dataSource: UITableViewDiffableDataSource<Int, CellController> = {
         .init(tableView: tableView) { (tableView, index, controller) in
-            controller.tableView(tableView, cellForRowAt: index)
+            controller.dataSource.tableView(tableView, cellForRowAt: index)
         }
     }()
     
@@ -54,8 +53,8 @@ public final class PokemonListViewController: UITableViewController, ResourceLoa
         errorView.message = errorViewModel.errorMessage
     }
 
-    public func display(controllers: [ListPokemonItemViewController]) {
-        var snapshot = NSDiffableDataSourceSnapshot<Int, ListPokemonItemViewController>()
+    public func display(controllers: [CellController]) {
+        var snapshot = NSDiffableDataSourceSnapshot<Int, CellController>()
         snapshot.appendSections([0])
         snapshot.appendItems(controllers, toSection: 0)
         dataSource.applySnapshotUsingReloadData(snapshot)

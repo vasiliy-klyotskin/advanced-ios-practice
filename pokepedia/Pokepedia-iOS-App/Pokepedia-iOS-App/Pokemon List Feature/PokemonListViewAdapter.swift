@@ -13,10 +13,10 @@ import Pokepedia_iOS
 final class PokemonListViewAdapter: ResourceView {
     typealias Loader = (URL) -> AnyPublisher<ListPokemonItemImage, Error>
     
-    private weak var controller: PokemonListViewController?
+    private weak var controller: ListViewController?
     private let imageLoader: Loader
     
-    init(controller: PokemonListViewController, imageLoader: @escaping Loader) {
+    init(controller: ListViewController, imageLoader: @escaping Loader) {
         self.controller = controller
         self.imageLoader = imageLoader
     }
@@ -25,9 +25,10 @@ final class PokemonListViewAdapter: ResourceView {
         controller?.display(controllers: list.map(itemController))
     }
     
-    private func itemController(for item: PokemonListItem) -> ListPokemonItemViewController {
-        ListPokemonItemUIComposer.compose(item: item) { [imageLoader] in
+    private func itemController(for item: PokemonListItem) -> CellController {
+        let controller = ListPokemonItemUIComposer.compose(item: item) { [imageLoader] in
             imageLoader(item.imageUrl)
         }
+        return CellController(id: item, controller)
     }
 }

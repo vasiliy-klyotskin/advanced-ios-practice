@@ -9,7 +9,7 @@ import Foundation
 
 public typealias PokemonList = [PokemonListItem]
 
-public struct PokemonListItem: Equatable {
+public struct PokemonListItem: Equatable, Hashable {
     public let id: String
     public let name: String
     public let imageUrl: URL
@@ -31,7 +31,7 @@ public struct PokemonListItem: Equatable {
     }
 }
 
-public struct PokemonListItemType: Equatable {
+public struct PokemonListItemType: Equatable, Hashable {
     public let color: String
     public let name: String
     

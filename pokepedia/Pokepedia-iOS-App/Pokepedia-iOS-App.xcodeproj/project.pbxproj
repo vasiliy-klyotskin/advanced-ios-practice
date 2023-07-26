@@ -215,6 +215,7 @@
 				D65A2E132A2342D000C9168F /* PokemonListUIIntegrationTests.swift */,
 				D66787CB2A29CA1500F8CC3C /* PokemonListUIIntegrationTests+Assertions.swift */,
 				D6CBFCFD2A27813F00CE40C7 /* PokemonListUIIntegrationTests+DSL.swift */,
+				D64F14192A5F190A00F88826 /* PokemonListMockLoader.swift */,
 			);
 			path = PokemonListUIIntegrationTests;
 			sourceTree = "<group>";
@@ -263,7 +264,6 @@
 				D64F14002A5F0AA600F88826 /* XCTestCase+Snapshot.swift */,
 				D64F13FE2A5F0A9B00F88826 /* UIViewController+Snapshot.swift */,
 				D69DE81B2A40DDE600F4A121 /* UIImage+Creation.swift */,
-				D64F14192A5F190A00F88826 /* PokemonListMockLoader.swift */,
 			);
 			path = Helpers;
 			sourceTree = "<group>";

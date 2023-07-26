@@ -17,9 +17,9 @@ public enum PokemonListUIComposer {
     public static func compose(
         loader: @escaping () -> AnyPublisher<PokemonList, Error>,
         imageLoader: @escaping (URL) -> AnyPublisher<ListPokemonItemImage, Error>
-    ) -> PokemonListViewController {
+    ) -> ListViewController {
         let loadingAdapter = PresentationAdapter(loader: loader)
-        let controller = PokemonListViewController(onRefresh: loadingAdapter.load)
+        let controller = ListViewController(onRefresh: loadingAdapter.load)
         let presenter = Presetner(
             view: PokemonListViewAdapter(controller: controller, imageLoader: imageLoader),
             loadingView: WeakProxy(controller),

@@ -17,9 +17,10 @@
 		D66787D12A29E8CC00F8CC3C /* ListPokemonItemViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D66787D02A29E8CC00F8CC3C /* ListPokemonItemViewController.swift */; };
 		D66787D52A29E95300F8CC3C /* ListPokemonItemCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D66787D42A29E95300F8CC3C /* ListPokemonItemCell.swift */; };
 		D66787D72A29E96400F8CC3C /* ErrorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D66787D62A29E96400F8CC3C /* ErrorView.swift */; };
+		D6A29CB12A71897C000E74AD /* CellController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6A29CB02A71897C000E74AD /* CellController.swift */; };
+		D6A29CB32A71A124000E74AD /* ListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6A29CB22A71A123000E74AD /* ListViewController.swift */; };
 		D6CBFD012A278B6600CE40C7 /* Pokepedia.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D6CBFD002A278B6600CE40C7 /* Pokepedia.framework */; };
 		D6CBFD022A278B6600CE40C7 /* Pokepedia.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = D6CBFD002A278B6600CE40C7 /* Pokepedia.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		D6E445622A25CE4800E388A7 /* PokemonListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6E445612A25CE4800E388A7 /* PokemonListViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -47,9 +48,10 @@
 		D66787D02A29E8CC00F8CC3C /* ListPokemonItemViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListPokemonItemViewController.swift; sourceTree = "<group>"; };
 		D66787D42A29E95300F8CC3C /* ListPokemonItemCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListPokemonItemCell.swift; sourceTree = "<group>"; };
 		D66787D62A29E96400F8CC3C /* ErrorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ErrorView.swift; sourceTree = "<group>"; };
+		D6A29CB02A71897C000E74AD /* CellController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CellController.swift; sourceTree = "<group>"; };
+		D6A29CB22A71A123000E74AD /* ListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListViewController.swift; sourceTree = "<group>"; };
 		D6CBFD002A278B6600CE40C7 /* Pokepedia.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = Pokepedia.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		D6E4454F2A25CD5C00E388A7 /* Pokepedia_iOS.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pokepedia_iOS.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		D6E445612A25CE4800E388A7 /* PokemonListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PokemonListViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -67,6 +69,7 @@
 		D64F14122A5F15A200F88826 /* Shared UI */ = {
 			isa = PBXGroup;
 			children = (
+				D6A29CAF2A718971000E74AD /* Controllers */,
 				D64F14142A5F15F900F88826 /* Helpers */,
 				D64F14132A5F15AF00F88826 /* Views */,
 			);
@@ -98,7 +101,6 @@
 			isa = PBXGroup;
 			children = (
 				D66787D02A29E8CC00F8CC3C /* ListPokemonItemViewController.swift */,
-				D6E445612A25CE4800E388A7 /* PokemonListViewController.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -110,6 +112,15 @@
 				D604FBE22A62613B007BAF00 /* ListPokemonItemCell.xib */,
 			);
 			path = Views;
+			sourceTree = "<group>";
+		};
+		D6A29CAF2A718971000E74AD /* Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				D6A29CB02A71897C000E74AD /* CellController.swift */,
+				D6A29CB22A71A123000E74AD /* ListViewController.swift */,
+			);
+			path = Controllers;
 			sourceTree = "<group>";
 		};
 		D6CBFCFF2A278B6600CE40C7 /* Frameworks */ = {
@@ -246,11 +257,12 @@
 			files = (
 				D604FBEC2A626FC4007BAF00 /* NSObject+Nib.swift in Sources */,
 				D64F14182A5F169800F88826 /* UITableView+HeaderSizing.swift in Sources */,
+				D6A29CB32A71A124000E74AD /* ListViewController.swift in Sources */,
 				D64F14162A5F160500F88826 /* UIView+Container.swift in Sources */,
-				D6E445622A25CE4800E388A7 /* PokemonListViewController.swift in Sources */,
 				D60E15AE2A63D39500F21958 /* UIColor+Creation.swift in Sources */,
 				D60E15B02A63D44000F21958 /* UIFont+Creation.swift in Sources */,
 				D66787D52A29E95300F8CC3C /* ListPokemonItemCell.swift in Sources */,
+				D6A29CB12A71897C000E74AD /* CellController.swift in Sources */,
 				D66787D12A29E8CC00F8CC3C /* ListPokemonItemViewController.swift in Sources */,
 				D66787D72A29E96400F8CC3C /* ErrorView.swift in Sources */,
 				D604FBEE2A6273D4007BAF00 /* UIView+Constraints.swift in Sources */,

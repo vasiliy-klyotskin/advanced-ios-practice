@@ -11,7 +11,7 @@ import Pokepedia
 
 extension PokemonListUIIntegrationTests {
     func assertThat(
-        _ sut: PokemonListViewController,
+        _ sut: ListViewController,
         isRendering list: PokemonList,
         file: StaticString = #filePath,
         line: UInt = #line
@@ -26,7 +26,7 @@ extension PokemonListUIIntegrationTests {
     }
     
     func assertThat(
-        _ sut: PokemonListViewController,
+        _ sut: ListViewController,
         hasViewConfiguredFor item: PokemonListItem,
         at index: Int,
         file: StaticString = #filePath,

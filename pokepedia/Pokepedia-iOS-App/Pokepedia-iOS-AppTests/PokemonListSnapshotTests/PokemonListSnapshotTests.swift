@@ -48,8 +48,8 @@ final class PokemonListSnapshotTests: XCTestCase {
     private func makeSut(
         file: StaticString = #filePath,
         line: UInt = #line
-    ) -> PokemonListViewController {
-        let sut = PokemonListViewController(onRefresh: {})
+    ) -> ListViewController {
+        let sut = ListViewController(onRefresh: {})
         sut.loadViewIfNeeded()
         sut.tableView.showsVerticalScrollIndicator = false
         sut.tableView.showsHorizontalScrollIndicator = false
@@ -98,7 +98,7 @@ final class PokemonListSnapshotTests: XCTestCase {
     }
 }
 
-private extension PokemonListViewController {
+private extension ListViewController {
     func display(_ stubs: [PokemonListItemStub]) {
         let controllers = stubs.map { stub in
             let controller = ListPokemonItemViewController(
@@ -106,7 +106,7 @@ private extension PokemonListViewController {
                 onImageRequest: stub.didRequestImage
             )
             stub.controller = controller
-            return controller
+            return CellController(id: UUID(), controller)
         }
         
         display(controllers: controllers)

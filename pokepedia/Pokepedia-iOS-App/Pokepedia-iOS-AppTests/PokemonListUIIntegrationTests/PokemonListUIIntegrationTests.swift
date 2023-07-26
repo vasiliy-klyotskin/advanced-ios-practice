@@ -229,7 +229,7 @@ final class PokemonListUIIntegrationTests: XCTestCase {
         return (loader, view0, view1)
     }
     
-    private func makeSut(file: StaticString = #filePath, line: UInt = #line) -> (PokemonListViewController, PokemonListMockLoader) {
+    private func makeSut(file: StaticString = #filePath, line: UInt = #line) -> (ListViewController, PokemonListMockLoader) {
         let loader = PokemonListMockLoader()
         let sut = PokemonListUIComposer.compose(
             loader: loader.load,
