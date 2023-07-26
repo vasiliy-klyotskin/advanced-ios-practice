@@ -41,6 +41,8 @@
 		D6A4C8F62A2129AB0065ECF4 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D6A4C8F42A2129AB0065ECF4 /* LaunchScreen.storyboard */; };
 		D6B958E42A2A21CF0050DCB9 /* ListPokemonItemUIComposer.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6B958E32A2A21CF0050DCB9 /* ListPokemonItemUIComposer.swift */; };
 		D6BF59572A71A767008175E5 /* PokemonDetailUIComposer.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6BF59562A71A767008175E5 /* PokemonDetailUIComposer.swift */; };
+		D6BF59592A71AA67008175E5 /* ListViewController+DSL.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6BF59582A71AA67008175E5 /* ListViewController+DSL.swift */; };
+		D6BF595B2A71AACF008175E5 /* PokemonDetailMockLoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6BF595A2A71AACF008175E5 /* PokemonDetailMockLoader.swift */; };
 		D6CBFCFE2A27813F00CE40C7 /* PokemonListUIIntegrationTests+DSL.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6CBFCFD2A27813F00CE40C7 /* PokemonListUIIntegrationTests+DSL.swift */; };
 		D6E445432A25CBEA00E388A7 /* XCTestCase+MemoryLeakTracking.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6E445422A25CBEA00E388A7 /* XCTestCase+MemoryLeakTracking.swift */; };
 		D6E445642A25CE8700E388A7 /* Pokepedia_iOS.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D6E445632A25CE8700E388A7 /* Pokepedia_iOS.framework */; };
@@ -112,6 +114,8 @@
 		D6A4C8F72A2129AB0065ECF4 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		D6B958E32A2A21CF0050DCB9 /* ListPokemonItemUIComposer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListPokemonItemUIComposer.swift; sourceTree = "<group>"; };
 		D6BF59562A71A767008175E5 /* PokemonDetailUIComposer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PokemonDetailUIComposer.swift; sourceTree = "<group>"; };
+		D6BF59582A71AA67008175E5 /* ListViewController+DSL.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ListViewController+DSL.swift"; sourceTree = "<group>"; };
+		D6BF595A2A71AACF008175E5 /* PokemonDetailMockLoader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PokemonDetailMockLoader.swift; sourceTree = "<group>"; };
 		D6CBFCFD2A27813F00CE40C7 /* PokemonListUIIntegrationTests+DSL.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "PokemonListUIIntegrationTests+DSL.swift"; sourceTree = "<group>"; };
 		D6E445422A25CBEA00E388A7 /* XCTestCase+MemoryLeakTracking.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "XCTestCase+MemoryLeakTracking.swift"; sourceTree = "<group>"; };
 		D6E445632A25CE8700E388A7 /* Pokepedia_iOS.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = Pokepedia_iOS.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -195,6 +199,7 @@
 			isa = PBXGroup;
 			children = (
 				D652296D2A70607100C81F05 /* PokemonDetailUIIntegrationTests.swift */,
+				D6BF595A2A71AACF008175E5 /* PokemonDetailMockLoader.swift */,
 			);
 			path = PokemonDetailUIIntegrationTests;
 			sourceTree = "<group>";
@@ -275,6 +280,7 @@
 				D64F14002A5F0AA600F88826 /* XCTestCase+Snapshot.swift */,
 				D64F13FE2A5F0A9B00F88826 /* UIViewController+Snapshot.swift */,
 				D69DE81B2A40DDE600F4A121 /* UIImage+Creation.swift */,
+				D6BF59582A71AA67008175E5 /* ListViewController+DSL.swift */,
 			);
 			path = Helpers;
 			sourceTree = "<group>";
@@ -419,7 +425,9 @@
 				D6E445432A25CBEA00E388A7 /* XCTestCase+MemoryLeakTracking.swift in Sources */,
 				D66787CC2A29CA1500F8CC3C /* PokemonListUIIntegrationTests+Assertions.swift in Sources */,
 				D62EF3A12A595C5300CE968B /* PokemonListCacheIntegrationTests.swift in Sources */,
+				D6BF595B2A71AACF008175E5 /* PokemonDetailMockLoader.swift in Sources */,
 				D64F14042A5F0C6000F88826 /* PokemonListSnapshotTests.swift in Sources */,
+				D6BF59592A71AA67008175E5 /* ListViewController+DSL.swift in Sources */,
 				D69DE81C2A40DDE600F4A121 /* UIImage+Creation.swift in Sources */,
 				D6EC8BAF2A264997004A525E /* SharedTestHelpers.swift in Sources */,
 			);

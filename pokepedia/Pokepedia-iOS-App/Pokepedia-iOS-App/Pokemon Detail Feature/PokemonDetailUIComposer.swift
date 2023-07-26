@@ -21,7 +21,7 @@ public enum PokemonDetailUIComposer {
         let controller = ListViewController(onRefresh: loadingAdapter.load)
         let presenter = Presetner(
             view: DummyView(),
-            loadingView: DummyView(),
+            loadingView: WeakProxy(controller),
             errorView: DummyView()
         )
         loadingAdapter.presenter = presenter

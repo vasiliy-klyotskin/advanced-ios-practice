@@ -5,39 +5,8 @@
 //  Created by Василий Клецкин on 5/31/23.
 //
 
-import UIKit
-import Pokepedia_iOS_App
-import Pokepedia
+import Foundation
 @testable import Pokepedia_iOS
-
-extension ListViewController {
-    func simulateUserInitiatedReload() {
-        refreshControl?.simulatePullToRefresh()
-    }
-    
-    @discardableResult
-    func simulateFeedImageViewVisible(at index: Int) -> ListPokemonItemCell? {
-        pokemonItemView(at: index) as? ListPokemonItemCell
-    }
-    
-    var isShowingLoadingIndicator: Bool {
-        refreshControl?.isRefreshing == true
-    }
-    
-    var errorMessage: String? {
-        return errorView.message
-    }
-    
-    func numberOfRenderedListPokemons() -> Int {
-        tableView.dataSource?.tableView(tableView, numberOfRowsInSection: sectionNumber) ?? -1
-    }
-    
-    func pokemonItemView(at index: Int) -> UIView? {
-        tableView.dataSource?.tableView(tableView, cellForRowAt: .init(row: index, section: sectionNumber))
-    }
-    
-    var sectionNumber: Int { 0 }
-}
 
 extension ListPokemonItemCell {
     var specialTypeNameText: String? {

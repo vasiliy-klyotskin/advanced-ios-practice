@@ -4,7 +4,6 @@ import UIKit
 import Pokepedia_iOS_App
 import Pokepedia_iOS
 import Pokepedia
-import Combine
 
 final class PokemonDetailUIIntegrationTests: XCTestCase {
     // MARK: - Pokemon List
@@ -35,22 +34,22 @@ final class PokemonDetailUIIntegrationTests: XCTestCase {
         sut.simulateUserInitiatedReload()
         XCTAssertEqual(loader.loadDetailCallCount, 3, "Expected yet another loading request once user initiates another reload")
     }
-//
-//    func test_loadingListIndicator_isVisibleWhileLoadingList() {
-//        let (sut, loader) = makeSut()
-//
-//        sut.loadViewIfNeeded()
-//        XCTAssertTrue(sut.isShowingLoadingIndicator, "Expected loading indicator once view is loaded")
-//
-//        loader.completeListLoading(at: 0)
-//        XCTAssertFalse(sut.isShowingLoadingIndicator, "Expected no loading indicator once loading completes successfully")
-//
-//        sut.simulateUserInitiatedReload()
-//        XCTAssertTrue(sut.isShowingLoadingIndicator, "Expected loading indicator once user initiates a reload")
-//
-//        loader.completeListLoadingWithError(at: 1)
-//        XCTAssertFalse(sut.isShowingLoadingIndicator, "Expected no loading indicator once user initiated loading completes with error")
-//    }
+
+    func test_loadingDetailIndicator_isVisibleWhileLoadingDetail() {
+        let (sut, loader) = makeSut()
+
+        sut.loadViewIfNeeded()
+        XCTAssertTrue(sut.isShowingLoadingIndicator, "Expected loading indicator once view is loaded")
+
+        loader.completeDetailLoading(with: makeDetailPokemon(), at: 0)
+        XCTAssertFalse(sut.isShowingLoadingIndicator, "Expected no loading indicator once loading completes successfully")
+
+        sut.simulateUserInitiatedReload()
+        XCTAssertTrue(sut.isShowingLoadingIndicator, "Expected loading indicator once user initiates a reload")
+
+        loader.completeDetailLoadingWithError(at: 1)
+        XCTAssertFalse(sut.isShowingLoadingIndicator, "Expected no loading indicator once user initiated loading completes with error")
+    }
 //
 //    func test_loadListCompletion_rendersErrorMessageOnErrorUntilNextReload() {
 //        let (sut, loader) = makeSut()
@@ -255,6 +254,7 @@ final class PokemonDetailUIIntegrationTests: XCTestCase {
             loader: loader.load
         )
         trackForMemoryLeaks(sut, file: file, line: line)
+        trackForMemoryLeaks(loader, file: file, line: line)
         return (sut, loader)
     }
     
@@ -274,43 +274,3 @@ final class PokemonDetailUIIntegrationTests: XCTestCase {
 //private struct DummyView: ResourceView {
 //    func display(viewModel: Any) {}
 //}
-
-final class PokemonDetailMockLoader {
-    var loadDetailCallCount: Int { detailRequests.count }
-    var detailRequests = [PassthroughSubject<DetailPokemon, Error>]()
-    
-//    var imageUrls = [URL]()
-//    var imageRequests = [PassthroughSubject<ListPokemonItemImage, Error>]()
-    
-    func load() -> AnyPublisher<DetailPokemon, Error> {
-        let request = PassthroughSubject<DetailPokemon, Error>()
-        detailRequests.append(request)
-        return request.eraseToAnyPublisher()
-    }
-    
-    func completeDetailLoading(with list: DetailPokemon, at index: Int) {
-        detailRequests[index].send(list)
-        detailRequests[index].send(completion: .finished)
-    }
-    
-    func completeDetailLoadingWithError(at index: Int) {
-        detailRequests[index].send(completion: .failure(anyNSError()))
-    }
-    
-//    func loadImage(for url: URL) -> AnyPublisher<ListPokemonItemImage, Error> {
-//        let request = PassthroughSubject<ListPokemonItemImage, Error>()
-//        imageUrls.append(url)
-//        imageRequests.append(request)
-//        return request.eraseToAnyPublisher()
-//    }
-    
-//    func completeImageLoading(with image: ListPokemonItemImage? = nil, at index: Int) {
-//        let defaultImage = UIImage.make(withColor: .blue).pngData()!
-//        imageRequests[index].send(image ?? defaultImage)
-//        imageRequests[index].send(completion: .finished)
-//    }
-    
-//    func completeImageLoadingWithError(at index: Int) {
-//        imageRequests[index].send(completion: .failure(anyNSError()))
-//    }
-}
