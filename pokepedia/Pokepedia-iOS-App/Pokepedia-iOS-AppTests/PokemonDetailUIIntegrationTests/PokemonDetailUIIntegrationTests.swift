@@ -6,14 +6,6 @@ import Pokepedia_iOS
 import Pokepedia
 import Combine
 
-enum PokemonDetailUIComposer {
-    static func compose(title: String) -> UIViewController {
-        let vc = UIViewController()
-        vc.title = title
-        return vc
-    }
-}
-
 final class PokemonDetailUIIntegrationTests: XCTestCase {
     // MARK: - Pokemon List
     
@@ -25,24 +17,24 @@ final class PokemonDetailUIIntegrationTests: XCTestCase {
         XCTAssertEqual(sut.title, pokemonDetailTitle)
     }
     
-//    func test_loadListActions_requestListFromLoader() {
-//        let (sut, loader) = makeSut()
-//        XCTAssertEqual(loader.loadListCallCount, 0, "Expected no loading requests before view is loaded")
-//
-//        sut.loadViewIfNeeded()
-//        XCTAssertEqual(loader.loadListCallCount, 1, "Expected a loading request once view is loaded")
-//
-//        sut.simulateUserInitiatedReload()
-//        XCTAssertEqual(loader.loadListCallCount, 1, "Expected no request until previous completes")
-//
-//        loader.completeListLoading(at: 0)
-//        sut.simulateUserInitiatedReload()
-//        XCTAssertEqual(loader.loadListCallCount, 2, "Expected another loading request once user initiates a reload")
-//
-//        loader.completeListLoading(at: 1)
-//        sut.simulateUserInitiatedReload()
-//        XCTAssertEqual(loader.loadListCallCount, 3, "Expected yet another loading request once user initiates another reload")
-//    }
+    func test_loadDetailActions_requestDetailFromLoader() {
+        let (sut, loader) = makeSut()
+        XCTAssertEqual(loader.loadDetailCallCount, 0, "Expected no loading requests before view is loaded")
+
+        sut.loadViewIfNeeded()
+        XCTAssertEqual(loader.loadDetailCallCount, 1, "Expected a loading request once view is loaded")
+
+        sut.simulateUserInitiatedReload()
+        XCTAssertEqual(loader.loadDetailCallCount, 1, "Expected no request until previous completes")
+
+        loader.completeDetailLoadingWithError(at: 0)
+        sut.simulateUserInitiatedReload()
+        XCTAssertEqual(loader.loadDetailCallCount, 2, "Expected another loading request once user initiates a reload")
+
+        loader.completeDetailLoadingWithError(at: 1)
+        sut.simulateUserInitiatedReload()
+        XCTAssertEqual(loader.loadDetailCallCount, 3, "Expected yet another loading request once user initiates another reload")
+    }
 //
 //    func test_loadingListIndicator_isVisibleWhileLoadingList() {
 //        let (sut, loader) = makeSut()
@@ -231,13 +223,39 @@ final class PokemonDetailUIIntegrationTests: XCTestCase {
 //        return (loader, view0, view1)
 //    }
     
+    private func makeDetailPokemon() -> DetailPokemon {
+        .init(
+            info: .init(
+                imageUrl: anyURL(),
+                id: anyId(),
+                name: anyName(),
+                genus: anyId(),
+                flavorText: anyId()
+            ),
+            abilities: [
+                .init(
+                    title: anyId(),
+                    subtitle: anyId(),
+                    damageClass: anyId(),
+                    damageClassColor: anyId(),
+                    type: anyId(),
+                    typeColor: anyId()
+                )
+            ]
+        )
+    }
+    
     private func makeSut(
         file: StaticString = #filePath,
         line: UInt = #line
-    ) -> (UIViewController, Any?) {
-        let sut = PokemonDetailUIComposer.compose(title: pokemonDetailTitle)
+    ) -> (ListViewController, PokemonDetailMockLoader) {
+        let loader = PokemonDetailMockLoader()
+        let sut = PokemonDetailUIComposer.compose(
+            title: pokemonDetailTitle,
+            loader: loader.load
+        )
         trackForMemoryLeaks(sut, file: file, line: line)
-        return (sut, nil)
+        return (sut, loader)
     }
     
     private var pokemonDetailTitle: String {
@@ -256,3 +274,43 @@ final class PokemonDetailUIIntegrationTests: XCTestCase {
 //private struct DummyView: ResourceView {
 //    func display(viewModel: Any) {}
 //}
+
+final class PokemonDetailMockLoader {
+    var loadDetailCallCount: Int { detailRequests.count }
+    var detailRequests = [PassthroughSubject<DetailPokemon, Error>]()
+    
+//    var imageUrls = [URL]()
+//    var imageRequests = [PassthroughSubject<ListPokemonItemImage, Error>]()
+    
+    func load() -> AnyPublisher<DetailPokemon, Error> {
+        let request = PassthroughSubject<DetailPokemon, Error>()
+        detailRequests.append(request)
+        return request.eraseToAnyPublisher()
+    }
+    
+    func completeDetailLoading(with list: DetailPokemon, at index: Int) {
+        detailRequests[index].send(list)
+        detailRequests[index].send(completion: .finished)
+    }
+    
+    func completeDetailLoadingWithError(at index: Int) {
+        detailRequests[index].send(completion: .failure(anyNSError()))
+    }
+    
+//    func loadImage(for url: URL) -> AnyPublisher<ListPokemonItemImage, Error> {
+//        let request = PassthroughSubject<ListPokemonItemImage, Error>()
+//        imageUrls.append(url)
+//        imageRequests.append(request)
+//        return request.eraseToAnyPublisher()
+//    }
+    
+//    func completeImageLoading(with image: ListPokemonItemImage? = nil, at index: Int) {
+//        let defaultImage = UIImage.make(withColor: .blue).pngData()!
+//        imageRequests[index].send(image ?? defaultImage)
+//        imageRequests[index].send(completion: .finished)
+//    }
+    
+//    func completeImageLoadingWithError(at index: Int) {
+//        imageRequests[index].send(completion: .failure(anyNSError()))
+//    }
+}
