@@ -50,22 +50,22 @@ final class PokemonDetailUIIntegrationTests: XCTestCase {
         loader.completeDetailLoadingWithError(at: 1)
         XCTAssertFalse(sut.isShowingLoadingIndicator, "Expected no loading indicator once user initiated loading completes with error")
     }
-//
-//    func test_loadListCompletion_rendersErrorMessageOnErrorUntilNextReload() {
-//        let (sut, loader) = makeSut()
-//
-//        sut.loadViewIfNeeded()
-//        XCTAssertEqual(sut.errorMessage, nil, "Expected no error message once view is loaded")
-//
-//        loader.completeListLoadingWithError(at: 0)
-//        XCTAssertEqual(sut.errorMessage, loadError, "Expected error message once loading completes with error first time")
-//
-//        sut.simulateUserInitiatedReload()
-//        XCTAssertEqual(sut.errorMessage, nil, "Expected no error message after user initiated reloading")
-//
-//        loader.completeListLoadingWithError(at: 1)
-//        XCTAssertEqual(sut.errorMessage, loadError, "Expected error message once loading completes with error second time")
-//    }
+
+    func test_loadDetailCompletion_rendersErrorMessageOnErrorUntilNextReload() {
+        let (sut, loader) = makeSut()
+
+        sut.loadViewIfNeeded()
+        XCTAssertEqual(sut.errorMessage, nil, "Expected no error message once view is loaded")
+
+        loader.completeDetailLoadingWithError(at: 0)
+        XCTAssertEqual(sut.errorMessage, loadError, "Expected error message once loading completes with error first time")
+
+        sut.simulateUserInitiatedReload()
+        XCTAssertEqual(sut.errorMessage, nil, "Expected no error message after user initiated reloading")
+
+        loader.completeDetailLoadingWithError(at: 1)
+        XCTAssertEqual(sut.errorMessage, loadError, "Expected error message once loading completes with error second time")
+    }
 //
 //    func test_loadListCompletion_rendersSuccessfullyLoadedList() {
 //        let pokemon0 = makeListPokemon(specialType: nil)
@@ -262,15 +262,15 @@ final class PokemonDetailUIIntegrationTests: XCTestCase {
         "Pickachu"
     }
     
-//    private var loadError: String {
-//        LoadingResourcePresenter<Any, DummyView>.loadError
-//    }
+    private var loadError: String {
+        LoadingResourcePresenter<Any, DummyView>.loadError
+    }
 //
 //    private func makeImage() -> UIImage {
 //        UIImage.make(withColor: .blue)
 //    }
 }
 
-//private struct DummyView: ResourceView {
-//    func display(viewModel: Any) {}
-//}
+private struct DummyView: ResourceView {
+    func display(viewModel: Any) {}
+}
