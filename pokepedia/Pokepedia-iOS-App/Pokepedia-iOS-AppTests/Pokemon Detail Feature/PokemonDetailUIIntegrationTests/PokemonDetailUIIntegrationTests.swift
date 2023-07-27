@@ -86,18 +86,18 @@ final class PokemonDetailUIIntegrationTests: XCTestCase {
         loader.completeDetailLoading(with: pokemon1, at: 2)
         assertThat(sut, isRendering: pokemon1)
     }
-//
-//    func test_loadListCompletion_dispatchesFromBackgroundToMainThread() {
-//        let (sut, loader) = makeSut()
-//        sut.loadViewIfNeeded()
-//
-//        let exp = expectation(description: "Wait for background queue")
-//        DispatchQueue.global().async {
-//            loader.completeListLoading(at: 0)
-//            exp.fulfill()
-//        }
-//        wait(for: [exp], timeout: 1.0)
-//    }
+
+    func test_loadListCompletion_dispatchesFromBackgroundToMainThread() {
+        let (sut, loader) = makeSut()
+        sut.loadViewIfNeeded()
+
+        let exp = expectation(description: "Wait for background queue")
+        DispatchQueue.global().async {
+            loader.completeDetailLoading(with: self.makeDetailPokemon(), at: 0)
+            exp.fulfill()
+        }
+        wait(for: [exp], timeout: 1.0)
+    }
 //
 //    // MARK: - Pokemon Item
 //
