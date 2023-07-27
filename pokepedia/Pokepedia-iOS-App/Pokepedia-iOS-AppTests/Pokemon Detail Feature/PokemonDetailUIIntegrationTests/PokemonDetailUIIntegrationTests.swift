@@ -135,25 +135,25 @@ final class PokemonDetailUIIntegrationTests: XCTestCase {
         loader.completeImageLoading(at: 1)
         XCTAssertEqual(view?.isLoading, false, "Expected no loading indicator for the view once image loading is completed successfully")
     }
-//
-//    func test_pokemonImageReloadControl_isVisibleWhenImageLoadingFailed() {
-//        let (loader, view0, view1) = setupForShownItems()
-//
-//        XCTAssertEqual(view0?.isReloadControlShown, false, "Expected no reload control for first view while loading first image")
-//        XCTAssertEqual(view1?.isReloadControlShown, false, "Expected no reload control for second view while loading second image")
-//
-//        loader.completeImageLoadingWithError(at: 0)
-//        XCTAssertEqual(view0?.isReloadControlShown, true, "Expected reload control for first view once first image loading completes with error")
-//        XCTAssertEqual(view1?.isReloadControlShown, false, "Expected no reload control indicator for second view once first image loading completes with error")
-//
-//        loader.completeImageLoading(at: 1)
-//        XCTAssertEqual(view0?.isReloadControlShown, true, "Expected reload control for first view once second image loading completes with success")
-//        XCTAssertEqual(view1?.isReloadControlShown, false, "Expected no reload control indicator for second view once second image loading completes with success")
-//
-//        view0?.simulateReload()
-//        XCTAssertEqual(view0?.isReloadControlShown, false, "Expected no reload control for first view once first view reloaded")
-//        XCTAssertEqual(view1?.isReloadControlShown, false, "Expected no reload control for second view once first view reloaded")
-//    }
+
+    func test_pokemonDetailInfoImageReloadControl_isVisibleWhenImageLoadingIsFailed() {
+        let pokemon = makeDetailPokemon()
+        let (sut, loader) = makeSut()
+        sut.loadViewIfNeeded()
+        loader.completeDetailLoading(with: pokemon, at: 0)
+
+        let view = sut.simulatePokemonDetailInfoViewVisible()
+        XCTAssertEqual(view?.isReloadControlShown, false, "Expected no reload control for the view while loading an image")
+
+        loader.completeImageLoadingWithError(at: 0)
+        XCTAssertEqual(view?.isReloadControlShown, true, "Expected reload control for the view once an image loading completes with error")
+
+        view?.simulateReload()
+        XCTAssertEqual(view?.isReloadControlShown, false, "Expected no reload control for the view while the view is being reloaded")
+        
+        loader.completeImageLoading(at: 1)
+        XCTAssertEqual(view?.isReloadControlShown, false, "Expected no reload control for the view once first image loading completes with success")
+    }
 //
 //    func test_pokemonImageView_imageVisibility() {
 //        let (loader, view0, view1) = setupForShownItems()
@@ -195,18 +195,6 @@ final class PokemonDetailUIIntegrationTests: XCTestCase {
 //    }
     
     // MARK: - Helpers
-    
-//    private func setupForShownItems(file: StaticString = #filePath, line: UInt = #line) -> (PokemonListMockLoader, ListPokemonItemCell?, ListPokemonItemCell?) {
-//        let pokemon0 = makeListPokemon()
-//        let pokemon1 = makeListPokemon()
-//        let (sut, loader) = makeSut(file: file, line: line)
-//
-//        sut.loadViewIfNeeded()
-//        loader.completeListLoading(with: [pokemon0, pokemon1], at: 0)
-//        let view0 = sut.simulateFeedImageViewVisible(at: 0)
-//        let view1 = sut.simulateFeedImageViewVisible(at: 1)
-//        return (loader, view0, view1)
-//    }
     
     private func makeDetailPokemon() -> DetailPokemon {
         .init(
@@ -256,8 +244,10 @@ final class PokemonDetailUIIntegrationTests: XCTestCase {
 //    private func makeImage() -> UIImage {
 //        UIImage.make(withColor: .blue)
 //    }
+    
+    private struct DummyView: ResourceView {
+        func display(viewModel: Any) {}
+    }
 }
 
-private struct DummyView: ResourceView {
-    func display(viewModel: Any) {}
-}
+
