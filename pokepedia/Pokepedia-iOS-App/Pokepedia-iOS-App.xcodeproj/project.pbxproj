@@ -215,10 +215,8 @@
 		D65A2E122A2342D000C9168F /* Pokepedia-iOS-AppTests */ = {
 			isa = PBXGroup;
 			children = (
-				D652296C2A70603B00C81F05 /* PokemonDetailUIIntegrationTests */,
-				D64F14022A5F0C3800F88826 /* PokemonListSnapshotTests */,
-				D66787CD2A29CA2800F8CC3C /* PokemonListUIIntegrationTests */,
-				D62EF39F2A595C2900CE968B /* PokemonListCacheIntegrationTests */,
+				D6BF596D2A72277B008175E5 /* Pokemon Detail Feature */,
+				D6BF596E2A722789008175E5 /* Pokemon List Feature */,
 				D6E445442A25CBEF00E388A7 /* Helpers */,
 			);
 			path = "Pokepedia-iOS-AppTests";
@@ -279,6 +277,24 @@
 				D6BF596B2A72264C008175E5 /* PokemonDetailViewAdapter.swift */,
 			);
 			path = "Pokemon Detail Feature";
+			sourceTree = "<group>";
+		};
+		D6BF596D2A72277B008175E5 /* Pokemon Detail Feature */ = {
+			isa = PBXGroup;
+			children = (
+				D652296C2A70603B00C81F05 /* PokemonDetailUIIntegrationTests */,
+			);
+			path = "Pokemon Detail Feature";
+			sourceTree = "<group>";
+		};
+		D6BF596E2A722789008175E5 /* Pokemon List Feature */ = {
+			isa = PBXGroup;
+			children = (
+				D64F14022A5F0C3800F88826 /* PokemonListSnapshotTests */,
+				D66787CD2A29CA2800F8CC3C /* PokemonListUIIntegrationTests */,
+				D62EF39F2A595C2900CE968B /* PokemonListCacheIntegrationTests */,
+			);
+			path = "Pokemon List Feature";
 			sourceTree = "<group>";
 		};
 		D6E445442A25CBEF00E388A7 /* Helpers */ = {
