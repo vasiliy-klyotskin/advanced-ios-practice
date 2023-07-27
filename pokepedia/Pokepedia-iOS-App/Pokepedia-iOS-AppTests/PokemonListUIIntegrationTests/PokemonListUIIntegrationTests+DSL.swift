@@ -5,7 +5,7 @@
 //  Created by Василий Клецкин on 5/31/23.
 //
 
-import Foundation
+import UIKit
 @testable import Pokepedia_iOS
 
 extension ListPokemonItemCell {
@@ -42,4 +42,16 @@ extension ListPokemonItemCell {
         // TODO: Tests crushes when I call this method although there are not troubles in setting selector to the button. Fix it
         // reloadButton.simulate(event: .touchUpInside)
     }
+}
+
+extension ListViewController {
+    func numberOfRenderedListPokemons() -> Int {
+        tableView.dataSource?.tableView(tableView, numberOfRowsInSection: pokemonListSectionNumber) ?? -1
+    }
+    
+    func listPokemonItemView(at index: Int) -> UIView? {
+        tableView.dataSource?.tableView(tableView, cellForRowAt: .init(row: index, section: pokemonListSectionNumber))
+    }
+    
+    var pokemonListSectionNumber: Int { 0 }
 }

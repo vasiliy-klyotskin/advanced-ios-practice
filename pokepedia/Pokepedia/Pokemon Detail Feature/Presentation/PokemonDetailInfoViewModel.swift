@@ -7,26 +7,26 @@
 
 import Foundation
 
-public struct DetailPokemonViewModel<Color: Equatable>: Equatable {
-    let info: DetailPokemonInfoViewModel
-    let abilities: DetailPokemonAbilitiesViewModel<Color>
+public struct DetailPokemonViewModel<Color: Equatable & Hashable>: Equatable, Hashable {
+    public let info: DetailPokemonInfoViewModel
+    public let abilities: DetailPokemonAbilitiesViewModel<Color>
 }
 
-public struct DetailPokemonInfoViewModel: Equatable {
-    let imageUrl: URL
-    let id: String
-    let name: String
-    let genus: String
-    let flavorText: String
+public struct DetailPokemonInfoViewModel: Equatable, Hashable {
+    public let imageUrl: URL
+    public let id: String
+    public let name: String
+    public let genus: String
+    public let flavorText: String
 }
 
-public typealias DetailPokemonAbilitiesViewModel<Color: Equatable> = [DetailPokemonAbilityViewModel<Color>]
+public typealias DetailPokemonAbilitiesViewModel<Color: Equatable & Hashable> = [DetailPokemonAbilityViewModel<Color>]
 
-public struct DetailPokemonAbilityViewModel<Color: Equatable>: Equatable {
-    let title: String
-    let subtitle: String
-    let damageClass: String
-    let damageClassColor: Color
-    let type: String
-    let typeColor: Color
+public struct DetailPokemonAbilityViewModel<Color: Equatable & Hashable>: Equatable, Hashable {
+    public let title: String
+    public let subtitle: String
+    public let damageClass: String
+    public let damageClassColor: Color
+    public let type: String
+    public let typeColor: Color
 }

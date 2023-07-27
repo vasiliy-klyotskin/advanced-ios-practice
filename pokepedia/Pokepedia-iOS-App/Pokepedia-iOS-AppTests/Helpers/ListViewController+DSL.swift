@@ -15,7 +15,7 @@ extension ListViewController {
     
     @discardableResult
     func simulateFeedImageViewVisible(at index: Int) -> ListPokemonItemCell? {
-        pokemonItemView(at: index) as? ListPokemonItemCell
+        listPokemonItemView(at: index) as? ListPokemonItemCell
     }
     
     var isShowingLoadingIndicator: Bool {
@@ -25,14 +25,4 @@ extension ListViewController {
     var errorMessage: String? {
         return errorView.message
     }
-    
-    func numberOfRenderedListPokemons() -> Int {
-        tableView.dataSource?.tableView(tableView, numberOfRowsInSection: sectionNumber) ?? -1
-    }
-    
-    func pokemonItemView(at index: Int) -> UIView? {
-        tableView.dataSource?.tableView(tableView, cellForRowAt: .init(row: index, section: sectionNumber))
-    }
-    
-    var sectionNumber: Int { 0 }
 }

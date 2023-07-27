@@ -19,7 +19,6 @@ extension PokemonListUIIntegrationTests {
         guard sut.numberOfRenderedListPokemons() == list.count else {
             return XCTFail("Expected \(list.count) items, got \(sut.numberOfRenderedListPokemons()) instead.", file: file, line: line)
         }
-        
         list.enumerated().forEach { index, image in
             assertThat(sut, hasViewConfiguredFor: image, at: index, file: file, line: line)
         }
@@ -32,12 +31,10 @@ extension PokemonListUIIntegrationTests {
         file: StaticString = #filePath,
         line: UInt = #line
     ) {
-        let view = sut.pokemonItemView(at: index)
-        
+        let view = sut.listPokemonItemView(at: index)
         guard let cell = view as? ListPokemonItemCell else {
             return XCTFail("Expected \(ListPokemonItemCell.self) instance, got \(String(describing: view)) instead", file: file, line: line)
         }
-        
         XCTAssertEqual(
             cell.specialTypeNameText,
             item.specialType?.name,

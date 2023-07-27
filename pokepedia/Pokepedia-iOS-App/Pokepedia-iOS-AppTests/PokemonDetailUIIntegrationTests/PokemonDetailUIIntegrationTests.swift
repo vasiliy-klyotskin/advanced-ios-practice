@@ -66,26 +66,26 @@ final class PokemonDetailUIIntegrationTests: XCTestCase {
         loader.completeDetailLoadingWithError(at: 1)
         XCTAssertEqual(sut.errorMessage, loadError, "Expected error message once loading completes with error second time")
     }
-//
-//    func test_loadListCompletion_rendersSuccessfullyLoadedList() {
-//        let pokemon0 = makeListPokemon(specialType: nil)
-//        let pokemon1 = makeListPokemon(specialType: itemType())
-//        let (sut, loader) = makeSut()
-//
-//        sut.loadViewIfNeeded()
-//        assertThat(sut, isRendering: [])
-//
-//        loader.completeListLoading(with: [pokemon0, pokemon1], at: 0)
-//        assertThat(sut, isRendering: [pokemon0, pokemon1])
-//
-//        sut.simulateUserInitiatedReload()
-//        loader.completeListLoadingWithError(at: 1)
-//        assertThat(sut, isRendering: [pokemon0, pokemon1])
-//
-//        sut.simulateUserInitiatedReload()
-//        loader.completeListLoading(with: [pokemon0], at: 2)
-//        assertThat(sut, isRendering: [pokemon0])
-//    }
+
+    func test_loadDetailCompletion_rendersSuccessfullyLoadedDetail() {
+        let pokemon0 = makeDetailPokemon()
+        let pokemon1 = makeDetailPokemon()
+        let (sut, loader) = makeSut()
+
+        sut.loadViewIfNeeded()
+        assertThat(sut, isRendering: nil)
+
+        loader.completeDetailLoading(with: pokemon0, at: 0)
+        assertThat(sut, isRendering: pokemon0)
+
+        sut.simulateUserInitiatedReload()
+        loader.completeDetailLoadingWithError(at: 1)
+        assertThat(sut, isRendering: pokemon0)
+
+        sut.simulateUserInitiatedReload()
+        loader.completeDetailLoading(with: pokemon1, at: 2)
+        assertThat(sut, isRendering: pokemon1)
+    }
 //
 //    func test_loadListCompletion_dispatchesFromBackgroundToMainThread() {
 //        let (sut, loader) = makeSut()
