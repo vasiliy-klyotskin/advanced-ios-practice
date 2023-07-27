@@ -154,33 +154,33 @@ final class PokemonDetailUIIntegrationTests: XCTestCase {
         loader.completeImageLoading(at: 1)
         XCTAssertEqual(view?.isReloadControlShown, false, "Expected no reload control for the view once first image loading completes with success")
     }
-//
-//    func test_pokemonImageView_imageVisibility() {
-//        let (loader, view0, view1) = setupForShownItems()
-//        XCTAssertEqual(view0?.renderedImage, nil, "Expected no rendered image for first view initially")
-//        XCTAssertEqual(view1?.renderedImage, nil, "Expected no rendered image for second view initially")
-//
-//        loader.completeImageLoadingWithError(at: 0)
-//        XCTAssertEqual(view0?.renderedImage, nil, "Expected no rendered image for first view when first image loading failed")
-//        XCTAssertEqual(view1?.renderedImage, nil, "Expected no rendered image for second view when first image loading failed")
-//
-//        let invalidImage = Data("ivalid data".utf8)
-//        loader.completeImageLoading(with: invalidImage, at: 1)
-//        XCTAssertEqual(view0?.renderedImage, nil, "Expected no rendered image for first view when second invalid image loaded")
-//        XCTAssertEqual(view1?.renderedImage, nil, "Expected no rendered image for second view when second invalid image loaded")
-//
-//        view0?.simulateReload()
-//        let image0 = makeImage().pngData()
-//        loader.completeImageLoading(with: image0, at: 2)
-//        XCTAssertEqual(view0?.renderedImage, image0, "Expected rendered image for first view when first image reloaded")
-//        XCTAssertEqual(view1?.renderedImage, nil, "Expected no rendered image for second view when first image reloaded")
-//
-//        view1?.simulateReload()
-//        let image1 = makeImage().pngData()
-//        loader.completeImageLoading(with: image1, at: 3)
-//        XCTAssertEqual(view0?.renderedImage, image0, "Expected rendered image for first view when second valid image loaded")
-//        XCTAssertEqual(view1?.renderedImage, image1, "Expected rendered image for second view when second valid image loaded")
-//    }
+
+    func test_pokemonDetailImageView_imageVisibility() {
+        let pokemon = makeDetailPokemon()
+        let (sut, loader) = makeSut()
+        sut.loadViewIfNeeded()
+        loader.completeDetailLoading(with: pokemon, at: 0)
+        
+        let view = sut.simulatePokemonDetailInfoViewVisible()
+        XCTAssertEqual(view?.renderedImage, nil, "Expected no rendered image for the view initially")
+
+        loader.completeImageLoadingWithError(at: 0)
+        XCTAssertEqual(view?.renderedImage, nil, "Expected no rendered image for the view when an image loading is failed")
+
+        view?.simulateReload()
+        XCTAssertEqual(view?.renderedImage, nil, "Expected no rendered image for the view when an image loading is reloaded")
+        
+        let invalidImage = Data("ivalid data".utf8)
+        loader.completeImageLoading(with: invalidImage, at: 1)
+        XCTAssertEqual(view?.renderedImage, nil, "Expected no rendered image for the view when an invalid image is loaded")
+
+        view?.simulateReload()
+        XCTAssertEqual(view?.renderedImage, nil, "Expected no rendered image for the view when an image loading is reloaded")
+        
+        let image = makeImage().pngData()
+        loader.completeImageLoading(with: image, at: 2)
+        XCTAssertEqual(view?.renderedImage, image, "Expected a rendered image for the view when the image is loaded successfuly")
+    }
 //
 //    func test_loadImageCompletion_dispatchesFromBackgroundToMainThread() {
 //        let (loader, _, _) = setupForShownItems()
@@ -240,14 +240,12 @@ final class PokemonDetailUIIntegrationTests: XCTestCase {
     private var loadError: String {
         LoadingResourcePresenter<Any, DummyView>.loadError
     }
-//
-//    private func makeImage() -> UIImage {
-//        UIImage.make(withColor: .blue)
-//    }
+
+    private func makeImage() -> UIImage {
+        UIImage.make(withColor: .blue)
+    }
     
     private struct DummyView: ResourceView {
         func display(viewModel: Any) {}
     }
 }
-
-

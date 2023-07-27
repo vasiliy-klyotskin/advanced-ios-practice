@@ -33,6 +33,10 @@ extension DetailPokemonInfoCell {
         !reloadButton.isHidden
     }
     
+    var renderedImage: Data? {
+        pokemonImageView.image?.pngData()
+    }
+    
     func simulateReload() {
         onReload()
         // TODO: Tests crushes when I call this method although there are not troubles in setting selector to the button. Fix it

@@ -15,6 +15,7 @@ public final class DetailPokemonInfoCell: UITableViewCell {
     let flavorLabel = UILabel()
     let activityIndicator = UIActivityIndicatorView()
     let reloadButton = UIButton()
+    let pokemonImageView = UIImageView()
     
     var onReload: () -> Void = {}
     
@@ -38,7 +39,7 @@ public final class DetailPokemonInfoCell: UITableViewCell {
     }
     
     func display(image: UIImage) {
-//        pokemonIconView.image = image
-//        pokemonIconView.isHidden = false
+        pokemonImageView.image = image
+        pokemonImageView.isHidden = false
     }
 }
