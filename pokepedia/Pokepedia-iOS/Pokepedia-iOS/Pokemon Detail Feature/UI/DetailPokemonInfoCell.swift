@@ -13,6 +13,7 @@ public final class DetailPokemonInfoCell: UITableViewCell {
     let nameLabel = UILabel()
     let genusLabel = UILabel()
     let flavorLabel = UILabel()
+    let activityIndicator = UIActivityIndicatorView()
     
     var onReload: () -> Void = {}
     
@@ -24,12 +25,11 @@ public final class DetailPokemonInfoCell: UITableViewCell {
     }
     
     func display(isLoading: Bool) {
-//        if isLoading {
-//            activityIndicator.startAnimating()
-//        } else {
-//            activityIndicator.stopAnimating()
-//        }
-//        activityIndicatorContainer.isHidden = !isLoading
+        if isLoading {
+            activityIndicator.startAnimating()
+        } else {
+            activityIndicator.stopAnimating()
+        }
     }
     
     func display(reload: Bool) {

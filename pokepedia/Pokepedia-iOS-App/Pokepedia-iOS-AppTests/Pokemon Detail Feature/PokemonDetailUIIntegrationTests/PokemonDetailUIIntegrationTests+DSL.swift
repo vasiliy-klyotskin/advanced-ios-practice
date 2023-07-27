@@ -25,6 +25,10 @@ extension DetailPokemonInfoCell {
         flavorLabel.text
     }
     
+    var isLoading: Bool {
+        activityIndicator.isAnimating
+    }
+    
     func simulateReload() {
         onReload()
         // TODO: Tests crushes when I call this method although there are not troubles in setting selector to the button. Fix it

@@ -116,31 +116,25 @@ final class PokemonDetailUIIntegrationTests: XCTestCase {
         view?.simulateReload()
         XCTAssertEqual(loader.imageUrls, [pokemon.info.imageUrl, pokemon.info.imageUrl], "Expected an image URL request once image is reloaded")
     }
-//
-//    func test_pokemonItemViewLoadingIndicator_isVisibleWhileLoadingImage() {
-//        let pokemon0 = makeListPokemon()
-//        let pokemon1 = makeListPokemon()
-//        let (sut, loader) = makeSut()
-//        sut.loadViewIfNeeded()
-//        loader.completeListLoading(with: [pokemon0, pokemon1], at: 0)
-//
-//        let view0 = sut.simulateFeedImageViewVisible(at: 0)
-//        let view1 = sut.simulateFeedImageViewVisible(at: 1)
-//        XCTAssertEqual(view0?.isLoading, true, "Expected loading indicator for first view while loading first image")
-//        XCTAssertEqual(view1?.isLoading, true, "Expected loading indicator for second view while loading second image")
-//
-//        loader.completeImageLoading(at: 0)
-//        XCTAssertEqual(view0?.isLoading, false, "Expected no loading indicator for first view once first image loading completes successfully")
-//        XCTAssertEqual(view1?.isLoading, true, "Expected no loading indicator for second view once first image loading completes successfully")
-//
-//        loader.completeImageLoadingWithError(at: 1)
-//        XCTAssertEqual(view0?.isLoading, false, "Expected no loading indicator state change for first view once second image loading completes with error")
-//        XCTAssertEqual(view1?.isLoading, false, "Expected loading indicator state change for second view on retry action")
-//
-//        view0?.simulateReload()
-//        XCTAssertEqual(view0?.isLoading, true, "Expected loading indicator state change for first view once first image reloaded")
-//        XCTAssertEqual(view1?.isLoading, false, "Expected loading indicator state change for second view once first image reloaded")
-//    }
+
+    func test_pokemonInfoViewImageLoadingIndicator_isVisibleWhileLoadingImage() {
+        let pokemon = makeDetailPokemon()
+        let (sut, loader) = makeSut()
+        sut.loadViewIfNeeded()
+        loader.completeDetailLoading(with: pokemon, at: 0)
+
+        let view = sut.simulatePokemonDetailInfoViewVisible()
+        XCTAssertEqual(view?.isLoading, true, "Expected loading indicator for the view while loading an image")
+
+        loader.completeImageLoadingWithError(at: 0)
+        XCTAssertEqual(view?.isLoading, false, "Expected no loading indicator for the view once image loading is completed with error")
+
+        view?.simulateReload()
+        XCTAssertEqual(view?.isLoading, true, "Expected loading indicator for the view once image is reloaded")
+        
+        loader.completeImageLoading(at: 1)
+        XCTAssertEqual(view?.isLoading, false, "Expected no loading indicator for the view once image loading is completed successfully")
+    }
 //
 //    func test_pokemonImageReloadControl_isVisibleWhenImageLoadingFailed() {
 //        let (loader, view0, view1) = setupForShownItems()
