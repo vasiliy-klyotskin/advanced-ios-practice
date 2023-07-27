@@ -1,0 +1,24 @@
+{
+  "configurations" : [
+    {
+      "id" : "B6A1A8D9-F0B9-4754-B0DB-6D59D7FF9116",
+      "name" : "Configuration 1",
+      "options" : {
+
+      }
+    }
+  ],
+  "defaultOptions" : {
+
+  },
+  "testTargets" : [
+    {
+      "target" : {
+        "containerPath" : "container:..\/Pokepedia-iOS\/Pokepedia-iOS.xcodeproj",
+        "identifier" : "D6C8D7942A72D86C000C79CF",
+        "name" : "Pokepedia_iOSTests"
+      }
+    }
+  ],
+  "version" : 1
+}

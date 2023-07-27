@@ -28,6 +28,13 @@
         "identifier" : "F7FC0DAB2A0FC5A6009FD50B",
         "name" : "PokepediaTests"
       }
+    },
+    {
+      "target" : {
+        "containerPath" : "container:..\/Pokepedia-iOS\/Pokepedia-iOS.xcodeproj",
+        "identifier" : "D6C8D7942A72D86C000C79CF",
+        "name" : "Pokepedia_iOSTests"
+      }
     }
   ],
   "version" : 1

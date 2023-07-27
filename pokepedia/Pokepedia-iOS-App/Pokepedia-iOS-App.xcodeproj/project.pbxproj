@@ -13,15 +13,6 @@
 		D6360FE22A234ABA00A28F11 /* Pokepedia.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D6360FE12A234ABA00A28F11 /* Pokepedia.framework */; };
 		D6360FE32A234ABA00A28F11 /* Pokepedia.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = D6360FE12A234ABA00A28F11 /* Pokepedia.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		D6360FE92A234C1200A28F11 /* PokemonListUIComposer.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6360FE82A234C1200A28F11 /* PokemonListUIComposer.swift */; };
-		D64F13FF2A5F0A9B00F88826 /* UIViewController+Snapshot.swift in Sources */ = {isa = PBXBuildFile; fileRef = D64F13FE2A5F0A9B00F88826 /* UIViewController+Snapshot.swift */; };
-		D64F14012A5F0AA600F88826 /* XCTestCase+Snapshot.swift in Sources */ = {isa = PBXBuildFile; fileRef = D64F14002A5F0AA600F88826 /* XCTestCase+Snapshot.swift */; };
-		D64F14042A5F0C6000F88826 /* PokemonListSnapshotTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D64F14032A5F0C6000F88826 /* PokemonListSnapshotTests.swift */; };
-		D64F14092A5F132700F88826 /* POKEMON_LIST_LOADING_light_extraExtraExtraLarge.png in Resources */ = {isa = PBXBuildFile; fileRef = D64F14062A5F132700F88826 /* POKEMON_LIST_LOADING_light_extraExtraExtraLarge.png */; };
-		D64F140A2A5F132700F88826 /* POKEMON_LIST_LOADING_dark.png in Resources */ = {isa = PBXBuildFile; fileRef = D64F14072A5F132700F88826 /* POKEMON_LIST_LOADING_dark.png */; };
-		D64F140B2A5F132700F88826 /* POKEMON_LIST_LOADING_light.png in Resources */ = {isa = PBXBuildFile; fileRef = D64F14082A5F132700F88826 /* POKEMON_LIST_LOADING_light.png */; };
-		D64F140F2A5F13CD00F88826 /* POKEMON_LIST_ERROR_dark.png in Resources */ = {isa = PBXBuildFile; fileRef = D64F140C2A5F13CD00F88826 /* POKEMON_LIST_ERROR_dark.png */; };
-		D64F14102A5F13CD00F88826 /* POKEMON_LIST_ERROR_light_extraExtraExtraLarge.png in Resources */ = {isa = PBXBuildFile; fileRef = D64F140D2A5F13CD00F88826 /* POKEMON_LIST_ERROR_light_extraExtraExtraLarge.png */; };
-		D64F14112A5F13CD00F88826 /* POKEMON_LIST_ERROR_light.png in Resources */ = {isa = PBXBuildFile; fileRef = D64F140E2A5F13CD00F88826 /* POKEMON_LIST_ERROR_light.png */; };
 		D64F141A2A5F190A00F88826 /* PokemonListMockLoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = D64F14192A5F190A00F88826 /* PokemonListMockLoader.swift */; };
 		D652296E2A70607100C81F05 /* PokemonDetailUIIntegrationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D652296D2A70607100C81F05 /* PokemonDetailUIIntegrationTests.swift */; };
 		D65A2E142A2342D000C9168F /* PokemonListUIIntegrationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D65A2E132A2342D000C9168F /* PokemonListUIIntegrationTests.swift */; };
@@ -29,10 +20,6 @@
 		D66787D92A29F4F900F8CC3C /* CombineHelpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = D66787D82A29F4F900F8CC3C /* CombineHelpers.swift */; };
 		D66787DD2A2A0F6900F8CC3C /* ResourceLoadingAdapter.swift in Sources */ = {isa = PBXBuildFile; fileRef = D66787DC2A2A0F6900F8CC3C /* ResourceLoadingAdapter.swift */; };
 		D66787DF2A2A0FC100F8CC3C /* PokemonListViewAdapter.swift in Sources */ = {isa = PBXBuildFile; fileRef = D66787DE2A2A0FC100F8CC3C /* PokemonListViewAdapter.swift */; };
-		D686058B2A658250001714F5 /* POKEMON_LIST_SUCCESS_light.png in Resources */ = {isa = PBXBuildFile; fileRef = D68605882A658250001714F5 /* POKEMON_LIST_SUCCESS_light.png */; };
-		D686058C2A658250001714F5 /* POKEMON_LIST_SUCCESS_dark.png in Resources */ = {isa = PBXBuildFile; fileRef = D68605892A658250001714F5 /* POKEMON_LIST_SUCCESS_dark.png */; };
-		D686058D2A658250001714F5 /* POKEMON_LIST_SUCCESS_light_extraExtraExtraLarge.png in Resources */ = {isa = PBXBuildFile; fileRef = D686058A2A658250001714F5 /* POKEMON_LIST_SUCCESS_light_extraExtraExtraLarge.png */; };
-		D69DE81C2A40DDE600F4A121 /* UIImage+Creation.swift in Sources */ = {isa = PBXBuildFile; fileRef = D69DE81B2A40DDE600F4A121 /* UIImage+Creation.swift */; };
 		D6A4C8EA2A2129AB0065ECF4 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6A4C8E92A2129AB0065ECF4 /* AppDelegate.swift */; };
 		D6A4C8EC2A2129AB0065ECF4 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6A4C8EB2A2129AB0065ECF4 /* SceneDelegate.swift */; };
 		D6A4C8EE2A2129AB0065ECF4 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6A4C8ED2A2129AB0065ECF4 /* ViewController.swift */; };
@@ -47,7 +34,7 @@
 		D6BF595F2A71AE64008175E5 /* PokemonDetailUIIntegrationTests+DSL.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6BF595E2A71AE64008175E5 /* PokemonDetailUIIntegrationTests+DSL.swift */; };
 		D6BF596C2A72264C008175E5 /* PokemonDetailViewAdapter.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6BF596B2A72264C008175E5 /* PokemonDetailViewAdapter.swift */; };
 		D6BF59722A722CE8008175E5 /* PokemonDetailInfoUIComposer.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6BF59712A722CE8008175E5 /* PokemonDetailInfoUIComposer.swift */; };
-		D6C8D73A2A72D26B000C79CF /* PokemonDetailSnapshotTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6C8D7392A72D26B000C79CF /* PokemonDetailSnapshotTests.swift */; };
+		D6C8D7BB2A72DB19000C79CF /* UIImage+Creation.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6C8D7BA2A72DB19000C79CF /* UIImage+Creation.swift */; };
 		D6CBFCFE2A27813F00CE40C7 /* PokemonListUIIntegrationTests+DSL.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6CBFCFD2A27813F00CE40C7 /* PokemonListUIIntegrationTests+DSL.swift */; };
 		D6E445432A25CBEA00E388A7 /* XCTestCase+MemoryLeakTracking.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6E445422A25CBEA00E388A7 /* XCTestCase+MemoryLeakTracking.swift */; };
 		D6E445642A25CE8700E388A7 /* Pokepedia_iOS.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D6E445632A25CE8700E388A7 /* Pokepedia_iOS.framework */; };
@@ -88,15 +75,6 @@
 		D6360FDF2A23434B00A28F11 /* Pokepedia-iOS-App-TP.xctestplan */ = {isa = PBXFileReference; lastKnownFileType = text; name = "Pokepedia-iOS-App-TP.xctestplan"; path = "../Pokepedia-iOS-App-TP.xctestplan"; sourceTree = "<group>"; };
 		D6360FE12A234ABA00A28F11 /* Pokepedia.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = Pokepedia.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		D6360FE82A234C1200A28F11 /* PokemonListUIComposer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PokemonListUIComposer.swift; sourceTree = "<group>"; };
-		D64F13FE2A5F0A9B00F88826 /* UIViewController+Snapshot.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIViewController+Snapshot.swift"; sourceTree = "<group>"; };
-		D64F14002A5F0AA600F88826 /* XCTestCase+Snapshot.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "XCTestCase+Snapshot.swift"; sourceTree = "<group>"; };
-		D64F14032A5F0C6000F88826 /* PokemonListSnapshotTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PokemonListSnapshotTests.swift; sourceTree = "<group>"; };
-		D64F14062A5F132700F88826 /* POKEMON_LIST_LOADING_light_extraExtraExtraLarge.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = POKEMON_LIST_LOADING_light_extraExtraExtraLarge.png; sourceTree = "<group>"; };
-		D64F14072A5F132700F88826 /* POKEMON_LIST_LOADING_dark.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = POKEMON_LIST_LOADING_dark.png; sourceTree = "<group>"; };
-		D64F14082A5F132700F88826 /* POKEMON_LIST_LOADING_light.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = POKEMON_LIST_LOADING_light.png; sourceTree = "<group>"; };
-		D64F140C2A5F13CD00F88826 /* POKEMON_LIST_ERROR_dark.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = POKEMON_LIST_ERROR_dark.png; sourceTree = "<group>"; };
-		D64F140D2A5F13CD00F88826 /* POKEMON_LIST_ERROR_light_extraExtraExtraLarge.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = POKEMON_LIST_ERROR_light_extraExtraExtraLarge.png; sourceTree = "<group>"; };
-		D64F140E2A5F13CD00F88826 /* POKEMON_LIST_ERROR_light.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = POKEMON_LIST_ERROR_light.png; sourceTree = "<group>"; };
 		D64F14192A5F190A00F88826 /* PokemonListMockLoader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PokemonListMockLoader.swift; sourceTree = "<group>"; };
 		D652296D2A70607100C81F05 /* PokemonDetailUIIntegrationTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PokemonDetailUIIntegrationTests.swift; sourceTree = "<group>"; };
 		D65A2E112A2342D000C9168F /* Pokepedia-iOS-AppTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Pokepedia-iOS-AppTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -105,10 +83,6 @@
 		D66787D82A29F4F900F8CC3C /* CombineHelpers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CombineHelpers.swift; sourceTree = "<group>"; };
 		D66787DC2A2A0F6900F8CC3C /* ResourceLoadingAdapter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResourceLoadingAdapter.swift; sourceTree = "<group>"; };
 		D66787DE2A2A0FC100F8CC3C /* PokemonListViewAdapter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PokemonListViewAdapter.swift; sourceTree = "<group>"; };
-		D68605882A658250001714F5 /* POKEMON_LIST_SUCCESS_light.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = POKEMON_LIST_SUCCESS_light.png; sourceTree = "<group>"; };
-		D68605892A658250001714F5 /* POKEMON_LIST_SUCCESS_dark.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = POKEMON_LIST_SUCCESS_dark.png; sourceTree = "<group>"; };
-		D686058A2A658250001714F5 /* POKEMON_LIST_SUCCESS_light_extraExtraExtraLarge.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = POKEMON_LIST_SUCCESS_light_extraExtraExtraLarge.png; sourceTree = "<group>"; };
-		D69DE81B2A40DDE600F4A121 /* UIImage+Creation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImage+Creation.swift"; sourceTree = "<group>"; };
 		D6A4C8E62A2129AB0065ECF4 /* Pokepedia-iOS-App.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Pokepedia-iOS-App.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		D6A4C8E92A2129AB0065ECF4 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		D6A4C8EB2A2129AB0065ECF4 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -125,7 +99,7 @@
 		D6BF595E2A71AE64008175E5 /* PokemonDetailUIIntegrationTests+DSL.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "PokemonDetailUIIntegrationTests+DSL.swift"; sourceTree = "<group>"; };
 		D6BF596B2A72264C008175E5 /* PokemonDetailViewAdapter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PokemonDetailViewAdapter.swift; sourceTree = "<group>"; };
 		D6BF59712A722CE8008175E5 /* PokemonDetailInfoUIComposer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PokemonDetailInfoUIComposer.swift; sourceTree = "<group>"; };
-		D6C8D7392A72D26B000C79CF /* PokemonDetailSnapshotTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PokemonDetailSnapshotTests.swift; sourceTree = "<group>"; };
+		D6C8D7BA2A72DB19000C79CF /* UIImage+Creation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIImage+Creation.swift"; sourceTree = "<group>"; };
 		D6CBFCFD2A27813F00CE40C7 /* PokemonListUIIntegrationTests+DSL.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "PokemonListUIIntegrationTests+DSL.swift"; sourceTree = "<group>"; };
 		D6E445422A25CBEA00E388A7 /* XCTestCase+MemoryLeakTracking.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "XCTestCase+MemoryLeakTracking.swift"; sourceTree = "<group>"; };
 		D6E445632A25CE8700E388A7 /* Pokepedia_iOS.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = Pokepedia_iOS.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -178,31 +152,6 @@
 				D6360FE12A234ABA00A28F11 /* Pokepedia.framework */,
 			);
 			name = Frameworks;
-			sourceTree = "<group>";
-		};
-		D64F14022A5F0C3800F88826 /* PokemonListSnapshotTests */ = {
-			isa = PBXGroup;
-			children = (
-				D64F14052A5F118700F88826 /* Snapshots */,
-				D64F14032A5F0C6000F88826 /* PokemonListSnapshotTests.swift */,
-			);
-			path = PokemonListSnapshotTests;
-			sourceTree = "<group>";
-		};
-		D64F14052A5F118700F88826 /* Snapshots */ = {
-			isa = PBXGroup;
-			children = (
-				D68605892A658250001714F5 /* POKEMON_LIST_SUCCESS_dark.png */,
-				D686058A2A658250001714F5 /* POKEMON_LIST_SUCCESS_light_extraExtraExtraLarge.png */,
-				D68605882A658250001714F5 /* POKEMON_LIST_SUCCESS_light.png */,
-				D64F140E2A5F13CD00F88826 /* POKEMON_LIST_ERROR_light.png */,
-				D64F140C2A5F13CD00F88826 /* POKEMON_LIST_ERROR_dark.png */,
-				D64F140D2A5F13CD00F88826 /* POKEMON_LIST_ERROR_light_extraExtraExtraLarge.png */,
-				D64F14082A5F132700F88826 /* POKEMON_LIST_LOADING_light.png */,
-				D64F14072A5F132700F88826 /* POKEMON_LIST_LOADING_dark.png */,
-				D64F14062A5F132700F88826 /* POKEMON_LIST_LOADING_light_extraExtraExtraLarge.png */,
-			);
-			path = Snapshots;
 			sourceTree = "<group>";
 		};
 		D652296C2A70603B00C81F05 /* PokemonDetailUIIntegrationTests */ = {
@@ -286,7 +235,6 @@
 		D6BF596D2A72277B008175E5 /* Pokemon Detail Feature */ = {
 			isa = PBXGroup;
 			children = (
-				D6C8D7372A72D245000C79CF /* PokemonDetailSnapshotTests */,
 				D652296C2A70603B00C81F05 /* PokemonDetailUIIntegrationTests */,
 			);
 			path = "Pokemon Detail Feature";
@@ -295,7 +243,6 @@
 		D6BF596E2A722789008175E5 /* Pokemon List Feature */ = {
 			isa = PBXGroup;
 			children = (
-				D64F14022A5F0C3800F88826 /* PokemonListSnapshotTests */,
 				D66787CD2A29CA2800F8CC3C /* PokemonListUIIntegrationTests */,
 				D62EF39F2A595C2900CE968B /* PokemonListCacheIntegrationTests */,
 			);
@@ -311,30 +258,12 @@
 			path = Composers;
 			sourceTree = "<group>";
 		};
-		D6C8D7372A72D245000C79CF /* PokemonDetailSnapshotTests */ = {
-			isa = PBXGroup;
-			children = (
-				D6C8D7382A72D258000C79CF /* Snapshots */,
-				D6C8D7392A72D26B000C79CF /* PokemonDetailSnapshotTests.swift */,
-			);
-			path = PokemonDetailSnapshotTests;
-			sourceTree = "<group>";
-		};
-		D6C8D7382A72D258000C79CF /* Snapshots */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Snapshots;
-			sourceTree = "<group>";
-		};
 		D6E445442A25CBEF00E388A7 /* Helpers */ = {
 			isa = PBXGroup;
 			children = (
+				D6C8D7BA2A72DB19000C79CF /* UIImage+Creation.swift */,
 				D6E445422A25CBEA00E388A7 /* XCTestCase+MemoryLeakTracking.swift */,
 				D6EC8BAE2A264997004A525E /* SharedTestHelpers.swift */,
-				D64F14002A5F0AA600F88826 /* XCTestCase+Snapshot.swift */,
-				D64F13FE2A5F0A9B00F88826 /* UIViewController+Snapshot.swift */,
-				D69DE81B2A40DDE600F4A121 /* UIImage+Creation.swift */,
 				D6BF59582A71AA67008175E5 /* ListViewController+DSL.swift */,
 			);
 			path = Helpers;
@@ -442,15 +371,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				D64F140F2A5F13CD00F88826 /* POKEMON_LIST_ERROR_dark.png in Resources */,
-				D64F140A2A5F132700F88826 /* POKEMON_LIST_LOADING_dark.png in Resources */,
-				D64F14092A5F132700F88826 /* POKEMON_LIST_LOADING_light_extraExtraExtraLarge.png in Resources */,
-				D64F14112A5F13CD00F88826 /* POKEMON_LIST_ERROR_light.png in Resources */,
-				D686058B2A658250001714F5 /* POKEMON_LIST_SUCCESS_light.png in Resources */,
-				D686058C2A658250001714F5 /* POKEMON_LIST_SUCCESS_dark.png in Resources */,
-				D64F14102A5F13CD00F88826 /* POKEMON_LIST_ERROR_light_extraExtraExtraLarge.png in Resources */,
-				D64F140B2A5F132700F88826 /* POKEMON_LIST_LOADING_light.png in Resources */,
-				D686058D2A658250001714F5 /* POKEMON_LIST_SUCCESS_light_extraExtraExtraLarge.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -471,22 +391,18 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				D64F14012A5F0AA600F88826 /* XCTestCase+Snapshot.swift in Sources */,
-				D6C8D73A2A72D26B000C79CF /* PokemonDetailSnapshotTests.swift in Sources */,
 				D652296E2A70607100C81F05 /* PokemonDetailUIIntegrationTests.swift in Sources */,
 				D64F141A2A5F190A00F88826 /* PokemonListMockLoader.swift in Sources */,
 				D6BF595F2A71AE64008175E5 /* PokemonDetailUIIntegrationTests+DSL.swift in Sources */,
 				D6CBFCFE2A27813F00CE40C7 /* PokemonListUIIntegrationTests+DSL.swift in Sources */,
 				D6BF595D2A71ACBB008175E5 /* PokemonDetailUIIntegrationTests+Assertions.swift in Sources */,
 				D65A2E142A2342D000C9168F /* PokemonListUIIntegrationTests.swift in Sources */,
-				D64F13FF2A5F0A9B00F88826 /* UIViewController+Snapshot.swift in Sources */,
+				D6C8D7BB2A72DB19000C79CF /* UIImage+Creation.swift in Sources */,
 				D6E445432A25CBEA00E388A7 /* XCTestCase+MemoryLeakTracking.swift in Sources */,
 				D66787CC2A29CA1500F8CC3C /* PokemonListUIIntegrationTests+Assertions.swift in Sources */,
 				D62EF3A12A595C5300CE968B /* PokemonListCacheIntegrationTests.swift in Sources */,
 				D6BF595B2A71AACF008175E5 /* PokemonDetailMockLoader.swift in Sources */,
-				D64F14042A5F0C6000F88826 /* PokemonListSnapshotTests.swift in Sources */,
 				D6BF59592A71AA67008175E5 /* ListViewController+DSL.swift in Sources */,
-				D69DE81C2A40DDE600F4A121 /* UIImage+Creation.swift in Sources */,
 				D6EC8BAF2A264997004A525E /* SharedTestHelpers.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
