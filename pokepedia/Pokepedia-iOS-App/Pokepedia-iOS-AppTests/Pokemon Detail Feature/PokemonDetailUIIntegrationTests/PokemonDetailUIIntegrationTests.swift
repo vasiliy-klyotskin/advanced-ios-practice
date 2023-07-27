@@ -181,18 +181,23 @@ final class PokemonDetailUIIntegrationTests: XCTestCase {
         loader.completeImageLoading(with: image, at: 2)
         XCTAssertEqual(view?.renderedImage, image, "Expected a rendered image for the view when the image is loaded successfuly")
     }
-//
-//    func test_loadImageCompletion_dispatchesFromBackgroundToMainThread() {
-//        let (loader, _, _) = setupForShownItems()
-//        let image = makeImage().pngData()
-//
-//        let exp = expectation(description: "Wait for background queue")
-//        DispatchQueue.global().async {
-//            loader.completeImageLoading(with: image, at: 0)
-//            exp.fulfill()
-//        }
-//        wait(for: [exp], timeout: 1.0)
-//    }
+
+    func test_loadDetailImageCompletion_dispatchesFromBackgroundToMainThread() {
+        let pokemon = makeDetailPokemon()
+        let (sut, loader) = makeSut()
+        let image = makeImage().pngData()
+        sut.loadViewIfNeeded()
+        loader.completeDetailLoading(with: pokemon, at: 0)
+        
+        _ = sut.simulatePokemonDetailInfoViewVisible()
+
+        let exp = expectation(description: "Wait for background queue")
+        DispatchQueue.global().async {
+            loader.completeImageLoading(with: image, at: 0)
+            exp.fulfill()
+        }
+        wait(for: [exp], timeout: 1.0)
+    }
     
     // MARK: - Helpers
     
