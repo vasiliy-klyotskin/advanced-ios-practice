@@ -13,11 +13,6 @@ extension ListViewController {
         refreshControl?.simulatePullToRefresh()
     }
     
-    @discardableResult
-    func simulateFeedImageViewVisible(at index: Int) -> ListPokemonItemCell? {
-        listPokemonItemView(at: index) as? ListPokemonItemCell
-    }
-    
     var isShowingLoadingIndicator: Bool {
         refreshControl?.isRefreshing == true
     }

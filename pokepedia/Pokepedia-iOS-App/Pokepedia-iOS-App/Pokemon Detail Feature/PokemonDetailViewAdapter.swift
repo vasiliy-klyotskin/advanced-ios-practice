@@ -8,30 +8,35 @@
 import UIKit
 import Pokepedia
 import Pokepedia_iOS
+import Combine
 
 final class PokemonDetailViewAdapter: ResourceView {
     private weak var controller: ListViewController?
+    private let loader: (URL) -> AnyPublisher<DetailPokemonImage, Error>
     
-    init(controller: ListViewController) {
+    init(controller: ListViewController, loader: @escaping (URL) ->  AnyPublisher<DetailPokemonImage, Error>) {
         self.controller = controller
+        self.loader = loader
     }
 
     func display(viewModel detail: DetailPokemon) {
-        let viewModel = DetailPokemonPresenter.map(model: detail, colorMapping: UIColor.fromHex)
-        let infoController = infoController(for: viewModel.info)
-        let abilityControllers = abilityControllers(for: viewModel.abilities)
+        let infoController = infoController(for: detail.info)
+        let abilityControllers = abilityControllers(for: detail.abilities)
         controller?.display(controllers: [infoController] + abilityControllers)
     }
     
-    private func infoController(for viewModel: DetailPokemonInfoViewModel) -> CellController {
-        let infoController = DetailPokemonInfoController(viewModel: viewModel)
-        return CellController(id: viewModel, infoController)
+    private func infoController(for model: DetailPokemonInfo) -> CellController {
+        let controller = PokemonDetailInfoUIComposer.compose(model: model) { [loader] in
+            loader(model.imageUrl)
+        }
+        return CellController(id: model, controller)
     }
     
-    private func abilityControllers(for viewModel: DetailPokemonAbilitiesViewModel<UIColor>) -> [CellController] {
-        viewModel.map { abilityViewModel in
-            let abilityController = DetailPokemonAbilityController(viewModel: abilityViewModel)
-            return CellController(id: abilityViewModel, abilityController)
+    private func abilityControllers(for model: DetailPokemonAbilities) -> [CellController] {
+        let viewModels = DetailPokemonPresenter.mapAbilities(model: model, colorMapping: UIColor.fromHex)
+        return viewModels.map { abilityViewModel in
+            let controller = DetailPokemonAbilityController(viewModel: abilityViewModel)
+            return CellController(id: abilityViewModel, controller)
         }
     }
 }

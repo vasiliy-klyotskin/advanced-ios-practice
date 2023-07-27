@@ -17,7 +17,7 @@ public struct DetailPokemon: Equatable {
     }
 }
 
-public struct DetailPokemonInfo: Equatable {
+public struct DetailPokemonInfo: Equatable, Hashable {
     public let imageUrl: URL
     public let id: String
     public let name: String

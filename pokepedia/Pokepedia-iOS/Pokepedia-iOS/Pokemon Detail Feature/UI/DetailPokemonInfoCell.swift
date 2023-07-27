@@ -14,10 +14,30 @@ public final class DetailPokemonInfoCell: UITableViewCell {
     let genusLabel = UILabel()
     let flavorLabel = UILabel()
     
+    var onReload: () -> Void = {}
+    
     func configure(with viewModel: DetailPokemonInfoViewModel) {
         idLabel.text = viewModel.id
         nameLabel.text = viewModel.name
         genusLabel.text = viewModel.genus
         flavorLabel.text = viewModel.flavorText
+    }
+    
+    func display(isLoading: Bool) {
+//        if isLoading {
+//            activityIndicator.startAnimating()
+//        } else {
+//            activityIndicator.stopAnimating()
+//        }
+//        activityIndicatorContainer.isHidden = !isLoading
+    }
+    
+    func display(reload: Bool) {
+//        reloadButton.isHidden = !reload
+    }
+    
+    func display(image: UIImage) {
+//        pokemonIconView.image = image
+//        pokemonIconView.isHidden = false
     }
 }

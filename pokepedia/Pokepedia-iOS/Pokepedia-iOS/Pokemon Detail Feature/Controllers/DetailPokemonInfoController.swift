@@ -10,16 +10,38 @@ import Pokepedia
 
 public final class DetailPokemonInfoController: NSObject, UITableViewDataSource {
     private let viewModel: DetailPokemonInfoViewModel
+    private let onImageRequest: () -> Void
+    private let cell = DetailPokemonInfoCell()
     
-    public init(viewModel: DetailPokemonInfoViewModel) {
+    public init(viewModel: DetailPokemonInfoViewModel, onImageRequest: @escaping () -> Void) {
         self.viewModel = viewModel
+        self.onImageRequest = onImageRequest
     }
-    
+
     public func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int { 1 }
     
     public func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = DetailPokemonInfoCell()
         cell.configure(with: viewModel)
+        cell.onReload = onImageRequest
+        onImageRequest()
         return cell
+    }
+}
+
+extension DetailPokemonInfoController: ResourceLoadingView {
+    public func display(loadingViewModel: LoadingViewModel) {
+        cell.display(isLoading: loadingViewModel.isLoading)
+    }
+}
+
+extension DetailPokemonInfoController: ResourceErrorView {
+    public func display(errorViewModel: ErrorViewModel) {
+        cell.display(reload: errorViewModel.needToShowError)
+    }
+}
+
+extension DetailPokemonInfoController: ResourceView {
+    public func display(viewModel image: UIImage) {
+        cell.display(image: image)
     }
 }

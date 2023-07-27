@@ -16,12 +16,13 @@ public enum PokemonDetailUIComposer {
     
     public static func compose(
         title: String,
-        loader: @escaping () -> AnyPublisher<DetailPokemon, Error>
+        loader: @escaping () -> AnyPublisher<DetailPokemon, Error>,
+        imageLoader: @escaping (URL) -> AnyPublisher<DetailPokemonImage, Error>
     ) -> ListViewController {
         let loadingAdapter = PresentationAdapter(loader: loader)
         let controller = ListViewController(onRefresh: loadingAdapter.load)
         let presenter = Presetner(
-            view: PokemonDetailViewAdapter(controller: controller),
+            view: PokemonDetailViewAdapter(controller: controller, loader: imageLoader),
             loadingView: WeakProxy(controller),
             errorView: WeakProxy(controller)
         )

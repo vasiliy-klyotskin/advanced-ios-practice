@@ -5,10 +5,10 @@
 //  Created by Василий Клецкин on 5/28/23.
 //
 
-import Pokepedia
-import UIKit
-import Combine
 import Pokepedia_iOS
+import Pokepedia
+import Combine
+import UIKit
 
 public enum PokemonListUIComposer {
     typealias Presetner = LoadingResourcePresenter<PokemonList, PokemonListViewAdapter>

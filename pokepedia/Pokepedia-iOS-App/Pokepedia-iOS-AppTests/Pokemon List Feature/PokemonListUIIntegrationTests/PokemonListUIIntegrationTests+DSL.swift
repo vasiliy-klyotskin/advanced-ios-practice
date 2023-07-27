@@ -49,6 +49,11 @@ extension ListViewController {
         tableView.dataSource?.tableView(tableView, numberOfRowsInSection: pokemonListSectionNumber) ?? -1
     }
     
+    @discardableResult
+    func simulatePokemonListItemViewVisible(at index: Int) -> ListPokemonItemCell? {
+        listPokemonItemView(at: index) as? ListPokemonItemCell
+    }
+    
     func listPokemonItemView(at index: Int) -> UIView? {
         tableView.dataSource?.tableView(tableView, cellForRowAt: .init(row: index, section: pokemonListSectionNumber))
     }

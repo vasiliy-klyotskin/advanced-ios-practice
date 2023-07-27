@@ -5,13 +5,13 @@
 //  Created by Василий Клецкин on 6/2/23.
 //
 
-import Pokepedia
-import UIKit
-import Combine
 import Pokepedia_iOS
+import Pokepedia
+import Combine
+import UIKit
 
 enum ListPokemonItemUIComposer {
-    typealias Presetner = LoadingResourcePresenter<Data, WeakProxy<ListPokemonItemViewController>>
+    typealias Presenter = LoadingResourcePresenter<ListPokemonItemImage, WeakProxy<ListPokemonItemViewController>>
     typealias PresentationAdapter = ResourceLoadingPresentationAdapter<ListPokemonItemImage, WeakProxy<ListPokemonItemViewController>>
     
     static func compose(
@@ -27,7 +27,7 @@ enum ListPokemonItemUIComposer {
             viewModel: viewModel,
             onImageRequest: loadingAdapter.load
         )
-        let presenter = Presetner(
+        let presenter = Presenter(
             view: WeakProxy(controller),
             errorView: WeakProxy(controller),
             loadingView: WeakProxy(controller),
@@ -35,17 +35,5 @@ enum ListPokemonItemUIComposer {
         )
         loadingAdapter.presenter = presenter
         return controller
-    }
-}
-
-private struct InvalidDataError: Error {}
-
-extension UIImage {
-    static func tryFrom(data: Data) throws -> UIImage {
-        if let image = UIImage(data: data) {
-            return image
-        } else {
-            throw InvalidDataError()
-        }
     }
 }

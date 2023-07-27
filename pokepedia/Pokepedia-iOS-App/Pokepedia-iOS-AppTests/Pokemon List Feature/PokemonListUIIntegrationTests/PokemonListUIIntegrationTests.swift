@@ -117,10 +117,10 @@ final class PokemonListUIIntegrationTests: XCTestCase {
         
         XCTAssertEqual(loader.imageUrls, [], "Expected no image URL requests until views become visible")
         
-        let view0 = sut.simulateFeedImageViewVisible(at: 0)
+        let view0 = sut.simulatePokemonListItemViewVisible(at: 0)
         XCTAssertEqual(loader.imageUrls, [pokemon0.imageUrl], "Expected first image URL request once first view becomes visible")
         
-        let view1 = sut.simulateFeedImageViewVisible(at: 1)
+        let view1 = sut.simulatePokemonListItemViewVisible(at: 1)
         XCTAssertEqual(loader.imageUrls, [pokemon0.imageUrl, pokemon1.imageUrl], "Expected second image URL request once second view also becomes visible")
         
         loader.completeImageLoadingWithError(at: 0)
@@ -139,8 +139,8 @@ final class PokemonListUIIntegrationTests: XCTestCase {
         sut.loadViewIfNeeded()
         loader.completeListLoading(with: [pokemon0, pokemon1], at: 0)
         
-        let view0 = sut.simulateFeedImageViewVisible(at: 0)
-        let view1 = sut.simulateFeedImageViewVisible(at: 1)
+        let view0 = sut.simulatePokemonListItemViewVisible(at: 0)
+        let view1 = sut.simulatePokemonListItemViewVisible(at: 1)
         XCTAssertEqual(view0?.isLoading, true, "Expected loading indicator for first view while loading first image")
         XCTAssertEqual(view1?.isLoading, true, "Expected loading indicator for second view while loading second image")
         
@@ -224,8 +224,8 @@ final class PokemonListUIIntegrationTests: XCTestCase {
         
         sut.loadViewIfNeeded()
         loader.completeListLoading(with: [pokemon0, pokemon1], at: 0)
-        let view0 = sut.simulateFeedImageViewVisible(at: 0)
-        let view1 = sut.simulateFeedImageViewVisible(at: 1)
+        let view0 = sut.simulatePokemonListItemViewVisible(at: 0)
+        let view1 = sut.simulatePokemonListItemViewVisible(at: 1)
         return (loader, view0, view1)
     }
     

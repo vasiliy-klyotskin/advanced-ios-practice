@@ -24,6 +24,12 @@ extension DetailPokemonInfoCell {
     var flavorText: String? {
         flavorLabel.text
     }
+    
+    func simulateReload() {
+        onReload()
+        // TODO: Tests crushes when I call this method although there are not troubles in setting selector to the button. Fix it
+        // reloadButton.simulate(event: .touchUpInside)
+    }
 }
 
 extension DetailPokemonAbilityCell {
@@ -59,6 +65,11 @@ extension ListViewController {
         } else {
             return 0
         }
+    }
+    
+    @discardableResult
+    func simulatePokemonDetailInfoViewVisible() -> DetailPokemonInfoCell? {
+        listPokemonItemView(at: 0) as? DetailPokemonInfoCell
     }
     
     var detailSectionNumber: Int { 0 }

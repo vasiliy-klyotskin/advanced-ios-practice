@@ -7,12 +7,7 @@
 
 import Foundation
 
-public struct DetailPokemonViewModel<Color: Equatable & Hashable>: Equatable, Hashable {
-    public let info: DetailPokemonInfoViewModel
-    public let abilities: DetailPokemonAbilitiesViewModel<Color>
-}
-
-public struct DetailPokemonInfoViewModel: Equatable, Hashable {
+public struct DetailPokemonInfoViewModel: Equatable {
     public let imageUrl: URL
     public let id: String
     public let name: String

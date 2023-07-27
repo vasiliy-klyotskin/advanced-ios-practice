@@ -98,32 +98,24 @@ final class PokemonDetailUIIntegrationTests: XCTestCase {
         }
         wait(for: [exp], timeout: 1.0)
     }
-//
-//    // MARK: - Pokemon Item
-//
-//    func test_pokemonItemView_loadsImageURLWhenVisible() {
-//        let pokemon0 = makeListPokemon()
-//        let pokemon1 = makeListPokemon()
-//        let (sut, loader) = makeSut()
-//        sut.loadViewIfNeeded()
-//        loader.completeListLoading(with: [pokemon0, pokemon1], at: 0)
-//
-//        XCTAssertEqual(loader.imageUrls, [], "Expected no image URL requests until views become visible")
-//
-//        let view0 = sut.simulateFeedImageViewVisible(at: 0)
-//        XCTAssertEqual(loader.imageUrls, [pokemon0.imageUrl], "Expected first image URL request once first view becomes visible")
-//
-//        let view1 = sut.simulateFeedImageViewVisible(at: 1)
-//        XCTAssertEqual(loader.imageUrls, [pokemon0.imageUrl, pokemon1.imageUrl], "Expected second image URL request once second view also becomes visible")
-//
-//        loader.completeImageLoadingWithError(at: 0)
-//        view0?.simulateReload()
-//        XCTAssertEqual(loader.imageUrls, [pokemon0.imageUrl, pokemon1.imageUrl, pokemon0.imageUrl], "Expected first image URL request once first image is reloaded")
-//
-//        loader.completeImageLoadingWithError(at: 1)
-//        view1?.simulateReload()
-//        XCTAssertEqual(loader.imageUrls, [pokemon0.imageUrl, pokemon1.imageUrl, pokemon0.imageUrl, pokemon1.imageUrl], "Expected second image URL request once second image is reloaded")
-//    }
+
+    // MARK: - Pokemon Info
+
+    func test_pokemonInfoView_loadsImageURLWhenVisible() {
+        let pokemon = makeDetailPokemon()
+        let (sut, loader) = makeSut()
+        sut.loadViewIfNeeded()
+        loader.completeDetailLoading(with: pokemon, at: 0)
+
+        XCTAssertEqual(loader.imageUrls, [], "Expected no image URL requests until views become visible")
+
+        let view = sut.simulatePokemonDetailInfoViewVisible()
+        XCTAssertEqual(loader.imageUrls, [pokemon.info.imageUrl], "Expected an image URL request once info view becomes visible")
+
+        loader.completeImageLoadingWithError(at: 0)
+        view?.simulateReload()
+        XCTAssertEqual(loader.imageUrls, [pokemon.info.imageUrl, pokemon.info.imageUrl], "Expected an image URL request once image is reloaded")
+    }
 //
 //    func test_pokemonItemViewLoadingIndicator_isVisibleWhileLoadingImage() {
 //        let pokemon0 = makeListPokemon()
@@ -239,7 +231,7 @@ final class PokemonDetailUIIntegrationTests: XCTestCase {
                     damageClassColor: anyId(),
                     type: anyId(),
                     typeColor: anyId()
-                )
+                ),
             ]
         )
     }
@@ -251,7 +243,8 @@ final class PokemonDetailUIIntegrationTests: XCTestCase {
         let loader = PokemonDetailMockLoader()
         let sut = PokemonDetailUIComposer.compose(
             title: pokemonDetailTitle,
-            loader: loader.load
+            loader: loader.load,
+            imageLoader: loader.loadImage
         )
         trackForMemoryLeaks(sut, file: file, line: line)
         trackForMemoryLeaks(loader, file: file, line: line)
