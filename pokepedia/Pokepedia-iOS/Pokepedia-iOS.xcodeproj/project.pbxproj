@@ -23,6 +23,10 @@
 		D68A550D2A738AFE002A5CDE /* POKEMON_INFO_IMAGE_light.png in Resources */ = {isa = PBXBuildFile; fileRef = D68A550A2A738AFE002A5CDE /* POKEMON_INFO_IMAGE_light.png */; };
 		D68A550E2A738AFE002A5CDE /* POKEMON_INFO_IMAGE_light_extraExtraExtraLarge.png in Resources */ = {isa = PBXBuildFile; fileRef = D68A550B2A738AFE002A5CDE /* POKEMON_INFO_IMAGE_light_extraExtraExtraLarge.png */; };
 		D68A550F2A738AFE002A5CDE /* POKEMON_INFO_IMAGE_dark.png in Resources */ = {isa = PBXBuildFile; fileRef = D68A550C2A738AFE002A5CDE /* POKEMON_INFO_IMAGE_dark.png */; };
+		D68A55132A738E47002A5CDE /* POKEMON_ABILITIES_dark.png in Resources */ = {isa = PBXBuildFile; fileRef = D68A55102A738E47002A5CDE /* POKEMON_ABILITIES_dark.png */; };
+		D68A55142A738E47002A5CDE /* POKEMON_ABILITIES_light_extraExtraExtraLarge.png in Resources */ = {isa = PBXBuildFile; fileRef = D68A55112A738E47002A5CDE /* POKEMON_ABILITIES_light_extraExtraExtraLarge.png */; };
+		D68A55152A738E47002A5CDE /* POKEMON_ABILITIES_IMAGE_light.png in Resources */ = {isa = PBXBuildFile; fileRef = D68A55122A738E47002A5CDE /* POKEMON_ABILITIES_IMAGE_light.png */; };
+		D68A55172A738E5A002A5CDE /* DetailPokemonAbilityCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = D68A55162A738E5A002A5CDE /* DetailPokemonAbilityCell.xib */; };
 		D6A29CB12A71897C000E74AD /* CellController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6A29CB02A71897C000E74AD /* CellController.swift */; };
 		D6A29CB32A71A124000E74AD /* ListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6A29CB22A71A123000E74AD /* ListViewController.swift */; };
 		D6BF59632A71B8B2008175E5 /* DetailPokemonAbilityCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6BF59622A71B8B2008175E5 /* DetailPokemonAbilityCell.swift */; };
@@ -98,6 +102,10 @@
 		D68A550A2A738AFE002A5CDE /* POKEMON_INFO_IMAGE_light.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = POKEMON_INFO_IMAGE_light.png; sourceTree = "<group>"; };
 		D68A550B2A738AFE002A5CDE /* POKEMON_INFO_IMAGE_light_extraExtraExtraLarge.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = POKEMON_INFO_IMAGE_light_extraExtraExtraLarge.png; sourceTree = "<group>"; };
 		D68A550C2A738AFE002A5CDE /* POKEMON_INFO_IMAGE_dark.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = POKEMON_INFO_IMAGE_dark.png; sourceTree = "<group>"; };
+		D68A55102A738E47002A5CDE /* POKEMON_ABILITIES_dark.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = POKEMON_ABILITIES_dark.png; sourceTree = "<group>"; };
+		D68A55112A738E47002A5CDE /* POKEMON_ABILITIES_light_extraExtraExtraLarge.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = POKEMON_ABILITIES_light_extraExtraExtraLarge.png; sourceTree = "<group>"; };
+		D68A55122A738E47002A5CDE /* POKEMON_ABILITIES_IMAGE_light.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = POKEMON_ABILITIES_IMAGE_light.png; sourceTree = "<group>"; };
+		D68A55162A738E5A002A5CDE /* DetailPokemonAbilityCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = DetailPokemonAbilityCell.xib; sourceTree = "<group>"; };
 		D6A29CB02A71897C000E74AD /* CellController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CellController.swift; sourceTree = "<group>"; };
 		D6A29CB22A71A123000E74AD /* ListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListViewController.swift; sourceTree = "<group>"; };
 		D6BF59622A71B8B2008175E5 /* DetailPokemonAbilityCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailPokemonAbilityCell.swift; sourceTree = "<group>"; };
@@ -226,6 +234,7 @@
 				D6BF59642A71B92F008175E5 /* DetailPokemonInfoCell.swift */,
 				D6BF59622A71B8B2008175E5 /* DetailPokemonAbilityCell.swift */,
 				D6C8D7DC2A737896000C79CF /* DetailPokemonInfoCell.xib */,
+				D68A55162A738E5A002A5CDE /* DetailPokemonAbilityCell.xib */,
 			);
 			path = UI;
 			sourceTree = "<group>";
@@ -316,6 +325,9 @@
 		D6C8D7AF2A72DA2F000C79CF /* Snapshots */ = {
 			isa = PBXGroup;
 			children = (
+				D68A55102A738E47002A5CDE /* POKEMON_ABILITIES_dark.png */,
+				D68A55122A738E47002A5CDE /* POKEMON_ABILITIES_IMAGE_light.png */,
+				D68A55112A738E47002A5CDE /* POKEMON_ABILITIES_light_extraExtraExtraLarge.png */,
 				D68A550C2A738AFE002A5CDE /* POKEMON_INFO_IMAGE_dark.png */,
 				D68A550B2A738AFE002A5CDE /* POKEMON_INFO_IMAGE_light_extraExtraExtraLarge.png */,
 				D68A550A2A738AFE002A5CDE /* POKEMON_INFO_IMAGE_light.png */,
@@ -484,12 +496,15 @@
 				D68A55072A7387F5002A5CDE /* POKEMON_INFO_ERROR_light.png in Resources */,
 				D68A550D2A738AFE002A5CDE /* POKEMON_INFO_IMAGE_light.png in Resources */,
 				D6C8D7D72A737821000C79CF /* POKEMON_INFO_LOADING_light_extraExtraExtraLarge.png in Resources */,
+				D68A55132A738E47002A5CDE /* POKEMON_ABILITIES_dark.png in Resources */,
 				D68A55082A7387F5002A5CDE /* POKEMON_INFO_ERROR_dark.png in Resources */,
 				D68A55092A7387F5002A5CDE /* POKEMON_INFO_ERROR_light_extraExtraExtraLarge.png in Resources */,
+				D68A55152A738E47002A5CDE /* POKEMON_ABILITIES_IMAGE_light.png in Resources */,
 				D6C8D7D82A737821000C79CF /* POKEMON_INFO_LOADING_dark.png in Resources */,
 				D6C8D7CC2A72DBC0000C79CF /* LIST_ERROR_light.png in Resources */,
 				D6C8D7C52A72DBC0000C79CF /* LIST_EMPTY_dark.png in Resources */,
 				D6C8D7C62A72DBC0000C79CF /* LIST_EMPTY_light_extraExtraExtraLarge.png in Resources */,
+				D68A55142A738E47002A5CDE /* POKEMON_ABILITIES_light_extraExtraExtraLarge.png in Resources */,
 				D6C8D7CA2A72DBC0000C79CF /* LIST_EMPTY_light.png in Resources */,
 				D68A550F2A738AFE002A5CDE /* POKEMON_INFO_IMAGE_dark.png in Resources */,
 				D6C8D7CD2A72DBC0000C79CF /* LIST_LOADING_dark.png in Resources */,
@@ -506,6 +521,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D68A55172A738E5A002A5CDE /* DetailPokemonAbilityCell.xib in Resources */,
 				D6C8D7DD2A737896000C79CF /* DetailPokemonInfoCell.xib in Resources */,
 				D604FBE32A62613B007BAF00 /* ListPokemonItemCell.xib in Resources */,
 			);
