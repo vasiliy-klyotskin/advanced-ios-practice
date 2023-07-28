@@ -15,6 +15,7 @@ extension UIFont {
 }
 
 enum FontSize: CGFloat {
+    case headline = 17
     case title = 15
     case body = 13
     case caption = 10

@@ -11,132 +11,83 @@ import Pokepedia_iOS
 import Pokepedia_iOS_App
 @testable import Pokepedia
 
-//final class PokemonListSnapshotTests: XCTestCase {
-//    
-//    func test_listIsLoadingSnapshot() {
-//        let sut = makeSut()
-//        
-//        sut.display(loadingViewModel: .init(isLoading: true))
-//        
-//        assert(snapshot: sut.snapshot(for: .iPhone13(style: .light)), named: "POKEMON_LIST_LOADING_light")
-//        assert(snapshot: sut.snapshot(for: .iPhone13(style: .dark)), named: "POKEMON_LIST_LOADING_dark")
-//        assert(snapshot: sut.snapshot(for: .iPhone13(style: .light, contentSize: .extraExtraExtraLarge)), named: "POKEMON_LIST_LOADING_light_extraExtraExtraLarge")
-//    }
-//    
-//    func test_listLoadedWithErrorSnapshot() {
-//        let sut = makeSut()
-//        
-//        sut.display(errorViewModel: .init(errorMessage: "Some multiline \nerror message text"))
-//        
-//        assert(snapshot: sut.snapshot(for: .iPhone13(style: .light)), named: "POKEMON_LIST_ERROR_light")
-//        assert(snapshot: sut.snapshot(for: .iPhone13(style: .dark)), named: "POKEMON_LIST_ERROR_dark")
-//        assert(snapshot: sut.snapshot(for: .iPhone13(style: .light, contentSize: .extraExtraExtraLarge)), named: "POKEMON_LIST_ERROR_light_extraExtraExtraLarge")
-//    }
-//    
-//    func test_listLoadedWithSuccess() {
-//        let sut = makeSut()
-//
-//        sut.display(listWithLoadedContent())
-//        
-//        assert(snapshot: sut.snapshot(for: .iPhone13(style: .light)), named: "POKEMON_LIST_SUCCESS_light")
-//        assert(snapshot: sut.snapshot(for: .iPhone13(style: .dark)), named: "POKEMON_LIST_SUCCESS_dark")
-//        assert(snapshot: sut.snapshot(for: .iPhone13(style: .light, contentSize: .extraExtraExtraLarge)), named: "POKEMON_LIST_SUCCESS_light_extraExtraExtraLarge")
-//    }
-//    
-//    // MARK: - Helpers
-//    
-//    private func makeSut(
-//        file: StaticString = #filePath,
-//        line: UInt = #line
-//    ) -> ListViewController {
-//        let sut = ListViewController(onRefresh: {})
-//        sut.loadViewIfNeeded()
-//        sut.tableView.showsVerticalScrollIndicator = false
-//        sut.tableView.showsHorizontalScrollIndicator = false
-//        return sut
-//    }
-//    
-//    private func listWithLoadedContent() -> [PokemonListItemStub] {
-//        [
-//            .init(viewModel: pokemonWithSpecialType, image: UIImage.make(withColor: .brown)),
-//            .init(viewModel: pokemonWithoutSpecialType, image: nil),
-//            .init(viewModel: pokemonWithLongName, isLoading: true)
-//        ]
-//    }
-//    
-//    private var pokemonWithSpecialType: ListPokemonItemViewModel<UIColor> {
-//        .init(
-//            name: "Koraidon",
-//            id: "0005",
-//            physicalType: "Fighting",
-//            specialType: "Dragon",
-//            physicalTypeColor: .red,
-//            specialTypeColor: .purple
-//        )
-//    }
-//    
-//    private var pokemonWithoutSpecialType: ListPokemonItemViewModel<UIColor> {
-//        .init(
-//            name: "Charmander",
-//            id: "0003",
-//            physicalType: "Fire",
-//            specialType: nil,
-//            physicalTypeColor: .orange,
-//            specialTypeColor: nil
-//        )
-//    }
-//    
-//    private var pokemonWithLongName: ListPokemonItemViewModel<UIColor> {
-//        .init(
-//            name: "Some Pokemon with very loooong name",
-//            id: "0007",
-//            physicalType: "Fighting",
-//            specialType: "Dragon",
-//            physicalTypeColor: .red,
-//            specialTypeColor: .purple
-//        )
-//    }
-//}
-//
-//private extension ListViewController {
-//    func display(_ stubs: [PokemonListItemStub]) {
-//        let controllers = stubs.map { stub in
-//            let controller = ListPokemonItemViewController(
-//                viewModel: stub.viewModel,
-//                onImageRequest: stub.didRequestImage
-//            )
-//            stub.controller = controller
-//            return CellController(id: UUID(), controller)
-//        }
-//        
-//        display(controllers: controllers)
-//    }
-//}
-//
-//
-//class PokemonListItemStub {
-//    let viewModel: ListPokemonItemViewModel<UIColor>
-//    let image: UIImage?
-//    let isLoading: Bool
-//    weak var controller: ListPokemonItemViewController?
-//    
-//    init(viewModel: ListPokemonItemViewModel<UIColor>, image: UIImage? = nil, isLoading: Bool = false) {
-//        self.viewModel = viewModel
-//        self.image = image
-//        self.isLoading = isLoading
-//    }
-//    
-//    func didRequestImage() {
-//        if isLoading {
-//            controller?.display(loadingViewModel: .init(isLoading: true))
-//            return
-//        }
-//        controller?.display(loadingViewModel: .init(isLoading: false))
-//        if let image = image {
-//            controller?.display(viewModel: image)
-//            controller?.display(errorViewModel: .init(errorMessage: nil))
-//        } else {
-//            controller?.display(errorViewModel: .init(errorMessage: "any"))
-//        }
-//    }
-//}
+final class PokemonDetailSnapshotTests: XCTestCase {
+    func test_detailInfoViewIsLoading() {
+        let sut = makeSut()
+
+        sut.display(detailInfo(isLoading: true))
+        
+        assert(snapshot: sut.snapshot(for: .iPhone13(style: .light)), named: "POKEMON_INFO_LOADING_light")
+        assert(snapshot: sut.snapshot(for: .iPhone13(style: .dark)), named: "POKEMON_INFO_LOADING_dark")
+        assert(snapshot: sut.snapshot(for: .iPhone13(style: .light, contentSize: .extraExtraExtraLarge)), named: "POKEMON_INFO_LOADING_light_extraExtraExtraLarge")
+    }
+
+    // MARK: - Helpers
+ 
+    private func makeSut(
+        file: StaticString = #filePath,
+        line: UInt = #line
+    ) -> ListViewController {
+        let sut = ListViewController(onRefresh: {})
+        sut.loadViewIfNeeded()
+        sut.tableView.showsVerticalScrollIndicator = false
+        sut.tableView.showsHorizontalScrollIndicator = false
+        return sut
+    }
+    
+    private func detailInfo(isLoading: Bool) -> PokemonDetailInfoStub {
+        .init(
+            viewModel: .init(
+                imageUrl: URL(string: "http://any-url.com")!,
+                id: "0034",
+                name: "Nidoking",
+                genus: "Drill Pokémon",
+                flavorText: "It uses its powerful tail in battle to smash, constrict, then break the prey's bones."
+            ),
+            isLoading: true
+        )
+    }
+}
+
+private extension ListViewController {
+    func display(_ stub: PokemonDetailInfoStub) {
+        let controller = DetailPokemonInfoController(
+            viewModel: stub.viewModel,
+            onImageRequest: stub.didRequestImage
+        )
+        stub.controller = controller
+        display(controllers: [CellController(id: UUID(), controller)])
+    }
+}
+
+
+class PokemonDetailInfoStub {
+    let viewModel: DetailPokemonInfoViewModel
+    let image: UIImage?
+    let isLoading: Bool
+    weak var controller: DetailPokemonInfoController?
+    
+    init(
+        viewModel: DetailPokemonInfoViewModel,
+        image: UIImage? = nil,
+        isLoading: Bool = false
+    ) {
+        self.viewModel = viewModel
+        self.image = image
+        self.isLoading = isLoading
+    }
+    
+    func didRequestImage() {
+        if isLoading {
+            controller?.display(loadingViewModel: .init(isLoading: true))
+            return
+        }
+        controller?.display(loadingViewModel: .init(isLoading: false))
+        if let image = image {
+            controller?.display(viewModel: image)
+            controller?.display(errorViewModel: .init(errorMessage: nil))
+        } else {
+            controller?.display(errorViewModel: .init(errorMessage: "any"))
+        }
+    }
+}
