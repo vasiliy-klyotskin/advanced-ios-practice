@@ -14,9 +14,7 @@ final class ListControllerSnapshotTests: XCTestCase {
     func test_initialState() {
         let sut = makeSut()
         
-        assert(snapshot: sut.snapshot(for: .default(style: .light)), named: "LIST_EMPTY_light")
-        assert(snapshot: sut.snapshot(for: .default(style: .dark)), named: "LIST_EMPTY_dark")
-        assert(snapshot: sut.snapshot(for: .default(style: .light, contentSize: .extraExtraExtraLarge)), named: "LIST_EMPTY_light_extraExtraExtraLarge")
+        assertDefaultSnapshot(sut: sut, key: "LIST_EMPTY")
     }
     
     func test_listIsLoadingSnapshot() {
@@ -24,9 +22,7 @@ final class ListControllerSnapshotTests: XCTestCase {
         
         sut.display(loadingViewModel: .init(isLoading: true))
         
-        assert(snapshot: sut.snapshot(for: .default(style: .light)), named: "LIST_LOADING_light")
-        assert(snapshot: sut.snapshot(for: .default(style: .dark)), named: "LIST_LOADING_dark")
-        assert(snapshot: sut.snapshot(for: .default(style: .light, contentSize: .extraExtraExtraLarge)), named: "LIST_LOADING_light_extraExtraExtraLarge")
+        assertDefaultSnapshot(sut: sut, key: "LIST_LOADING")
     }
     
     func test_listLoadedWithErrorSnapshot() {
@@ -34,9 +30,7 @@ final class ListControllerSnapshotTests: XCTestCase {
         
         sut.display(errorViewModel: .init(errorMessage: "Some multiline \nerror message text"))
         
-        assert(snapshot: sut.snapshot(for: .default(style: .light)), named: "LIST_ERROR_light")
-        assert(snapshot: sut.snapshot(for: .default(style: .dark)), named: "LIST_ERROR_dark")
-        assert(snapshot: sut.snapshot(for: .default(style: .light, contentSize: .extraExtraExtraLarge)), named: "LIST_ERROR_light_extraExtraExtraLarge")
+        assertDefaultSnapshot(sut: sut, key: "LIST_ERROR")
     }
     
     // MARK: - Helpers

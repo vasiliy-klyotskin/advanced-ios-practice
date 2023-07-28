@@ -8,6 +8,68 @@
 import XCTest
 
 extension XCTestCase {
+    func assertDefaultSnapshot(
+        sut: UIViewController,
+        key: String,
+        height: CGFloat = 844,
+        file: StaticString = #filePath,
+        line: UInt = #line
+    ) {
+        assert(
+            snapshot: sut.snapshot(for: .default(style: .light, height: height)),
+            named: key + "_light",
+            file: file,
+            line: line
+        )
+        assert(
+            snapshot: sut.snapshot(for: .default(style: .dark, height: height)),
+            named: key + "_dark",
+            file: file,
+            line: line
+        )
+        assert(
+            snapshot: sut.snapshot(for: .default(
+                style: .light,
+                contentSize: .extraExtraExtraLarge,
+                height: height
+            )),
+            named: key + "_light_extraExtraExtraLarge",
+            file: file,
+            line: line
+        )
+    }
+    
+    func recordDefaultSnapshot(
+        sut: UIViewController,
+        key: String,
+        height: CGFloat = 844,
+        file: StaticString = #filePath,
+        line: UInt = #line
+    ) {
+        record(
+            snapshot: sut.snapshot(for: .default(style: .light, height: height)),
+            named: key + "_light",
+            file: file,
+            line: line
+        )
+        record(
+            snapshot: sut.snapshot(for: .default(style: .dark, height: height)),
+            named: key + "_dark",
+            file: file,
+            line: line
+        )
+        record(
+            snapshot: sut.snapshot(for: .default(
+                style: .light,
+                contentSize: .extraExtraExtraLarge,
+                height: height
+            )),
+            named: key + "_light_extraExtraExtraLarge",
+            file: file,
+            line: line
+        )
+    }
+    
 	func assert(snapshot: UIImage, named name: String, file: StaticString = #filePath, line: UInt = #line) {
 		let snapshotURL = makeSnapshotURL(named: name, file: file)
 		let snapshotData = makeSnapshotData(for: snapshot, file: file, line: line)

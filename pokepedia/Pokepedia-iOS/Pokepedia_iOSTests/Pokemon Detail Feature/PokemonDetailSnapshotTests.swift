@@ -17,9 +17,7 @@ final class PokemonDetailSnapshotTests: XCTestCase {
         
         sut.display(controllers: infoController)
         
-        assert(snapshot: sut.snapshot(for: .default(style: .light)), named: "POKEMON_INFO_LOADING_light")
-        assert(snapshot: sut.snapshot(for: .default(style: .dark)), named: "POKEMON_INFO_LOADING_dark")
-        assert(snapshot: sut.snapshot(for: .default(style: .light, contentSize: .extraExtraExtraLarge)), named: "POKEMON_INFO_LOADING_light_extraExtraExtraLarge")
+        assertDefaultSnapshot(sut: sut, key: "POKEMON_INFO_LOADING")
     }
     
     func test_detailInfoViewIsInErrorState() {
@@ -28,9 +26,7 @@ final class PokemonDetailSnapshotTests: XCTestCase {
         
         sut.display(controllers: infoController)
         
-        assert(snapshot: sut.snapshot(for: .default(style: .light)), named: "POKEMON_INFO_ERROR_light")
-        assert(snapshot: sut.snapshot(for: .default(style: .dark)), named: "POKEMON_INFO_ERROR_dark")
-        assert(snapshot: sut.snapshot(for: .default(style: .light, contentSize: .extraExtraExtraLarge)), named: "POKEMON_INFO_ERROR_light_extraExtraExtraLarge")
+        assertDefaultSnapshot(sut: sut, key: "POKEMON_INFO_ERROR")
     }
     
     func test_allContent() {
@@ -42,9 +38,7 @@ final class PokemonDetailSnapshotTests: XCTestCase {
         
         sut.display(controllers: infoController + abilitiesTitleController + abilitiesControllers)
         
-        assert(snapshot: sut.snapshot(for: .default(style: .light, height: 1100)), named: "POKEMON_FULL_light")
-        assert(snapshot: sut.snapshot(for: .default(style: .dark, height: 1100)), named: "POKEMON_FULL_dark")
-        assert(snapshot: sut.snapshot(for: .default(style: .light, contentSize: .extraExtraExtraLarge, height: 1100)), named: "POKEMON_FULL_light_extraExtraExtraLarge")
+        assertDefaultSnapshot(sut: sut, key: "POKEMON_FULL", height: 1100)
     }
     
     // MARK: - Helpers

@@ -16,9 +16,7 @@ final class PokemonListSnapshotTests: XCTestCase {
 
         sut.display(listWithLoadedContent())
         
-        assert(snapshot: sut.snapshot(for: .default(style: .light)), named: "POKEMON_LIST_SUCCESS_light")
-        assert(snapshot: sut.snapshot(for: .default(style: .dark)), named: "POKEMON_LIST_SUCCESS_dark")
-        assert(snapshot: sut.snapshot(for: .default(style: .light, contentSize: .extraExtraExtraLarge)), named: "POKEMON_LIST_SUCCESS_light_extraExtraExtraLarge")
+        assertDefaultSnapshot(sut: sut, key: "POKEMON_LIST_SUCCESS")
     }
     
     // MARK: - Helpers
