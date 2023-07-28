@@ -21,8 +21,10 @@ final class PokemonDetailViewAdapter: ResourceView {
 
     func display(viewModel detail: DetailPokemon) {
         let infoController = infoController(for: detail.info)
+        let abilitiesTitleController = abilitiesTitle()
         let abilityControllers = abilityControllers(for: detail.abilities)
-        controller?.display(controllers: [infoController] + abilityControllers)
+        let allControllers = [infoController, abilitiesTitleController] + abilityControllers
+        controller?.display(controllers: allControllers)
     }
     
     private func infoController(for model: DetailPokemonInfo) -> CellController {
@@ -30,6 +32,11 @@ final class PokemonDetailViewAdapter: ResourceView {
             loader(model.imageUrl)
         }
         return CellController(id: model, controller)
+    }
+    
+    private func abilitiesTitle() -> CellController {
+        let controller = TitleCellController(viewModel: DetailPokemonPresenter.abilitiesTitle)
+        return CellController(id: UUID(), controller)
     }
     
     private func abilityControllers(for model: DetailPokemonAbilities) -> [CellController] {

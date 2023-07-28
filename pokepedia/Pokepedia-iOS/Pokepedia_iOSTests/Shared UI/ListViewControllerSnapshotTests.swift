@@ -8,7 +8,6 @@
 import XCTest
 import Combine
 import Pokepedia_iOS
-import Pokepedia_iOS_App
 @testable import Pokepedia
 
 final class ListControllerSnapshotTests: XCTestCase {

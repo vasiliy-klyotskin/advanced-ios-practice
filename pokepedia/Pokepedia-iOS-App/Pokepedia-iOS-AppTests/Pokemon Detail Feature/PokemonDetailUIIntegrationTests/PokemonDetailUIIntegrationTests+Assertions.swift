@@ -16,13 +16,11 @@ extension PokemonDetailUIIntegrationTests {
         file: StaticString = #filePath,
         line: UInt = #line
     ) {
+        let expectedAbilitiesTitle = detail == nil ? nil : DetailPokemonPresenter.abilitiesTitle
+        
         assertThat(sut, hasViewConfiguredFor: detail?.info, file: file, line: line)
-        guard sut.numberOfRenderedAbilities() == (detail?.abilities.count ?? 0) else {
-            return XCTFail("Expected \(detail?.abilities.count ?? 0) abilities, got \(sut.numberOfRenderedAbilities()) instead.", file: file, line: line)
-        }
-        detail?.abilities.enumerated().forEach { index, ability in
-            assertThat(sut, hasViewConfiguredFor: ability, at: index, file: file, line: line)
-        }
+        assertThatSutHasConfiguredForAbilitiesTitle(sut, expectedTitle: expectedAbilitiesTitle, file: file, line: line)
+        assertThatSutHasConfiguredForAbilitiesItems(sut, detail: detail, file: file, line: line)
     }
     
     func assertThat(
@@ -61,6 +59,38 @@ extension PokemonDetailUIIntegrationTests {
             file: file,
             line: line
         )
+    }
+    
+    private func assertThatSutHasConfiguredForAbilitiesTitle(
+        _ sut: ListViewController,
+        expectedTitle: String?,
+        file: StaticString = #filePath,
+        line: UInt = #line
+    ) {
+        let view = sut.pokemonDetailAbilitiesTitleView()
+        let cell = view as? TitleCell
+        
+        XCTAssertEqual(
+            cell?.text,
+            expectedTitle,
+            "Expected title to be \(expectedTitle ?? "nil")",
+            file: file,
+            line: line
+        )
+    }
+    
+    private func assertThatSutHasConfiguredForAbilitiesItems(
+        _ sut: ListViewController,
+        detail: DetailPokemon?,
+        file: StaticString = #filePath,
+        line: UInt = #line
+    ) {
+        guard sut.numberOfRenderedAbilities() == (detail?.abilities.count ?? 0) else {
+            return XCTFail("Expected \(detail?.abilities.count ?? 0) abilities, got \(sut.numberOfRenderedAbilities()) instead.", file: file, line: line)
+        }
+        detail?.abilities.enumerated().forEach { index, ability in
+            assertThat(sut, hasViewConfiguredFor: ability, at: index, file: file, line: line)
+        }
     }
     
     func assertThat(

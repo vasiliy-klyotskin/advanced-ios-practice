@@ -62,18 +62,28 @@ extension DetailPokemonAbilityCell {
     }
 }
 
+extension TitleCell {
+    var text: String? {
+        label.text
+    }
+}
+
 extension ListViewController {
     func pokemonDetailInfoView() -> UIView? {
         tableView.dataSource?.tableView(tableView, cellForRowAt: .init(row: 0, section: detailSectionNumber))
     }
     
+    func pokemonDetailAbilitiesTitleView() -> UIView? {
+        tableView.dataSource?.tableView(tableView, cellForRowAt: .init(row: 1, section: detailSectionNumber))
+    }
+    
     func pokemonDetailAbilityView(for index: Int) -> UIView? {
-        tableView.dataSource?.tableView(tableView, cellForRowAt: .init(row: index + 1, section: detailSectionNumber))
+        tableView.dataSource?.tableView(tableView, cellForRowAt: .init(row: index + 2, section: detailSectionNumber))
     }
     
     func numberOfRenderedAbilities() -> Int {
         if let numberOfRows = tableView.dataSource?.tableView(tableView, numberOfRowsInSection: detailSectionNumber), numberOfRows != 0 {
-            return numberOfRows - 1
+            return numberOfRows - 2
         } else {
             return 0
         }
