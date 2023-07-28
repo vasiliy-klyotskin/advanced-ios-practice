@@ -12,14 +12,35 @@ import Pokepedia_iOS_App
 @testable import Pokepedia
 
 final class PokemonDetailSnapshotTests: XCTestCase {
-    func test_detailInfoViewIsLoading() {
+    func test_detailInfoViewIsInLoadingState() {
         let sut = makeSut()
 
-        sut.display(detailInfo(isLoading: true))
+        sut.display(detailInfo(isLoading: true, image: nil))
         
         assert(snapshot: sut.snapshot(for: .iPhone13(style: .light)), named: "POKEMON_INFO_LOADING_light")
         assert(snapshot: sut.snapshot(for: .iPhone13(style: .dark)), named: "POKEMON_INFO_LOADING_dark")
         assert(snapshot: sut.snapshot(for: .iPhone13(style: .light, contentSize: .extraExtraExtraLarge)), named: "POKEMON_INFO_LOADING_light_extraExtraExtraLarge")
+    }
+    
+    func test_detailInfoViewIsInErrorState() {
+        let sut = makeSut()
+
+        sut.display(detailInfo(isLoading: false, image: nil))
+        
+        assert(snapshot: sut.snapshot(for: .iPhone13(style: .light)), named: "POKEMON_INFO_ERROR_light")
+        assert(snapshot: sut.snapshot(for: .iPhone13(style: .dark)), named: "POKEMON_INFO_ERROR_dark")
+        assert(snapshot: sut.snapshot(for: .iPhone13(style: .light, contentSize: .extraExtraExtraLarge)), named: "POKEMON_INFO_ERROR_light_extraExtraExtraLarge")
+    }
+    
+    func test_detailInfoViewIsInSuccessState() {
+        let sut = makeSut()
+        let image = UIImage.make(withColor: .orange)
+        
+        sut.display(detailInfo(isLoading: false, image: image))
+        
+        assert(snapshot: sut.snapshot(for: .iPhone13(style: .light)), named: "POKEMON_INFO_IMAGE_light")
+        assert(snapshot: sut.snapshot(for: .iPhone13(style: .dark)), named: "POKEMON_INFO_IMAGE_dark")
+        assert(snapshot: sut.snapshot(for: .iPhone13(style: .light, contentSize: .extraExtraExtraLarge)), named: "POKEMON_INFO_IMAGE_light_extraExtraExtraLarge")
     }
 
     // MARK: - Helpers
@@ -35,7 +56,7 @@ final class PokemonDetailSnapshotTests: XCTestCase {
         return sut
     }
     
-    private func detailInfo(isLoading: Bool) -> PokemonDetailInfoStub {
+    private func detailInfo(isLoading: Bool = false, image: UIImage? = nil) -> PokemonDetailInfoStub {
         .init(
             viewModel: .init(
                 imageUrl: URL(string: "http://any-url.com")!,
@@ -44,7 +65,8 @@ final class PokemonDetailSnapshotTests: XCTestCase {
                 genus: "Drill Pokémon",
                 flavorText: "It uses its powerful tail in battle to smash, constrict, then break the prey's bones."
             ),
-            isLoading: true
+            image: image,
+            isLoading: isLoading
         )
     }
 }
