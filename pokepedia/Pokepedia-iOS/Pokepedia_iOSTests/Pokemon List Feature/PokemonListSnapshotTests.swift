@@ -27,7 +27,10 @@ final class PokemonListSnapshotTests: XCTestCase {
         file: StaticString = #filePath,
         line: UInt = #line
     ) -> ListViewController {
-        let sut = ListViewController(onRefresh: {})
+        let sut = ListViewController(
+            onRefresh: {},
+            onViewDidLoad: PokemonListCells.register
+        )
         sut.loadViewIfNeeded()
         sut.tableView.showsVerticalScrollIndicator = false
         sut.tableView.showsHorizontalScrollIndicator = false

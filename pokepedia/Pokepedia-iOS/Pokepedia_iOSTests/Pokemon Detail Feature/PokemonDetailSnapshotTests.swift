@@ -58,7 +58,10 @@ final class PokemonDetailSnapshotTests: XCTestCase {
         file: StaticString = #filePath,
         line: UInt = #line
     ) -> ListViewController {
-        let sut = ListViewController(onRefresh: {})
+        let sut = ListViewController(
+            onRefresh: {},
+            onViewDidLoad: PokemonDetailCells.register
+        )
         sut.loadViewIfNeeded()
         sut.tableView.showsVerticalScrollIndicator = false
         sut.tableView.showsHorizontalScrollIndicator = false
@@ -120,8 +123,8 @@ private extension ListViewController {
     }
     
     func display(_ abilitiesViewModel: DetailPokemonAbilitiesViewModel<UIColor>) {
-        let controllers = abilitiesViewModel.map {
-            let controller = DetailPokemonAbilityController(viewModel: $0)
+        let controllers = abilitiesViewModel.map { viewModel in
+            let controller = DefaultCellController<DetailPokemonAbilityCell> { $0.configure(with: viewModel) }
             return CellController(id: UUID(), controller)
         }
         display(controllers: controllers)

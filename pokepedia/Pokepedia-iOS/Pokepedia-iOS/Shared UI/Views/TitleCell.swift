@@ -7,14 +7,18 @@
 
 import UIKit
 
-final class TitleCell: UITableViewCell {
+public final class TitleCell: UITableViewCell {
     @IBOutlet weak var label: UILabel!
     @IBOutlet private var content: UIView!
     
-    convenience init() {
-        self.init(frame: .zero)
+    public override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
+        super.init(style: style, reuseIdentifier: reuseIdentifier)
         loadFromNib()
         configureUI()
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
     }
     
     private func configureUI() {
@@ -22,7 +26,7 @@ final class TitleCell: UITableViewCell {
         label.font = .standard(size: .title, weight: .semibold)
     }
     
-    func set(title: String) {
+    public func set(title: String) {
         label.text = title
     }
 }

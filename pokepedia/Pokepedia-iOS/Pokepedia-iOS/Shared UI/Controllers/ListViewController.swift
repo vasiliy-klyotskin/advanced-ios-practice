@@ -10,6 +10,7 @@ import UIKit
 
 public final class ListViewController: UITableViewController, ResourceLoadingView, ResourceErrorView {
     private var onRefresh: (() -> Void)?
+    private var onViewDidLoad: ((ListViewController) -> Void)?
     
     let errorView = ErrorView()
     
@@ -19,9 +20,13 @@ public final class ListViewController: UITableViewController, ResourceLoadingVie
         }
     }()
     
-    public convenience init(onRefresh: @escaping () -> Void) {
+    public convenience init(
+        onRefresh: @escaping () -> Void,
+        onViewDidLoad: @escaping (ListViewController) -> Void = { _ in }
+    ) {
         self.init()
         self.onRefresh = onRefresh
+        self.onViewDidLoad = onViewDidLoad
     }
     
     public override func viewDidLoad() {
@@ -30,6 +35,7 @@ public final class ListViewController: UITableViewController, ResourceLoadingVie
         refreshControl?.addTarget(self, action: #selector(refresh), for: .valueChanged)
         tableView.tableHeaderView = errorView.makeContainer()
         refresh()
+        onViewDidLoad?(self)
     }
     
     public override func viewDidLayoutSubviews() {

@@ -11,7 +11,7 @@ import Pokepedia
 public final class DetailPokemonInfoController: NSObject, UITableViewDataSource {
     private let viewModel: DetailPokemonInfoViewModel
     private let onImageRequest: () -> Void
-    private let cell = DetailPokemonInfoCell()
+    private var cell: DetailPokemonInfoCell?
     
     public init(viewModel: DetailPokemonInfoViewModel, onImageRequest: @escaping () -> Void) {
         self.viewModel = viewModel
@@ -21,27 +21,28 @@ public final class DetailPokemonInfoController: NSObject, UITableViewDataSource 
     public func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int { 1 }
     
     public func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        cell.configure(with: viewModel)
-        cell.onReload = onImageRequest
+        cell = tableView.dequeueReusableCell()
+        cell?.configure(with: viewModel)
+        cell?.onReload = onImageRequest
         onImageRequest()
-        return cell
+        return cell!
     }
 }
 
 extension DetailPokemonInfoController: ResourceLoadingView {
     public func display(loadingViewModel: LoadingViewModel) {
-        cell.display(isLoading: loadingViewModel.isLoading)
+        cell?.display(isLoading: loadingViewModel.isLoading)
     }
 }
 
 extension DetailPokemonInfoController: ResourceErrorView {
     public func display(errorViewModel: ErrorViewModel) {
-        cell.display(reload: errorViewModel.needToShowError)
+        cell?.display(reload: errorViewModel.needToShowError)
     }
 }
 
 extension DetailPokemonInfoController: ResourceView {
     public func display(viewModel image: UIImage) {
-        cell.display(image: image)
+        cell?.display(image: image)
     }
 }

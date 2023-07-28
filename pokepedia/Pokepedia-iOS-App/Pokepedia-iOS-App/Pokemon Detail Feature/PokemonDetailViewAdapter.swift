@@ -35,14 +35,15 @@ final class PokemonDetailViewAdapter: ResourceView {
     }
     
     private func abilitiesTitle() -> CellController {
-        let controller = TitleCellController(viewModel: DetailPokemonPresenter.abilitiesTitle)
-        return CellController(id: UUID(), controller)
+        let title = DetailPokemonPresenter.abilitiesTitle
+        let controller = DefaultCellController<TitleCell> { $0.set(title: title) }
+        return CellController(id: title, controller)
     }
     
     private func abilityControllers(for model: DetailPokemonAbilities) -> [CellController] {
         let viewModels = DetailPokemonPresenter.mapAbilities(model: model, colorMapping: UIColor.fromHex)
         return viewModels.map { abilityViewModel in
-            let controller = DetailPokemonAbilityController(viewModel: abilityViewModel)
+            let controller = DefaultCellController<DetailPokemonAbilityCell> { $0.configure(with: abilityViewModel) }
             return CellController(id: abilityViewModel, controller)
         }
     }

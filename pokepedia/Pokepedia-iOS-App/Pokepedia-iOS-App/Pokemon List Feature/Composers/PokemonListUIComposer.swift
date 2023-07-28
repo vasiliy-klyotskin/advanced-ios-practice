@@ -19,7 +19,10 @@ public enum PokemonListUIComposer {
         imageLoader: @escaping (URL) -> AnyPublisher<ListPokemonItemImage, Error>
     ) -> ListViewController {
         let loadingAdapter = PresentationAdapter(loader: loader)
-        let controller = ListViewController(onRefresh: loadingAdapter.load)
+        let controller = ListViewController(
+            onRefresh: loadingAdapter.load,
+            onViewDidLoad: PokemonListCells.register
+        )
         let presenter = Presetner(
             view: PokemonListViewAdapter(controller: controller, imageLoader: imageLoader),
             loadingView: WeakProxy(controller),

@@ -138,9 +138,9 @@
 		D62EF3A82A598ED300CE968B /* Composers */ = {
 			isa = PBXGroup;
 			children = (
-				D62EF3A62A598E7500CE968B /* PokemonListCacheComposer.swift */,
 				D6360FE82A234C1200A28F11 /* PokemonListUIComposer.swift */,
 				D6B958E32A2A21CF0050DCB9 /* ListPokemonItemUIComposer.swift */,
+				D62EF3A62A598E7500CE968B /* PokemonListCacheComposer.swift */,
 			);
 			path = Composers;
 			sourceTree = "<group>";

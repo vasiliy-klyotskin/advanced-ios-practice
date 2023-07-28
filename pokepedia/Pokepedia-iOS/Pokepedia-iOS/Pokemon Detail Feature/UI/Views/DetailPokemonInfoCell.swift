@@ -21,10 +21,14 @@ public final class DetailPokemonInfoCell: UITableViewCell {
     
     var onReload: () -> Void = {}
     
-    convenience init() {
-        self.init(frame: .zero)
+    public override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
+        super.init(style: style, reuseIdentifier: reuseIdentifier)
         loadFromNib()
         configureUI()
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
     }
     
     public override func layoutSubviews() {
@@ -87,9 +91,8 @@ public final class DetailPokemonInfoCell: UITableViewCell {
     
     private func makeImageContainerCircular() {
         let radius: CGFloat = imageContainer.bounds.size.width / 2.0
-        imageContainer.layer.cornerRadius = radius
-        imageContainer.layer.cornerRadius = radius
         imageContainer.clipsToBounds = true
+        imageContainer.layer.cornerRadius = radius
     }
     
     @objc private func onReloadTapped(_ sender: UIButton) {

@@ -12,7 +12,7 @@ public final class ListPokemonItemViewController: NSObject, UITableViewDataSourc
     private let viewModel: ListPokemonItemViewModel<UIColor>
     private let onImageRequest: () -> Void
     
-    let cell = ListPokemonItemCell()
+    private var cell: ListPokemonItemCell?
     
     public init(viewModel: ListPokemonItemViewModel<UIColor>, onImageRequest: @escaping () -> Void) {
         self.viewModel = viewModel
@@ -22,27 +22,28 @@ public final class ListPokemonItemViewController: NSObject, UITableViewDataSourc
     public func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int { 1 }
     
     public func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        cell.onReload = onImageRequest
-        cell.configure(with: viewModel)
+        cell = tableView.dequeueReusableCell()
+        cell?.onReload = onImageRequest
+        cell?.configure(with: viewModel)
         onImageRequest()
-        return cell
+        return cell!
     }
 }
 
 extension ListPokemonItemViewController: ResourceLoadingView {
     public func display(loadingViewModel: LoadingViewModel) {
-        cell.display(isLoading: loadingViewModel.isLoading)
+        cell?.display(isLoading: loadingViewModel.isLoading)
     }
 }
 
 extension ListPokemonItemViewController: ResourceErrorView {
     public func display(errorViewModel: ErrorViewModel) {
-        cell.display(reload: errorViewModel.needToShowError)
+        cell?.display(reload: errorViewModel.needToShowError)
     }
 }
 
 extension ListPokemonItemViewController: ResourceView {
     public func display(viewModel image: UIImage) {
-        cell.display(image: image)
+        cell?.display(image: image)
     }
 }

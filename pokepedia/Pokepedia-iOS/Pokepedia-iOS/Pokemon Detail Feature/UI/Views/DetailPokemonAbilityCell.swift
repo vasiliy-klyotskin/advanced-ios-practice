@@ -17,13 +17,17 @@ public final class DetailPokemonAbilityCell: UITableViewCell {
     @IBOutlet private var damageClassContainer: UIView!
     @IBOutlet private var typeContainer: UIView!
     
-    convenience init() {
-        self.init(frame: .zero)
+    public override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
+        super.init(style: style, reuseIdentifier: reuseIdentifier)
         loadFromNib()
         configureUI()
     }
     
-    func configure(with viewModel: DetailPokemonAbilityViewModel<UIColor>) {
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
+    public func configure(with viewModel: DetailPokemonAbilityViewModel<UIColor>) {
         titleLabel.text = viewModel.title
         subtitleLabel.text = viewModel.subtitle
         damageClassLabel.text = viewModel.damageClass
