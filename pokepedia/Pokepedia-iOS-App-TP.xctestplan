@@ -12,6 +12,8 @@
     "commandLineArgumentEntries" : [
 
     ],
+    "language" : "en",
+    "region" : "US",
     "testExecutionOrdering" : "random"
   },
   "testTargets" : [

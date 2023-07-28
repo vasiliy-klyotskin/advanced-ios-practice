@@ -77,8 +77,8 @@ public final class DetailPokemonInfoCell: UITableViewCell {
     }
     
     private func setupFonts() {
-        nameLabel.font = .standard(size: .headline, weight: .semibold)
-        idLabel.font = .standard(size: .headline, weight: .regular)
+        nameLabel.font = .standard(size: .headline, weight: .bold)
+        idLabel.font = .standard(size: .headline, weight: .semibold)
         genusLabel.font = .standard(size: .title, weight: .regular)
         flavorLabel.font = .standard(size: .title, weight: .regular)
     }

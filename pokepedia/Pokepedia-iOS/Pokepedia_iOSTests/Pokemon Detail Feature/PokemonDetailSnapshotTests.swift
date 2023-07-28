@@ -13,47 +13,42 @@ import Pokepedia_iOS
 final class PokemonDetailSnapshotTests: XCTestCase {
     func test_detailInfoViewIsInLoadingState() {
         let sut = makeSut()
-
-        sut.display(detailInfo(isLoading: true, image: nil))
+        let infoController = detailInfo(controller: sut, isLoading: true, image: nil)
         
-        assert(snapshot: sut.snapshot(for: .iPhone13(style: .light)), named: "POKEMON_INFO_LOADING_light")
-        assert(snapshot: sut.snapshot(for: .iPhone13(style: .dark)), named: "POKEMON_INFO_LOADING_dark")
-        assert(snapshot: sut.snapshot(for: .iPhone13(style: .light, contentSize: .extraExtraExtraLarge)), named: "POKEMON_INFO_LOADING_light_extraExtraExtraLarge")
+        sut.display(controllers: infoController)
+        
+        assert(snapshot: sut.snapshot(for: .default(style: .light)), named: "POKEMON_INFO_LOADING_light")
+        assert(snapshot: sut.snapshot(for: .default(style: .dark)), named: "POKEMON_INFO_LOADING_dark")
+        assert(snapshot: sut.snapshot(for: .default(style: .light, contentSize: .extraExtraExtraLarge)), named: "POKEMON_INFO_LOADING_light_extraExtraExtraLarge")
     }
     
     func test_detailInfoViewIsInErrorState() {
         let sut = makeSut()
-
-        sut.display(detailInfo(isLoading: false, image: nil))
+        let infoController = detailInfo(controller: sut, isLoading: false, image: nil)
         
-        assert(snapshot: sut.snapshot(for: .iPhone13(style: .light)), named: "POKEMON_INFO_ERROR_light")
-        assert(snapshot: sut.snapshot(for: .iPhone13(style: .dark)), named: "POKEMON_INFO_ERROR_dark")
-        assert(snapshot: sut.snapshot(for: .iPhone13(style: .light, contentSize: .extraExtraExtraLarge)), named: "POKEMON_INFO_ERROR_light_extraExtraExtraLarge")
+        sut.display(controllers: infoController)
+        
+        assert(snapshot: sut.snapshot(for: .default(style: .light)), named: "POKEMON_INFO_ERROR_light")
+        assert(snapshot: sut.snapshot(for: .default(style: .dark)), named: "POKEMON_INFO_ERROR_dark")
+        assert(snapshot: sut.snapshot(for: .default(style: .light, contentSize: .extraExtraExtraLarge)), named: "POKEMON_INFO_ERROR_light_extraExtraExtraLarge")
     }
     
-    func test_detailInfoViewIsInSuccessState() {
+    func test_allContent() {
         let sut = makeSut()
         let image = UIImage.make(withColor: .orange)
+        let infoController = detailInfo(controller: sut, isLoading: false, image: image)
+        let abilitiesTitleController = abilityTitle()
+        let abilitiesControllers = abilities()
         
-        sut.display(detailInfo(isLoading: false, image: image))
+        sut.display(controllers: infoController + abilitiesTitleController + abilitiesControllers)
         
-        assert(snapshot: sut.snapshot(for: .iPhone13(style: .light)), named: "POKEMON_INFO_IMAGE_light")
-        assert(snapshot: sut.snapshot(for: .iPhone13(style: .dark)), named: "POKEMON_INFO_IMAGE_dark")
-        assert(snapshot: sut.snapshot(for: .iPhone13(style: .light, contentSize: .extraExtraExtraLarge)), named: "POKEMON_INFO_IMAGE_light_extraExtraExtraLarge")
+        assert(snapshot: sut.snapshot(for: .default(style: .light, height: 1100)), named: "POKEMON_FULL_light")
+        assert(snapshot: sut.snapshot(for: .default(style: .dark, height: 1100)), named: "POKEMON_FULL_dark")
+        assert(snapshot: sut.snapshot(for: .default(style: .light, contentSize: .extraExtraExtraLarge, height: 1100)), named: "POKEMON_FULL_light_extraExtraExtraLarge")
     }
     
-    func test_abilityViews() {
-        let sut = makeSut()
-        
-        sut.display(abilities())
-        
-        assert(snapshot: sut.snapshot(for: .iPhone13(style: .light)), named: "POKEMON_ABILITIES_IMAGE_light")
-        assert(snapshot: sut.snapshot(for: .iPhone13(style: .dark)), named: "POKEMON_ABILITIES_dark")
-        assert(snapshot: sut.snapshot(for: .iPhone13(style: .light, contentSize: .extraExtraExtraLarge)), named: "POKEMON_ABILITIES_light_extraExtraExtraLarge")
-    }
-
     // MARK: - Helpers
- 
+    
     private func makeSut(
         file: StaticString = #filePath,
         line: UInt = #line
@@ -68,7 +63,35 @@ final class PokemonDetailSnapshotTests: XCTestCase {
         return sut
     }
     
-    private func detailInfo(isLoading: Bool = false, image: UIImage? = nil) -> PokemonDetailInfoStub {
+    private func detailInfo(
+        controller: ListViewController,
+        isLoading: Bool = false,
+        image: UIImage? = nil
+    ) -> [CellController] {
+        let stub = detailInfoStub(isLoading: isLoading, image: image)
+        let controller = DetailPokemonInfoController(
+            viewModel: stub.viewModel,
+            onImageRequest: stub.didRequestImage
+        )
+        stub.controller = controller
+        return [CellController(id: UUID(), controller)]
+    }
+    
+    private func abilityTitle() -> [CellController] {
+        let title = DetailPokemonPresenter.abilitiesTitle
+        let controller = DefaultCellController<TitleCell> { $0.set(title: title) }
+        return [CellController(id: title, controller)]
+    }
+    
+    private func abilities() -> [CellController] {
+        let controllers = abilitiesViewModels().map { viewModel in
+            let controller = DefaultCellController<DetailPokemonAbilityCell> { $0.configure(with: viewModel) }
+            return CellController(id: UUID(), controller)
+        }
+        return controllers
+    }
+    
+    private func detailInfoStub(isLoading: Bool = false, image: UIImage? = nil) -> PokemonDetailInfoStub {
         .init(
             viewModel: .init(
                 imageUrl: URL(string: "http://any-url.com")!,
@@ -82,7 +105,7 @@ final class PokemonDetailSnapshotTests: XCTestCase {
         )
     }
     
-    private func abilities() -> DetailPokemonAbilitiesViewModel<UIColor> {
+    private func abilitiesViewModels() -> DetailPokemonAbilitiesViewModel<UIColor> {
         [
             .init(
                 title: "Energy Ball",
@@ -111,26 +134,6 @@ final class PokemonDetailSnapshotTests: XCTestCase {
         ]
     }
 }
-
-private extension ListViewController {
-    func display(_ stub: PokemonDetailInfoStub) {
-        let controller = DetailPokemonInfoController(
-            viewModel: stub.viewModel,
-            onImageRequest: stub.didRequestImage
-        )
-        stub.controller = controller
-        display(controllers: [CellController(id: UUID(), controller)])
-    }
-    
-    func display(_ abilitiesViewModel: DetailPokemonAbilitiesViewModel<UIColor>) {
-        let controllers = abilitiesViewModel.map { viewModel in
-            let controller = DefaultCellController<DetailPokemonAbilityCell> { $0.configure(with: viewModel) }
-            return CellController(id: UUID(), controller)
-        }
-        display(controllers: controllers)
-    }
-}
-
 
 class PokemonDetailInfoStub {
     let viewModel: DetailPokemonInfoViewModel

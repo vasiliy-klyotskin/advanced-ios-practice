@@ -23,7 +23,7 @@ public final class TitleCell: UITableViewCell {
     
     private func configureUI() {
         content.fit(in: contentView)
-        label.font = .standard(size: .title, weight: .semibold)
+        label.font = .standard(size: .title, weight: .bold)
     }
     
     public func set(title: String) {
