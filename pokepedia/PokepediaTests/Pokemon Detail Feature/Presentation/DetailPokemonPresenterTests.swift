@@ -9,6 +9,18 @@ import XCTest
 @testable import Pokepedia
 
 final class DetailPokemonPresenterTests: XCTestCase {
+    func test_abilitiesTitle_isLocalized() {
+        let expected = localized(
+            "POKEMON_DETAILS_ABILITIES_TITLE",
+            table: "PokemonDetail",
+            bundleType: DetailPokemonPresenter.self
+        )
+        
+        let actual = DetailPokemonPresenter.abilitiesTitle
+        
+        XCTAssertEqual(actual, expected)
+    }
+    
     func test_mapInfo_deliversDetailPokemonInfoViewModel() {
         let (viewModel, model) = makeInfoItem()
         

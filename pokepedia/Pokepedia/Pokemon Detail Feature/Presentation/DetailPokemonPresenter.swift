@@ -7,7 +7,16 @@
 
 import Foundation
 
-public enum DetailPokemonPresenter {
+public final class DetailPokemonPresenter {
+    public static var abilitiesTitle: String {
+        NSLocalizedString(
+            "POKEMON_DETAILS_ABILITIES_TITLE",
+            tableName: "PokemonDetail",
+            bundle: Bundle(for: Self.self),
+            comment: "Title for abilities"
+        )
+    }
+    
     public static func mapInfo(model: DetailPokemonInfo) -> DetailPokemonInfoViewModel {
         .init(
             imageUrl: model.imageUrl,
