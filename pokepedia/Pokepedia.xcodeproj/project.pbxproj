@@ -225,8 +225,8 @@
 		D65229512A70321000C81F05 /* Pokemon Detail Feature */ = {
 			isa = PBXGroup;
 			children = (
-				D65229652A7053E000C81F05 /* Presentation */,
 				D65229522A70321A00C81F05 /* Domain */,
+				D65229652A7053E000C81F05 /* Presentation */,
 				D652295B2A703CB800C81F05 /* API */,
 			);
 			path = "Pokemon Detail Feature";
