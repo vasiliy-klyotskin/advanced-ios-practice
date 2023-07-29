@@ -28,6 +28,9 @@ public final class DetailPokemonAbilityCell: UITableViewCell {
     }
     
     public func configure(with viewModel: DetailPokemonAbilityViewModel<UIColor>) {
+        [titleLabel, subtitleLabel].forEach {
+            $0?.adjustsFontForContentSizeCategory = true
+        }
         titleLabel.text = viewModel.title
         subtitleLabel.text = viewModel.subtitle
         damageClassLabel.text = viewModel.damageClass

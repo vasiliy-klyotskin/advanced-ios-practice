@@ -23,6 +23,7 @@ public final class TitleCell: UITableViewCell {
     
     private func configureUI() {
         content.fit(in: contentView)
+        label.adjustsFontForContentSizeCategory = true
         label.font = .standard(size: .title, weight: .bold)
     }
     
