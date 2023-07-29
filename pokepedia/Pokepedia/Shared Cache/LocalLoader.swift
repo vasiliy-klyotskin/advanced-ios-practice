@@ -20,7 +20,7 @@ public struct LocalRetrieval<Local> {
 public protocol LocalLoaderStore {
     associatedtype Local
     
-    func retrieve(for key: String) throws -> LocalRetrieval<Local>?
+    func retrieve(for key: String) -> LocalRetrieval<Local>?
 }
 
 public final class LocalLoader<Local, Model> {
@@ -32,7 +32,7 @@ public final class LocalLoader<Local, Model> {
         case expired
     }
     
-    private let retrieve: (String) throws -> LocalRetrieval<Local>?
+    private let retrieve: (String) -> LocalRetrieval<Local>?
     private let mapping: Mapping
     private let validation: Validation
     
@@ -47,8 +47,7 @@ public final class LocalLoader<Local, Model> {
     }
     
     public func load(for key: String) throws -> Model {
-        let retrieved = try retrieve(key)
-        guard let retrieved = retrieved else { throw Error.empty }
+        guard let retrieved = retrieve(key) else { throw Error.empty }
         try checkExpiration(of: retrieved.timestamp)
         return mapping(retrieved.local)
     }

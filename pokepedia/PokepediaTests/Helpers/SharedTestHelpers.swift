@@ -23,6 +23,10 @@ func anyDate() -> Date {
     .distantPast
 }
 
+func anyKey() -> String {
+    anyId()
+}
+
 func anyId() -> String {
     UUID().uuidString
 }

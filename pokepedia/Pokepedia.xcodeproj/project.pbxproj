@@ -19,6 +19,8 @@
 		D62098FB2A1C628800AA2249 /* ResourceView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D62098FA2A1C628800AA2249 /* ResourceView.swift */; };
 		D62099002A1C689900AA2249 /* SharedLocalizationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D62098FF2A1C689900AA2249 /* SharedLocalizationTests.swift */; };
 		D62099032A1C6A8800AA2249 /* InMemoryStoreTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D62099022A1C6A8800AA2249 /* InMemoryStoreTests.swift */; };
+		D629F24A2A7536EF00195735 /* LocalStoreSpecs.swift in Sources */ = {isa = PBXBuildFile; fileRef = D629F2492A7536EF00195735 /* LocalStoreSpecs.swift */; };
+		D629F24C2A75374D00195735 /* LocalStoreSpecs+Assertions.swift in Sources */ = {isa = PBXBuildFile; fileRef = D629F24B2A75374D00195735 /* LocalStoreSpecs+Assertions.swift */; };
 		D62EF3A32A596AD100CE968B /* PokemonListCachePolicy.swift in Sources */ = {isa = PBXBuildFile; fileRef = D62EF3A22A596AD100CE968B /* PokemonListCachePolicy.swift */; };
 		D63084992A1683AD0097BC5C /* LocalLoaderTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D63084982A1683AD0097BC5C /* LocalLoaderTests.swift */; };
 		D6360FE72A234B3800A28F11 /* PokemonListPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6360FE62A234B3800A28F11 /* PokemonListPresenter.swift */; };
@@ -79,6 +81,8 @@
 		D62098FA2A1C628800AA2249 /* ResourceView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResourceView.swift; sourceTree = "<group>"; };
 		D62098FF2A1C689900AA2249 /* SharedLocalizationTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SharedLocalizationTests.swift; sourceTree = "<group>"; };
 		D62099022A1C6A8800AA2249 /* InMemoryStoreTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InMemoryStoreTests.swift; sourceTree = "<group>"; };
+		D629F2492A7536EF00195735 /* LocalStoreSpecs.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalStoreSpecs.swift; sourceTree = "<group>"; };
+		D629F24B2A75374D00195735 /* LocalStoreSpecs+Assertions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "LocalStoreSpecs+Assertions.swift"; sourceTree = "<group>"; };
 		D62EF3A22A596AD100CE968B /* PokemonListCachePolicy.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PokemonListCachePolicy.swift; sourceTree = "<group>"; };
 		D63084982A1683AD0097BC5C /* LocalLoaderTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalLoaderTests.swift; sourceTree = "<group>"; };
 		D6360FE62A234B3800A28F11 /* PokemonListPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PokemonListPresenter.swift; sourceTree = "<group>"; };
@@ -169,9 +173,19 @@
 		D62099012A1C6A2000AA2249 /* Shared Cache Infra */ = {
 			isa = PBXGroup;
 			children = (
+				D629F2482A7536DC00195735 /* Helpers */,
 				D62099022A1C6A8800AA2249 /* InMemoryStoreTests.swift */,
 			);
 			path = "Shared Cache Infra";
+			sourceTree = "<group>";
+		};
+		D629F2482A7536DC00195735 /* Helpers */ = {
+			isa = PBXGroup;
+			children = (
+				D629F2492A7536EF00195735 /* LocalStoreSpecs.swift */,
+				D629F24B2A75374D00195735 /* LocalStoreSpecs+Assertions.swift */,
+			);
+			path = Helpers;
 			sourceTree = "<group>";
 		};
 		D63084962A1682BD0097BC5C /* Shared Cache */ = {
@@ -583,10 +597,12 @@
 				D65229642A7052CF00C81F05 /* DetailPokemonPresenterTests.swift in Sources */,
 				D652295A2A7039EF00C81F05 /* DetailPokemonRemoteMapperTests.swift in Sources */,
 				D6360FEC2A234E4C00A28F11 /* PokemonListPresenterTests.swift in Sources */,
+				D629F24C2A75374D00195735 /* LocalStoreSpecs+Assertions.swift in Sources */,
 				D62099032A1C6A8800AA2249 /* InMemoryStoreTests.swift in Sources */,
 				D654E36A2A147F220039F033 /* RemoteDataMapperTests.swift in Sources */,
 				F7FC0DBF2A0FC7EF009FD50B /* URLSessionHTTPClientTests.swift in Sources */,
 				D6360FEE2A234FEE00A28F11 /* LocalizationHelpers.swift in Sources */,
+				D629F24A2A7536EF00195735 /* LocalStoreSpecs.swift in Sources */,
 				F7FC0DC92A0FCB00009FD50B /* XCTestCase+MemoryLeakTracking.swift in Sources */,
 				F7FC0DC62A0FCA13009FD50B /* URLProtocolStub.swift in Sources */,
 				D62098F02A1BAAF400AA2249 /* LoadingResourcePresenterTests.swift in Sources */,

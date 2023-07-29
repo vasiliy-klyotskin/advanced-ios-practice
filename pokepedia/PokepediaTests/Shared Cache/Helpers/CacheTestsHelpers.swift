@@ -8,10 +8,6 @@
 import XCTest
 
 extension XCTestCase {
-    func anyKey() -> String {
-        anyId()
-    }
-    
     func validationStub(
         file: StaticString = #filePath,
         line: UInt = #line,

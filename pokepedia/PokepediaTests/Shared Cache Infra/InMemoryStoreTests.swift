@@ -8,128 +8,60 @@
 import XCTest
 import Pokepedia
 
-final class InMemoryStoreTests: XCTestCase {
+final class InMemoryStoreTests: XCTestCase, LocalStoreSpecs {
     func test_retrieve_deliversEmptyOnEmptyCache() {
-        let (sut, key) = makeSut()
-        
-        let cache = sut.retrieve(for: key)
-        
-        XCTAssertNil(cache)
+        let sut = makeSut()
+
+        assertThat(sut).retrieveDeliversEmptyOnEmptyCache()
     }
     
     func test_retrieve_hasNoSideEffects() {
-        let (sut, key) = makeSut()
-        _ = sut.retrieve(for: key)
-        
-        let cache = sut.retrieve(for: key)
-        
-        XCTAssertNil(cache)
+        let sut = makeSut()
+
+        assertThat(sut).retrieveHasNoSideEffects()
     }
     
     func test_retrieve_deliversCacheOnNotEmpty() {
-        let (sut, key) = makeSut()
-        let insertion = anyInsertion()
-        sut.insert(insertion, for: key)
-        
-        let retrieval = sut.retrieve(for: key)
-        
-        assert(retrieval, equals: insertion)
+        let sut = makeSut()
+
+        assertThat(sut).retrieveDeliversCacheOnNotEmpty()
     }
     
     func test_insert_overridesPreviouslyInsertedCache() {
-        let (sut, key) = makeSut()
-        let insertion = anyInsertion()
-        let lastInsertion = anyInsertion()
-        sut.insert(insertion, for: key)
-        sut.insert(lastInsertion, for: key)
-        
-        let retrieval = sut.retrieve(for: key)
-        
-        assert(retrieval, equals: lastInsertion)
+        let sut = makeSut()
+
+        assertThat(sut).insertOverridesPreviouslyInsertedCache()
     }
     
     func test_delete_hasNoSideEffectsOnEmptyCache() {
-        let (sut, key) = makeSut()
+        let sut = makeSut()
 
-        sut.delete(for: key)
-        let retrieval = sut.retrieve(for: key)
-        
-        XCTAssertNil(retrieval)
+        assertThat(sut).deleteHasNoSideEffectsOnEmptyCache()
     }
     
     func test_delete_deletesPreviouslyInsertedCache() {
-        let (sut, key) = makeSut()
-        let insertion = anyInsertion()
-        sut.insert(insertion, for: key)
+        let sut = makeSut()
 
-        sut.delete(for: key)
-        let retrieval = sut.retrieve(for: key)
-        
-        XCTAssertNil(retrieval)
+        assertThat(sut).deleteDeletesPreviouslyInsertedCache()
     }
     
     func test_retrieve_deliversDifferentCacheOnDifferentKey() {
-        let (sut, key1) = makeSut()
-        let key2 = anyKey()
-        let insertion1 = anyInsertion()
-        let insertion2 = anyInsertion()
-        sut.insert(insertion1, for: key1)
-        sut.insert(insertion2, for: key2)
+        let sut = makeSut()
 
-        let retrieval1 = sut.retrieve(for: key1)
-        let retrieval2 = sut.retrieve(for: key2)
-
-        assert(retrieval1, equals: insertion1)
-        assert(retrieval2, equals: insertion2)
+        assertThat(sut).retrieveDeliversDifferentCacheOnDifferentKey()
     }
     
-    func test_delete_deleteDifferentCacheOnDifferentKey() {
-        let (sut, key1) = makeSut()
-        let key2 = anyKey()
-        let insertion1 = anyInsertion()
-        let insertion2 = anyInsertion()
-        sut.insert(insertion1, for: key1)
-        sut.insert(insertion2, for: key2)
-        
-        sut.delete(for: key2)
-        let retrieval1 = sut.retrieve(for: key1)
-        let retrieval2 = sut.retrieve(for: key2)
-        
-        assert(retrieval1, equals: insertion1)
-        XCTAssertNil(retrieval2)
-        
-        sut.delete(for: key1)
-        let retrieval1_ = sut.retrieve(for: key1)
-        let retrieval2_ = sut.retrieve(for: key2)
-        
-        XCTAssertNil(retrieval1_)
-        XCTAssertNil(retrieval2_)
+    func test_delete_deletesDifferentCacheOnDifferentKey() {
+        let sut = makeSut()
+
+        assertThat(sut).deleteDeletesDifferentCacheOnDifferentKey()
     }
     
     // MARK: - Helpers
     
-    typealias Local = Data
-    typealias Store = InMemoryStore<Local>
-    typealias Key = String
-    
-    private func makeSut() -> (Store, Key) {
-        let sut = Store()
-        let key = anyKey()
+    private func makeSut() -> InMemoryStore<Data> {
+        let sut = InMemoryStore<Data>()
         trackForMemoryLeaks(sut)
-        return (sut, key)
-    }
-    
-    private func assert(
-        _ retrieval: LocalRetrieval<Local>?,
-        equals insertion: LocalInserting<Local>,
-        file: StaticString = #filePath,
-        line: UInt = #line
-    ) {
-        XCTAssertEqual(insertion.local, retrieval?.local, file: file, line: line)
-        XCTAssertEqual(insertion.timestamp, retrieval?.timestamp, file: file, line: line)
-    }
-    
-    private func anyInsertion() -> LocalInserting<Local> {
-        .init(timestamp: Date(), local: anyData())
+        return sut
     }
 }

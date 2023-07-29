@@ -12,8 +12,6 @@ final class StoreMock: LocalLoaderStore, LocalSaverStore, LocalValidatorStore {
     typealias Key = String
     typealias Timestamp = Date
     
-    struct Unexpected: Error {}
-    
     enum Message: Equatable {
         case retrieve(Key)
         case delete(Key)
@@ -23,17 +21,14 @@ final class StoreMock: LocalLoaderStore, LocalSaverStore, LocalValidatorStore {
     var messages: [Message] = []
     var retrieveStubs = [Key: Result<LocalRetrieval<LocalStub>?, Error>]()
     
-    func retrieve(for key: String) throws -> LocalRetrieval<LocalStub>? {
+    func retrieve(for key: String) -> LocalRetrieval<LocalStub>? {
         messages.append(.retrieve(key))
-        if let stub = retrieveStubs[key] {
-            return try stub.get()
-        }
-        throw Unexpected()
+        return try? retrieveStubs[key]!.get()
     }
     
     func retrieveTimestamp(for key: Key) -> Timestamp? {
-        let a: LocalRetrieval<LocalStub>? = try? retrieve(for: key)
-        return a.map { $0.timestamp }
+        let retrieval: LocalRetrieval<LocalStub>? = retrieve(for: key)
+        return retrieval.map { $0.timestamp }
     }
     
     func delete(for key: Key) {
