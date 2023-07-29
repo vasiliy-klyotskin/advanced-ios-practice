@@ -21,6 +21,8 @@
 		D62099032A1C6A8800AA2249 /* InMemoryStoreTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D62099022A1C6A8800AA2249 /* InMemoryStoreTests.swift */; };
 		D629F24A2A7536EF00195735 /* LocalStoreSpecs.swift in Sources */ = {isa = PBXBuildFile; fileRef = D629F2492A7536EF00195735 /* LocalStoreSpecs.swift */; };
 		D629F24C2A75374D00195735 /* LocalStoreSpecs+Assertions.swift in Sources */ = {isa = PBXBuildFile; fileRef = D629F24B2A75374D00195735 /* LocalStoreSpecs+Assertions.swift */; };
+		D629F24E2A7565C300195735 /* CoreDataStoreTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D629F24D2A7565C300195735 /* CoreDataStoreTests.swift */; };
+		D629F2502A75685500195735 /* CoreDataStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = D629F24F2A75685500195735 /* CoreDataStore.swift */; };
 		D62EF3A32A596AD100CE968B /* PokemonListCachePolicy.swift in Sources */ = {isa = PBXBuildFile; fileRef = D62EF3A22A596AD100CE968B /* PokemonListCachePolicy.swift */; };
 		D63084992A1683AD0097BC5C /* LocalLoaderTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D63084982A1683AD0097BC5C /* LocalLoaderTests.swift */; };
 		D6360FE72A234B3800A28F11 /* PokemonListPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6360FE62A234B3800A28F11 /* PokemonListPresenter.swift */; };
@@ -83,6 +85,8 @@
 		D62099022A1C6A8800AA2249 /* InMemoryStoreTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InMemoryStoreTests.swift; sourceTree = "<group>"; };
 		D629F2492A7536EF00195735 /* LocalStoreSpecs.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalStoreSpecs.swift; sourceTree = "<group>"; };
 		D629F24B2A75374D00195735 /* LocalStoreSpecs+Assertions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "LocalStoreSpecs+Assertions.swift"; sourceTree = "<group>"; };
+		D629F24D2A7565C300195735 /* CoreDataStoreTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataStoreTests.swift; sourceTree = "<group>"; };
+		D629F24F2A75685500195735 /* CoreDataStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataStore.swift; sourceTree = "<group>"; };
 		D62EF3A22A596AD100CE968B /* PokemonListCachePolicy.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PokemonListCachePolicy.swift; sourceTree = "<group>"; };
 		D63084982A1683AD0097BC5C /* LocalLoaderTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalLoaderTests.swift; sourceTree = "<group>"; };
 		D6360FE62A234B3800A28F11 /* PokemonListPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PokemonListPresenter.swift; sourceTree = "<group>"; };
@@ -147,6 +151,7 @@
 			isa = PBXGroup;
 			children = (
 				D61ABF7B2A1DCB7100A623C2 /* InMemoryStore.swift */,
+				D629F24F2A75685500195735 /* CoreDataStore.swift */,
 			);
 			path = "Shared Cache Infra";
 			sourceTree = "<group>";
@@ -175,6 +180,7 @@
 			children = (
 				D629F2482A7536DC00195735 /* Helpers */,
 				D62099022A1C6A8800AA2249 /* InMemoryStoreTests.swift */,
+				D629F24D2A7565C300195735 /* CoreDataStoreTests.swift */,
 			);
 			path = "Shared Cache Infra";
 			sourceTree = "<group>";
@@ -567,6 +573,7 @@
 				D652295D2A703CC800C81F05 /* DetailPokemonRemote.swift in Sources */,
 				D62EF3A32A596AD100CE968B /* PokemonListCachePolicy.swift in Sources */,
 				D61ABF7C2A1DCB7100A623C2 /* InMemoryStore.swift in Sources */,
+				D629F2502A75685500195735 /* CoreDataStore.swift in Sources */,
 				D654E36C2A147FA80039F033 /* RemoteDataMapper.swift in Sources */,
 				F7FC0DC12A0FC803009FD50B /* URLSessionHTTPClient.swift in Sources */,
 				D62098E72A194CF500AA2249 /* LocalSaver.swift in Sources */,
@@ -605,6 +612,7 @@
 				D629F24A2A7536EF00195735 /* LocalStoreSpecs.swift in Sources */,
 				F7FC0DC92A0FCB00009FD50B /* XCTestCase+MemoryLeakTracking.swift in Sources */,
 				F7FC0DC62A0FCA13009FD50B /* URLProtocolStub.swift in Sources */,
+				D629F24E2A7565C300195735 /* CoreDataStoreTests.swift in Sources */,
 				D62098F02A1BAAF400AA2249 /* LoadingResourcePresenterTests.swift in Sources */,
 				D62098E52A193E8C00AA2249 /* LocalSaverTests.swift in Sources */,
 				D645BD1D2A17EB7900E6E145 /* StoreMock.swift in Sources */,
