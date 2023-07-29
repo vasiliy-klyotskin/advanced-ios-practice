@@ -16,7 +16,9 @@ final class CoreDataStoreTests: XCTestCase, LocalStoreSpecs {
     }
     
     func test_retrieve_hasNoSideEffects() {
+        let sut = makeSut()
         
+        assertThat(sut).retrieveHasNoSideEffects()
     }
     
     func test_retrieve_deliversCacheOnNotEmpty() {
