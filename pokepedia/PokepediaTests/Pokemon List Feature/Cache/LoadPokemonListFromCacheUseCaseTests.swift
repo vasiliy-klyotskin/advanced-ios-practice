@@ -8,6 +8,21 @@
 import XCTest
 import Pokepedia
 
+enum PokemonListCachePolicy {
+    private static let calendar = Calendar(identifier: .gregorian)
+    
+    private static var maxCacheAgeInDays: Int {
+        return 7
+    }
+    
+    static func validate(_ timestamp: Date, against date: Date) -> Bool {
+        guard let maxCacheAge = calendar.date(byAdding: .day, value: maxCacheAgeInDays, to: timestamp) else {
+            return false
+        }
+        return date < maxCacheAge
+    }
+}
+
 
 public typealias LocalPokemonList = [LocalPokemonListItem]
 
@@ -57,19 +72,29 @@ public struct LocalPokemonListItemType {
     }
 }
 
+typealias CachedPokemonList = (local: LocalPokemonList, timestamp: Date)
+
 protocol LocalPokemonListStore {
-    func retrieve() throws -> LocalPokemonList?
+    func retrieve() throws -> CachedPokemonList?
 }
 
 final class LocalPokemonListLoader {
     private let store: LocalPokemonListStore
+    private let currentDate: () -> Date
     
-    init(store: LocalPokemonListStore) {
+    init(store: LocalPokemonListStore, currentDate: @escaping () -> Date = Date.init) {
         self.store = store
+        self.currentDate = currentDate
     }
     
     func load() throws -> PokemonList? {
-        try store.retrieve()?.model
+        let cache = try store.retrieve()
+        guard let cache else { return nil }
+        if PokemonListCachePolicy.validate(cache.timestamp, against: currentDate()) {
+            return cache.local.model
+        } else {
+            return nil
+        }
     }
 }
 
@@ -90,14 +115,14 @@ final class LoadPokemonListFromCacheUseCaseTests: XCTestCase {
     
     func test_load_failsOnRetrievalError() {
         let (sut, store) = makeSut()
-        store.stubRetrieve(with: .failure(anyNSError()))
+        store.stubRetrieve(with: anyNSError())
         
         XCTAssertThrowsError(try sut.load())
     }
     
     func test_load_deliversNoListOnEmptyCache() throws {
         let (sut, store) = makeSut()
-        store.stubRetrieve(with: .success(nil))
+        store.stubEmptyRetrieve()
         
         let list = try sut.load()
         
@@ -109,23 +134,35 @@ final class LoadPokemonListFromCacheUseCaseTests: XCTestCase {
         let fixedCurrentDate = Date()
         let nonExpiredTimestamp = fixedCurrentDate.minusFeedCacheMaxAge().adding(seconds: 1)
         let (sut, store) = makeSut(currentDate: { fixedCurrentDate })
-        store.stubRetrieve(with: .success(list.local))
+        store.stubRetrieveWith(local: list.local, timestamp: nonExpiredTimestamp)
         
         let result = try sut.load()
         
         XCTAssertEqual(result, list.model)
     }
     
-    func test_load_deliversCachedListOnCacheExpiration() throws {
+    func test_load_deliversNoCachedListOnCacheExpiration() throws {
         let list = pokemonList()
         let fixedCurrentDate = Date()
-        let nonExpiredTimestamp = fixedCurrentDate.minusFeedCacheMaxAge()
+        let expirationDateTimestamp = fixedCurrentDate.minusFeedCacheMaxAge()
         let (sut, store) = makeSut(currentDate: { fixedCurrentDate })
-        store.stubRetrieve(with: .success(list.local))
+        store.stubRetrieveWith(local: list.local, timestamp: expirationDateTimestamp)
         
         let result = try sut.load()
         
-        XCTAssertEqual(result, list.model)
+        XCTAssertEqual(result, nil)
+    }
+    
+    func test_load_deliversNoListOnExpiredCache() throws {
+        let list = pokemonList()
+        let fixedCurrentDate = Date()
+        let expiredTimestamp = fixedCurrentDate.minusFeedCacheMaxAge().adding(seconds: -1)
+        let (sut, store) = makeSut(currentDate: { fixedCurrentDate })
+        store.stubRetrieveWith(local: list.local, timestamp: expiredTimestamp)
+        
+        let result = try sut.load()
+        
+        XCTAssertEqual(result, nil)
     }
     
     // MARK: - Helpers
@@ -183,10 +220,10 @@ final class PokemonListStoreMock: LocalPokemonListStore {
         case retrieval
     }
     
-    var retrieveResult: Result<LocalPokemonList?, Error> = .failure(anyNSError())
+    var retrieveResult: Result<CachedPokemonList?, Error> = .failure(anyNSError())
     var receivedMessages: [Message] = []
     
-    func retrieve() throws -> LocalPokemonList? {
+    func retrieve() throws -> CachedPokemonList? {
         receivedMessages.append(.retrieval)
         switch retrieveResult {
         case .success(let success):
@@ -196,8 +233,16 @@ final class PokemonListStoreMock: LocalPokemonListStore {
         }
     }
     
-    func stubRetrieve(with result: Result<LocalPokemonList?, Error>) {
-        self.retrieveResult = result
+    func stubRetrieve(with error: Error) {
+        self.retrieveResult = .failure(error)
+    }
+    
+    func stubRetrieveWith(local: LocalPokemonList, timestamp: Date) {
+        self.retrieveResult = .success((local, timestamp))
+    }
+    
+    func stubEmptyRetrieve() {
+        self.retrieveResult = .success(nil)
     }
 }
 
