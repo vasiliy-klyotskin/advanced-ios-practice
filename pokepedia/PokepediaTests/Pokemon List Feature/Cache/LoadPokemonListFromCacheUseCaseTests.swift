@@ -116,6 +116,18 @@ final class LoadPokemonListFromCacheUseCaseTests: XCTestCase {
         XCTAssertEqual(result, list.model)
     }
     
+    func test_load_deliversCachedListOnCacheExpiration() throws {
+        let list = pokemonList()
+        let fixedCurrentDate = Date()
+        let nonExpiredTimestamp = fixedCurrentDate.minusFeedCacheMaxAge()
+        let (sut, store) = makeSut(currentDate: { fixedCurrentDate })
+        store.stubRetrieve(with: .success(list.local))
+        
+        let result = try sut.load()
+        
+        XCTAssertEqual(result, list.model)
+    }
+    
     // MARK: - Helpers
     
     private func makeSut(
