@@ -8,7 +8,7 @@
 import XCTest
 
 protocol LocalPokemonListStore {
-    func retrieve()
+    func retrieve() throws
 }
 
 final class LocalPokemonListLoader {
@@ -18,8 +18,8 @@ final class LocalPokemonListLoader {
         self.store = store
     }
     
-    func load() {
-        store.retrieve()
+    func load() throws {
+        try store.retrieve()
     }
 }
 
@@ -33,19 +33,26 @@ final class LoadPokemonListFromCacheUseCaseTests: XCTestCase {
     func test_load_requestsCacheRetrieval() {
         let (sut, store) = makeSut()
         
-        sut.load()
+        try? sut.load()
         
         XCTAssertEqual(store.receivedMessages, [.retrieval])
+    }
+    
+    func test_load_failsOnRetrievalError() {
+        let (sut, store) = makeSut()
+        store.stubRetrieve(with: .failure(anyNSError()))
+        
+        XCTAssertThrowsError(try sut.load())
     }
     
     // MARK: - Helpers
     
     private func makeSut(file: StaticString = #filePath, line: UInt = #line) -> (LocalPokemonListLoader, PokemonListStoreMock) {
-        let mock = PokemonListStoreMock()
-        let sut = LocalPokemonListLoader(store: mock)
-        trackForMemoryLeaks(mock, file: file, line: line)
+        let store = PokemonListStoreMock()
+        let sut = LocalPokemonListLoader(store: store)
+        trackForMemoryLeaks(store, file: file, line: line)
         trackForMemoryLeaks(sut, file: file, line: line)
-        return (sut, mock)
+        return (sut, store)
     }
 }
 
@@ -54,9 +61,20 @@ final class PokemonListStoreMock: LocalPokemonListStore {
         case retrieval
     }
     
+    var retrieveResult: Result<Any, Error> = .failure(anyNSError())
     var receivedMessages: [Message] = []
     
-    func retrieve() {
+    func retrieve() throws {
         receivedMessages.append(.retrieval)
+        switch retrieveResult {
+        case .success(let success):
+            break
+        case .failure(let failure):
+            throw failure
+        }
+    }
+    
+    func stubRetrieve(with result: Result<Any, Error>) {
+        self.retrieveResult = result
     }
 }
