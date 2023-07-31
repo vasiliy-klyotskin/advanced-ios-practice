@@ -290,9 +290,17 @@
 		D6CEA2F22A780DB90017020E /* Cache */ = {
 			isa = PBXGroup;
 			children = (
+				D6CEA2F52A7819DE0017020E /* Helpers */,
 				D6CEA2F32A780DF80017020E /* LoadPokemonListFromCacheUseCaseTests.swift */,
 			);
 			path = Cache;
+			sourceTree = "<group>";
+		};
+		D6CEA2F52A7819DE0017020E /* Helpers */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Helpers;
 			sourceTree = "<group>";
 		};
 		F7FC0D9A2A0FC5A6009FD50B = {
