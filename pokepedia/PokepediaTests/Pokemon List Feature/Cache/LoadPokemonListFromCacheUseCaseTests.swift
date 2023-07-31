@@ -6,9 +6,12 @@
 //
 
 import XCTest
+import Pokepedia
+
+struct LocalPokemonList {}
 
 protocol LocalPokemonListStore {
-    func retrieve() throws
+    func retrieve() throws -> LocalPokemonList?
 }
 
 final class LocalPokemonListLoader {
@@ -18,8 +21,9 @@ final class LocalPokemonListLoader {
         self.store = store
     }
     
-    func load() throws {
+    func load() throws -> PokemonList? {
         try store.retrieve()
+        return nil
     }
 }
 
@@ -33,7 +37,7 @@ final class LoadPokemonListFromCacheUseCaseTests: XCTestCase {
     func test_load_requestsCacheRetrieval() {
         let (sut, store) = makeSut()
         
-        try? sut.load()
+        _ = try? sut.load()
         
         XCTAssertEqual(store.receivedMessages, [.retrieval])
     }
@@ -43,6 +47,15 @@ final class LoadPokemonListFromCacheUseCaseTests: XCTestCase {
         store.stubRetrieve(with: .failure(anyNSError()))
         
         XCTAssertThrowsError(try sut.load())
+    }
+    
+    func test_load_deliversNoListOnEmptyCache() throws {
+        let (sut, store) = makeSut()
+        store.stubRetrieve(with: .success(nil))
+        
+        let list = try sut.load()
+        
+        XCTAssertEqual(list, nil)
     }
     
     // MARK: - Helpers
@@ -61,20 +74,20 @@ final class PokemonListStoreMock: LocalPokemonListStore {
         case retrieval
     }
     
-    var retrieveResult: Result<Any, Error> = .failure(anyNSError())
+    var retrieveResult: Result<LocalPokemonList?, Error> = .failure(anyNSError())
     var receivedMessages: [Message] = []
     
-    func retrieve() throws {
+    func retrieve() throws -> LocalPokemonList? {
         receivedMessages.append(.retrieval)
         switch retrieveResult {
         case .success(let success):
-            break
+            return success
         case .failure(let failure):
             throw failure
         }
     }
     
-    func stubRetrieve(with result: Result<Any, Error>) {
+    func stubRetrieve(with result: Result<LocalPokemonList?, Error>) {
         self.retrieveResult = result
     }
 }
