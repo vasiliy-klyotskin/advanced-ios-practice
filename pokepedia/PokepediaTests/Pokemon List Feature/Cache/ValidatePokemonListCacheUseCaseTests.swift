@@ -85,6 +85,16 @@ final class ValidatePokemonListCacheUseCaseTests: XCTestCase {
         expect(sut, toCompleteWith: .success(()))
     }
     
+    func test_validateCache_succeedsOnNonExpiredCache() {
+        let list = pokemonList()
+        let fixedCurrentDate = Date()
+        let nonExpiredTimestamp = fixedCurrentDate.minusFeedCacheMaxAge().adding(seconds: 1)
+        let (sut, store) = makeSut(currentDate: { fixedCurrentDate })
+        store.stubRetrieveWith(local: list.local, timestamp: nonExpiredTimestamp)
+        
+        expect(sut, toCompleteWith: .success(()))
+    }
+    
     // MARK: - Helpers
     
     private func makeSut(
