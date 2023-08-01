@@ -95,6 +95,18 @@ final class ValidatePokemonListCacheUseCaseTests: XCTestCase {
         expect(sut, toCompleteWith: .success(()))
     }
     
+    func test_validateCache_failsOnDeletionErrorOfExpiredCache() {
+        let list = pokemonList()
+        let fixedCurrentDate = Date()
+        let expirationDateTimestamp = fixedCurrentDate.minusFeedCacheMaxAge()
+        let (sut, store) = makeSut(currentDate: { fixedCurrentDate })
+        let deletionError = anyNSError()
+        store.stubRetrieveWith(local: list.local, timestamp: expirationDateTimestamp)
+        store.stubDeletion(with: deletionError)
+        
+        expect(sut, toCompleteWith: .failure(deletionError))
+    }
+    
     // MARK: - Helpers
     
     private func makeSut(
