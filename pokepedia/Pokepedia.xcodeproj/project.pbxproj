@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		D60141062A794E15007B2F46 /* CachePokemonListUseCaseTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D60141052A794E15007B2F46 /* CachePokemonListUseCaseTests.swift */; };
 		D62098F02A1BAAF400AA2249 /* LoadingResourcePresenterTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D62098EF2A1BAAF400AA2249 /* LoadingResourcePresenterTests.swift */; };
 		D62098F32A1C5C7D00AA2249 /* Shared.strings in Resources */ = {isa = PBXBuildFile; fileRef = D62098F52A1C5C7D00AA2249 /* Shared.strings */; };
 		D62098F92A1C5DB400AA2249 /* LoadingResourcePresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = D62098F82A1C5DB400AA2249 /* LoadingResourcePresenter.swift */; };
@@ -61,6 +62,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		D60141052A794E15007B2F46 /* CachePokemonListUseCaseTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CachePokemonListUseCaseTests.swift; sourceTree = "<group>"; };
 		D62098EF2A1BAAF400AA2249 /* LoadingResourcePresenterTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingResourcePresenterTests.swift; sourceTree = "<group>"; };
 		D62098F42A1C5C7D00AA2249 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Shared.strings; sourceTree = "<group>"; };
 		D62098F62A1C5CB900AA2249 /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ru; path = ru.lproj/Shared.strings; sourceTree = "<group>"; };
@@ -301,6 +303,7 @@
 			children = (
 				D6CEA2F52A7819DE0017020E /* Helpers */,
 				D6CEA2F32A780DF80017020E /* LoadPokemonListFromCacheUseCaseTests.swift */,
+				D60141052A794E15007B2F46 /* CachePokemonListUseCaseTests.swift */,
 			);
 			path = Cache;
 			sourceTree = "<group>";
@@ -551,6 +554,7 @@
 				D65229642A7052CF00C81F05 /* DetailPokemonPresenterTests.swift in Sources */,
 				D652295A2A7039EF00C81F05 /* DetailPokemonRemoteMapperTests.swift in Sources */,
 				D6360FEC2A234E4C00A28F11 /* PokemonListPresenterTests.swift in Sources */,
+				D60141062A794E15007B2F46 /* CachePokemonListUseCaseTests.swift in Sources */,
 				D654E36A2A147F220039F033 /* RemoteDataMapperTests.swift in Sources */,
 				D6CEA2F42A780DF80017020E /* LoadPokemonListFromCacheUseCaseTests.swift in Sources */,
 				F7FC0DBF2A0FC7EF009FD50B /* URLSessionHTTPClientTests.swift in Sources */,
