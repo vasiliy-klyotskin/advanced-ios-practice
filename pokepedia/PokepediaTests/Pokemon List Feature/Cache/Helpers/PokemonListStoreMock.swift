@@ -17,6 +17,7 @@ final class PokemonListStoreMock: LocalPokemonListStore {
     
     var retrieveResult: Result<CachedPokemonList?, Error> = .failure(anyNSError())
     var deletionResult: Result<Void, Error> = .failure(anyNSError())
+    var insertionResult: Result<Void, Error> = .failure(anyNSError())
     var receivedMessages: [Message] = []
     
     func retrieve() throws -> CachedPokemonList? {
@@ -29,9 +30,12 @@ final class PokemonListStoreMock: LocalPokemonListStore {
         try deletionResult.get()
     }
     
-    func insert(local: LocalPokemonList, timestamp: Date) {
+    func insert(local: LocalPokemonList, timestamp: Date) throws {
         receivedMessages.append(.insertion(timestamp: timestamp, local: local))
+        try insertionResult.get()
     }
+    
+    // MARK: - Retrieval
     
     func stubRetrieve(with error: Error) {
         self.retrieveResult = .failure(error)
@@ -45,11 +49,19 @@ final class PokemonListStoreMock: LocalPokemonListStore {
         self.retrieveResult = .success(nil)
     }
     
+    // MARK: - Deletion
+    
     func stubDeletion(with error: Error) {
         self.deletionResult = .failure(error)
     }
     
     func stubDeletionWithSuccess() {
         self.deletionResult = .success(())
+    }
+    
+    // MARK: - Insertion
+    
+    func stubInsertion(with error: Error) {
+        self.insertionResult = .failure(error)
     }
 }

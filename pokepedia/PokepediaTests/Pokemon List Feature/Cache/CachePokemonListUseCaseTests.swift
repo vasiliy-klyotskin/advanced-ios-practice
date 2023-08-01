@@ -42,6 +42,14 @@ final class CachePokemonListUseCaseTests: XCTestCase {
         XCTAssertThrowsError(try sut.save(pokemonList().model))
     }
     
+    func test_save_failsOnInsertionError() {
+        let (sut, store) = makeSut()
+        store.stubDeletionWithSuccess()
+        store.stubInsertion(with: anyNSError())
+        
+        XCTAssertThrowsError(try sut.save(pokemonList().model))
+    }
+    
     // MARK: - Helpers
     
     private func makeSut(
