@@ -38,30 +38,34 @@ final class PokemonListStoreMock: LocalPokemonListStore {
     // MARK: - Retrieval
     
     func stubRetrieve(with error: Error) {
-        self.retrieveResult = .failure(error)
+        retrieveResult = .failure(error)
     }
     
     func stubRetrieveWith(local: LocalPokemonList, timestamp: Date) {
-        self.retrieveResult = .success((local, timestamp))
+        retrieveResult = .success((local, timestamp))
     }
     
     func stubEmptyRetrieve() {
-        self.retrieveResult = .success(nil)
+        retrieveResult = .success(nil)
     }
     
     // MARK: - Deletion
     
     func stubDeletion(with error: Error) {
-        self.deletionResult = .failure(error)
+        deletionResult = .failure(error)
     }
     
     func stubDeletionWithSuccess() {
-        self.deletionResult = .success(())
+        deletionResult = .success(())
     }
     
     // MARK: - Insertion
     
     func stubInsertion(with error: Error) {
-        self.insertionResult = .failure(error)
+        insertionResult = .failure(error)
+    }
+    
+    func stubInsertionWithSuccess() {
+        insertionResult = .success(())
     }
 }
