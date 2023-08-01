@@ -15,6 +15,15 @@ final class CachePokemonListUseCaseTests: XCTestCase {
         XCTAssertTrue(store.receivedMessages.isEmpty)
     }
     
+    func test_save_doesNotRequestCacheInsertionOnDeletionError() {
+        let (sut, store) = makeSut()
+        store.stubDeletion(with: anyNSError())
+        
+        sut.save(pokemonList().model)
+        
+        XCTAssertEqual(store.receivedMessages, [.deletion])
+    }
+    
     // MARK: - Helpers
     
     private func makeSut(
