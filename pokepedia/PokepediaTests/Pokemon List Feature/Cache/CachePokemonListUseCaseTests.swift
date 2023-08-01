@@ -37,17 +37,19 @@ final class CachePokemonListUseCaseTests: XCTestCase {
     
     func test_save_failsOnDeletionError() {
         let (sut, store) = makeSut()
-        store.stubDeletion(with: anyNSError())
+        let deletionError = anyNSError()
+        store.stubDeletion(with: deletionError)
         
-        XCTAssertThrowsError(try sut.save(pokemonList().model))
+        expect(sut, toCompleteWithError: deletionError)
     }
     
     func test_save_failsOnInsertionError() {
         let (sut, store) = makeSut()
+        let insertionError = anyNSError()
         store.stubDeletionWithSuccess()
-        store.stubInsertion(with: anyNSError())
+        store.stubInsertion(with: insertionError)
         
-        XCTAssertThrowsError(try sut.save(pokemonList().model))
+        expect(sut, toCompleteWithError: insertionError)
     }
     
     func test_save_succeedsOnSuccessfulCacheInsertion() {
@@ -55,7 +57,7 @@ final class CachePokemonListUseCaseTests: XCTestCase {
         store.stubDeletionWithSuccess()
         store.stubInsertionWithSuccess()
         
-        XCTAssertNoThrow(try sut.save(pokemonList().model))
+        expect(sut, toCompleteWithError: nil)
     }
     
     // MARK: - Helpers
@@ -70,5 +72,18 @@ final class CachePokemonListUseCaseTests: XCTestCase {
         trackForMemoryLeaks(store, file: file, line: line)
         trackForMemoryLeaks(sut, file: file, line: line)
         return (sut, store)
+    }
+    
+    private func expect(
+        _ sut: LocalPokemonListLoader,
+        toCompleteWithError expectedError: NSError?,
+        file: StaticString = #filePath,
+        line: UInt = #line
+    ) {
+        do {
+            try sut.save(pokemonList().model)
+        } catch {
+            XCTAssertEqual(error as NSError?, expectedError, file: file, line: line)
+        }
     }
 }

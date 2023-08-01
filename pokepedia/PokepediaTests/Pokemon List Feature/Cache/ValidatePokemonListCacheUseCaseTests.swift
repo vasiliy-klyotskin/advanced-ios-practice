@@ -132,7 +132,12 @@ final class ValidatePokemonListCacheUseCaseTests: XCTestCase {
         return (sut, store)
     }
     
-    private func expect(_ sut: LocalPokemonListLoader, toCompleteWith expectedResult: Result<Void, Error>, file: StaticString = #filePath, line: UInt = #line) {
+    private func expect(
+        _ sut: LocalPokemonListLoader,
+        toCompleteWith expectedResult: Result<Void, Error>,
+        file: StaticString = #filePath,
+        line: UInt = #line
+    ) {
         let receivedResult = Result { try sut.validateCache() }
         switch (receivedResult, expectedResult) {
         case (.success, .success):

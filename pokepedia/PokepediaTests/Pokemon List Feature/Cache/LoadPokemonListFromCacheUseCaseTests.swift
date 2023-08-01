@@ -82,7 +82,12 @@ final class LoadPokemonListFromCacheUseCaseTests: XCTestCase {
         return (sut, store)
     }
     
-    private func expect(_ sut: LocalPokemonListLoader, toCompleteWith expectedResult: Result<PokemonList?, Error>, file: StaticString = #filePath, line: UInt = #line) {
+    private func expect(
+        _ sut: LocalPokemonListLoader,
+        toCompleteWith expectedResult: Result<PokemonList?, Error>,
+        file: StaticString = #filePath,
+        line: UInt = #line
+    ) {
         let receivedResult = Result { try sut.load() }
         switch (receivedResult, expectedResult) {
         case let (.success(receivedImages), .success(expectedImages)):
