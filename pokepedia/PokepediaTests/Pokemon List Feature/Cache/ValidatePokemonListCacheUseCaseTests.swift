@@ -19,7 +19,7 @@ final class ValidatePokemonListCacheUseCaseTests: XCTestCase {
         let (sut, store) = makeSut()
         store.stubRetrieve(with: anyNSError())
 
-        sut.validateCache()
+        try? sut.validateCache()
         
         XCTAssertEqual(store.receivedMessages, [.retrieval, .deletion])
     }
@@ -28,7 +28,7 @@ final class ValidatePokemonListCacheUseCaseTests: XCTestCase {
         let (sut, store) = makeSut()
         store.stubEmptyRetrieve()
         
-        sut.validateCache()
+        try? sut.validateCache()
         
         XCTAssertEqual(store.receivedMessages, [.retrieval])
     }
@@ -40,7 +40,7 @@ final class ValidatePokemonListCacheUseCaseTests: XCTestCase {
         let (sut, store) = makeSut(currentDate: { fixedCurrentDate })
         store.stubRetrieveWith(local: list.local, timestamp: nonExpiredTimestamp)
         
-        sut.validateCache()
+        try? sut.validateCache()
         
         XCTAssertEqual(store.receivedMessages, [.retrieval])
     }
@@ -52,7 +52,7 @@ final class ValidatePokemonListCacheUseCaseTests: XCTestCase {
         let (sut, store) = makeSut(currentDate: { fixedCurrentDate })
         store.stubRetrieveWith(local: list.local, timestamp: expirationDateTimestamp)
         
-        sut.validateCache()
+        try? sut.validateCache()
         
         XCTAssertEqual(store.receivedMessages, [.retrieval, .deletion])
     }
@@ -64,9 +64,18 @@ final class ValidatePokemonListCacheUseCaseTests: XCTestCase {
         let (sut, store) = makeSut(currentDate: { fixedCurrentDate })
         store.stubRetrieveWith(local: list.local, timestamp: expiredTimestamp)
         
-        sut.validateCache()
+        try? sut.validateCache()
         
         XCTAssertEqual(store.receivedMessages, [.retrieval, .deletion])
+    }
+    
+    func test_validateCache_failsOnDeletionErrorOfFailedRetrieval() {
+        let (sut, store) = makeSut()
+        let deletionError = anyNSError()
+        store.stubRetrieve(with: anyNSError())
+        store.stubDeletion(with: deletionError)
+        
+        expect(sut, toCompleteWith: .failure(deletionError))
     }
     
     // MARK: - Helpers
@@ -81,5 +90,17 @@ final class ValidatePokemonListCacheUseCaseTests: XCTestCase {
         trackForMemoryLeaks(store, file: file, line: line)
         trackForMemoryLeaks(sut, file: file, line: line)
         return (sut, store)
+    }
+    
+    private func expect(_ sut: LocalPokemonListLoader, toCompleteWith expectedResult: Result<Void, Error>, file: StaticString = #filePath, line: UInt = #line) {
+        let receivedResult = Result { try sut.validateCache() }
+        switch (receivedResult, expectedResult) {
+        case (.success, .success):
+            break
+        case let (.failure(receivedError as NSError), .failure(expectedError as NSError)):
+            XCTAssertEqual(receivedError, expectedError, file: file, line: line)
+        default:
+            XCTFail("Expected result \(expectedResult), got \(receivedResult) instead", file: file, line: line)
+        }
     }
 }

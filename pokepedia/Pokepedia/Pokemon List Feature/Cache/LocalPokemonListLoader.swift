@@ -41,13 +41,13 @@ public final class LocalPokemonListLoader {
     
     struct InvalidCache: Error {}
     
-    public func validateCache() {
+    public func validateCache() throws {
         do {
             if let cache = try store.retrieve(), !PokemonListCachePolicy.validate(cache.timestamp, against: currentDate()) {
                 throw InvalidCache()
             }
         } catch {
-            try? store.delete()
+            try store.delete()
         }
     }
 }
