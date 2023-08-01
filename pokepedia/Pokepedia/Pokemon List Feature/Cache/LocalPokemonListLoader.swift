@@ -23,7 +23,9 @@ public final class LocalPokemonListLoader {
         self.store = store
         self.currentDate = currentDate
     }
-    
+}
+
+extension LocalPokemonListLoader {
     public func load() throws -> PokemonList? {
         let cache = try store.retrieve()
         guard let cache else { return nil }
@@ -34,11 +36,16 @@ public final class LocalPokemonListLoader {
         }
     }
     
+}
+
+extension LocalPokemonListLoader {
     public func save(_ list: PokemonList) throws {
         try store.delete()
         try store.insert(local: list.local, timestamp: currentDate())
     }
-    
+}
+
+extension LocalPokemonListLoader {
     struct InvalidCache: Error {}
     
     public func validateCache() throws {
