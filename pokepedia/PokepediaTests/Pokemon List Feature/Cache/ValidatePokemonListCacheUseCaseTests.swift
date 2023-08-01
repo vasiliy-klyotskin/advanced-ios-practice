@@ -57,6 +57,18 @@ final class ValidatePokemonListCacheUseCaseTests: XCTestCase {
         XCTAssertEqual(store.receivedMessages, [.retrieval, .deletion])
     }
     
+    func test_validateCache_deletesExpiredCache() {
+        let list = pokemonList()
+        let fixedCurrentDate = Date()
+        let expiredTimestamp = fixedCurrentDate.minusFeedCacheMaxAge().adding(seconds: -1)
+        let (sut, store) = makeSut(currentDate: { fixedCurrentDate })
+        store.stubRetrieveWith(local: list.local, timestamp: expiredTimestamp)
+        
+        sut.validateCache()
+        
+        XCTAssertEqual(store.receivedMessages, [.retrieval, .deletion])
+    }
+    
     // MARK: - Helpers
     
     private func makeSut(
