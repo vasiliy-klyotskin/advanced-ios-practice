@@ -78,6 +78,13 @@ final class ValidatePokemonListCacheUseCaseTests: XCTestCase {
         expect(sut, toCompleteWith: .failure(deletionError))
     }
     
+    func test_validateCache_succeedsOnEmptyCache() {
+        let (sut, store) = makeSut()
+        store.stubEmptyRetrieve()
+        
+        expect(sut, toCompleteWith: .success(()))
+    }
+    
     // MARK: - Helpers
     
     private func makeSut(
