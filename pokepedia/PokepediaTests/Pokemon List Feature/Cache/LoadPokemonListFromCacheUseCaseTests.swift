@@ -25,18 +25,17 @@ final class LoadPokemonListFromCacheUseCaseTests: XCTestCase {
     
     func test_load_failsOnRetrievalError() {
         let (sut, store) = makeSut()
-        store.stubRetrieve(with: anyNSError())
+        let retrieveError = anyNSError()
+        store.stubRetrieve(with: retrieveError)
         
-        XCTAssertThrowsError(try sut.load())
+        expect(sut, toCompleteWith: .failure(retrieveError))
     }
     
     func test_load_deliversNoListOnEmptyCache() throws {
         let (sut, store) = makeSut()
         store.stubEmptyRetrieve()
         
-        let list = try sut.load()
-        
-        XCTAssertEqual(list, nil)
+        expect(sut, toCompleteWith: .success(nil))
     }
     
     func test_load_deliversCachedListOnNonExpiredCache() throws {
@@ -46,9 +45,7 @@ final class LoadPokemonListFromCacheUseCaseTests: XCTestCase {
         let (sut, store) = makeSut(currentDate: { fixedCurrentDate })
         store.stubRetrieveWith(local: list.local, timestamp: nonExpiredTimestamp)
         
-        let result = try sut.load()
-        
-        XCTAssertEqual(result, list.model)
+        expect(sut, toCompleteWith: .success(list.model))
     }
     
     func test_load_deliversNoCachedListOnCacheExpiration() throws {
@@ -58,9 +55,7 @@ final class LoadPokemonListFromCacheUseCaseTests: XCTestCase {
         let (sut, store) = makeSut(currentDate: { fixedCurrentDate })
         store.stubRetrieveWith(local: list.local, timestamp: expirationDateTimestamp)
         
-        let result = try sut.load()
-        
-        XCTAssertEqual(result, nil)
+        expect(sut, toCompleteWith: .success(nil))
     }
     
     func test_load_deliversNoListOnExpiredCache() throws {
@@ -70,9 +65,7 @@ final class LoadPokemonListFromCacheUseCaseTests: XCTestCase {
         let (sut, store) = makeSut(currentDate: { fixedCurrentDate })
         store.stubRetrieveWith(local: list.local, timestamp: expiredTimestamp)
         
-        let result = try sut.load()
-        
-        XCTAssertEqual(result, nil)
+        expect(sut, toCompleteWith: .success(nil))
     }
     
     // MARK: - Helpers
@@ -87,5 +80,17 @@ final class LoadPokemonListFromCacheUseCaseTests: XCTestCase {
         trackForMemoryLeaks(store, file: file, line: line)
         trackForMemoryLeaks(sut, file: file, line: line)
         return (sut, store)
+    }
+    
+    private func expect(_ sut: LocalPokemonListLoader, toCompleteWith expectedResult: Result<PokemonList?, Error>, file: StaticString = #filePath, line: UInt = #line) {
+        let receivedResult = Result { try sut.load() }
+        switch (receivedResult, expectedResult) {
+        case let (.success(receivedImages), .success(expectedImages)):
+            XCTAssertEqual(receivedImages, expectedImages, file: file, line: line)
+        case let (.failure(receivedError as NSError), .failure(expectedError as NSError)):
+            XCTAssertEqual(receivedError, expectedError, file: file, line: line)
+        default:
+            XCTFail("Expected result \(expectedResult), got \(receivedResult) instead", file: file, line: line)
+        }
     }
 }
