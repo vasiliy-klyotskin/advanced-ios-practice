@@ -35,6 +35,13 @@ final class CachePokemonListUseCaseTests: XCTestCase {
         XCTAssertEqual(store.receivedMessages, [.deletion, .insertion(timestamp: timestamp, local: list.local)])
     }
     
+    func test_save_failsOnDeletionError() {
+        let (sut, store) = makeSut()
+        store.stubDeletion(with: anyNSError())
+        
+        XCTAssertThrowsError(try sut.save(pokemonList().model))
+    }
+    
     // MARK: - Helpers
     
     private func makeSut(
