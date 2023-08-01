@@ -38,4 +38,12 @@ public final class LocalPokemonListLoader {
         try store.delete()
         try store.insert(local: list.local, timestamp: currentDate())
     }
+    
+    public func validateCache() {
+        do {
+            _ = try store.retrieve()
+        } catch {
+            try? store.delete()
+        }
+    }
 }

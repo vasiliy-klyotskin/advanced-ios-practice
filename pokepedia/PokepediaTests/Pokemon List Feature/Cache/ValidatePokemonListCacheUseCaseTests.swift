@@ -15,6 +15,15 @@ final class ValidatePokemonListCacheUseCaseTests: XCTestCase {
         XCTAssertTrue(store.receivedMessages.isEmpty)
     }
     
+    func test_validateCache_deletesCacheOnRetrievalError() {
+        let (sut, store) = makeSut()
+        store.stubRetrieve(with: anyNSError())
+
+        sut.validateCache()
+        
+        XCTAssertEqual(store.receivedMessages, [.retrieval, .deletion])
+    }
+    
     // MARK: - Helpers
     
     private func makeSut(
