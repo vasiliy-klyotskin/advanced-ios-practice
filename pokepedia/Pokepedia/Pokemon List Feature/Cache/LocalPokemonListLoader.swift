@@ -39,9 +39,13 @@ public final class LocalPokemonListLoader {
         try store.insert(local: list.local, timestamp: currentDate())
     }
     
+    struct InvalidCache: Error {}
+    
     public func validateCache() {
         do {
-            _ = try store.retrieve()
+            if let cache = try store.retrieve(), !PokemonListCachePolicy.validate(cache.timestamp, against: currentDate()) {
+                throw InvalidCache()
+            }
         } catch {
             try? store.delete()
         }
