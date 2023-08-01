@@ -78,49 +78,14 @@ final class LoadPokemonListFromCacheUseCaseTests: XCTestCase {
     // MARK: - Helpers
     
     private func makeSut(
-        currentDate: () -> Date = Date.init,
+        currentDate: @escaping () -> Date = Date.init,
         file: StaticString = #filePath,
         line: UInt = #line
     ) -> (LocalPokemonListLoader, PokemonListStoreMock) {
         let store = PokemonListStoreMock()
-        let sut = LocalPokemonListLoader(store: store)
+        let sut = LocalPokemonListLoader(store: store, currentDate: currentDate)
         trackForMemoryLeaks(store, file: file, line: line)
         trackForMemoryLeaks(sut, file: file, line: line)
         return (sut, store)
-    }
-    
-    private func pokemonList() -> (local: LocalPokemonList, model: PokemonList) {
-        let url = anyURL()
-        let local: LocalPokemonList = [
-            .init(
-                id: "an id",
-                name: "a name",
-                imageUrl: url,
-                physicalType: .init(
-                    color: "physical color",
-                    name: "name of physical color"
-                ),
-                specialType: .init(
-                    color: "special colorr",
-                    name: "name of special color"
-                )
-            )
-        ]
-        let model: PokemonList = [
-            .init(
-                id: "an id",
-                name: "a name",
-                imageUrl: url,
-                physicalType: .init(
-                    color: "physical color",
-                    name: "name of physical color"
-                ),
-                specialType: .init(
-                    color: "special colorr",
-                    name: "name of special color"
-                )
-            )
-        ]
-        return (local, model)
     }
 }

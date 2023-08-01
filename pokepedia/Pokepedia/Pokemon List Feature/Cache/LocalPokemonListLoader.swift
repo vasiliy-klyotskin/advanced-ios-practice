@@ -11,7 +11,8 @@ public typealias CachedPokemonList = (local: LocalPokemonList, timestamp: Date)
 
 public protocol LocalPokemonListStore {
     func retrieve() throws -> CachedPokemonList?
-    func delete()
+    func delete() throws
+    func insert(local: LocalPokemonList, timestamp: Date)
 }
 
 public final class LocalPokemonListLoader {
@@ -33,7 +34,8 @@ public final class LocalPokemonListLoader {
         }
     }
     
-    public func save(_ list: PokemonList) {
-        store.delete()
+    public func save(_ list: PokemonList) throws {
+        try store.delete()
+        store.insert(local: list.local, timestamp: currentDate())
     }
 }

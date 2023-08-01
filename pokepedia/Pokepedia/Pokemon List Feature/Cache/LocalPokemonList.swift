@@ -9,7 +9,7 @@ import Foundation
 
 public typealias LocalPokemonList = [LocalPokemonListItem]
 
-public struct LocalPokemonListItem {
+public struct LocalPokemonListItem: Equatable {
     public let id: String
     public let name: String
     public let imageUrl: URL
@@ -31,7 +31,7 @@ public struct LocalPokemonListItem {
     }
 }
 
-public struct LocalPokemonListItemType {
+public struct LocalPokemonListItemType: Equatable {
     public let color: String
     public let name: String
     
@@ -43,6 +43,20 @@ public struct LocalPokemonListItemType {
 
 extension LocalPokemonList {
     var model: PokemonList {
+        map {
+            .init(
+                id: $0.id,
+                name: $0.name,
+                imageUrl: $0.imageUrl,
+                physicalType: .init(color: $0.physicalType.color, name: $0.physicalType.name),
+                specialType: $0.specialType.map { .init(color: $0.color, name: $0.name) }
+            )
+        }
+    }
+}
+
+extension PokemonList {
+    var local: LocalPokemonList {
         map {
             .init(
                 id: $0.id,

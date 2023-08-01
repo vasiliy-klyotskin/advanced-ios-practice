@@ -9,9 +9,10 @@ import Foundation
 import Pokepedia
 
 final class PokemonListStoreMock: LocalPokemonListStore {
-    enum Message {
+    enum Message: Equatable {
         case retrieval
         case deletion
+        case insertion(timestamp: Date, local: LocalPokemonList)
     }
     
     var retrieveResult: Result<CachedPokemonList?, Error> = .failure(anyNSError())
@@ -20,16 +21,16 @@ final class PokemonListStoreMock: LocalPokemonListStore {
     
     func retrieve() throws -> CachedPokemonList? {
         receivedMessages.append(.retrieval)
-        switch retrieveResult {
-        case .success(let success):
-            return success
-        case .failure(let failure):
-            throw failure
-        }
+        return try retrieveResult.get()
     }
     
-    func delete() {
+    func delete() throws {
         receivedMessages.append(.deletion)
+        try deletionResult.get()
+    }
+    
+    func insert(local: LocalPokemonList, timestamp: Date) {
+        receivedMessages.append(.insertion(timestamp: timestamp, local: local))
     }
     
     func stubRetrieve(with error: Error) {
@@ -46,5 +47,9 @@ final class PokemonListStoreMock: LocalPokemonListStore {
     
     func stubDeletion(with error: Error) {
         self.deletionResult = .failure(error)
+    }
+    
+    func stubDeletionWithSuccess() {
+        self.deletionResult = .success(())
     }
 }

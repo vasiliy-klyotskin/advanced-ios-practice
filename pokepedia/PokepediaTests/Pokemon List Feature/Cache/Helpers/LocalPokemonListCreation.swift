@@ -19,7 +19,7 @@ func pokemonList() -> (local: LocalPokemonList, model: PokemonList) {
                 name: "name of physical color"
             ),
             specialType: .init(
-                color: "special colorr",
+                color: "special color",
                 name: "name of special color"
             )
         )
@@ -34,7 +34,7 @@ func pokemonList() -> (local: LocalPokemonList, model: PokemonList) {
                 name: "name of physical color"
             ),
             specialType: .init(
-                color: "special colorr",
+                color: "special color",
                 name: "name of special color"
             )
         )
