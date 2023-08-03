@@ -8,27 +8,6 @@
 import XCTest
 import Pokepedia
 
-final class PokemonListImageLoader {
-    private let store: PokemonListImageStoreSpy
-
-    init(store: PokemonListImageStoreSpy) {
-        self.store = store
-    }
-    
-    public enum LoadError: Error {
-        case failed
-        case notFound
-    }
-    
-    func loadImageData(from url: URL) throws -> Data {
-        if let data = try store.retrieveImage(for: url) {
-            return data
-        } else {
-            throw LoadError.notFound
-        }
-    }
-}
-
 final class LoadPokemonListImageFromCacheUseCaseTests: XCTestCase {
     func test_init_doesNotMessageStoreUponCreation() {
         let (_, store) = makeSut()
@@ -57,7 +36,7 @@ final class LoadPokemonListImageFromCacheUseCaseTests: XCTestCase {
         let (sut, store) = makeSut()
         store.stubRetrieveWithEmpty()
         
-        expect(sut, toCompleteWith: .failure(PokemonListImageLoader.LoadError.notFound))
+        expect(sut, toCompleteWith: .failure(LocalPokemonListImageLoader.LoadError.notFound))
     }
     
     func test_loadImageDataFromURL_deliversStoredDataOnFoundData() {
@@ -70,16 +49,16 @@ final class LoadPokemonListImageFromCacheUseCaseTests: XCTestCase {
     
     // MARK: - Helpers
     
-    private func makeSut(file: StaticString = #filePath, line: UInt = #line) -> (PokemonListImageLoader, PokemonListImageStoreSpy) {
+    private func makeSut(file: StaticString = #filePath, line: UInt = #line) -> (LocalPokemonListImageLoader, PokemonListImageStoreSpy) {
         let store = PokemonListImageStoreSpy()
-        let sut = PokemonListImageLoader(store: store)
+        let sut = LocalPokemonListImageLoader(store: store)
         trackForMemoryLeaks(store, file: file, line: line)
         trackForMemoryLeaks(sut, file: file, line: line)
         return (sut, store)
     }
     
     private func expect(
-        _ sut: PokemonListImageLoader,
+        _ sut: LocalPokemonListImageLoader,
         toCompleteWith expectedResult: Result<Data, Error>,
         file: StaticString = #filePath,
         line: UInt = #line
@@ -94,31 +73,5 @@ final class LoadPokemonListImageFromCacheUseCaseTests: XCTestCase {
         default:
             XCTFail("Expected result \(expectedResult), got \(receivedResult) instead", file: file, line: line)
         }
-    }
-}
-
-final class PokemonListImageStoreSpy {
-    enum Message: Equatable {
-        case retrieve(dataFor: URL)
-    }
-    
-    var receivedMessages: [Message] = []
-    var retrieveResult: Result<Data?, Error> = .failure(anyNSError())
-    
-    func retrieveImage(for url: URL) throws -> Data? {
-        receivedMessages.append(.retrieve(dataFor: url))
-        return try retrieveResult.get()
-    }
-    
-    func stubRetrieveWith(error: Error) {
-        retrieveResult = .failure(error)
-    }
-    
-    func stubRetrieveWithEmpty() {
-        retrieveResult = .success(nil)
-    }
-    
-    func stubRetrievalWith(data: Data) {
-        retrieveResult = .success(data)
     }
 }

@@ -124,8 +124,8 @@ final class ValidatePokemonListCacheUseCaseTests: XCTestCase {
         currentDate: @escaping () -> Date = Date.init,
         file: StaticString = #filePath,
         line: UInt = #line
-    ) -> (LocalPokemonListLoader, PokemonListStoreMock) {
-        let store = PokemonListStoreMock()
+    ) -> (LocalPokemonListLoader, PokemonListStoreSpy) {
+        let store = PokemonListStoreSpy()
         let sut = LocalPokemonListLoader(store: store, currentDate: currentDate)
         trackForMemoryLeaks(store, file: file, line: line)
         trackForMemoryLeaks(sut, file: file, line: line)
