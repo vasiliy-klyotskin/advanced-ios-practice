@@ -15,8 +15,17 @@ final class PokemonListImageLoader {
         self.store = store
     }
     
-    func loadImageData(from url: URL) throws -> Data? {
-        try store.retrieveImage(for: url)
+    public enum LoadError: Error {
+        case failed
+        case notFound
+    }
+    
+    func loadImageData(from url: URL) throws -> Data {
+        if let data = try store.retrieveImage(for: url) {
+            throw anyNSError()
+        } else {
+            throw LoadError.notFound
+        }
     }
 }
 
@@ -39,9 +48,16 @@ final class LoadPokemonListImageFromCacheUseCaseTests: XCTestCase {
     func test_loadImageDataFromURL_failsOnStoreError() {
         let (sut, store) = makeSut()
         let retrieveError = anyNSError()
-        store.stubRetrieve(error: retrieveError)
+        store.stubRetrieveWith(error: retrieveError)
         
         expect(sut, toCompleteWith: .failure(retrieveError))
+    }
+    
+    func test_loadImageDataFromURL_deliversNotFoundErrorOnNotFound() {
+        let (sut, store) = makeSut()
+        store.stubRetrieveWithEmpty()
+        
+        expect(sut, toCompleteWith: .failure(PokemonListImageLoader.LoadError.notFound))
     }
     
     // MARK: - Helpers
@@ -86,7 +102,11 @@ final class PokemonListImageStoreSpy {
         return try retrieveResult.get()
     }
     
-    func stubRetrieve(error: Error) {
+    func stubRetrieveWith(error: Error) {
         retrieveResult = .failure(error)
+    }
+    
+    func stubRetrieveWithEmpty() {
+        retrieveResult = .success(nil)
     }
 }
