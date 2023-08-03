@@ -22,7 +22,7 @@ final class PokemonListImageLoader {
     
     func loadImageData(from url: URL) throws -> Data {
         if let data = try store.retrieveImage(for: url) {
-            throw anyNSError()
+            return data
         } else {
             throw LoadError.notFound
         }
@@ -58,6 +58,14 @@ final class LoadPokemonListImageFromCacheUseCaseTests: XCTestCase {
         store.stubRetrieveWithEmpty()
         
         expect(sut, toCompleteWith: .failure(PokemonListImageLoader.LoadError.notFound))
+    }
+    
+    func test_loadImageDataFromURL_deliversStoredDataOnFoundData() {
+        let (sut, store) = makeSut()
+        let foundData = anyData()
+        store.stubRetrievalWith(data: foundData)
+        
+        expect(sut, toCompleteWith: .success(foundData))
     }
     
     // MARK: - Helpers
@@ -108,5 +116,9 @@ final class PokemonListImageStoreSpy {
     
     func stubRetrieveWithEmpty() {
         retrieveResult = .success(nil)
+    }
+    
+    func stubRetrievalWith(data: Data) {
+        retrieveResult = .success(data)
     }
 }
