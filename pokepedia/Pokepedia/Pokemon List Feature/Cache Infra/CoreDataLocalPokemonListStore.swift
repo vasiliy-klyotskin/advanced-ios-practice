@@ -39,7 +39,11 @@ public final class CoreDataLocalPokemonListStore: LocalPokemonListStore {
     }
     
     public func delete() throws {
-        
+        try performSync { context in
+            Result {
+                try ManagedPokemonListCache.deleteCache(in: context)
+            }
+        }
     }
     
     public func insert(local: LocalPokemonList, timestamp: Date) throws {
