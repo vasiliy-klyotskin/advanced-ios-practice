@@ -20,6 +20,15 @@ extension ManagedPokemonListCache {
         return try context.fetch(request).first
     }
     
+    static func deleteCache(in context: NSManagedObjectContext) throws {
+        try find(in: context).map(context.delete).map(context.save)
+    }
+    
+    static func newUniqueInstance(in context: NSManagedObjectContext) throws -> ManagedPokemonListCache {
+        try deleteCache(in: context)
+        return ManagedPokemonListCache(context: context)
+    }
+    
     var local: LocalPokemonList {
         return pokemonList.compactMap { ($0 as? ManagedPokemonListItem)?.local }
     }

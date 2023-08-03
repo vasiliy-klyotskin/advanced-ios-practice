@@ -329,9 +329,9 @@
 		D6AF1ABB2A7B6B7900B5C5D1 /* Cache Infra */ = {
 			isa = PBXGroup;
 			children = (
+				D6AF1ABC2A7B6BA800B5C5D1 /* CoreDataLocalPokemonListStore.swift */,
 				D6AF1AC42A7B721D00B5C5D1 /* ManagedPokemonListCache.swift */,
 				D6AF1AC32A7B721D00B5C5D1 /* ManagedPokemonListItem.swift */,
-				D6AF1ABC2A7B6BA800B5C5D1 /* CoreDataLocalPokemonListStore.swift */,
 				D6AF1ACB2A7B7AAE00B5C5D1 /* CoreDataHelpers.swift */,
 				D6AF1ABE2A7B6BD600B5C5D1 /* PokemonListStore.xcdatamodeld */,
 			);

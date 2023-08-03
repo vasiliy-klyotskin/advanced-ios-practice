@@ -53,6 +53,17 @@ final class CoreDataPokemonListLocalStoreTests: XCTestCase {
         XCTAssertNoThrow(try sut.insert(local: pokemonList().local, timestamp: anyDate()))
     }
     
+    func test_insert_overridesPreviouslyInsertedCacheValues() throws {
+        let sut = makeSut()
+        try sut.insert(local: pokemonList().local, timestamp: anyDate())
+        
+        let latestList = pokemonList().local
+        let latestTimestamp = Date()
+        try sut.insert(local: latestList, timestamp: latestTimestamp)
+        
+        expect(sut, toRetrieve: .success(.init(local: latestList, timestamp: latestTimestamp)))
+    }
+    
     // MARK: - Helpers
     
     private func makeSut(file: StaticString = #filePath, line: UInt = #line) -> LocalPokemonListStore {
