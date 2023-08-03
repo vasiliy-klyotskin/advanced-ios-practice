@@ -64,6 +64,12 @@ final class CoreDataPokemonListLocalStoreTests: XCTestCase {
         expect(sut, toRetrieve: .success(.init(local: latestList, timestamp: latestTimestamp)))
     }
     
+    func test_delete_deliversNoErrorOnEmptyCache() {
+        let sut = makeSut()
+        
+        XCTAssertNoThrow(try sut.delete())
+    }
+    
     // MARK: - Helpers
     
     private func makeSut(file: StaticString = #filePath, line: UInt = #line) -> LocalPokemonListStore {
