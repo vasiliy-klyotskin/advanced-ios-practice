@@ -21,20 +21,20 @@ final class CoreDataPokemonListLocalStoreTests: XCTestCase {
         expect(sut, toRetrieveTwice: .success(nil))
     }
     
-    func test_retrieve_deliversFoundValuesOnNonEmptyCache() throws {
+    func test_retrieve_deliversFoundValuesOnNonEmptyCache() {
         let sut = makeSut()
         let list = pokemonList().local
         let timestamp = Date()
-        try sut.insert(local: list, timestamp: timestamp)
+        try? sut.insert(local: list, timestamp: timestamp)
         
         expect(sut, toRetrieve: .success(CachedPokemonList(local: list, timestamp: timestamp)))
     }
     
-    func test_retrieve_hasNoSideEffectsOnNonEmptyCache() throws {
+    func test_retrieve_hasNoSideEffectsOnNonEmptyCache() {
         let sut = makeSut()
         let list = pokemonList().local
         let timestamp = Date()
-        try sut.insert(local: list, timestamp: timestamp)
+        try? sut.insert(local: list, timestamp: timestamp)
         
         
         expect(sut, toRetrieveTwice: .success(.init(local: list, timestamp: timestamp)))
@@ -46,20 +46,20 @@ final class CoreDataPokemonListLocalStoreTests: XCTestCase {
         XCTAssertNoThrow(try sut.insert(local: pokemonList().local, timestamp: anyDate()))
     }
     
-    func test_insert_deliversNoErrorOnNonEmptyCache() throws {
+    func test_insert_deliversNoErrorOnNonEmptyCache() {
         let sut = makeSut()
-        try sut.insert(local: pokemonList().local, timestamp: anyDate())
+        try? sut.insert(local: pokemonList().local, timestamp: anyDate())
         
         XCTAssertNoThrow(try sut.insert(local: pokemonList().local, timestamp: anyDate()))
     }
     
-    func test_insert_overridesPreviouslyInsertedCacheValues() throws {
+    func test_insert_overridesPreviouslyInsertedCacheValues() {
         let sut = makeSut()
-        try sut.insert(local: pokemonList().local, timestamp: anyDate())
+        try? sut.insert(local: pokemonList().local, timestamp: anyDate())
         
         let latestList = pokemonList().local
         let latestTimestamp = Date()
-        try sut.insert(local: latestList, timestamp: latestTimestamp)
+        try? sut.insert(local: latestList, timestamp: latestTimestamp)
         
         expect(sut, toRetrieve: .success(.init(local: latestList, timestamp: latestTimestamp)))
     }
