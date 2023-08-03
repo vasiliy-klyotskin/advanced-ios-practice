@@ -46,6 +46,13 @@ final class CoreDataPokemonListLocalStoreTests: XCTestCase {
         XCTAssertNoThrow(try sut.insert(local: pokemonList().local, timestamp: anyDate()))
     }
     
+    func test_insert_deliversNoErrorOnNonEmptyCache() throws {
+        let sut = makeSut()
+        try sut.insert(local: pokemonList().local, timestamp: anyDate())
+        
+        XCTAssertNoThrow(try sut.insert(local: pokemonList().local, timestamp: anyDate()))
+    }
+    
     // MARK: - Helpers
     
     private func makeSut(file: StaticString = #filePath, line: UInt = #line) -> LocalPokemonListStore {
