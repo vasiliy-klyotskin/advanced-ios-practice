@@ -42,7 +42,7 @@ final class PokemonListStoreMock: LocalPokemonListStore {
     }
     
     func stubRetrieveWith(local: LocalPokemonList, timestamp: Date) {
-        retrieveResult = .success((local, timestamp))
+        retrieveResult = .success(.init(local: local, timestamp: timestamp))
     }
     
     func stubEmptyRetrieve() {

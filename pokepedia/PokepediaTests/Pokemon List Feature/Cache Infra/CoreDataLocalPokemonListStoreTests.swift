@@ -8,20 +8,6 @@
 import XCTest
 import Pokepedia
 
-final class CoreDataLocalPokemonListStore: LocalPokemonListStore {
-    func retrieve() throws -> Pokepedia.CachedPokemonList? {
-        nil
-    }
-    
-    func delete() throws {
-        
-    }
-    
-    func insert(local: Pokepedia.LocalPokemonList, timestamp: Date) throws {
-        
-    }
-}
-
 final class CoreDataPokemonListLocalStoreTests: XCTestCase {
     func test_retrieve_deliversEmptyOnEmptyCache() {
         let sut = makeSut()
@@ -35,10 +21,20 @@ final class CoreDataPokemonListLocalStoreTests: XCTestCase {
         expect(sut, toRetrieveTwice: .success(nil))
     }
     
+    func test_retrieve_deliversFoundValuesOnNonEmptyCache() throws {
+        let sut = makeSut()
+        let list = pokemonList().local
+        let timestamp = Date()
+        try sut.insert(local: list, timestamp: timestamp)
+        
+        expect(sut, toRetrieve: .success(CachedPokemonList(local: list, timestamp: timestamp)))
+    }
+    
     // MARK: - Helpers
     
     private func makeSut(file: StaticString = #filePath, line: UInt = #line) -> LocalPokemonListStore {
-        let sut = CoreDataLocalPokemonListStore()
+        let storeURL = URL(fileURLWithPath: "/dev/null")
+        let sut = CoreDataLocalPokemonListStore(storeUrl: storeURL)
         trackForMemoryLeaks(sut, file: file, line: line)
         return sut
     }

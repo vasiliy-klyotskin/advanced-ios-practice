@@ -7,8 +7,6 @@
 
 import Foundation
 
-public typealias CachedPokemonList = (local: LocalPokemonList, timestamp: Date)
-
 public protocol LocalPokemonListStore {
     func retrieve() throws -> CachedPokemonList?
     func delete() throws
