@@ -40,6 +40,12 @@ final class CoreDataPokemonListLocalStoreTests: XCTestCase {
         expect(sut, toRetrieveTwice: .success(.init(local: list, timestamp: timestamp)))
     }
     
+    func test_insert_deliversNoErrorOnEmptyCache() {
+        let sut = makeSut()
+        
+        XCTAssertNoThrow(try sut.insert(local: pokemonList().local, timestamp: anyDate()))
+    }
+    
     // MARK: - Helpers
     
     private func makeSut(file: StaticString = #filePath, line: UInt = #line) -> LocalPokemonListStore {
