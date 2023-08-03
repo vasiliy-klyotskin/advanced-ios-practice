@@ -70,6 +70,14 @@ final class CoreDataPokemonListLocalStoreTests: XCTestCase {
         XCTAssertNoThrow(try sut.delete())
     }
     
+    func test_delete_hasNoSideEffectsOnEmptyCache() {
+        let sut = makeSut()
+        
+        try? sut.delete()
+        
+        expect(sut, toRetrieveTwice: .success(nil))
+    }
+    
     // MARK: - Helpers
     
     private func makeSut(file: StaticString = #filePath, line: UInt = #line) -> LocalPokemonListStore {
