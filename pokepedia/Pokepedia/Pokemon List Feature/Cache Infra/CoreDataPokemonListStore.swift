@@ -7,7 +7,7 @@
 
 import CoreData
 
-public final class CoreDataPokemonListStore: PokemonListStore {
+public final class CoreDataPokemonListStore {
     private static let modelName = "PokemonListStore"
     private static let model = NSManagedObjectModel.with(name: modelName, in: Bundle(for: CoreDataPokemonListStore.self))
     
@@ -28,60 +28,10 @@ public final class CoreDataPokemonListStore: PokemonListStore {
         context = container.newBackgroundContext()
     }
     
-    public func retrieve() throws -> CachedPokemonList? {
-        try performSync { context in
-            Result {
-                try ManagedPokemonListCache.find(in: context).map {
-                    .init(local: $0.local, timestamp: $0.timestamp)
-                }
-            }
-        }
-    }
-    
-    public func delete() throws {
-        try performSync { context in
-            Result {
-                try ManagedPokemonListCache.deleteCache(in: context)
-            }
-        }
-    }
-    
-    public func insert(local: LocalPokemonList, timestamp: Date) throws {
-        try performSync { context in
-            Result {
-                let cache = try ManagedPokemonListCache.newUniqueInstance(in: context)
-                let list = ManagedPokemonListItem.listItems(from: local, in: context)
-                cache.timestamp = timestamp
-                cache.pokemonList = list
-                try context.save()
-            }
-        }
-    }
-    
-    private func performSync<R>(_ action: (NSManagedObjectContext) -> Result<R, Error>) throws -> R {
+    func performSync<R>(_ action: (NSManagedObjectContext) -> Result<R, Error>) throws -> R {
         let context = self.context
         var result: Result<R, Error>!
         context.performAndWait { result = action(context) }
         return try result.get()
-    }
-}
-
-extension CoreDataPokemonListStore: PokemonListImageStore {
-    public func retrieveImage(for url: URL) throws -> Data? {
-        try performSync { context in
-            Result {
-                try ManagedPokemonListItem.imageData(with: url, in: context)
-            }
-        }
-    }
-    
-    public func insertImage(data: Data, for url: URL) throws {
-        try performSync { context in
-            Result {
-                try ManagedPokemonListItem.first(with: url, in: context)
-                    .map { $0.imageData = data }
-                    .map(context.save)
-            }
-        }
     }
 }
