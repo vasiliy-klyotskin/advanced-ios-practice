@@ -16,6 +16,16 @@ final class CoreDataPokemonListImageStoreTests: XCTestCase {
         expect(sut, toCompleteRetrievalWith: notFound(), for: anyURL())
     }
     
+    func test_retrieveImageData_deliversNotFoundWhenStoredDataURLDoesNotMatch() {
+        let sut = makeSut()
+        let url = URL(string: "http://a-url.com")!
+        let nonMatchingURL = URL(string: "http://another-url.com")!
+        
+        try? sut.insertImage(data: anyData(), for: url)
+        
+        expect(sut, toCompleteRetrievalWith: notFound(), for: nonMatchingURL)
+    }
+    
     // MARK: - Helpers
     
     private func makeSut(file: StaticString = #filePath, line: UInt = #line) -> PokemonListImageStore {
