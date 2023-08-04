@@ -41,6 +41,10 @@ final class PokemonListImageStoreSpy: PokemonListImageStore {
     }
     
     func stubInsertionWith(error: Error) {
-        retrieveResult = .failure(error)
+        insertResult = .failure(error)
+    }
+    
+    func stubInsertionWithSuccess() {
+        insertResult = .success(())
     }
 }

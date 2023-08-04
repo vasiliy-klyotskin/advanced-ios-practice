@@ -33,6 +33,13 @@ final class CachePokemonListImageUseCaseTests: XCTestCase {
         expect(sut, toCompleteWith: .failure(insertionError))
     }
     
+    func test_saveImageDataFromURL_succeedsOnSuccessfulStoreInsertion() {
+        let (sut, store) = makeSut()
+        store.stubInsertionWithSuccess()
+        
+        expect(sut, toCompleteWith: .success(()))
+    }
+    
     // MARK: - Helpers
     
     private func makeSut(file: StaticString = #filePath, line: UInt = #line) -> (LocalPokemonListImageLoader, PokemonListImageStoreSpy) {
