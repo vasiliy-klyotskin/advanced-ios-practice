@@ -33,6 +33,6 @@ public final class LocalPokemonListImageLoader {
     }
     
     public func save(_ data: Data, for url: URL) throws {
-        try? store.insertImage(data: data, for: url)
+        try store.insertImage(data: data, for: url)
     }
 }

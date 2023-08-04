@@ -16,6 +16,7 @@ final class PokemonListImageStoreSpy: PokemonListImageStore {
     
     var receivedMessages: [Message] = []
     var retrieveResult: Result<Data?, Error> = .failure(anyNSError())
+    var insertResult: Result<Void, Error> = .failure(anyNSError())
     
     func retrieveImage(for url: URL) throws -> Data? {
         receivedMessages.append(.retrieve(dataFor: url))
@@ -24,6 +25,7 @@ final class PokemonListImageStoreSpy: PokemonListImageStore {
     
     func insertImage(data: Data, for url: URL) throws {
         receivedMessages.append(.insert(data: data, url: url))
+        try insertResult.get()
     }
     
     func stubRetrieveWith(error: Error) {
@@ -36,5 +38,9 @@ final class PokemonListImageStoreSpy: PokemonListImageStore {
     
     func stubRetrievalWith(data: Data) {
         retrieveResult = .success(data)
+    }
+    
+    func stubInsertionWith(error: Error) {
+        retrieveResult = .failure(error)
     }
 }

@@ -25,6 +25,14 @@ final class CachePokemonListImageUseCaseTests: XCTestCase {
         XCTAssertEqual(store.receivedMessages, [.insert(data: data, url: url)])
     }
     
+    func test_saveImageDataFromURL_failsOnStoreInsertionError() {
+        let (sut, store) = makeSut()
+        let insertionError = anyNSError()
+        store.stubInsertionWith(error: insertionError)
+        
+        expect(sut, toCompleteWith: .failure(insertionError))
+    }
+    
     // MARK: - Helpers
     
     private func makeSut(file: StaticString = #filePath, line: UInt = #line) -> (LocalPokemonListImageLoader, PokemonListImageStoreSpy) {
@@ -33,5 +41,23 @@ final class CachePokemonListImageUseCaseTests: XCTestCase {
         trackForMemoryLeaks(store, file: file, line: line)
         trackForMemoryLeaks(sut, file: file, line: line)
         return (sut, store)
+    }
+    
+    private func expect(
+        _ sut: LocalPokemonListImageLoader,
+        toCompleteWith expectedResult: Result<Void, Error>,
+        file: StaticString = #filePath,
+        line: UInt = #line
+    ) {
+        let receivedResult = Result { try sut.save(anyData(), for: anyURL()) }
+        switch (receivedResult, expectedResult) {
+        case (.success, .success):
+            break
+        case (.failure(let receivedError as NSError),
+              .failure(let expectedError as NSError)):
+            XCTAssertEqual(receivedError, expectedError, file: file, line: line)
+        default:
+            XCTFail("Expected result \(expectedResult), got \(receivedResult) instead", file: file, line: line)
+        }
     }
 }
