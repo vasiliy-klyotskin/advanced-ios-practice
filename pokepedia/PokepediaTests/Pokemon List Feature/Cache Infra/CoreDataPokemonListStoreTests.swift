@@ -96,15 +96,15 @@ final class CoreDataPokemonListLocalStoreTests: XCTestCase {
     
     // MARK: - Helpers
     
-    private func makeSut(file: StaticString = #filePath, line: UInt = #line) -> LocalPokemonListStore {
+    private func makeSut(file: StaticString = #filePath, line: UInt = #line) -> PokemonListStore {
         let storeURL = URL(fileURLWithPath: "/dev/null")
-        let sut = CoreDataLocalPokemonListStore(storeUrl: storeURL)
+        let sut = CoreDataPokemonListStore(storeUrl: storeURL)
         trackForMemoryLeaks(sut, file: file, line: line)
         return sut
     }
     
     private func expect(
-        _ sut: LocalPokemonListStore,
+        _ sut: PokemonListStore,
         toRetrieveTwice expectedResult: Result<CachedPokemonList?, Error>,
         file: StaticString = #filePath,
         line: UInt = #line
@@ -114,7 +114,7 @@ final class CoreDataPokemonListLocalStoreTests: XCTestCase {
     }
     
     private func expect(
-        _ sut: LocalPokemonListStore,
+        _ sut: PokemonListStore,
         toRetrieve expectedResult: Result<CachedPokemonList?, Error>,
         file: StaticString = #filePath,
         line: UInt = #line

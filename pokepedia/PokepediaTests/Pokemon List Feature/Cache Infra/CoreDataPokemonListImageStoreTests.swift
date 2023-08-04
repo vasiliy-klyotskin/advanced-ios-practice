@@ -9,7 +9,7 @@ import XCTest
 import Pokepedia
 import CoreData
 
-final class CoreDataPokemonListImageDataStoreTests: XCTestCase {
+final class CoreDataPokemonListImageStoreTests: XCTestCase {
     func test_retrieveImageData_deliversNotFoundWhenEmpty() {
         let sut = makeSut()
         
@@ -20,7 +20,7 @@ final class CoreDataPokemonListImageDataStoreTests: XCTestCase {
     
     private func makeSut(file: StaticString = #filePath, line: UInt = #line) -> PokemonListImageStore {
         let storeURL = URL(fileURLWithPath: "/dev/null")
-        let sut = CoreDataLocalPokemonListStore(storeUrl: storeURL)
+        let sut = CoreDataPokemonListStore(storeUrl: storeURL)
         trackForMemoryLeaks(sut, file: file, line: line)
         return sut
     }

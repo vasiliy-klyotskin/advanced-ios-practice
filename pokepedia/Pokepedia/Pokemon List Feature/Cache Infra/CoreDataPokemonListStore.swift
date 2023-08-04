@@ -7,9 +7,9 @@
 
 import CoreData
 
-public final class CoreDataLocalPokemonListStore: LocalPokemonListStore {
+public final class CoreDataPokemonListStore: PokemonListStore {
     private static let modelName = "PokemonListStore"
-    private static let model = NSManagedObjectModel.with(name: modelName, in: Bundle(for: CoreDataLocalPokemonListStore.self))
+    private static let model = NSManagedObjectModel.with(name: modelName, in: Bundle(for: CoreDataPokemonListStore.self))
     
     private let container: NSPersistentContainer
     private let context: NSManagedObjectContext
@@ -66,7 +66,7 @@ public final class CoreDataLocalPokemonListStore: LocalPokemonListStore {
     }
 }
 
-extension CoreDataLocalPokemonListStore: PokemonListImageStore {
+extension CoreDataPokemonListStore: PokemonListImageStore {
     public func retrieveImage(for url: URL) throws -> Data? {
         nil
     }

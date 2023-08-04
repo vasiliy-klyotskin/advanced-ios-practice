@@ -8,7 +8,7 @@
 import Foundation
 import Pokepedia
 
-final class PokemonListStoreSpy: LocalPokemonListStore {
+final class PokemonListStoreSpy: PokemonListStore {
     enum Message: Equatable {
         case retrieval
         case deletion

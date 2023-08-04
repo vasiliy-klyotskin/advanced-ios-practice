@@ -7,17 +7,17 @@
 
 import Foundation
 
-public protocol LocalPokemonListStore {
+public protocol PokemonListStore {
     func retrieve() throws -> CachedPokemonList?
     func delete() throws
     func insert(local: LocalPokemonList, timestamp: Date) throws
 }
 
 public final class LocalPokemonListLoader {
-    private let store: LocalPokemonListStore
+    private let store: PokemonListStore
     private let currentDate: () -> Date
     
-    public init(store: LocalPokemonListStore, currentDate: @escaping () -> Date = Date.init) {
+    public init(store: PokemonListStore, currentDate: @escaping () -> Date = Date.init) {
         self.store = store
         self.currentDate = currentDate
     }
