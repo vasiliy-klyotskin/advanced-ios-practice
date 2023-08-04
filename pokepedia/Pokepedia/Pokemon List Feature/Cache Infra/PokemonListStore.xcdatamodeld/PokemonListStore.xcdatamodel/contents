@@ -6,6 +6,7 @@
     </entity>
     <entity name="ManagedPokemonListItem" representedClassName="ManagedPokemonListItem" syncable="YES">
         <attribute name="id" attributeType="String"/>
+        <attribute name="imageData" optional="YES" attributeType="Binary"/>
         <attribute name="imageUrl" attributeType="URI"/>
         <attribute name="name" attributeType="String"/>
         <attribute name="physicalColor" attributeType="String"/>

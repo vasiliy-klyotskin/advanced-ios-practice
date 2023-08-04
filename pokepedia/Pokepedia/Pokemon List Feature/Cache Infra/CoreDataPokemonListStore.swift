@@ -68,10 +68,20 @@ public final class CoreDataPokemonListStore: PokemonListStore {
 
 extension CoreDataPokemonListStore: PokemonListImageStore {
     public func retrieveImage(for url: URL) throws -> Data? {
-        nil
+        try performSync { context in
+            Result {
+                try ManagedPokemonListItem.imageData(with: url, in: context)
+            }
+        }
     }
     
     public func insertImage(data: Data, for url: URL) throws {
-        
+        try performSync { context in
+            Result {
+                try ManagedPokemonListItem.first(with: url, in: context)
+                    .map { $0.imageData = data }
+                    .map(context.save)
+            }
+        }
     }
 }

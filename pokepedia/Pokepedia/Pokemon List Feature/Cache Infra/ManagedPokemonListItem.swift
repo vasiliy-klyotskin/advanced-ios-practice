@@ -12,6 +12,7 @@ import CoreData
 class ManagedPokemonListItem: NSManagedObject {
     @NSManaged var id: String
     @NSManaged var name: String
+    @NSManaged var imageData: Data?
     @NSManaged var imageUrl: URL
     @NSManaged var physicalColor: String
     @NSManaged var physicalName: String
@@ -21,6 +22,17 @@ class ManagedPokemonListItem: NSManagedObject {
 }
 
 extension ManagedPokemonListItem {
+    static func imageData(with url: URL, in context: NSManagedObjectContext) throws -> Data? {
+        return try first(with: url, in: context)?.imageData
+    }
+    
+    static func first(with url: URL, in context: NSManagedObjectContext) throws -> ManagedPokemonListItem? {
+        let request = NSFetchRequest<ManagedPokemonListItem>(entityName: entity().name!)
+        request.predicate = NSPredicate(format: "%K = %@", argumentArray: [#keyPath(ManagedPokemonListItem.imageUrl), url])
+        request.fetchLimit = 1
+        return try context.fetch(request).first
+    }
+    
     var local: LocalPokemonListItem {
         let specialType: LocalPokemonListItemType?
         if let specialColor, let specialName {
