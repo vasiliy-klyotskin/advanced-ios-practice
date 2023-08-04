@@ -29,7 +29,7 @@ final class CoreDataPokemonListImageStoreTests: XCTestCase {
     func test_retrieveImageData_deliversFoundDataWhenThereIsAStoredImageDataMatchingURL() {
         let sut = makeSut()
         let storedData = anyData()
-        let matchingURL = URL(string: "http://a-url.com")!
+        let matchingURL = anyURL()
         
         insert(storedData, for: matchingURL, into: sut)
         
