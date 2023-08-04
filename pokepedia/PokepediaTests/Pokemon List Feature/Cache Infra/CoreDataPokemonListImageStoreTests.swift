@@ -36,6 +36,18 @@ final class CoreDataPokemonListImageStoreTests: XCTestCase {
         expect(sut, toCompleteRetrievalWith: found(storedData), for: matchingURL)
     }
     
+    func test_retrieveImageData_deliversLastInsertedValue() {
+        let sut = makeSut()
+        let firstStoredData = Data("first".utf8)
+        let lastStoredData = Data("last".utf8)
+        let url = anyURL()
+        
+        insert(firstStoredData, for: url, into: sut)
+        insert(lastStoredData, for: url, into: sut)
+        
+        expect(sut, toCompleteRetrievalWith: found(lastStoredData), for: url)
+    }
+    
     // MARK: - Helpers
     
     private func makeSut(file: StaticString = #filePath, line: UInt = #line) -> CoreDataPokemonListStore {
