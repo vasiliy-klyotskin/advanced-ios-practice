@@ -9,6 +9,7 @@ import Foundation
 
 public protocol PokemonListImageStore {
     func retrieveImage(for url: URL) throws -> Data?
+    func insertImage(data: Data, for url: URL) throws
 }
 
 public final class LocalPokemonListImageLoader {
@@ -29,5 +30,9 @@ public final class LocalPokemonListImageLoader {
         } else {
             throw LoadError.notFound
         }
+    }
+    
+    public func save(_ data: Data, for url: URL) throws {
+        try? store.insertImage(data: data, for: url)
     }
 }

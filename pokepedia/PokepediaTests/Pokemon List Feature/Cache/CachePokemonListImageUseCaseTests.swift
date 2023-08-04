@@ -15,6 +15,16 @@ final class CachePokemonListImageUseCaseTests: XCTestCase {
         XCTAssertTrue(store.receivedMessages.isEmpty)
     }
     
+    func test_saveImageDataForURL_requestsImageDataInsertionForURL() {
+        let (sut, store) = makeSut()
+        let url = anyURL()
+        let data = anyData()
+        
+        try? sut.save(data, for: url)
+        
+        XCTAssertEqual(store.receivedMessages, [.insert(data: data, url: url)])
+    }
+    
     // MARK: - Helpers
     
     private func makeSut(file: StaticString = #filePath, line: UInt = #line) -> (LocalPokemonListImageLoader, PokemonListImageStoreSpy) {

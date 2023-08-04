@@ -11,6 +11,7 @@ import Foundation
 final class PokemonListImageStoreSpy: PokemonListImageStore {
     enum Message: Equatable {
         case retrieve(dataFor: URL)
+        case insert(data: Data, url: URL)
     }
     
     var receivedMessages: [Message] = []
@@ -19,6 +20,10 @@ final class PokemonListImageStoreSpy: PokemonListImageStore {
     func retrieveImage(for url: URL) throws -> Data? {
         receivedMessages.append(.retrieve(dataFor: url))
         return try retrieveResult.get()
+    }
+    
+    func insertImage(data: Data, for url: URL) throws {
+        receivedMessages.append(.insert(data: data, url: url))
     }
     
     func stubRetrieveWith(error: Error) {
