@@ -65,3 +65,13 @@ public final class CoreDataLocalPokemonListStore: LocalPokemonListStore {
         return try result.get()
     }
 }
+
+extension CoreDataLocalPokemonListStore: PokemonListImageStore {
+    public func retrieveImage(for url: URL) throws -> Data? {
+        nil
+    }
+    
+    public func insertImage(data: Data, for url: URL) throws {
+        
+    }
+}
