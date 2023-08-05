@@ -94,6 +94,14 @@ final class CoreDataPokemonListLocalStoreTests: XCTestCase {
         expect(sut, toRetrieve: .success(.none))
     }
     
+    func test_retrieve_deliversFailureOnRetrievalError() {
+        let sut = makeSut()
+        let stub = NSManagedObjectContext.alwaysFailingFetchStub()
+        stub.startIntercepting()
+        
+        expect(sut, toRetrieve: .failure(anyNSError()))
+    }
+    
     // MARK: - Helpers
     
     private func makeSut(file: StaticString = #filePath, line: UInt = #line) -> PokemonListStore {
