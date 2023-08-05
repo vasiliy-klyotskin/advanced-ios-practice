@@ -110,6 +110,17 @@ final class CoreDataPokemonListLocalStoreTests: XCTestCase {
         expect(sut, toRetrieveTwice: .failure(anyNSError()))
     }
     
+    func test_insert_deliversErrorOnInsertionError() {
+        let sut = makeSut()
+        let stub = NSManagedObjectContext.alwaysFailingSaveStub()
+        stub.startIntercepting()
+        
+        XCTAssertThrowsError(try sut.insert(
+            local: pokemonList().local,
+            timestamp: anyDate()
+        ))
+    }
+    
     // MARK: - Helpers
     
     private func makeSut(file: StaticString = #filePath, line: UInt = #line) -> PokemonListStore {
