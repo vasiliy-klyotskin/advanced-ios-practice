@@ -121,6 +121,16 @@ final class CoreDataPokemonListLocalStoreTests: XCTestCase {
         ))
     }
     
+    func test_insert_hasNoSideEffectsOnInsertionError() {
+        let sut = makeSut()
+        let stub = NSManagedObjectContext.alwaysFailingSaveStub()
+        stub.startIntercepting()
+        
+        try? sut.insert(local: pokemonList().local, timestamp: anyDate())
+
+        expect(sut, toRetrieve: .success(nil))
+    }
+    
     // MARK: - Helpers
     
     private func makeSut(file: StaticString = #filePath, line: UInt = #line) -> PokemonListStore {

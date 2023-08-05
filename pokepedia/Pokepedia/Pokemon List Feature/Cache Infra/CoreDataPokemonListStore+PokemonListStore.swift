@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import CoreData
 
 extension CoreDataPokemonListStore: PokemonListStore {
     public func retrieve() throws -> CachedPokemonList? {
@@ -29,12 +30,29 @@ extension CoreDataPokemonListStore: PokemonListStore {
     public func insert(local: LocalPokemonList, timestamp: Date) throws {
         try performSync { context in
             Result {
-                let cache = try ManagedPokemonListCache.newUniqueInstance(in: context)
-                let list = ManagedPokemonListItem.listItems(from: local, in: context)
-                cache.timestamp = timestamp
-                cache.pokemonList = list
-                try context.save()
+                try tryToInsertInto(
+                    context: context,
+                    local: local,
+                    timestamp: timestamp
+                )
             }
+        }
+    }
+    
+    private func tryToInsertInto(
+        context: NSManagedObjectContext,
+        local: LocalPokemonList,
+        timestamp: Date
+    ) throws {
+        do {
+            let cache = try ManagedPokemonListCache.newUniqueInstance(in: context)
+            let list = ManagedPokemonListItem.listItems(from: local, in: context)
+            cache.timestamp = timestamp
+            cache.pokemonList = list
+            try context.save()
+        } catch {
+            context.reset()
+            throw error
         }
     }
 }
