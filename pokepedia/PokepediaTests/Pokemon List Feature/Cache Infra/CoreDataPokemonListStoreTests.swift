@@ -140,6 +140,19 @@ final class CoreDataPokemonListLocalStoreTests: XCTestCase {
         XCTAssertThrowsError(try sut.delete())
     }
     
+    func test_delete_hasNoSideEffectsOnDeletionError() {
+        let sut = makeSut()
+        let stub = NSManagedObjectContext.alwaysFailingSaveStub()
+        let list = pokemonList().local
+        let timestamp = anyDate()
+        try? sut.insert(local: pokemonList().local, timestamp: timestamp)
+        stub.startIntercepting()
+        
+        try? sut.delete()
+        
+        expect(sut, toRetrieveTwice: .success(.init(local: list, timestamp: timestamp)))
+    }
+    
     // MARK: - Helpers
     
     private func makeSut(file: StaticString = #filePath, line: UInt = #line) -> PokemonListStore {
