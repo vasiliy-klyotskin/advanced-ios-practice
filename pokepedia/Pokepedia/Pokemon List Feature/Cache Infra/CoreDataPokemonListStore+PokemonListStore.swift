@@ -21,16 +21,14 @@ extension CoreDataPokemonListStore: PokemonListStore {
     
     public func delete() throws {
         try performSync { context in
-            Result {
-                try ManagedPokemonListCache.deleteCache(in: context)
-            }
+            Result { try deleteCache(in: context) }
         }
     }
     
     public func insert(local: LocalPokemonList, timestamp: Date) throws {
         try performSync { context in
             Result {
-                try tryToInsertInto(
+                try insertInto(
                     context: context,
                     local: local,
                     timestamp: timestamp
@@ -39,7 +37,16 @@ extension CoreDataPokemonListStore: PokemonListStore {
         }
     }
     
-    private func tryToInsertInto(
+    private func deleteCache(in context: NSManagedObjectContext) throws {
+        do {
+            try ManagedPokemonListCache.deleteCache(in: context)
+        } catch {
+            context.reset()
+            throw error
+        }
+    }
+    
+    private func insertInto(
         context: NSManagedObjectContext,
         local: LocalPokemonList,
         timestamp: Date
