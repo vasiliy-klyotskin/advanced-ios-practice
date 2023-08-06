@@ -56,6 +56,14 @@ final class CoreDataPokemonListImageStoreTests: XCTestCase {
         expect(sut, toCompleteRetrievalWith: .failure(anyNSError()), for: anyURL())
     }
     
+    func test_insertImageData_deliversFailureOnInsertionError() {
+        let sut = makeSut()
+        let stub = NSManagedObjectContext.alwaysFailingFetchStub()
+        stub.startIntercepting()
+        
+        XCTAssertThrowsError(try sut.insertImage(data: anyData(), for: anyURL()))
+    }
+    
     // MARK: - Helpers
     
     private func makeSut(file: StaticString = #filePath, line: UInt = #line) -> CoreDataPokemonListStore {
