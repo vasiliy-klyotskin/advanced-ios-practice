@@ -7,29 +7,33 @@
 
 import Foundation
 
-public final class InMemoryPokemonListStore: PokemonListStore, PokemonListImageStore {
-    private var cache: CachedPokemonList?
-    private var images = [URL: Data]()
+public final class InMemoryPokemonListStore {
+    private var listCache: CachedPokemonList?
+    private var listImagesCache = [URL: Data]()
     
     public init() {}
-    
+}
+
+extension InMemoryPokemonListStore: PokemonListStore {
     public func retrieve() throws -> CachedPokemonList? {
-        cache
+        listCache
     }
     
     public func delete() throws {
-        cache = nil
+        listCache = nil
     }
     
     public func insert(local: LocalPokemonList, timestamp: Date) throws {
-        cache = .init(local: local, timestamp: timestamp)
+        listCache = .init(local: local, timestamp: timestamp)
     }
-    
+}
+
+extension InMemoryPokemonListStore: PokemonListImageStore {
     public func retrieveImage(for url: URL) throws -> Data? {
-        images[url]
+        listImagesCache[url]
     }
     
     public func insertImage(data: Data, for url: URL) throws {
-        images[url] = data
+        listImagesCache[url] = data
     }
 }
