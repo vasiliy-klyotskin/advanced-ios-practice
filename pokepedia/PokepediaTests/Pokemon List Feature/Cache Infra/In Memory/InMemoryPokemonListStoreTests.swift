@@ -8,22 +8,6 @@
 import XCTest
 import Pokepedia
 
-final class InMemoryPokemonListStore: PokemonListStore {
-    private var cache: CachedPokemonList?
-    
-    func retrieve() throws -> CachedPokemonList? {
-        cache
-    }
-    
-    func delete() throws {
-        cache = nil
-    }
-    
-    func insert(local: LocalPokemonList, timestamp: Date) throws {
-        cache = .init(local: local, timestamp: timestamp)
-    }
-}
-
 final class InMemoryPokemonListStoreTests: XCTestCase, PokemonListStoreSpecs {
     func test_retrieve_deliversEmptyOnEmptyCache() {
         let sut = makeSut()
