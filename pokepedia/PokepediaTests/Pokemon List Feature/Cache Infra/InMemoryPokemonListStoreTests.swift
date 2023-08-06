@@ -46,6 +46,8 @@ final class InMemoryPokemonListStoreTests: XCTestCase, PokemonListStoreSpecs {
     
     func test_retrieve_hasNoSideEffectsOnNonEmptyCache() {
         let sut = makeSut()
+        
+        assertThatRetrieveHasNoSideEffectsOnNonEmptyCache(sut)
     }
     
     func test_insert_deliversNoErrorOnEmptyCache() {
