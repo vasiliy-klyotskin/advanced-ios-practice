@@ -7,8 +7,9 @@
 
 import Foundation
 
-public final class InMemoryPokemonListStore: PokemonListStore {
+public final class InMemoryPokemonListStore: PokemonListStore, PokemonListImageStore {
     private var cache: CachedPokemonList?
+    private var images = [URL: Data]()
     
     public init() {}
     
@@ -22,5 +23,13 @@ public final class InMemoryPokemonListStore: PokemonListStore {
     
     public func insert(local: LocalPokemonList, timestamp: Date) throws {
         cache = .init(local: local, timestamp: timestamp)
+    }
+    
+    public func retrieveImage(for url: URL) throws -> Data? {
+        images[url]
+    }
+    
+    public func insertImage(data: Data, for url: URL) throws {
+        images[url] = data
     }
 }

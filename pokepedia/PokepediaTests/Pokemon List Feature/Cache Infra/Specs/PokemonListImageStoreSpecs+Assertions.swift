@@ -19,10 +19,11 @@ extension PokemonListImageStoreSpecs where Self: XCTestCase {
     
     func assertThatRetrieveImageDataDeliversNotFoundWhenStoredDataURLDoesNotMatch(
         _ sut: PokemonListImageStore,
-        imageUrl: URL,
+        imageUrl: URL? = nil,
         file: StaticString = #filePath,
         line: UInt = #line
     ) {
+        let imageUrl = imageUrl ?? anyURL()
         let nonMatchingURL = URL(string: "http://another-url\(UUID().uuidString).com")!
         
         try? sut.insertImage(data: anyData(), for: imageUrl)
@@ -32,10 +33,11 @@ extension PokemonListImageStoreSpecs where Self: XCTestCase {
     
     func assertThatRetrieveImageDataDeliversFoundDataWhenThereIsAStoredImageDataMatchingURL(
         _ sut: PokemonListImageStore,
-        imageUrl matchingUrl: URL,
+        imageUrl matchingUrl: URL? = nil,
         file: StaticString = #filePath,
         line: UInt = #line
     ) {
+        let matchingUrl = matchingUrl ?? anyURL()
         let storedData = anyData()
 
         try? sut.insertImage(data: storedData, for: matchingUrl)
@@ -45,10 +47,11 @@ extension PokemonListImageStoreSpecs where Self: XCTestCase {
     
     func assertThatRetrieveImageDataDeliversLastInsertedValue(
         _ sut: PokemonListImageStore,
-        imageUrl url: URL,
+        imageUrl url: URL? = nil,
         file: StaticString = #filePath,
         line: UInt = #line
     ) {
+        let url = url ?? anyURL()
         let firstStoredData = Data("first".utf8)
         let lastStoredData = Data("last".utf8)
         
