@@ -48,6 +48,14 @@ final class CoreDataPokemonListImageStoreTests: XCTestCase {
         expect(sut, toCompleteRetrievalWith: found(lastStoredData), for: url)
     }
     
+    func test_retrieveImageData_deliversFailureOnRetrievalError() {
+        let sut = makeSut()
+        let stub = NSManagedObjectContext.alwaysFailingFetchStub()
+        stub.startIntercepting()
+        
+        expect(sut, toCompleteRetrievalWith: .failure(anyNSError()), for: anyURL())
+    }
+    
     // MARK: - Helpers
     
     private func makeSut(file: StaticString = #filePath, line: UInt = #line) -> CoreDataPokemonListStore {
@@ -74,6 +82,8 @@ final class CoreDataPokemonListImageStoreTests: XCTestCase {
     ) {
         let receivedResult = Result { try sut.retrieveImage(for: url) }
         switch (receivedResult, expectedResult) {
+        case (.failure, .failure):
+            break
         case let (.success( receivedData), .success(expectedData)):
             XCTAssertEqual(receivedData, expectedData, file: file, line: line)
         default:
