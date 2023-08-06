@@ -9,104 +9,72 @@ import XCTest
 import Pokepedia
 import CoreData
 
-final class CoreDataPokemonListImageStoreTests: XCTestCase {
+final class CoreDataPokemonListImageStoreTests: XCTestCase, FailablePokemonListImageStoreSpecs {
     func test_retrieveImageData_deliversNotFoundWhenEmpty() {
-        let sut = makeSut()
+        let (sut, _) = makeSut()
         
-        expect(sut, toCompleteRetrievalWith: notFound(), for: anyURL())
+        assertThatRetrieveImageDataDeliversNotFoundWhenEmpty(sut)
     }
     
     func test_retrieveImageData_deliversNotFoundWhenStoredDataURLDoesNotMatch() {
-        let sut = makeSut()
-        let url = URL(string: "http://a-url.com")!
-        let nonMatchingURL = URL(string: "http://another-url.com")!
+        let (sut, imageUrl) = makeSut()
         
-        insert(anyData(), for: url, into: sut)
-        
-        expect(sut, toCompleteRetrievalWith: notFound(), for: nonMatchingURL)
+        assertThatRetrieveImageDataDeliversNotFoundWhenStoredDataURLDoesNotMatch(sut, imageUrl: imageUrl)
     }
     
     func test_retrieveImageData_deliversFoundDataWhenThereIsAStoredImageDataMatchingURL() {
-        let sut = makeSut()
-        let storedData = anyData()
-        let matchingURL = anyURL()
+        let (sut, imageUrl) = makeSut()
         
-        insert(storedData, for: matchingURL, into: sut)
-        
-        expect(sut, toCompleteRetrievalWith: found(storedData), for: matchingURL)
+        assertThatRetrieveImageDataDeliversFoundDataWhenThereIsAStoredImageDataMatchingURL(sut, imageUrl: imageUrl)
     }
-    
+
     func test_retrieveImageData_deliversLastInsertedValue() {
-        let sut = makeSut()
-        let firstStoredData = Data("first".utf8)
-        let lastStoredData = Data("last".utf8)
-        let url = anyURL()
-        
-        insert(firstStoredData, for: url, into: sut)
-        insert(lastStoredData, for: url, into: sut)
-        
-        expect(sut, toCompleteRetrievalWith: found(lastStoredData), for: url)
+        let (sut, imageUrl) = makeSut()
+
+        assertThatRetrieveImageDataDeliversLastInsertedValue(sut, imageUrl: imageUrl)
     }
-    
+
     func test_retrieveImageData_deliversFailureOnRetrievalError() {
-        let sut = makeSut()
+        let (sut, _) = makeSut()
         let stub = NSManagedObjectContext.alwaysFailingFetchStub()
         stub.startIntercepting()
         
-        expect(sut, toCompleteRetrievalWith: .failure(anyNSError()), for: anyURL())
+        assertThatRetrieveImageDataDeliversFailureOnRetrievalError(sut)
     }
-    
+
     func test_insertImageData_deliversFailureOnInsertionError() {
-        let sut = makeSut()
+        let (sut, _) = makeSut()
         let stub = NSManagedObjectContext.alwaysFailingFetchStub()
         stub.startIntercepting()
-        
-        XCTAssertThrowsError(try sut.insertImage(data: anyData(), for: anyURL()))
+
+        assertThatInsertImageDataDeliversFailureOnInsertionError(sut)
     }
     
     // MARK: - Helpers
     
-    private func makeSut(file: StaticString = #filePath, line: UInt = #line) -> CoreDataPokemonListStore {
+    private func makeSut(file: StaticString = #filePath, line: UInt = #line) -> (sut: CoreDataPokemonListStore, imageUrl: URL) {
         let storeURL = URL(fileURLWithPath: "/dev/null")
         let sut = try! CoreDataPokemonListStore(storeUrl: storeURL)
         trackForMemoryLeaks(sut, file: file, line: line)
-        return sut
+        let imageUrl = anyURL()
+        insertItem(for: imageUrl, into: sut)
+        return (sut, imageUrl)
     }
     
-    private func notFound() -> Result<Data?, Error> {
-        return .success(.none)
-    }
-    
-    private func found(_ data: Data) -> Result<Data?, Error> {
-        return .success(data)
-    }
-    
-    private func expect(
-        _ sut: PokemonListImageStore,
-        toCompleteRetrievalWith expectedResult: Result<Data?, Error>,
+    private func insertItem(
         for url: URL,
+        into sut: CoreDataPokemonListStore,
         file: StaticString = #filePath,
         line: UInt = #line
     ) {
-        let receivedResult = Result { try sut.retrieveImage(for: url) }
-        switch (receivedResult, expectedResult) {
-        case (.failure, .failure):
-            break
-        case let (.success( receivedData), .success(expectedData)):
-            XCTAssertEqual(receivedData, expectedData, file: file, line: line)
-        default:
-            XCTFail("Expected \(expectedResult), got \(receivedResult) instead", file: file, line: line)
+        do {
+            try sut.insert(local: anyLocalList(for: url), timestamp: anyDate())
+        } catch {
+            XCTFail("Failed to insert list item with error \(error)", file: file, line: line)
         }
     }
     
-    private func insert(
-        _ data: Data, for url: URL, into sut: CoreDataPokemonListStore, file: StaticString = #filePath, line: UInt = #line) {
-        do {
-            let localItem = LocalPokemonListItem(id: "any id", name: "any name", imageUrl: url, physicalType: .init(color: "any color", name: "any name"), specialType: nil)
-            try sut.insert(local: [localItem], timestamp: anyDate())
-            try sut.insertImage(data: data, for: url)
-        } catch {
-            XCTFail("Failed to insert \(data) with error \(error)", file: file, line: line)
-        }
+    private func anyLocalList(for url: URL) -> LocalPokemonList {
+        [LocalPokemonListItem(id: "any id", name: "any name", imageUrl: url, physicalType: .init(color: "any color", name: "any name"), specialType: nil)]
     }
 }
