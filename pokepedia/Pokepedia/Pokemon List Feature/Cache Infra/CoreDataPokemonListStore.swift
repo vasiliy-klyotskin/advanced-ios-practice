@@ -19,10 +19,18 @@ public final class CoreDataPokemonListStore {
         case failedToLoadPersistentContainer(Error)
     }
     
-    public init(storeUrl: URL) {
-        container = try! NSPersistentContainer.load(
-            name: Self.modelName,
-            model: Self.model!,
+    public struct ModelNotFound: Error {
+        public let modelName: String
+    }
+
+    public init(storeUrl: URL) throws {
+        guard let model = CoreDataPokemonListStore.model else {
+            throw ModelNotFound(modelName: CoreDataPokemonListStore.modelName)
+        }
+
+        container = try NSPersistentContainer.load(
+            name: CoreDataPokemonListStore.modelName,
+            model: model,
             url: storeUrl
         )
         context = container.newBackgroundContext()

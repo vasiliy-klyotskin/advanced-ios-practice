@@ -52,7 +52,7 @@ final class CoreDataPokemonListImageStoreTests: XCTestCase {
     
     private func makeSut(file: StaticString = #filePath, line: UInt = #line) -> CoreDataPokemonListStore {
         let storeURL = URL(fileURLWithPath: "/dev/null")
-        let sut = CoreDataPokemonListStore(storeUrl: storeURL)
+        let sut = try! CoreDataPokemonListStore(storeUrl: storeURL)
         trackForMemoryLeaks(sut, file: file, line: line)
         return sut
     }
