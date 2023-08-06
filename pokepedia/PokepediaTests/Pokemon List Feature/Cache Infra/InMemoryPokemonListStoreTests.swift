@@ -52,6 +52,8 @@ final class InMemoryPokemonListStoreTests: XCTestCase, PokemonListStoreSpecs {
     
     func test_insert_deliversNoErrorOnEmptyCache() {
         let sut = makeSut()
+        
+        assertThatInsertDeliversNoErrorOnEmptyCache(sut)
     }
     
     func test_insert_deliversNoErrorOnNonEmptyCache() {
