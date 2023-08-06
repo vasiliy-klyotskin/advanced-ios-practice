@@ -9,8 +9,11 @@ import XCTest
 import Pokepedia
 
 final class InMemoryPokemonListStore: PokemonListStore {
+    
+    var cache: CachedPokemonList?
+    
     func retrieve() throws -> CachedPokemonList? {
-        nil
+        cache
     }
     
     func delete() throws {
@@ -18,7 +21,7 @@ final class InMemoryPokemonListStore: PokemonListStore {
     }
     
     func insert(local: LocalPokemonList, timestamp: Date) throws {
-        
+        cache = .init(local: local, timestamp: timestamp)
     }
 }
 
@@ -37,6 +40,8 @@ final class InMemoryPokemonListStoreTests: XCTestCase, PokemonListStoreSpecs {
     
     func test_retrieve_deliversFoundValuesOnNonEmptyCache() {
         let sut = makeSut()
+        
+        assertThatRetrieveDeliversFoundValuesOnNonEmptyCache(sut)
     }
     
     func test_retrieve_hasNoSideEffectsOnNonEmptyCache() {
