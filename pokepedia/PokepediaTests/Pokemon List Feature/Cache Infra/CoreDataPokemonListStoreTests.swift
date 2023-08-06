@@ -8,90 +8,71 @@
 import XCTest
 import Pokepedia
 
-final class CoreDataPokemonListLocalStoreTests: XCTestCase {
+final class CoreDataPokemonListLocalStoreTests: XCTestCase, FailbalePokemonListStoreSpecs {
     func test_retrieve_deliversEmptyOnEmptyCache() {
         let sut = makeSut()
         
-        expect(sut, toRetrieve: .success(nil))
+        assertThatRetrieveDeliversEmptyOnEmptyCache(sut)
     }
     
     func test_retrieve_hasNoSideEffectsOnEmptyCache() {
         let sut = makeSut()
         
-        expect(sut, toRetrieveTwice: .success(nil))
+        assertThatRetrieveHasNoSideEffectsOnEmptyCache(sut)
     }
     
     func test_retrieve_deliversFoundValuesOnNonEmptyCache() {
         let sut = makeSut()
-        let list = pokemonList().local
-        let timestamp = Date()
-        try? sut.insert(local: list, timestamp: timestamp)
-        
-        expect(sut, toRetrieve: .success(CachedPokemonList(local: list, timestamp: timestamp)))
+
+        assertThatRetrieveDeliversFoundValuesOnNonEmptyCache(sut)
     }
     
     func test_retrieve_hasNoSideEffectsOnNonEmptyCache() {
         let sut = makeSut()
-        let list = pokemonList().local
-        let timestamp = Date()
-        try? sut.insert(local: list, timestamp: timestamp)
-        
-        
-        expect(sut, toRetrieveTwice: .success(.init(local: list, timestamp: timestamp)))
+
+        assertThatRetrieveHasNoSideEffectsOnNonEmptyCache(sut)
     }
     
     func test_insert_deliversNoErrorOnEmptyCache() {
         let sut = makeSut()
         
-        XCTAssertNoThrow(try sut.insert(local: pokemonList().local, timestamp: anyDate()))
+        assertThatInsertDeliversNoErrorOnEmptyCache(sut)
     }
     
     func test_insert_deliversNoErrorOnNonEmptyCache() {
         let sut = makeSut()
-        try? sut.insert(local: pokemonList().local, timestamp: anyDate())
-        
-        XCTAssertNoThrow(try sut.insert(local: pokemonList().local, timestamp: anyDate()))
+
+        assertThatInsertDeliversNoErrorOnNonEmptyCache(sut)
     }
     
     func test_insert_overridesPreviouslyInsertedCacheValues() {
         let sut = makeSut()
-        try? sut.insert(local: pokemonList().local, timestamp: anyDate())
-        
-        let latestList = pokemonList().local
-        let latestTimestamp = Date()
-        try? sut.insert(local: latestList, timestamp: latestTimestamp)
-        
-        expect(sut, toRetrieve: .success(.init(local: latestList, timestamp: latestTimestamp)))
+
+        assertThatInsertOverridesPreviouslyInsertedCacheValues(sut: sut)
     }
     
     func test_delete_deliversNoErrorOnEmptyCache() {
         let sut = makeSut()
         
-        XCTAssertNoThrow(try sut.delete())
+        assertThatDeleteDeliversNoErrorOnEmptyCache(sut)
     }
     
     func test_delete_hasNoSideEffectsOnEmptyCache() {
         let sut = makeSut()
         
-        try? sut.delete()
-        
-        expect(sut, toRetrieveTwice: .success(nil))
+        assertThatDeleteHasNoSideEffectsOnEmptyCache(sut)
     }
     
     func test_delete_deliversNoErrorOnNonEmptyCache() {
         let sut = makeSut()
-        try? sut.insert(local: pokemonList().local, timestamp: anyDate())
-        
-        XCTAssertNoThrow(try sut.delete())
+
+        assertThatDeleteDeliversNoErrorOnNonEmptyCache(sut)
     }
     
     func test_delete_emptiesPreviouslyInsertedCache() {
         let sut = makeSut()
-        try? sut.insert(local: pokemonList().local, timestamp: anyDate())
-        
-        try? sut.delete()
-        
-        expect(sut, toRetrieve: .success(.none))
+
+        assertThatDeleteEmptiesPreviouslyInsertedCache(sut)
     }
     
     func test_retrieve_deliversFailureOnRetrievalError() {
@@ -99,7 +80,7 @@ final class CoreDataPokemonListLocalStoreTests: XCTestCase {
         let stub = NSManagedObjectContext.alwaysFailingFetchStub()
         stub.startIntercepting()
         
-        expect(sut, toRetrieve: .failure(anyNSError()))
+        assertThatRetrieveDeliversFailureOnRetrievalError(sut)
     }
     
     func test_retrieve_hasNoSideEffectsOnFailure() {
@@ -107,7 +88,7 @@ final class CoreDataPokemonListLocalStoreTests: XCTestCase {
         let stub = NSManagedObjectContext.alwaysFailingFetchStub()
         stub.startIntercepting()
         
-        expect(sut, toRetrieveTwice: .failure(anyNSError()))
+        assertThatRetrieveHasNoSideEffectsOnFailure(sut)
     }
     
     func test_insert_deliversErrorOnInsertionError() {
@@ -115,10 +96,7 @@ final class CoreDataPokemonListLocalStoreTests: XCTestCase {
         let stub = NSManagedObjectContext.alwaysFailingSaveStub()
         stub.startIntercepting()
         
-        XCTAssertThrowsError(try sut.insert(
-            local: pokemonList().local,
-            timestamp: anyDate()
-        ))
+        assertThatInsertDeliversErrorOnInsertionError(sut)
     }
     
     func test_insert_hasNoSideEffectsOnInsertionError() {
@@ -126,9 +104,7 @@ final class CoreDataPokemonListLocalStoreTests: XCTestCase {
         let stub = NSManagedObjectContext.alwaysFailingSaveStub()
         stub.startIntercepting()
         
-        try? sut.insert(local: pokemonList().local, timestamp: anyDate())
-
-        expect(sut, toRetrieve: .success(nil))
+        assertThatInsertHasNoSideEffectsOnInsertionError(sut)
     }
     
     func test_delete_deliversErrorOnDeletionError() {
