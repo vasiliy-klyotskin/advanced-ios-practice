@@ -19,6 +19,8 @@ final class PokepediaCacheIntegrationTests: XCTestCase {
         undoStoreSideEffects()
     }
     
+    // MARK: - LocalPokemonListLoader (CoreDataPokemonListStore) Tests
+    
     func test_loadList_deliversNoListOnEmptyCache() {
         let listLoader = makeListLoader()
         
@@ -71,12 +73,41 @@ final class PokepediaCacheIntegrationTests: XCTestCase {
         expect(listLoaderToPerformSave, toLoad: nil)
     }
     
+    // MARK: - LocalPokemonListImageLoader (CoreDataPokemonListImageStore) Tests
+    
+    func test_loadImageData_deliversSavedDataOnASeparateInstance() {
+        let imageLoaderToPerformSave = makeImageLoader()
+        let imageLoaderToPerformLoad = makeImageLoader()
+        let listLoader = makeListLoader()
+        let list = pokemonList().model
+        let imageUrl = list.first!.imageUrl
+        let dataToSave = anyData()
+        
+        save(list, with: listLoader)
+        save(dataToSave, for: imageUrl, with: imageLoaderToPerformSave)
+        
+        expect(imageLoaderToPerformLoad, toLoad: dataToSave, for: imageUrl)
+    }
+    
     // MARK: - Helpers
     
-    private func makeListLoader(currentDate: Date = .init(), file: StaticString = #filePath, line: UInt = #line) -> LocalPokemonListLoader {
+    private func makeListLoader(
+        currentDate: Date = .init(),
+        file: StaticString = #filePath,
+        line: UInt = #line
+    ) -> LocalPokemonListLoader {
         let storeUrl = testSpecificStoreURL()
         let store = try! CoreDataPokemonListStore(storeUrl: storeUrl)
         let loader = LocalPokemonListLoader(store: store, currentDate: { currentDate })
+        trackForMemoryLeaks(store, file: file, line: line)
+        trackForMemoryLeaks(loader, file: file, line: line)
+        return loader
+    }
+    
+    private func makeImageLoader(file: StaticString = #filePath, line: UInt = #line) -> LocalPokemonListImageLoader {
+        let storeUrl = testSpecificStoreURL()
+        let store = try! CoreDataPokemonListStore(storeUrl: storeUrl)
+        let loader = LocalPokemonListImageLoader(store: store)
         trackForMemoryLeaks(store, file: file, line: line)
         trackForMemoryLeaks(loader, file: file, line: line)
         return loader
@@ -104,6 +135,23 @@ final class PokepediaCacheIntegrationTests: XCTestCase {
             XCTAssertEqual(loadedList, expectedList, file: file, line: line)
         } catch {
             XCTFail("Expected successful list result, got \(error) instead", file: file, line: line)
+        }
+    }
+    
+    private func save(_ data: Data, for url: URL, with loader: LocalPokemonListImageLoader, file: StaticString = #filePath, line: UInt = #line) {
+        do {
+            try loader.save(data, for: url)
+        } catch {
+            XCTFail("Expected to save image data successfully, got error: \(error)", file: file, line: line)
+        }
+    }
+    
+    private func expect(_ sut: LocalPokemonListImageLoader, toLoad expectedData: Data, for url: URL, file: StaticString = #filePath, line: UInt = #line) {
+        do {
+            let loadedData = try sut.loadImageData(from: url)
+            XCTAssertEqual(loadedData, expectedData, file: file, line: line)
+        } catch {
+            XCTFail("Expected successful image data result, got \(error) instead", file: file, line: line)
         }
     }
     
