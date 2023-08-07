@@ -89,6 +89,23 @@ final class PokepediaCacheIntegrationTests: XCTestCase {
         expect(imageLoaderToPerformLoad, toLoad: dataToSave, for: imageUrl)
     }
     
+    func test_saveImageData_overridesSavedImageDataOnASeparateInstance() {
+        let imageLoaderToPerformFirstSave = makeImageLoader()
+        let imageLoaderToPerformLastSave = makeImageLoader()
+        let imageLoaderToPerformLoad = makeImageLoader()
+        let feedLoader = makeListLoader()
+        let list = pokemonList().model
+        let imageUrl = list.first!.imageUrl
+        let firstImageData = Data("first".utf8)
+        let lastImageData = Data("last".utf8)
+        
+        save(list, with: feedLoader)
+        save(firstImageData, for: imageUrl, with: imageLoaderToPerformFirstSave)
+        save(lastImageData, for: imageUrl, with: imageLoaderToPerformLastSave)
+        
+        expect(imageLoaderToPerformLoad, toLoad: lastImageData, for: imageUrl)
+    }
+    
     // MARK: - Helpers
     
     private func makeListLoader(
