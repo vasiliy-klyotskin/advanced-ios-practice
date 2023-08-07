@@ -60,12 +60,23 @@ final class PokepediaCacheIntegrationTests: XCTestCase {
         XCTAssertEqual(list, try listLoaderToPerformLoad.load())
     }
     
+    func test_validateListCache_deletesListSavedInADistantPast() throws {
+        let listLoaderToPerformSave = makeListLoader(currentDate: .distantPast)
+        let listLoaderToPerformValidation = makeListLoader(currentDate: Date())
+        let list = pokemonList().model
+        
+        try listLoaderToPerformSave.save(list)
+        try listLoaderToPerformValidation.validateCache()
+        
+        XCTAssertNil(try listLoaderToPerformSave.load())
+    }
+    
     // MARK: - Helpers
     
-    private func makeListLoader(file: StaticString = #filePath, line: UInt = #line) -> LocalPokemonListLoader {
+    private func makeListLoader(currentDate: Date = .init(), file: StaticString = #filePath, line: UInt = #line) -> LocalPokemonListLoader {
         let storeUrl = testSpecificStoreURL()
         let store = try! CoreDataPokemonListStore(storeUrl: storeUrl)
-        let loader = LocalPokemonListLoader(store: store)
+        let loader = LocalPokemonListLoader(store: store, currentDate: { currentDate })
         trackForMemoryLeaks(store, file: file, line: line)
         trackForMemoryLeaks(loader, file: file, line: line)
         return loader
