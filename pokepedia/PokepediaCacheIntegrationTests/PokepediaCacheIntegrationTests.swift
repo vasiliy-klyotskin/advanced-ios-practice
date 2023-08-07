@@ -47,7 +47,18 @@ final class PokepediaCacheIntegrationTests: XCTestCase {
 
         XCTAssertEqual(latestList, try listLoaderToPerformLoad.load())
     }
-
+    
+    func test_validateListCache_doesNotDeleteRecentlySavedList() throws {
+        let listLoaderToPerformSave = makeListLoader()
+        let listLoaderToPerformValidation = makeListLoader()
+        let listLoaderToPerformLoad = makeListLoader()
+        let list = pokemonList().model
+        
+        try listLoaderToPerformSave.save(list)
+        try listLoaderToPerformValidation.validateCache()
+        
+        XCTAssertEqual(list, try listLoaderToPerformLoad.load())
+    }
     
     // MARK: - Helpers
     
