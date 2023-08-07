@@ -19,56 +19,56 @@ final class PokepediaCacheIntegrationTests: XCTestCase {
         undoStoreSideEffects()
     }
     
-    func test_loadList_deliversNoListOnEmptyCache() throws {
+    func test_loadList_deliversNoListOnEmptyCache() {
         let listLoader = makeListLoader()
         
-        XCTAssertNil(try listLoader.load())
+        expect(listLoader, toLoad: nil)
     }
     
-    func test_loadList_deliversListSavedOnASeparateInstance() throws {
+    func test_loadList_deliversListSavedOnASeparateInstance() {
         let listLoaderToPerformSave = makeListLoader()
         let listLoaderToPerformLoad = makeListLoader()
         let list = pokemonList().model
         
-        try listLoaderToPerformSave.save(list)
+        save(list, with: listLoaderToPerformSave)
         
-        XCTAssertEqual(list, try listLoaderToPerformLoad.load())
+        expect(listLoaderToPerformLoad, toLoad: list)
     }
     
-    func test_saveList_overridesListSavedOnASeparateInstance() throws {
+    func test_saveList_overridesListSavedOnASeparateInstance() {
         let listLoaderToPerformFirstSave = makeListLoader()
         let listLoaderToPerformLastSave = makeListLoader()
         let listLoaderToPerformLoad = makeListLoader()
         let firstList = pokemonList().model
         let latestList = pokemonList().model
         
-        try listLoaderToPerformFirstSave.save(firstList)
-        try listLoaderToPerformLastSave.save(latestList)
-
-        XCTAssertEqual(latestList, try listLoaderToPerformLoad.load())
+        save(firstList, with: listLoaderToPerformFirstSave)
+        save(latestList, with: listLoaderToPerformLastSave)
+        
+        expect(listLoaderToPerformLoad, toLoad: latestList)
     }
     
-    func test_validateListCache_doesNotDeleteRecentlySavedList() throws {
+    func test_validateListCache_doesNotDeleteRecentlySavedList() {
         let listLoaderToPerformSave = makeListLoader()
         let listLoaderToPerformValidation = makeListLoader()
         let listLoaderToPerformLoad = makeListLoader()
         let list = pokemonList().model
         
-        try listLoaderToPerformSave.save(list)
-        try listLoaderToPerformValidation.validateCache()
-        
-        XCTAssertEqual(list, try listLoaderToPerformLoad.load())
+        save(list, with: listLoaderToPerformSave)
+        validateCache(with: listLoaderToPerformValidation)
+
+        expect(listLoaderToPerformLoad, toLoad: list)
     }
     
-    func test_validateListCache_deletesListSavedInADistantPast() throws {
+    func test_validateListCache_deletesListSavedInADistantPast() {
         let listLoaderToPerformSave = makeListLoader(currentDate: .distantPast)
         let listLoaderToPerformValidation = makeListLoader(currentDate: Date())
         let list = pokemonList().model
         
-        try listLoaderToPerformSave.save(list)
-        try listLoaderToPerformValidation.validateCache()
-        
-        XCTAssertNil(try listLoaderToPerformSave.load())
+        save(list, with: listLoaderToPerformSave)
+        validateCache(with: listLoaderToPerformValidation)
+
+        expect(listLoaderToPerformSave, toLoad: nil)
     }
     
     // MARK: - Helpers
@@ -80,6 +80,31 @@ final class PokepediaCacheIntegrationTests: XCTestCase {
         trackForMemoryLeaks(store, file: file, line: line)
         trackForMemoryLeaks(loader, file: file, line: line)
         return loader
+    }
+    
+    private func save(_ list: PokemonList, with loader: LocalPokemonListLoader, file: StaticString = #filePath, line: UInt = #line) {
+        do {
+            try loader.save(list)
+        } catch {
+            XCTFail("Expected to save list successfully, got error: \(error)", file: file, line: line)
+        }
+    }
+    
+    private func validateCache(with loader: LocalPokemonListLoader, file: StaticString = #filePath, line: UInt = #line) {
+        do {
+            try loader.validateCache()
+        } catch {
+            XCTFail("Expected to validate list successfully, got error: \(error)", file: file, line: line)
+        }
+    }
+    
+    private func expect(_ sut: LocalPokemonListLoader, toLoad expectedList: PokemonList?, file: StaticString = #filePath, line: UInt = #line) {
+        do {
+            let loadedList = try sut.load()
+            XCTAssertEqual(loadedList, expectedList, file: file, line: line)
+        } catch {
+            XCTFail("Expected successful list result, got \(error) instead", file: file, line: line)
+        }
     }
     
     private func testSpecificStoreURL() -> URL {
