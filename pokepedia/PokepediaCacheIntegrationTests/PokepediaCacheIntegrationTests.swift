@@ -9,10 +9,30 @@ import XCTest
 import Pokepedia
 
 final class PokepediaCacheIntegrationTests: XCTestCase {
+    override func setUp() {
+        super.setUp()
+        setupEmptyStoreState()
+    }
+    
+    override func tearDown() {
+        super.tearDown()
+        undoStoreSideEffects()
+    }
+    
     func test_loadList_deliversNoListOnEmptyCache() throws {
         let listLoader = makeListLoader()
         
         XCTAssertNil(try listLoader.load())
+    }
+    
+    func test_loadList_deliversListSavedOnASeparateInstance() throws {
+        let listLoaderToPerformSave = makeListLoader()
+        let listLoaderToPerformLoad = makeListLoader()
+        let list = pokemonList().model
+        
+        try listLoaderToPerformSave.save(list)
+        
+        XCTAssertEqual(list, try listLoaderToPerformLoad.load())
     }
 
     
@@ -33,5 +53,17 @@ final class PokepediaCacheIntegrationTests: XCTestCase {
 
     private func cachesDirectory() -> URL {
         return FileManager.default.urls(for: .cachesDirectory, in: .userDomainMask).first!
+    }
+    
+    private func setupEmptyStoreState() {
+        deleteStoreArtifacts()
+    }
+    
+    private func undoStoreSideEffects() {
+        deleteStoreArtifacts()
+    }
+    
+    private func deleteStoreArtifacts() {
+        try? FileManager.default.removeItem(at: testSpecificStoreURL())
     }
 }
