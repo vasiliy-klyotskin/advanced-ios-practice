@@ -34,6 +34,19 @@ final class PokepediaCacheIntegrationTests: XCTestCase {
         
         XCTAssertEqual(list, try listLoaderToPerformLoad.load())
     }
+    
+    func test_saveList_overridesListSavedOnASeparateInstance() throws {
+        let listLoaderToPerformFirstSave = makeListLoader()
+        let listLoaderToPerformLastSave = makeListLoader()
+        let listLoaderToPerformLoad = makeListLoader()
+        let firstList = pokemonList().model
+        let latestList = pokemonList().model
+        
+        try listLoaderToPerformFirstSave.save(firstList)
+        try listLoaderToPerformLastSave.save(latestList)
+
+        XCTAssertEqual(latestList, try listLoaderToPerformLoad.load())
+    }
 
     
     // MARK: - Helpers
