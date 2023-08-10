@@ -9,10 +9,12 @@
     }
   ],
   "defaultOptions" : {
+    "codeCoverage" : false,
     "testExecutionOrdering" : "random"
   },
   "testTargets" : [
     {
+      "parallelizable" : true,
       "target" : {
         "containerPath" : "container:Pokepedia.xcodeproj",
         "identifier" : "F7FC0DAB2A0FC5A6009FD50B",
@@ -20,6 +22,7 @@
       }
     },
     {
+      "parallelizable" : true,
       "target" : {
         "containerPath" : "container:Pokepedia.xcodeproj",
         "identifier" : "D63167F12A815591003899D1",

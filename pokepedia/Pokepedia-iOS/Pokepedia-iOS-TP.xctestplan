@@ -9,12 +9,13 @@
     }
   ],
   "defaultOptions" : {
-
+    "codeCoverage" : false
   },
   "testTargets" : [
     {
+      "parallelizable" : true,
       "target" : {
-        "containerPath" : "container:..\/Pokepedia-iOS\/Pokepedia-iOS.xcodeproj",
+        "containerPath" : "container:Pokepedia-iOS.xcodeproj",
         "identifier" : "D6C8D7942A72D86C000C79CF",
         "name" : "Pokepedia_iOSTests"
       }
