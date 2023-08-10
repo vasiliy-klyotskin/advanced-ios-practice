@@ -187,6 +187,20 @@ final class PokemonListUIIntegrationTests: XCTestCase {
         XCTAssertEqual(loader.loadMoreCallCount, 2)
     }
     
+    func test_loadMoreCompletion_dispatchesFromBackgroundToMainThread() {
+        let (sut, loader) = makeSut()
+        sut.loadViewIfNeeded()
+        loader.completeListLoading(at: 0)
+        sut.simulateLoadMoreListAction()
+        
+        let exp = expectation(description: "Wait for background queue")
+        DispatchQueue.global().async {
+            loader.completeLoadMore()
+            exp.fulfill()
+        }
+        wait(for: [exp], timeout: 1.0)
+    }
+    
     // MARK: - Pokemon Item
     
     func test_pokemonItemView_loadsImageURLWhenVisible() {
