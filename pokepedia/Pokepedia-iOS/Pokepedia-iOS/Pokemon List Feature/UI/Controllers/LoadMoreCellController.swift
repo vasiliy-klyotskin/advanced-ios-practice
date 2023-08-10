@@ -36,6 +36,6 @@ extension LoadMoreCellController: ResourceLoadingView, ResourceErrorView {
     }
     
     public func display(loadingViewModel: LoadingViewModel) {
-        
+        cell.isLoading = loadingViewModel.isLoading
     }
 }

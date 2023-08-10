@@ -45,6 +45,13 @@ extension ListPokemonItemCell {
 }
 
 extension ListViewController {
+    private var pokemonListSectionNumber: Int { 0 }
+    private var loadMoreSectionNumber: Int { 1 }
+    
+    var isShowingLoadMoreListIndicator: Bool {
+        return loadMoreListCell()?.isLoading == true
+    }
+    
     func numberOfRenderedListPokemons() -> Int {
         tableView.dataSource?.tableView(tableView, numberOfRowsInSection: pokemonListSectionNumber) ?? -1
     }
@@ -59,17 +66,14 @@ extension ListViewController {
     }
     
     func simulateLoadMoreFeedAction() {
-        guard let view = loadMoreFeedCell() else { return }
+        guard let view = loadMoreListCell() else { return }
         
         let delegate = tableView.delegate
         let index = IndexPath(row: 0, section: loadMoreSectionNumber)
         delegate?.tableView?(tableView, willDisplay: view, forRowAt: index)
     }
     
-    private func loadMoreFeedCell() -> LoadMoreCell? {
+    private func loadMoreListCell() -> LoadMoreCell? {
         cell(row: 0, section: loadMoreSectionNumber) as? LoadMoreCell
     }
-    
-    var pokemonListSectionNumber: Int { 0 }
-    var loadMoreSectionNumber: Int { 1 }
 }
