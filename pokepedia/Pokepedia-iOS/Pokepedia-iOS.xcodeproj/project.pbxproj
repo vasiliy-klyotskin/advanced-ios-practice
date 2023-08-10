@@ -221,6 +221,7 @@
 		D64F14132A5F15AF00F88826 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				D640894F2A83570700B70823 /* LoadMoreCell.swift */,
 				D66787D62A29E96400F8CC3C /* ErrorView.swift */,
 				D6B1DAF12A73E64200683BFD /* TitleCell.swift */,
 				D6B1DAF32A73E71000683BFD /* TitleCell.xib */,
@@ -247,7 +248,6 @@
 			isa = PBXGroup;
 			children = (
 				D66787D02A29E8CC00F8CC3C /* ListPokemonItemViewController.swift */,
-				D640894D2A8356D900B70823 /* LoadMoreCellController.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -257,7 +257,6 @@
 			children = (
 				D66787D42A29E95300F8CC3C /* ListPokemonItemCell.swift */,
 				D604FBE22A62613B007BAF00 /* ListPokemonItemCell.xib */,
-				D640894F2A83570700B70823 /* LoadMoreCell.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -265,6 +264,7 @@
 		D6A29CAF2A718971000E74AD /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				D640894D2A8356D900B70823 /* LoadMoreCellController.swift */,
 				D6A29CB02A71897C000E74AD /* CellController.swift */,
 				D6A29CB22A71A123000E74AD /* ListViewController.swift */,
 				D6B1DAF72A73E93A00683BFD /* DefaultCellController.swift */,
