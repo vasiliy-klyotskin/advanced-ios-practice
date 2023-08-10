@@ -69,6 +69,12 @@ extension ListViewController {
         tableView.dataSource?.tableView(tableView, cellForRowAt: .init(row: index, section: pokemonListSectionNumber))
     }
     
+    func simulateTapOnLoadMoreListError() {
+        let delegate = tableView.delegate
+        let index = IndexPath(row: 0, section: loadMoreSectionNumber)
+        delegate?.tableView?(tableView, didSelectRowAt: index)
+    }
+    
     func simulateLoadMoreListAction() {
         guard let view = loadMoreListCell() else { return }
         

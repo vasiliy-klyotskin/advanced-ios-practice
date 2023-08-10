@@ -25,6 +25,10 @@ public class LoadMoreCellController: NSObject, UITableViewDataSource, UITableVie
         return cell
     }
     
+    public func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        callback()
+    }
+    
     public func tableView(_ tableView: UITableView, willDisplay: UITableViewCell, forRowAt indexPath: IndexPath) {
         callback()
     }

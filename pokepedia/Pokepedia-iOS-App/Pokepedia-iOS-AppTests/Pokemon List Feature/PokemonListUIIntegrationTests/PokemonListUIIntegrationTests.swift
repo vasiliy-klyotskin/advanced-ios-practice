@@ -171,6 +171,22 @@ final class PokemonListUIIntegrationTests: XCTestCase {
         XCTAssertEqual(sut.loadMoreFeedErrorMessage, nil)
     }
     
+    func test_tapOnLoadMoreErrorView_loadsMore() {
+        let (sut, loader) = makeSut()
+        sut.loadViewIfNeeded()
+        loader.completeListLoading(at: 0)
+        
+        sut.simulateLoadMoreListAction()
+        XCTAssertEqual(loader.loadMoreCallCount, 1)
+        
+        sut.simulateTapOnLoadMoreListError()
+        XCTAssertEqual(loader.loadMoreCallCount, 1)
+        
+        loader.completeLoadMoreWithError()
+        sut.simulateTapOnLoadMoreListError()
+        XCTAssertEqual(loader.loadMoreCallCount, 2)
+    }
+    
     // MARK: - Pokemon Item
     
     func test_pokemonItemView_loadsImageURLWhenVisible() {
