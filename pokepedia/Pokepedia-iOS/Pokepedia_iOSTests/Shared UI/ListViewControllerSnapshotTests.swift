@@ -33,12 +33,20 @@ final class ListControllerSnapshotTests: XCTestCase {
         assertDefaultSnapshot(sut: sut, key: "LIST_ERROR")
     }
     
-    func test_loadMoreViewIsLoading() {
+    func test_loadMoreView_errorState() {
         let sut = makeSut()
 
         sut.display(sections: loadMore(with: .error("Connection error: No internet connection available at the moment.")))
         
         assertDefaultSnapshot(sut: sut, key: "LOAD_MORE_ERROR")
+    }
+    
+    func test_loadMoreView_loadingState() {
+        let sut = makeSut()
+
+        sut.display(sections: loadMore(with: .loading))
+        
+        assertDefaultSnapshot(sut: sut, key: "LOAD_MORE_LOADING")
     }
     
     // MARK: - Helpers

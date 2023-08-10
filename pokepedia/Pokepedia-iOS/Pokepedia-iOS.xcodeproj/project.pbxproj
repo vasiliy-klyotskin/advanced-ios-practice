@@ -66,6 +66,9 @@
 		D6C8D7DD2A737896000C79CF /* DetailPokemonInfoCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = D6C8D7DC2A737896000C79CF /* DetailPokemonInfoCell.xib */; };
 		D6CBFD012A278B6600CE40C7 /* Pokepedia.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D6CBFD002A278B6600CE40C7 /* Pokepedia.framework */; };
 		D6CBFD022A278B6600CE40C7 /* Pokepedia.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = D6CBFD002A278B6600CE40C7 /* Pokepedia.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		D6EFE28B2A85256300F8A936 /* LOAD_MORE_LOADING_dark.png in Resources */ = {isa = PBXBuildFile; fileRef = D6EFE2882A85256300F8A936 /* LOAD_MORE_LOADING_dark.png */; };
+		D6EFE28C2A85256300F8A936 /* LOAD_MORE_LOADING_light_extraExtraExtraLarge.png in Resources */ = {isa = PBXBuildFile; fileRef = D6EFE2892A85256300F8A936 /* LOAD_MORE_LOADING_light_extraExtraExtraLarge.png */; };
+		D6EFE28D2A85256300F8A936 /* LOAD_MORE_LOADING_light.png in Resources */ = {isa = PBXBuildFile; fileRef = D6EFE28A2A85256300F8A936 /* LOAD_MORE_LOADING_light.png */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -153,6 +156,9 @@
 		D6C8D7DC2A737896000C79CF /* DetailPokemonInfoCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = DetailPokemonInfoCell.xib; sourceTree = "<group>"; };
 		D6CBFD002A278B6600CE40C7 /* Pokepedia.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = Pokepedia.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		D6E4454F2A25CD5C00E388A7 /* Pokepedia_iOS.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pokepedia_iOS.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		D6EFE2882A85256300F8A936 /* LOAD_MORE_LOADING_dark.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = LOAD_MORE_LOADING_dark.png; sourceTree = "<group>"; };
+		D6EFE2892A85256300F8A936 /* LOAD_MORE_LOADING_light_extraExtraExtraLarge.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = LOAD_MORE_LOADING_light_extraExtraExtraLarge.png; sourceTree = "<group>"; };
+		D6EFE28A2A85256300F8A936 /* LOAD_MORE_LOADING_light.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = LOAD_MORE_LOADING_light.png; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -325,6 +331,9 @@
 		D6C8D7AB2A72DA12000C79CF /* Snapshots */ = {
 			isa = PBXGroup;
 			children = (
+				D6EFE2882A85256300F8A936 /* LOAD_MORE_LOADING_dark.png */,
+				D6EFE2892A85256300F8A936 /* LOAD_MORE_LOADING_light_extraExtraExtraLarge.png */,
+				D6EFE28A2A85256300F8A936 /* LOAD_MORE_LOADING_light.png */,
 				D6AE91E12A8523810024DD71 /* LOAD_MORE_ERROR_dark.png */,
 				D6AE91E02A8523810024DD71 /* LOAD_MORE_ERROR_light_extraExtraExtraLarge.png */,
 				D6AE91DF2A8523810024DD71 /* LOAD_MORE_ERROR_light.png */,
@@ -545,8 +554,10 @@
 				D68A55092A7387F5002A5CDE /* POKEMON_INFO_ERROR_light_extraExtraExtraLarge.png in Resources */,
 				D6AE91E32A8523810024DD71 /* LOAD_MORE_ERROR_light_extraExtraExtraLarge.png in Resources */,
 				D6C8D7D82A737821000C79CF /* POKEMON_INFO_LOADING_dark.png in Resources */,
+				D6EFE28D2A85256300F8A936 /* LOAD_MORE_LOADING_light.png in Resources */,
 				D6C8D7CC2A72DBC0000C79CF /* LIST_ERROR_light.png in Resources */,
 				D6C8D7C52A72DBC0000C79CF /* LIST_EMPTY_dark.png in Resources */,
+				D6EFE28B2A85256300F8A936 /* LOAD_MORE_LOADING_dark.png in Resources */,
 				D6C8D7C62A72DBC0000C79CF /* LIST_EMPTY_light_extraExtraExtraLarge.png in Resources */,
 				D6C8D7CA2A72DBC0000C79CF /* LIST_EMPTY_light.png in Resources */,
 				D6C8D7CD2A72DBC0000C79CF /* LIST_LOADING_dark.png in Resources */,
@@ -557,6 +568,7 @@
 				D6C8D7C72A72DBC0000C79CF /* LIST_ERROR_dark.png in Resources */,
 				D6C8D7D12A72DBEC000C79CF /* POKEMON_LIST_SUCCESS_dark.png in Resources */,
 				D6C8D7D92A737821000C79CF /* POKEMON_INFO_LOADING_light.png in Resources */,
+				D6EFE28C2A85256300F8A936 /* LOAD_MORE_LOADING_light_extraExtraExtraLarge.png in Resources */,
 				D629F2452A740CD500195735 /* POKEMON_FULL_dark.png in Resources */,
 				D629F2472A740CD500195735 /* POKEMON_FULL_light_extraExtraExtraLarge.png in Resources */,
 			);
