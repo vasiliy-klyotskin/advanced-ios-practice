@@ -52,6 +52,10 @@ extension ListViewController {
         return loadMoreListCell()?.isLoading == true
     }
     
+    var loadMoreFeedErrorMessage: String? {
+        return loadMoreListCell()?.message
+    }
+    
     func numberOfRenderedListPokemons() -> Int {
         tableView.dataSource?.tableView(tableView, numberOfRowsInSection: pokemonListSectionNumber) ?? -1
     }
@@ -65,7 +69,7 @@ extension ListViewController {
         tableView.dataSource?.tableView(tableView, cellForRowAt: .init(row: index, section: pokemonListSectionNumber))
     }
     
-    func simulateLoadMoreFeedAction() {
+    func simulateLoadMoreListAction() {
         guard let view = loadMoreListCell() else { return }
         
         let delegate = tableView.delegate

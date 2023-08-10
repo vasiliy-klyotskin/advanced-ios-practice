@@ -32,7 +32,7 @@ public class LoadMoreCellController: NSObject, UITableViewDataSource, UITableVie
 
 extension LoadMoreCellController: ResourceLoadingView, ResourceErrorView {
     public func display(errorViewModel: ErrorViewModel) {
-        
+        cell.message = errorViewModel.errorMessage
     }
     
     public func display(loadingViewModel: LoadingViewModel) {
