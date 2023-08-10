@@ -9,7 +9,12 @@ import UIKit
 import Pokepedia
 
 public class LoadMoreCellController: NSObject, UITableViewDataSource, UITableViewDelegate {
-    private let cell = LoadMoreCell()
+    private let cell = {
+        let cell = LoadMoreCell()
+        cell.separatorInset = UIEdgeInsets(top: 0, left: .greatestFiniteMagnitude, bottom: 0, right: 0)
+        return cell
+    }()
+    
     private let callback: () -> Void
     
     public init(callback: @escaping () -> Void) {

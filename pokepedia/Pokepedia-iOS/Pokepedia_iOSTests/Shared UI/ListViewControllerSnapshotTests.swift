@@ -33,6 +33,14 @@ final class ListControllerSnapshotTests: XCTestCase {
         assertDefaultSnapshot(sut: sut, key: "LIST_ERROR")
     }
     
+    func test_loadMoreViewIsLoading() {
+        let sut = makeSut()
+
+        sut.display(sections: loadMore(with: .error("Connection error: No internet connection available at the moment.")))
+        
+        assertDefaultSnapshot(sut: sut, key: "LOAD_MORE_ERROR")
+    }
+    
     // MARK: - Helpers
     
     private func makeSut(
@@ -44,5 +52,21 @@ final class ListControllerSnapshotTests: XCTestCase {
         sut.tableView.showsVerticalScrollIndicator = false
         sut.tableView.showsHorizontalScrollIndicator = false
         return sut
+    }
+    
+    private enum LoadMoreState {
+        case loading
+        case error(String)
+    }
+    
+    private func loadMore(with state: LoadMoreState) -> [CellController] {
+        let controller = LoadMoreCellController(callback: {})
+        switch state {
+        case .loading:
+            controller.display(loadingViewModel: .init(isLoading: true))
+        case .error(let message):
+            controller.display(errorViewModel: .init(errorMessage: message))
+        }
+        return [CellController(id: UUID(), controller)]
     }
 }

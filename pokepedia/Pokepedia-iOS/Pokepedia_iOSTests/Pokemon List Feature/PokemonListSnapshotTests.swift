@@ -14,7 +14,7 @@ final class PokemonListSnapshotTests: XCTestCase {
     func test_listLoadedWithSuccess() {
         let sut = makeSut()
 
-        sut.display(sections: itemsSection())
+        sut.display(sections: pokemonListItems())
         
         assertDefaultSnapshot(sut: sut, key: "POKEMON_LIST_SUCCESS")
     }
@@ -35,7 +35,7 @@ final class PokemonListSnapshotTests: XCTestCase {
         return sut
     }
     
-    private func itemsSection() -> [CellController] {
+    private func pokemonListItems() -> [CellController] {
         let stubs = [
             PokemonListItemStub(viewModel: pokemonWithSpecialType, image: UIImage.make(withColor: .brown)),
             PokemonListItemStub(viewModel: pokemonWithoutSpecialType, image: nil),

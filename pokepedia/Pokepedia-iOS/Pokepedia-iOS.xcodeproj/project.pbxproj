@@ -31,6 +31,9 @@
 		D68A55172A738E5A002A5CDE /* DetailPokemonAbilityCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = D68A55162A738E5A002A5CDE /* DetailPokemonAbilityCell.xib */; };
 		D6A29CB12A71897C000E74AD /* CellController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6A29CB02A71897C000E74AD /* CellController.swift */; };
 		D6A29CB32A71A124000E74AD /* ListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6A29CB22A71A123000E74AD /* ListViewController.swift */; };
+		D6AE91E22A8523810024DD71 /* LOAD_MORE_ERROR_light.png in Resources */ = {isa = PBXBuildFile; fileRef = D6AE91DF2A8523810024DD71 /* LOAD_MORE_ERROR_light.png */; };
+		D6AE91E32A8523810024DD71 /* LOAD_MORE_ERROR_light_extraExtraExtraLarge.png in Resources */ = {isa = PBXBuildFile; fileRef = D6AE91E02A8523810024DD71 /* LOAD_MORE_ERROR_light_extraExtraExtraLarge.png */; };
+		D6AE91E42A8523810024DD71 /* LOAD_MORE_ERROR_dark.png in Resources */ = {isa = PBXBuildFile; fileRef = D6AE91E12A8523810024DD71 /* LOAD_MORE_ERROR_dark.png */; };
 		D6B1DAF22A73E64200683BFD /* TitleCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6B1DAF12A73E64200683BFD /* TitleCell.swift */; };
 		D6B1DAF42A73E71000683BFD /* TitleCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = D6B1DAF32A73E71000683BFD /* TitleCell.xib */; };
 		D6B1DAF82A73E93A00683BFD /* DefaultCellController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6B1DAF72A73E93A00683BFD /* DefaultCellController.swift */; };
@@ -114,6 +117,9 @@
 		D68A55162A738E5A002A5CDE /* DetailPokemonAbilityCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = DetailPokemonAbilityCell.xib; sourceTree = "<group>"; };
 		D6A29CB02A71897C000E74AD /* CellController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CellController.swift; sourceTree = "<group>"; };
 		D6A29CB22A71A123000E74AD /* ListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListViewController.swift; sourceTree = "<group>"; };
+		D6AE91DF2A8523810024DD71 /* LOAD_MORE_ERROR_light.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = LOAD_MORE_ERROR_light.png; sourceTree = "<group>"; };
+		D6AE91E02A8523810024DD71 /* LOAD_MORE_ERROR_light_extraExtraExtraLarge.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = LOAD_MORE_ERROR_light_extraExtraExtraLarge.png; sourceTree = "<group>"; };
+		D6AE91E12A8523810024DD71 /* LOAD_MORE_ERROR_dark.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = LOAD_MORE_ERROR_dark.png; sourceTree = "<group>"; };
 		D6B1DAF12A73E64200683BFD /* TitleCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TitleCell.swift; sourceTree = "<group>"; };
 		D6B1DAF32A73E71000683BFD /* TitleCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TitleCell.xib; sourceTree = "<group>"; };
 		D6B1DAF72A73E93A00683BFD /* DefaultCellController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DefaultCellController.swift; sourceTree = "<group>"; };
@@ -319,6 +325,9 @@
 		D6C8D7AB2A72DA12000C79CF /* Snapshots */ = {
 			isa = PBXGroup;
 			children = (
+				D6AE91E12A8523810024DD71 /* LOAD_MORE_ERROR_dark.png */,
+				D6AE91E02A8523810024DD71 /* LOAD_MORE_ERROR_light_extraExtraExtraLarge.png */,
+				D6AE91DF2A8523810024DD71 /* LOAD_MORE_ERROR_light.png */,
 				D6C8D7BC2A72DBBF000C79CF /* LIST_EMPTY_dark.png */,
 				D6C8D7BD2A72DBBF000C79CF /* LIST_EMPTY_light_extraExtraExtraLarge.png */,
 				D6C8D7C12A72DBC0000C79CF /* LIST_EMPTY_light.png */,
@@ -530,15 +539,18 @@
 				D6C8D7CB2A72DBC0000C79CF /* LIST_ERROR_light_extraExtraExtraLarge.png in Resources */,
 				D6C8D7C92A72DBC0000C79CF /* LIST_LOADING_light.png in Resources */,
 				D68A55072A7387F5002A5CDE /* POKEMON_INFO_ERROR_light.png in Resources */,
+				D6AE91E22A8523810024DD71 /* LOAD_MORE_ERROR_light.png in Resources */,
 				D6C8D7D72A737821000C79CF /* POKEMON_INFO_LOADING_light_extraExtraExtraLarge.png in Resources */,
 				D68A55082A7387F5002A5CDE /* POKEMON_INFO_ERROR_dark.png in Resources */,
 				D68A55092A7387F5002A5CDE /* POKEMON_INFO_ERROR_light_extraExtraExtraLarge.png in Resources */,
+				D6AE91E32A8523810024DD71 /* LOAD_MORE_ERROR_light_extraExtraExtraLarge.png in Resources */,
 				D6C8D7D82A737821000C79CF /* POKEMON_INFO_LOADING_dark.png in Resources */,
 				D6C8D7CC2A72DBC0000C79CF /* LIST_ERROR_light.png in Resources */,
 				D6C8D7C52A72DBC0000C79CF /* LIST_EMPTY_dark.png in Resources */,
 				D6C8D7C62A72DBC0000C79CF /* LIST_EMPTY_light_extraExtraExtraLarge.png in Resources */,
 				D6C8D7CA2A72DBC0000C79CF /* LIST_EMPTY_light.png in Resources */,
 				D6C8D7CD2A72DBC0000C79CF /* LIST_LOADING_dark.png in Resources */,
+				D6AE91E42A8523810024DD71 /* LOAD_MORE_ERROR_dark.png in Resources */,
 				D6C8D7D32A72DBEC000C79CF /* POKEMON_LIST_SUCCESS_light.png in Resources */,
 				D6C8D7D22A72DBEC000C79CF /* POKEMON_LIST_SUCCESS_light_extraExtraExtraLarge.png in Resources */,
 				D629F2462A740CD500195735 /* POKEMON_FULL_light.png in Resources */,
