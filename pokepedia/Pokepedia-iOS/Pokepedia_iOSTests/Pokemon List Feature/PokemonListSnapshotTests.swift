@@ -14,7 +14,7 @@ final class PokemonListSnapshotTests: XCTestCase {
     func test_listLoadedWithSuccess() {
         let sut = makeSut()
 
-        sut.display(listWithLoadedContent())
+        sut.display(sections: itemsSection())
         
         assertDefaultSnapshot(sut: sut, key: "POKEMON_LIST_SUCCESS")
     }
@@ -35,12 +35,20 @@ final class PokemonListSnapshotTests: XCTestCase {
         return sut
     }
     
-    private func listWithLoadedContent() -> [PokemonListItemStub] {
-        [
-            .init(viewModel: pokemonWithSpecialType, image: UIImage.make(withColor: .brown)),
-            .init(viewModel: pokemonWithoutSpecialType, image: nil),
-            .init(viewModel: pokemonWithLongName, isLoading: true)
+    private func itemsSection() -> [CellController] {
+        let stubs = [
+            PokemonListItemStub(viewModel: pokemonWithSpecialType, image: UIImage.make(withColor: .brown)),
+            PokemonListItemStub(viewModel: pokemonWithoutSpecialType, image: nil),
+            PokemonListItemStub(viewModel: pokemonWithLongName, isLoading: true)
         ]
+        return stubs.map { stub in
+            let controller = ListPokemonItemViewController(
+                viewModel: stub.viewModel,
+                onImageRequest: stub.didRequestImage
+            )
+            stub.controller = controller
+            return CellController(id: UUID(), controller)
+        }
     }
     
     private var pokemonWithSpecialType: ListPokemonItemViewModel<UIColor> {
@@ -76,22 +84,6 @@ final class PokemonListSnapshotTests: XCTestCase {
         )
     }
 }
-
-private extension ListViewController {
-    func display(_ stubs: [PokemonListItemStub]) {
-        let controllers = stubs.map { stub in
-            let controller = ListPokemonItemViewController(
-                viewModel: stub.viewModel,
-                onImageRequest: stub.didRequestImage
-            )
-            stub.controller = controller
-            return CellController(id: UUID(), controller)
-        }
-        
-        display(sections: controllers)
-    }
-}
-
 
 class PokemonListItemStub {
     let viewModel: ListPokemonItemViewModel<UIColor>
