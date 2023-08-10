@@ -15,7 +15,7 @@ final class PokemonDetailSnapshotTests: XCTestCase {
         let sut = makeSut()
         let infoController = detailInfo(controller: sut, isLoading: true, image: nil)
         
-        sut.display(controllers: infoController)
+        sut.display(sections: infoController)
         
         assertDefaultSnapshot(sut: sut, key: "POKEMON_INFO_LOADING")
     }
@@ -24,7 +24,7 @@ final class PokemonDetailSnapshotTests: XCTestCase {
         let sut = makeSut()
         let infoController = detailInfo(controller: sut, isLoading: false, image: nil)
         
-        sut.display(controllers: infoController)
+        sut.display(sections: infoController)
         
         assertDefaultSnapshot(sut: sut, key: "POKEMON_INFO_ERROR")
     }
@@ -36,7 +36,7 @@ final class PokemonDetailSnapshotTests: XCTestCase {
         let abilitiesTitleController = abilityTitle()
         let abilitiesControllers = abilities()
         
-        sut.display(controllers: infoController + abilitiesTitleController + abilitiesControllers)
+        sut.display(sections: infoController + abilitiesTitleController + abilitiesControllers)
         
         assertDefaultSnapshot(sut: sut, key: "POKEMON_FULL", height: 1100)
     }

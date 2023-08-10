@@ -10,17 +10,62 @@ import Combine
 import Pokepedia
 
 final class PokemonListMockLoader {
+    // MARK: - Load List
+    
     var loadListCallCount: Int { listRequests.count }
-    var listRequests = [PassthroughSubject<PokemonList, Error>]()
+    var listRequests = [PassthroughSubject<Paginated<PokemonListItem>, Error>]()
     
-    var imageUrls = [URL]()
-    var imageRequests = [PassthroughSubject<ListPokemonItemImage, Error>]()
-    
-    func load() -> AnyPublisher<PokemonList, Error> {
-        let request = PassthroughSubject<PokemonList, Error>()
+    func load() -> AnyPublisher<Paginated<PokemonListItem>, Error> {
+        let request = PassthroughSubject<Paginated<PokemonListItem>, Error>()
         listRequests.append(request)
         return request.eraseToAnyPublisher()
     }
+    
+    func completeListLoading(with list: PokemonList = [], at index: Int) {
+        let paginated = Paginated(items: list) { [weak self] in
+            self?.loadMorePublisher() ?? Empty().eraseToAnyPublisher()
+        }
+        listRequests[index].send(paginated)
+        listRequests[index].send(completion: .finished)
+    }
+    
+    func completeListLoadingWithError(at index: Int) {
+        listRequests[index].send(completion: .failure(anyNSError()))
+    }
+    
+    // MARK: - Load More
+    
+    private var loadMoreRequests = [PassthroughSubject<Paginated<PokemonListItem>, Error>]()
+    
+    var loadMoreCallCount: Int {
+        return loadMoreRequests.count
+    }
+    
+    func loadMorePublisher() -> AnyPublisher<Paginated<PokemonListItem>, Error> {
+        let publisher = PassthroughSubject<Paginated<PokemonListItem>, Error>()
+        loadMoreRequests.append(publisher)
+        return publisher.eraseToAnyPublisher()
+    }
+    
+    func completeLoadMore(with list: PokemonList = [], lastPage: Bool = false, at index: Int = 0) {
+        loadMoreRequests[index].send(
+            Paginated(
+                items: list,
+                loadMorePublisher: lastPage ? nil : { [weak self] in
+                    self?.loadMorePublisher() ?? Empty().eraseToAnyPublisher()
+                }
+            )
+        )
+    }
+    
+    func completeLoadMoreWithError(at index: Int = 0) {
+        loadMoreRequests[index].send(completion: .failure(anyNSError()))
+    }
+    
+    // MARK: - Load Image
+    
+    var imageUrls = [URL]()
+    var imageRequests = [PassthroughSubject<ListPokemonItemImage, Error>]()
     
     func loadImage(for url: URL) -> AnyPublisher<ListPokemonItemImage, Error> {
         let request = PassthroughSubject<ListPokemonItemImage, Error>()
@@ -37,14 +82,5 @@ final class PokemonListMockLoader {
     
     func completeImageLoadingWithError(at index: Int) {
         imageRequests[index].send(completion: .failure(anyNSError()))
-    }
-    
-    func completeListLoading(with list: PokemonList = [], at index: Int) {
-        listRequests[index].send(list)
-        listRequests[index].send(completion: .finished)
-    }
-    
-    func completeListLoadingWithError(at index: Int) {
-        listRequests[index].send(completion: .failure(anyNSError()))
     }
 }

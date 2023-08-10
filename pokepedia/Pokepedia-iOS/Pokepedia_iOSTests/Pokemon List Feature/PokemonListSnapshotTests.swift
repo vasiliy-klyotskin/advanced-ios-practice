@@ -88,7 +88,7 @@ private extension ListViewController {
             return CellController(id: UUID(), controller)
         }
         
-        display(controllers: controllers)
+        display(sections: controllers)
     }
 }
 

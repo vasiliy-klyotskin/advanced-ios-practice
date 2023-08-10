@@ -11,25 +11,23 @@ import Combine
 import UIKit
 
 public enum PokemonListUIComposer {
-    typealias Presetner = LoadingResourcePresenter<PokemonList, PokemonListViewAdapter>
-    typealias PresentationAdapter = ResourceLoadingPresentationAdapter<PokemonList, PokemonListViewAdapter>
+    private typealias PresentationAdapter = ResourceLoadingPresentationAdapter<Paginated<PokemonListItem>, PokemonListViewAdapter>
     
     public static func compose(
-        loader: @escaping () -> AnyPublisher<PokemonList, Error>,
+        loader: @escaping () -> AnyPublisher<Paginated<PokemonListItem>, Error>,
         imageLoader: @escaping (URL) -> AnyPublisher<ListPokemonItemImage, Error>
     ) -> ListViewController {
         let loadingAdapter = PresentationAdapter(loader: loader)
-        let controller = ListViewController(
+        let listController = ListViewController(
             onRefresh: loadingAdapter.load,
             onViewDidLoad: PokemonListCells.register
         )
-        let presenter = Presetner(
-            view: PokemonListViewAdapter(controller: controller, imageLoader: imageLoader),
-            loadingView: WeakProxy(controller),
-            errorView: WeakProxy(controller)
+        loadingAdapter.presenter = .init(
+            view: PokemonListViewAdapter(listController: listController, imageLoader: imageLoader),
+            loadingView: WeakProxy(listController),
+            errorView: WeakProxy(listController)
         )
-        loadingAdapter.presenter = presenter
-        controller.title = PokemonListPresenter.title
-        return controller
+        listController.title = PokemonListPresenter.title
+        return listController
     }
 }

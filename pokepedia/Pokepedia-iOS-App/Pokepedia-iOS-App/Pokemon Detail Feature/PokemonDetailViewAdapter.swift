@@ -23,8 +23,8 @@ final class PokemonDetailViewAdapter: ResourceView {
         let infoController = infoController(for: detail.info)
         let abilitiesTitleController = abilitiesTitle()
         let abilityControllers = abilityControllers(for: detail.abilities)
-        let allControllers = [infoController, abilitiesTitleController] + abilityControllers
-        controller?.display(controllers: allControllers)
+        let contentSection = [infoController, abilitiesTitleController] + abilityControllers
+        controller?.display(sections: contentSection)
     }
     
     private func infoController(for model: DetailPokemonInfo) -> CellController {

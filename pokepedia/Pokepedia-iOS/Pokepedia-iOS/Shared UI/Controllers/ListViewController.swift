@@ -59,10 +59,22 @@ public final class ListViewController: UITableViewController, ResourceLoadingVie
         errorView.message = errorViewModel.errorMessage
     }
 
-    public func display(controllers: [CellController]) {
+    public func display(sections: [CellController]...) {
         var snapshot = NSDiffableDataSourceSnapshot<Int, CellController>()
-        snapshot.appendSections([0])
-        snapshot.appendItems(controllers, toSection: 0)
-        dataSource.applySnapshotUsingReloadData(snapshot)
+        sections.enumerated().forEach { section, cellControllers in
+            snapshot.appendSections([section])
+            snapshot.appendItems(cellControllers, toSection: section)
+        }
+        // TODO: Tests don't pass if I use controller with animations because of memory leak.
+        dataSource.apply(snapshot, animatingDifferences: false)
+    }
+    
+    public override func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
+        let dl = cellController(at: indexPath)?.delegate
+        dl?.tableView?(tableView, willDisplay: cell, forRowAt: indexPath)
+    }
+    
+    private func cellController(at indexPath: IndexPath) -> CellController? {
+        dataSource.itemIdentifier(for: indexPath)
     }
 }

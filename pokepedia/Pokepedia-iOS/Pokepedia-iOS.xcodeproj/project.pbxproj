@@ -18,6 +18,8 @@
 		D629F2452A740CD500195735 /* POKEMON_FULL_dark.png in Resources */ = {isa = PBXBuildFile; fileRef = D629F2422A740CD500195735 /* POKEMON_FULL_dark.png */; };
 		D629F2462A740CD500195735 /* POKEMON_FULL_light.png in Resources */ = {isa = PBXBuildFile; fileRef = D629F2432A740CD500195735 /* POKEMON_FULL_light.png */; };
 		D629F2472A740CD500195735 /* POKEMON_FULL_light_extraExtraExtraLarge.png in Resources */ = {isa = PBXBuildFile; fileRef = D629F2442A740CD500195735 /* POKEMON_FULL_light_extraExtraExtraLarge.png */; };
+		D640894E2A8356D900B70823 /* LoadMoreCellController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D640894D2A8356D900B70823 /* LoadMoreCellController.swift */; };
+		D64089502A83570700B70823 /* LoadMoreCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D640894F2A83570700B70823 /* LoadMoreCell.swift */; };
 		D64F14162A5F160500F88826 /* UIView+Container.swift in Sources */ = {isa = PBXBuildFile; fileRef = D64F14152A5F160500F88826 /* UIView+Container.swift */; };
 		D64F14182A5F169800F88826 /* UITableView+HeaderSizing.swift in Sources */ = {isa = PBXBuildFile; fileRef = D64F14172A5F169800F88826 /* UITableView+HeaderSizing.swift */; };
 		D66787D12A29E8CC00F8CC3C /* ListPokemonItemViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D66787D02A29E8CC00F8CC3C /* ListPokemonItemViewController.swift */; };
@@ -99,6 +101,8 @@
 		D629F2422A740CD500195735 /* POKEMON_FULL_dark.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = POKEMON_FULL_dark.png; sourceTree = "<group>"; };
 		D629F2432A740CD500195735 /* POKEMON_FULL_light.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = POKEMON_FULL_light.png; sourceTree = "<group>"; };
 		D629F2442A740CD500195735 /* POKEMON_FULL_light_extraExtraExtraLarge.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = POKEMON_FULL_light_extraExtraExtraLarge.png; sourceTree = "<group>"; };
+		D640894D2A8356D900B70823 /* LoadMoreCellController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadMoreCellController.swift; sourceTree = "<group>"; };
+		D640894F2A83570700B70823 /* LoadMoreCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadMoreCell.swift; sourceTree = "<group>"; };
 		D64F14152A5F160500F88826 /* UIView+Container.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+Container.swift"; sourceTree = "<group>"; };
 		D64F14172A5F169800F88826 /* UITableView+HeaderSizing.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITableView+HeaderSizing.swift"; sourceTree = "<group>"; };
 		D66787D02A29E8CC00F8CC3C /* ListPokemonItemViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListPokemonItemViewController.swift; sourceTree = "<group>"; };
@@ -231,6 +235,7 @@
 			isa = PBXGroup;
 			children = (
 				D66787D02A29E8CC00F8CC3C /* ListPokemonItemViewController.swift */,
+				D640894D2A8356D900B70823 /* LoadMoreCellController.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -240,6 +245,7 @@
 			children = (
 				D66787D42A29E95300F8CC3C /* ListPokemonItemCell.swift */,
 				D604FBE22A62613B007BAF00 /* ListPokemonItemCell.xib */,
+				D640894F2A83570700B70823 /* LoadMoreCell.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -593,7 +599,9 @@
 				D6BF59632A71B8B2008175E5 /* DetailPokemonAbilityCell.swift in Sources */,
 				D66787D12A29E8CC00F8CC3C /* ListPokemonItemViewController.swift in Sources */,
 				D6B1DAF22A73E64200683BFD /* TitleCell.swift in Sources */,
+				D640894E2A8356D900B70823 /* LoadMoreCellController.swift in Sources */,
 				D66787D72A29E96400F8CC3C /* ErrorView.swift in Sources */,
+				D64089502A83570700B70823 /* LoadMoreCell.swift in Sources */,
 				D604FBEE2A6273D4007BAF00 /* UIView+Constraints.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

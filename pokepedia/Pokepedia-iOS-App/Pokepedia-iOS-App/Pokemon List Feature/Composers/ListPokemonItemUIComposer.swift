@@ -11,8 +11,7 @@ import Combine
 import UIKit
 
 enum ListPokemonItemUIComposer {
-    typealias Presenter = LoadingResourcePresenter<ListPokemonItemImage, WeakProxy<ListPokemonItemViewController>>
-    typealias PresentationAdapter = ResourceLoadingPresentationAdapter<ListPokemonItemImage, WeakProxy<ListPokemonItemViewController>>
+    private typealias PresentationAdapter = ResourceLoadingPresentationAdapter<ListPokemonItemImage, WeakProxy<ListPokemonItemViewController>>
     
     static func compose(
         item: PokemonListItem,
@@ -27,13 +26,12 @@ enum ListPokemonItemUIComposer {
             viewModel: viewModel,
             onImageRequest: loadingAdapter.load
         )
-        let presenter = Presenter(
+        loadingAdapter.presenter = .init(
             view: WeakProxy(controller),
             errorView: WeakProxy(controller),
             loadingView: WeakProxy(controller),
             mapping: UIImage.tryFrom
         )
-        loadingAdapter.presenter = presenter
         return controller
     }
 }
