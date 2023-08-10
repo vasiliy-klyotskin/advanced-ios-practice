@@ -12,11 +12,12 @@ public typealias PokemonListRemote = [ListPokemonItemRemote]
 public struct ListPokemonItemRemote: Decodable {
     let id: String
     let name: String
-    let imageUrl: URL
-    let types: [ListPokemonItemTypeRemote]
+    let iconUrl: URL
+    let physicalType: ListPokemonTypeRemote
+    let specialType: ListPokemonTypeRemote?
 }
 
-struct ListPokemonItemTypeRemote: Decodable {
+public struct ListPokemonTypeRemote: Decodable {
     let color: String
     let name: String
 }

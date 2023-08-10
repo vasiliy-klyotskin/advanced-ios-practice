@@ -11,15 +11,13 @@ public enum PokemonListRemoteMapper {
     struct MapError: Error {}
     
     public static func map(remote: PokemonListRemote) throws -> PokemonList {
-        return try remote.map { item in
-            guard let firstType = item.types.first else { throw MapError() }
-            let secondType = item.types.count >= 2 ? item.types[1] : nil
-            return .init(
-                id: item.id,
-                name: item.name,
-                imageUrl: item.imageUrl,
-                physicalType: .init(color: firstType.color, name: firstType.name),
-                specialType: secondType.map { .init(color: $0.color, name: $0.name) }
+        remote.map {
+            .init(
+                id: $0.id,
+                name: $0.name,
+                imageUrl: $0.iconUrl,
+                physicalType: .init(color: $0.physicalType.color, name: $0.physicalType.name),
+                specialType: $0.specialType.map { .init(color: $0.color, name: $0.name) }
             )
         }
     }
