@@ -10,7 +10,7 @@ import Foundation
 public typealias PokemonListRemote = [ListPokemonItemRemote]
 
 public struct ListPokemonItemRemote: Decodable {
-    let id: String
+    let id: Int
     let name: String
     let iconUrl: URL
     let physicalType: ListPokemonTypeRemote

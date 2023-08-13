@@ -18,7 +18,7 @@ final class CachePokemonListImageUseCaseTests: XCTestCase {
     func test_saveImageDataForURL_requestsImageDataInsertionForURL() {
         let (sut, store) = makeSut()
         let url = anyURL()
-        let data = anyData()
+        let data = Data("any data".utf8)
         
         try? sut.save(data, for: url)
         
@@ -56,7 +56,7 @@ final class CachePokemonListImageUseCaseTests: XCTestCase {
         file: StaticString = #filePath,
         line: UInt = #line
     ) {
-        let receivedResult = Result { try sut.save(anyData(), for: anyURL()) }
+        let receivedResult = Result { try sut.save(Data("any data".utf8), for: anyURL()) }
         switch (receivedResult, expectedResult) {
         case (.success, .success):
             break

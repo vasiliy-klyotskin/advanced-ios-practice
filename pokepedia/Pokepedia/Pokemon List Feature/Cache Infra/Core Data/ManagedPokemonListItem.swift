@@ -10,7 +10,7 @@ import CoreData
 
 @objc(ManagedPokemonListItem)
 class ManagedPokemonListItem: NSManagedObject {
-    @NSManaged var id: String
+    @NSManaged var id: Int
     @NSManaged var name: String
     @NSManaged var imageData: Data?
     @NSManaged var imageUrl: URL

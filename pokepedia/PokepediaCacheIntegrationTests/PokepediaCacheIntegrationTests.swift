@@ -81,7 +81,7 @@ final class PokepediaCacheIntegrationTests: XCTestCase {
         let listLoader = makeListLoader()
         let list = pokemonList().model
         let imageUrl = list.first!.imageUrl
-        let dataToSave = anyData()
+        let dataToSave = Data("any data".utf8)
         
         save(list, with: listLoader)
         save(dataToSave, for: imageUrl, with: imageLoaderToPerformSave)

@@ -58,7 +58,7 @@ extension PokemonListUIIntegrationTests {
         )
         XCTAssertEqual(
             cell.idText,
-            item.id,
+            String(format: "%04d", item.id),
             "Expected id text to be \(String(describing: item.id)) for image view at index (\(index)",
             file: file,
             line: line

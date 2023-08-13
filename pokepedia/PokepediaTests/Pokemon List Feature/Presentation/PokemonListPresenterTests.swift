@@ -34,14 +34,14 @@ final class PokemonListPresenterTests: XCTestCase {
     private func makeItem() -> (ListPokemonItemViewModel<Color>, PokemonListItem) {
         let viewModel = ListPokemonItemViewModel<Color>(
             name: "some name",
-            id: "some id",
+            id: "0001",
             physicalType: "some physical type",
             specialType: "some special type",
             physicalTypeColor: Color(value: "some physical color"),
             specialTypeColor: Color(value: "some special color")
         )
         let model = PokemonListItem(
-            id: "some id",
+            id: 1,
             name: "some name",
             imageUrl: anyURL(),
             physicalType: .init(

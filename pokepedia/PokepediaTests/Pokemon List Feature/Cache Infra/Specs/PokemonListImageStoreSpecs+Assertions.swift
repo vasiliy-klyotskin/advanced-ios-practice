@@ -26,7 +26,7 @@ extension PokemonListImageStoreSpecs where Self: XCTestCase {
         let imageUrl = imageUrl ?? anyURL()
         let nonMatchingURL = URL(string: "http://another-url\(UUID().uuidString).com")!
         
-        try? sut.insertImage(data: anyData(), for: imageUrl)
+        try? sut.insertImage(data: Data("any data".utf8), for: imageUrl)
         
         expect(sut, toCompleteRetrievalWith: notFound(), for: nonMatchingURL, file: file, line: line)
     }
@@ -38,7 +38,7 @@ extension PokemonListImageStoreSpecs where Self: XCTestCase {
         line: UInt = #line
     ) {
         let matchingUrl = matchingUrl ?? anyURL()
-        let storedData = anyData()
+        let storedData = Data("any data".utf8)
 
         try? sut.insertImage(data: storedData, for: matchingUrl)
 

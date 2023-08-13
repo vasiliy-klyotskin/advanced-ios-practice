@@ -10,14 +10,14 @@ import Foundation
 public typealias PokemonList = [PokemonListItem]
 
 public struct PokemonListItem: Equatable, Hashable {
-    public let id: String
+    public let id: Int
     public let name: String
     public let imageUrl: URL
     public let physicalType: PokemonListItemType
     public let specialType: PokemonListItemType?
     
     public init(
-        id: String,
+        id: Int,
         name: String,
         imageUrl: URL,
         physicalType: PokemonListItemType,

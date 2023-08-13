@@ -13,19 +13,19 @@ func anyURL() -> URL {
 }
 
 func anyData() -> Data {
-    .init("any \(anyId()) data".utf8)
+    .init("any \(UUID().uuidString) data".utf8)
 }
 
 func anyDate() -> Date {
     .distantPast
 }
 
-func anyId() -> String {
-    UUID().uuidString
+func anyId() -> Int {
+    232
 }
 
 func anyName() -> String {
-    "name \(anyId())"
+    "name \(UUID().uuidString)"
 }
 
 func anyNSError() -> NSError {
@@ -43,7 +43,7 @@ func makeListPokemon(specialType: PokemonListItemType? = nil) -> PokemonListItem
 }
 
 func itemType() -> PokemonListItemType {
-    .init(color: anyId(), name: anyName())
+    .init(color: "any color", name: anyName())
 }
 
 extension UIView {

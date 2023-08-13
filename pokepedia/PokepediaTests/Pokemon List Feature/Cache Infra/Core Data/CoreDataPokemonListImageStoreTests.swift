@@ -75,6 +75,6 @@ final class CoreDataPokemonListImageStoreTests: XCTestCase, FailablePokemonListI
     }
     
     private func anyLocalList(for url: URL) -> LocalPokemonList {
-        [LocalPokemonListItem(id: "any id", name: "any name", imageUrl: url, physicalType: .init(color: "any color", name: "any name"), specialType: nil)]
+        [LocalPokemonListItem(id: 1, name: "any name", imageUrl: url, physicalType: .init(color: "any color", name: "any name"), specialType: nil)]
     }
 }

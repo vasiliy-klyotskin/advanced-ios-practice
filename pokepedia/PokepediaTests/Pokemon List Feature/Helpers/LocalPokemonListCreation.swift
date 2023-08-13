@@ -11,7 +11,7 @@ func pokemonList() -> (local: LocalPokemonList, model: PokemonList) {
     let url = anyURL()
     let local: LocalPokemonList = [
         .init(
-            id: "an id",
+            id: 1,
             name: "a name",
             imageUrl: url,
             physicalType: .init(
@@ -26,7 +26,7 @@ func pokemonList() -> (local: LocalPokemonList, model: PokemonList) {
     ]
     let model: PokemonList = [
         .init(
-            id: "an id",
+            id: 1,
             name: "a name",
             imageUrl: url,
             physicalType: .init(

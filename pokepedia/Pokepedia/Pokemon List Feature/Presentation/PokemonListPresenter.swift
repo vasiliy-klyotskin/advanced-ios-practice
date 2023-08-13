@@ -24,7 +24,7 @@ public final class PokemonListPresenter {
         let specialColor = (item.specialType?.color).map { colorMapping($0) }
         return .init(
             name: item.name,
-            id: item.id,
+            id: String(format: "%04d", item.id),
             physicalType: item.physicalType.name,
             specialType: item.specialType?.name,
             physicalTypeColor: colorMapping(item.physicalType.color),

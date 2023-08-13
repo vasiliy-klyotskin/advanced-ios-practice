@@ -32,10 +32,10 @@ final class PokemonListRemoteMapperTests: XCTestCase {
     
     private func makeItem(specialType: (color: String, name: String)?) -> (ListPokemonItemRemote, PokemonListItem) {
         let remote = ListPokemonItemRemote(
-            id: anyId(),
-            name: anyName(),
+            id: 1,
+            name: "any name",
             iconUrl: anyURL(),
-            physicalType: .init(color: anyKey(), name: anyKey()),
+            physicalType: .init(color: "any color", name: "any name"),
             specialType: specialType.map { .init(color: $0.color, name: $0.name) }
         )
         let model = PokemonListItem(

@@ -14,7 +14,7 @@ final class RemoteDataMapperTests: XCTestCase {
         
         for sample in non200Codes {
             XCTAssertThrowsError(
-                try RemoteDataMapper.map(data: anyData(), response: response(code: sample))
+                try RemoteDataMapper.map(data: Data("any data".utf8), response: response(code: sample))
             )
         }
     }

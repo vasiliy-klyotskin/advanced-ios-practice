@@ -14,6 +14,6 @@ extension FailableInsertPokemonListImageStoreSpecs where Self: XCTestCase {
         file: StaticString = #filePath,
         line: UInt = #line
     ) {
-        XCTAssertThrowsError(try sut.insertImage(data: anyData(), for: anyURL()), file: file, line: line)
+        XCTAssertThrowsError(try sut.insertImage(data: Data("any data".utf8), for: anyURL()), file: file, line: line)
     }
 }

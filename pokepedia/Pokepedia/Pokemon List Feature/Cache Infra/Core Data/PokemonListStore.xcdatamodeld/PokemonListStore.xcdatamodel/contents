@@ -5,7 +5,7 @@
         <relationship name="pokemonList" optional="YES" toMany="YES" deletionRule="Nullify" ordered="YES" destinationEntity="ManagedPokemonListItem" inverseName="cache" inverseEntity="ManagedPokemonListItem"/>
     </entity>
     <entity name="ManagedPokemonListItem" representedClassName="ManagedPokemonListItem" syncable="YES">
-        <attribute name="id" attributeType="String"/>
+        <attribute name="id" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES"/>
         <attribute name="imageData" optional="YES" attributeType="Binary"/>
         <attribute name="imageUrl" attributeType="URI"/>
         <attribute name="name" attributeType="String"/>

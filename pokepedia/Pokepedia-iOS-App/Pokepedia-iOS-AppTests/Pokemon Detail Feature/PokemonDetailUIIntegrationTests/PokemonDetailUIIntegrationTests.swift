@@ -205,19 +205,19 @@ final class PokemonDetailUIIntegrationTests: XCTestCase {
         .init(
             info: .init(
                 imageUrl: anyURL(),
-                id: anyId(),
-                name: anyName(),
-                genus: anyId(),
-                flavorText: anyId()
+                id: "any id",
+                name: "any name",
+                genus: "any genus",
+                flavorText: "any flavor text"
             ),
             abilities: [
                 .init(
-                    title: anyId(),
-                    subtitle: anyId(),
-                    damageClass: anyId(),
-                    damageClassColor: anyId(),
-                    type: anyId(),
-                    typeColor: anyId()
+                    title: "any title",
+                    subtitle: "any subtitle",
+                    damageClass: "any class",
+                    damageClassColor: "any damage class color",
+                    type: "any type",
+                    typeColor: "any type color"
                 ),
             ]
         )

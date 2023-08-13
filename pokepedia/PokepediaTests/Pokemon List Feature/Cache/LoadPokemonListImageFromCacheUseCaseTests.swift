@@ -41,7 +41,7 @@ final class LoadPokemonListImageFromCacheUseCaseTests: XCTestCase {
     
     func test_loadImageDataFromURL_deliversStoredDataOnFoundData() {
         let (sut, store) = makeSut()
-        let foundData = anyData()
+        let foundData = Data("any data".utf8)
         store.stubRetrievalWith(data: foundData)
         
         expect(sut, toCompleteWith: .success(foundData))

@@ -15,24 +15,8 @@ func anyNSError() -> NSError {
     .init(domain: "any domain", code: 1)
 }
 
-func anyData() -> Data {
-    .init("any \(anyId()) data".utf8)
-}
-
 func anyDate() -> Date {
     .distantPast
-}
-
-func anyKey() -> String {
-    anyId()
-}
-
-func anyId() -> String {
-    UUID().uuidString
-}
-
-func anyName() -> String {
-    "name \(anyId())"
 }
 
 func response(code: Int) -> HTTPURLResponse {

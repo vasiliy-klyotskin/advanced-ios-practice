@@ -166,4 +166,8 @@ class URLSessionHTTPClientTests: XCTestCase {
             textEncodingName: nil
         )
     }
+    
+    private func anyData() -> Data {
+        Data("any data".utf8)
+    }
 }
