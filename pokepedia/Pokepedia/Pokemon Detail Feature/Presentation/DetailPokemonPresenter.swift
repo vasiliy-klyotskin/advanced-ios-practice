@@ -20,7 +20,7 @@ public final class DetailPokemonPresenter {
     public static func mapInfo(model: DetailPokemonInfo) -> DetailPokemonInfoViewModel {
         .init(
             imageUrl: model.imageUrl,
-            id: model.id,
+            id: String(format: "%04d", model.id),
             name: model.name,
             genus: model.genus,
             flavorText: model.flavorText

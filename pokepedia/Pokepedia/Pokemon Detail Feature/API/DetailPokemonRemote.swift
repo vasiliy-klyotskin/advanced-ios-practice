@@ -9,7 +9,7 @@ import Foundation
 
 public struct DetailPokemonRemote: Decodable {
     let imageUrl: URL
-    let id: String
+    let id: Int
     let name: String
     let genus: String
     let flavorText: String

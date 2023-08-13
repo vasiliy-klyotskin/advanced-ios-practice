@@ -43,14 +43,14 @@ final class DetailPokemonPresenterTests: XCTestCase {
         let imageUrl = anyURL()
         let viewModel: DetailPokemonInfoViewModel = .init(
             imageUrl: imageUrl,
-            id: "id",
+            id: "0002",
             name: "name",
             genus: "genus",
             flavorText: "flavorText"
         )
         let model: DetailPokemonInfo = .init(
             imageUrl: imageUrl,
-            id: "id",
+            id: 2,
             name: "name",
             genus: "genus",
             flavorText: "flavorText"

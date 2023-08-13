@@ -19,12 +19,12 @@ public struct DetailPokemon: Equatable {
 
 public struct DetailPokemonInfo: Equatable, Hashable {
     public let imageUrl: URL
-    public let id: String
+    public let id: Int
     public let name: String
     public let genus: String
     public let flavorText: String
     
-    public init(imageUrl: URL, id: String, name: String, genus: String, flavorText: String) {
+    public init(imageUrl: URL, id: Int, name: String, genus: String, flavorText: String) {
         self.imageUrl = imageUrl
         self.id = id
         self.name = name

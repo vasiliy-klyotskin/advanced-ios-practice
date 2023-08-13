@@ -33,7 +33,7 @@ extension PokemonDetailUIIntegrationTests {
         let cell = view as? DetailPokemonInfoCell
         XCTAssertEqual(
             cell?.idText,
-            info?.id,
+            info.map { String(format: "%04d", $0.id) },
             "Expected id to be \(String(describing: info?.id)) for info view",
             file: file,
             line: line

@@ -205,7 +205,7 @@ final class PokemonDetailUIIntegrationTests: XCTestCase {
         .init(
             info: .init(
                 imageUrl: anyURL(),
-                id: "any id",
+                id: 1,
                 name: "any name",
                 genus: "any genus",
                 flavorText: "any flavor text"

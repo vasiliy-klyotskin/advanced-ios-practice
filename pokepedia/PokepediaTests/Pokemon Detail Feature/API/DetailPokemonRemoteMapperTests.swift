@@ -23,7 +23,7 @@ final class DetailPokemonRemoteMapperTests: XCTestCase {
         let imageUrl = anyURL()
         let remote: DetailPokemonRemote = .init(
             imageUrl: imageUrl,
-            id: "id",
+            id: 1,
             name: "name",
             genus: "genus",
             flavorText: "flavorText",
@@ -42,7 +42,7 @@ final class DetailPokemonRemoteMapperTests: XCTestCase {
         let model: DetailPokemon = .init(
             info: .init(
                 imageUrl: imageUrl,
-                id: "id",
+                id: 1,
                 name: "name",
                 genus: "genus",
                 flavorText: "flavorText"
