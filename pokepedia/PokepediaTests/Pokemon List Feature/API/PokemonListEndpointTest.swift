@@ -10,10 +10,11 @@ import Pokepedia
 
 final class PokemonListEndpointTest: XCTestCase {
     func test_make_createsUrlRequestForAllList() {
-        let baseURL = URL(string: "http://base-url.com")!
+        let baseURL = URL(string: "http://base-url.com:8080")!
         
         let received = PokemonListEndpoint.get().make(with: baseURL)
         
+        XCTAssertEqual(received.url?.port, baseURL.port)
         XCTAssertEqual(received.url?.scheme, "http", "scheme")
         XCTAssertEqual(received.url?.host, "base-url.com", "host")
         XCTAssertEqual(received.url?.path, "/list", "path")
@@ -23,10 +24,11 @@ final class PokemonListEndpointTest: XCTestCase {
     
     func test_make_createsUrlRequestAfterSpecificItem() {
         let item = anyItem(withId: 17)
-        let baseURL = URL(string: "http://base-url.com")!
+        let baseURL = URL(string: "http://base-url.com:8080")!
         
         let received = PokemonListEndpoint.get(after: item).make(with: baseURL)
         
+        XCTAssertEqual(received.url?.port, baseURL.port)
         XCTAssertEqual(received.url?.scheme, "http", "scheme")
         XCTAssertEqual(received.url?.host, "base-url.com", "host")
         XCTAssertEqual(received.url?.path, "/list", "path")

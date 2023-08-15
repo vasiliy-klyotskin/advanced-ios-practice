@@ -8,9 +8,7 @@
 import Foundation
 
 public enum PokemonListRemoteMapper {
-    struct MapError: Error {}
-    
-    public static func map(remote: PokemonListRemote) throws -> PokemonList {
+    public static func map(remote: PokemonListRemote) -> PokemonList {
         remote.map {
             .init(
                 id: $0.id,

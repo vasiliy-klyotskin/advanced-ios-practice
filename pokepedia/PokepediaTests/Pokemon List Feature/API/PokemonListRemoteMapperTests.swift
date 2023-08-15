@@ -9,21 +9,21 @@ import XCTest
 @testable import Pokepedia
 
 final class PokemonListRemoteMapperTests: XCTestCase {
-    func test_map_deliversEmptyListOnEmptyRemote() throws {
+    func test_map_deliversEmptyListOnEmptyRemote() {
         let emptryRemote: PokemonListRemote = []
         
-        let list = try PokemonListRemoteMapper.map(remote: emptryRemote)
+        let list = PokemonListRemoteMapper.map(remote: emptryRemote)
         
         XCTAssertTrue(list.isEmpty)
     }
     
-    func test_map_deliversListOnNonEmptyRemote() throws {
+    func test_map_deliversListOnNonEmptyRemote() {
         let (remote0, model0) = makeItem(specialType: nil)
         let (remote1, model1) = makeItem(specialType: ("any color", "any name"))
         let remote = [remote0, remote1]
         let expectedList = [model0, model1]
         
-        let resultList = try PokemonListRemoteMapper.map(remote: remote)
+        let resultList = PokemonListRemoteMapper.map(remote: remote)
         
         XCTAssertEqual(resultList, expectedList)
     }
