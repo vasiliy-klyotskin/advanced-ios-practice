@@ -9,8 +9,7 @@ import XCTest
 import Pokepedia
 
 final class PokepediaAPIEndToEndTests: XCTestCase {
-
-    func test_backend_returnsExpectedPokemonList() throws {
+    func test_e2eApi_returnsExpectedPokemonList() {
         switch getListResult() {
         case .success(let receivedList):
             XCTAssertEqual(receivedList.count, 5, "Expected 5 items")
@@ -24,7 +23,17 @@ final class PokepediaAPIEndToEndTests: XCTestCase {
         default:
             XCTFail("Expected success but got no result")
         }
-
+    }
+    
+    func test_e2eApi_returnsListItemIcon() {
+        switch getListItemIconResult() {
+        case .success(let data):
+            XCTAssertFalse(data.isEmpty, "Data should not be empty")
+        case .failure(let error):
+            XCTFail("Expected success but got error: \(error.localizedDescription)")
+        default:
+            XCTFail("Expected success but got no result")
+        }
     }
     
     // MARK: - Helpers
@@ -48,8 +57,31 @@ final class PokepediaAPIEndToEndTests: XCTestCase {
         return result
     }
     
+    private func getListItemIconResult(file: StaticString = #filePath, line: UInt = #line) -> Result<Data, Error>? {
+        let session = URLSession(configuration: .ephemeral)
+        let client = URLSessionHTTPClient(session: session)
+        let request = URLRequest(url: listIconUrl())
+        let dataMapping = RemoteDataMapper.map
+        
+        var result: Result<Data, Error>?
+        let exp = expectation(description: "Waiting for request to be completed")
+        client.perform(request) { receivedResult in
+            result = receivedResult.flatMap { (data, response) in
+                Result { try dataMapping(data, response) }
+            }
+            exp.fulfill()
+        }
+        wait(for: [exp], timeout: 5)
+        return result
+    }
+    
+    
     private var baseUrl: URL {
         URL(string: "http://localhost:8080/test")!
+    }
+    
+    private func listIconUrl() -> URL {
+        URL(string: "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/1.png")!
     }
     
     private func expectedItem(for index: Int) -> PokemonListItem {
