@@ -6,7 +6,7 @@
 //
 
 import XCTest
-import Pokepedia_iOS_App
+@testable import Pokepedia_iOS_App
 import Pokepedia_iOS
 
 final class SceneDelegateTests: XCTestCase {

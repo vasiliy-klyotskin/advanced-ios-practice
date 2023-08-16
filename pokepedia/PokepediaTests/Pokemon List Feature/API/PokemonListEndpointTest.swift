@@ -18,7 +18,7 @@ final class PokemonListEndpointTest: XCTestCase {
         XCTAssertEqual(received.url?.scheme, "http", "scheme")
         XCTAssertEqual(received.url?.host, "base-url.com", "host")
         XCTAssertEqual(received.url?.path, "/list", "path")
-        XCTAssertEqual(received.url?.query, "after_id=0&limit=20", "query")
+        XCTAssertEqual(received.url?.query, "after_id=-1&limit=20", "query")
         XCTAssertEqual(received.httpMethod, "GET")
     }
     

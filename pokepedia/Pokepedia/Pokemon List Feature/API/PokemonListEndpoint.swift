@@ -19,7 +19,7 @@ public enum PokemonListEndpoint {
             components.host = baseUrl.host
             components.path = baseUrl.path + "/list"
             components.queryItems = [
-                .init(name: "after_id", value: "\(item?.id ?? 0)"),
+                .init(name: "after_id", value: "\(item?.id ?? -1)"),
                 .init(name: "limit", value: "\(limit)")
             ]
             return URLRequest(url: components.url!)

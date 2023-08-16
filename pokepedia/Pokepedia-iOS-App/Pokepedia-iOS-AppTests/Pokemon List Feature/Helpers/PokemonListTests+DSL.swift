@@ -48,6 +48,18 @@ extension ListViewController {
     private var pokemonListSectionNumber: Int { 0 }
     private var loadMoreSectionNumber: Int { 1 }
     
+    func numberOfRenderedListImageViews() -> Int {
+        numberOfRows(in: pokemonListSectionNumber)
+    }
+    
+    func renderedListImageData(at index: Int) -> Data? {
+        return simulatePokemonListItemViewVisible(at: index)?.renderedImage
+    }
+    
+    var canLoadMore: Bool {
+        loadMoreListCell() != nil
+    }
+    
     var isShowingLoadMoreListIndicator: Bool {
         return loadMoreListCell()?.isLoading == true
     }
