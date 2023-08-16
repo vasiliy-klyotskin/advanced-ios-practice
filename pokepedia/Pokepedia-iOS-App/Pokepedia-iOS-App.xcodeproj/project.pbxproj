@@ -20,9 +20,6 @@
 		D66787DF2A2A0FC100F8CC3C /* PokemonListViewAdapter.swift in Sources */ = {isa = PBXBuildFile; fileRef = D66787DE2A2A0FC100F8CC3C /* PokemonListViewAdapter.swift */; };
 		D6A4C8EA2A2129AB0065ECF4 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6A4C8E92A2129AB0065ECF4 /* AppDelegate.swift */; };
 		D6A4C8EC2A2129AB0065ECF4 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6A4C8EB2A2129AB0065ECF4 /* SceneDelegate.swift */; };
-		D6A4C8EE2A2129AB0065ECF4 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6A4C8ED2A2129AB0065ECF4 /* ViewController.swift */; };
-		D6A4C8F12A2129AB0065ECF4 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D6A4C8EF2A2129AB0065ECF4 /* Main.storyboard */; };
-		D6A4C8F32A2129AB0065ECF4 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D6A4C8F22A2129AB0065ECF4 /* Assets.xcassets */; };
 		D6A4C8F62A2129AB0065ECF4 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D6A4C8F42A2129AB0065ECF4 /* LaunchScreen.storyboard */; };
 		D6B958E42A2A21CF0050DCB9 /* ListPokemonItemUIComposer.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6B958E32A2A21CF0050DCB9 /* ListPokemonItemUIComposer.swift */; };
 		D6BF59572A71A767008175E5 /* PokemonDetailUIComposer.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6BF59562A71A767008175E5 /* PokemonDetailUIComposer.swift */; };
@@ -83,9 +80,6 @@
 		D6A4C8E62A2129AB0065ECF4 /* Pokepedia-iOS-App.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Pokepedia-iOS-App.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		D6A4C8E92A2129AB0065ECF4 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		D6A4C8EB2A2129AB0065ECF4 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
-		D6A4C8ED2A2129AB0065ECF4 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
-		D6A4C8F02A2129AB0065ECF4 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
-		D6A4C8F22A2129AB0065ECF4 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		D6A4C8F52A2129AB0065ECF4 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		D6A4C8F72A2129AB0065ECF4 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		D6B958E32A2A21CF0050DCB9 /* ListPokemonItemUIComposer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListPokemonItemUIComposer.swift; sourceTree = "<group>"; };
@@ -205,9 +199,6 @@
 				D6EC8BB32A26500B004A525E /* Helpers */,
 				D6A4C8E92A2129AB0065ECF4 /* AppDelegate.swift */,
 				D6A4C8EB2A2129AB0065ECF4 /* SceneDelegate.swift */,
-				D6A4C8ED2A2129AB0065ECF4 /* ViewController.swift */,
-				D6A4C8EF2A2129AB0065ECF4 /* Main.storyboard */,
-				D6A4C8F22A2129AB0065ECF4 /* Assets.xcassets */,
 				D6A4C8F42A2129AB0065ECF4 /* LaunchScreen.storyboard */,
 				D6A4C8F72A2129AB0065ECF4 /* Info.plist */,
 			);
@@ -368,8 +359,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				D6A4C8F62A2129AB0065ECF4 /* LaunchScreen.storyboard in Resources */,
-				D6A4C8F32A2129AB0065ECF4 /* Assets.xcassets in Resources */,
-				D6A4C8F12A2129AB0065ECF4 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -406,7 +395,6 @@
 				D6B958E42A2A21CF0050DCB9 /* ListPokemonItemUIComposer.swift in Sources */,
 				D6BF596C2A72264C008175E5 /* PokemonDetailViewAdapter.swift in Sources */,
 				D6BF59722A722CE8008175E5 /* PokemonDetailInfoUIComposer.swift in Sources */,
-				D6A4C8EE2A2129AB0065ECF4 /* ViewController.swift in Sources */,
 				D6BF59572A71A767008175E5 /* PokemonDetailUIComposer.swift in Sources */,
 				D66787D92A29F4F900F8CC3C /* CombineHelpers.swift in Sources */,
 				D6360FE92A234C1200A28F11 /* PokemonListUIComposer.swift in Sources */,
@@ -427,14 +415,6 @@
 /* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
-		D6A4C8EF2A2129AB0065ECF4 /* Main.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				D6A4C8F02A2129AB0065ECF4 /* Base */,
-			);
-			name = Main.storyboard;
-			sourceTree = "<group>";
-		};
 		D6A4C8F42A2129AB0065ECF4 /* LaunchScreen.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
@@ -618,7 +598,6 @@
 				INFOPLIST_FILE = "Pokepedia-iOS-App/Info.plist";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
-				INFOPLIST_KEY_UIMainStoryboardFile = Main;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				IPHONEOS_DEPLOYMENT_TARGET = 16.4;
@@ -650,7 +629,6 @@
 				INFOPLIST_FILE = "Pokepedia-iOS-App/Info.plist";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
-				INFOPLIST_KEY_UIMainStoryboardFile = Main;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				IPHONEOS_DEPLOYMENT_TARGET = 16.4;
