@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import Pokepedia_iOS
 
 public class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     public var window: UIWindow?
@@ -16,6 +17,9 @@ public class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     }
     
     public func configureWindow() {
+        let pokemonListVc = ListViewController()
+        let navigationController = UINavigationController(rootViewController: pokemonListVc)
+        window?.rootViewController = navigationController
         window?.makeKeyAndVisible()
     }
 }
