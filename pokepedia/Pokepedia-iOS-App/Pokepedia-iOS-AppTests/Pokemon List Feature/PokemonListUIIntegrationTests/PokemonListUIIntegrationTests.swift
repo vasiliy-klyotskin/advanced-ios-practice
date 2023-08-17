@@ -286,12 +286,19 @@ final class PokemonListUIIntegrationTests: XCTestCase {
         XCTAssertEqual(view1?.renderedImage, nil, "Expected no rendered image for second view when second invalid image loaded")
         
         view0?.simulateReload()
+        XCTAssertEqual(view0?.renderedImage, nil, "Expected no rendered image for first view when first image started reloading")
+        XCTAssertEqual(view1?.renderedImage, nil, "Expected no rendered image for second view when first image started reloading")
+        
         let image0 = makeImage().pngData()
         loader.completeImageLoading(with: image0, at: 2)
         XCTAssertEqual(view0?.renderedImage, image0, "Expected rendered image for first view when first image reloaded")
         XCTAssertEqual(view1?.renderedImage, nil, "Expected no rendered image for second view when first image reloaded")
         
         view1?.simulateReload()
+        XCTAssertEqual(view0?.renderedImage, image0, "Expected rendered image for first view when second started reloading")
+        XCTAssertEqual(view1?.renderedImage, nil, "Expected no rendered image for second view when second image started reloading")
+        
+        
         let image1 = makeImage().pngData()
         loader.completeImageLoading(with: image1, at: 3)
         XCTAssertEqual(view0?.renderedImage, image0, "Expected rendered image for first view when second valid image loaded")

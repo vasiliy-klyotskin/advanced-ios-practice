@@ -26,7 +26,7 @@ extension ListPokemonItemCell {
     }
     
     var isLoading: Bool {
-        activityIndicator.isAnimating
+        activityIndicator.isAnimating && !activityIndicator.isHidden
     }
     
     var isReloadControlShown: Bool {
