@@ -14,7 +14,6 @@ import CoreData
 class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     var window: UIWindow?
     
-    
     private let baseUrl = URL(string: "http://127.0.0.1:8080")!
     private let storeUrl = NSPersistentContainer
         .defaultDirectoryURL()

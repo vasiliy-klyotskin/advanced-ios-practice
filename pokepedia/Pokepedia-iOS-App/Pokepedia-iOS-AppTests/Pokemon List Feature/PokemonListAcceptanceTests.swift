@@ -53,6 +53,12 @@ final class PokemonListAcceptanceTests: XCTestCase {
         XCTAssertEqual(offlineList.renderedListImageData(at: 2), makeImageData2())
     }
     
+    func test_onLaunch_displaysEmptyListWhenUserHasNoConnectivityAndNoCache() {
+        let feed = launch(httpClient: .offline, store: .empty)
+        
+        XCTAssertEqual(feed.numberOfRenderedListImageViews(), 0)
+    }
+    
     // MARK: - Helpers
     
     private func launch(
