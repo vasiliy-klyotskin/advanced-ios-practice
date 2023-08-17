@@ -10,6 +10,7 @@ import Pokepedia
 
 public final class ListPokemonItemCell: UITableViewCell {
     var onReload: (() -> Void)?
+    var onReuse: (() -> Void)?
     
     @IBOutlet weak var nameLabel: UILabel!
     @IBOutlet weak var idLabel: UILabel!
@@ -31,6 +32,12 @@ public final class ListPokemonItemCell: UITableViewCell {
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+    }
+    
+    public override func prepareForReuse() {
+        super.prepareForReuse()
+        onReuse?()
+        reset()
     }
     
     private func configureUI() {
@@ -73,5 +80,12 @@ public final class ListPokemonItemCell: UITableViewCell {
     
     @objc private func onReloadTapped(_ sender: UIButton) {
         onReload?()
+    }
+    
+    private func reset() {
+        activityIndicatorContainer.isHidden = true
+        reloadButton.isHidden = true
+        pokemonIconView.image = nil
+        pokemonIconView.isHidden = true
     }
 }

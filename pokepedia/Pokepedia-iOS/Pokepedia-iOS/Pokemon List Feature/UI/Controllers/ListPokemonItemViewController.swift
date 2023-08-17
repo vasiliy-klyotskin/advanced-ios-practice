@@ -23,10 +23,15 @@ public final class ListPokemonItemViewController: NSObject, UITableViewDataSourc
     
     public func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         cell = tableView.dequeueReusableCell()
+        cell?.onReuse = { [weak self] in self?.releaseCell() }
         cell?.onReload = onImageRequest
         cell?.configure(with: viewModel)
         onImageRequest()
         return cell!
+    }
+    
+    private func releaseCell() {
+        cell = nil
     }
 }
 

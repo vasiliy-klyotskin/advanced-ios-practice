@@ -18,6 +18,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     private let storeUrl = NSPersistentContainer
         .defaultDirectoryURL()
         .appendingPathComponent("feed-store.sqlite")
+    private let pageSize = 50
     
     private lazy var scheduler: AnyDispatchQueueScheduler = DispatchQueue(
         label: "com.essentialdeveloper.infra.queue",
@@ -82,7 +83,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     
     private func makeRemoteListLoader(after item: PokemonListItem? = nil) -> AnyPublisher<PokemonList, Error> {
         httpClient
-            .getPublisher(request: PokemonListEndpoint.get(after: item).make(with: baseUrl))
+            .getPublisher(request: PokemonListEndpoint.get(after: item, limit: pageSize).make(with: baseUrl))
             .tryMap(RemoteMapper<PokemonListRemote>.map)
             .tryMap(PokemonListRemoteMapper.map)
             .eraseToAnyPublisher()
@@ -113,6 +114,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
             .map { ($0 + $1, $1.last) }
             .map(makePage)
             .caching(to: localListLoader)
+            .delay(for: 2, scheduler: scheduler)
             .subscribe(on: scheduler)
             .eraseToAnyPublisher()
     }
@@ -125,6 +127,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
                 makeRemote(url)
                     .caching(to: localListImageLoader, using: url)
             }
+            .delay(for: 2, scheduler: scheduler)
             .subscribe(on: scheduler)
             .eraseToAnyPublisher()
     }

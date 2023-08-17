@@ -305,6 +305,34 @@ final class PokemonListUIIntegrationTests: XCTestCase {
         XCTAssertEqual(view1?.renderedImage, image1, "Expected rendered image for second view when second valid image loaded")
     }
     
+    func test_pokemonImageView_doesNotShowImageAfterReuse() {
+        let pokemon0 = makeListPokemon()
+        let (sut, loader) = makeSut()
+        sut.loadViewIfNeeded()
+        loader.completeListLoading(with: [pokemon0], at: 0)
+        let view = sut.simulatePokemonListItemViewVisible(at: 0)
+        
+        view?.prepareForReuse()
+        loader.completeImageLoading(at: 0)
+        
+        XCTAssertEqual(view?.renderedImage, nil, "Expected no image when view is visible again")
+    }
+    
+    func test_pokemonImageView_resetsToDefaultStateAfterReuse() {
+        let pokemon0 = makeListPokemon()
+        let (sut, loader) = makeSut()
+        sut.loadViewIfNeeded()
+        loader.completeListLoading(with: [pokemon0], at: 0)
+        let view = sut.simulatePokemonListItemViewVisible(at: 0)
+        loader.completeImageLoading(at: 0)
+        
+        view?.prepareForReuse()
+        
+        XCTAssertEqual(view?.renderedImage, nil, "Expected no image when view is reused")
+        XCTAssertEqual(view?.isLoading, false, "Expected no loading when view is reused")
+        XCTAssertEqual(view?.isReloadControlShown, false, "Expected no reloading control when view is reused")
+    }
+    
     func test_loadImageCompletion_dispatchesFromBackgroundToMainThread() {
         let (loader, _, _) = setupForShownItems()
         let image = makeImage().pngData()
