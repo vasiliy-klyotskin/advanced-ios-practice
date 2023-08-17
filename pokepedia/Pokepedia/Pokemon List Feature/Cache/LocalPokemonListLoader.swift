@@ -13,7 +13,7 @@ public protocol PokemonListStore {
     func insert(local: LocalPokemonList, timestamp: Date) throws
 }
 
-public final class LocalPokemonListLoader {
+public final class LocalPokemonListLoader: PokemonListCache {
     private let store: PokemonListStore
     private let currentDate: () -> Date
     
@@ -24,13 +24,17 @@ public final class LocalPokemonListLoader {
 }
 
 extension LocalPokemonListLoader {
-    public func load() throws -> PokemonList? {
+    enum LocalLoadError: Error {
+        case empty, expired
+    }
+    
+    public func load() throws -> PokemonList {
         let cache = try store.retrieve()
-        guard let cache else { return nil }
+        guard let cache else { throw LocalLoadError.empty }
         if PokemonListCachePolicy.validate(cache.timestamp, against: currentDate()) {
             return cache.local.model
         } else {
-            return nil
+            throw LocalLoadError.expired
         }
     }
 }

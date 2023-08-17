@@ -20,21 +20,21 @@ final class PokemonListAcceptanceTests: XCTestCase {
         XCTAssertEqual(list.renderedListImageData(at: 1), makeImageData1())
         XCTAssertTrue(list.canLoadMore)
         
-//        list.simulateLoadMoreListAction()
-//
-//        XCTAssertEqual(list.numberOfRenderedListImageViews(), 3)
-//        XCTAssertEqual(list.renderedListImageData(at: 0), makeImageData0())
-//        XCTAssertEqual(list.renderedListImageData(at: 1), makeImageData1())
-//        XCTAssertEqual(list.renderedListImageData(at: 2), makeImageData2())
-//        XCTAssertTrue(list.canLoadMore)
-//
-//        list.simulateLoadMoreListAction()
-//
-//        XCTAssertEqual(list.numberOfRenderedListImageViews(), 3)
-//        XCTAssertEqual(list.renderedListImageData(at: 0), makeImageData0())
-//        XCTAssertEqual(list.renderedListImageData(at: 1), makeImageData1())
-//        XCTAssertEqual(list.renderedListImageData(at: 2), makeImageData2())
-//        XCTAssertFalse(list.canLoadMore)
+        list.simulateLoadMoreListAction()
+
+        XCTAssertEqual(list.numberOfRenderedListImageViews(), 3)
+        XCTAssertEqual(list.renderedListImageData(at: 0), makeImageData0())
+        XCTAssertEqual(list.renderedListImageData(at: 1), makeImageData1())
+        XCTAssertEqual(list.renderedListImageData(at: 2), makeImageData2())
+        XCTAssertTrue(list.canLoadMore)
+
+        list.simulateLoadMoreListAction()
+
+        XCTAssertEqual(list.numberOfRenderedListImageViews(), 3)
+        XCTAssertEqual(list.renderedListImageData(at: 0), makeImageData0())
+        XCTAssertEqual(list.renderedListImageData(at: 1), makeImageData1())
+        XCTAssertEqual(list.renderedListImageData(at: 2), makeImageData2())
+        XCTAssertFalse(list.canLoadMore)
     }
     
     // MARK: - Helpers

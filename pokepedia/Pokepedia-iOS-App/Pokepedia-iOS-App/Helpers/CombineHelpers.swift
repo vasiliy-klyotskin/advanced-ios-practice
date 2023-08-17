@@ -55,6 +55,45 @@ public extension Paginated {
     }
 }
 
+public extension LocalPokemonListLoader {
+    typealias Publisher = AnyPublisher<PokemonList, Error>
+    
+    func loadPublisher() -> Publisher {
+        return Deferred {
+            Future { completion in
+                completion(Result{ try self.load() })
+            }
+        }
+        .eraseToAnyPublisher()
+    }
+}
+
+extension PokemonListCache {
+    func saveIgnoringResult(list: PokemonList) {
+        try? save(list)
+    }
+    
+    func saveIgnoringResult(paginated: Paginated<PokemonListItem>) {
+        try? save(paginated.items)
+    }
+}
+
+extension Publisher {
+    func caching(to cache: PokemonListCache) -> AnyPublisher<Output, Failure> where Output == PokemonList {
+        handleEvents(receiveOutput: cache.saveIgnoringResult).eraseToAnyPublisher()
+    }
+    
+    func caching(to cache: PokemonListCache) -> AnyPublisher<Output, Failure> where Output == Paginated<PokemonListItem> {
+        handleEvents(receiveOutput: cache.saveIgnoringResult).eraseToAnyPublisher()
+    }
+}
+
+extension Publisher {
+    func fallback(to fallbackPublisher: @escaping () -> AnyPublisher<Output, Failure>) -> AnyPublisher<Output, Failure> {
+        self.catch { _ in fallbackPublisher() }.eraseToAnyPublisher()
+    }
+}
+
 extension Publisher {
     func dispatchOnMainQueue() -> AnyPublisher<Output, Failure> {
         receive(on: DispatchQueue.immediateWhenOnMainQueueScheduler).eraseToAnyPublisher()

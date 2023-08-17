@@ -15,6 +15,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
     private lazy var httpClient: HTTPClient = {
         let session = URLSession(configuration: .ephemeral)
+        session.configuration.urlCache = nil
         let client = URLSessionHTTPClient(session: session)
         return client
     }()
@@ -24,6 +25,10 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     }()
     
     private let baseUrl = URL(string: "http://127.0.0.1:8080")!
+    
+    private lazy var localListLoader: LocalPokemonListLoader = {
+        LocalPokemonListLoader(store: store)
+    }()
     
     convenience init(
         httpClient: HTTPClient,
@@ -42,7 +47,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     
     func configureWindow() {
         let pokemonListVc = PokemonListUIComposer.compose(
-            loader: { self.makeRemoteListLoader() },
+            loader: makePaginatedRemoteListLoaderWithLocalFallback,
             imageLoader: makeImageLoader
         )
         let navigationController = UINavigationController(rootViewController: pokemonListVc)
@@ -50,21 +55,44 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         window?.makeKeyAndVisible()
     }
     
-    private func makeRemoteListLoader(after id: Int? = nil) -> AnyPublisher<Paginated<PokemonListItem>, Error> {
+    private func makeRemoteListLoader(after item: PokemonListItem? = nil) -> AnyPublisher<PokemonList, Error> {
         httpClient
-            .getPublisher(request: PokemonListEndpoint.get().make(with: baseUrl))
+            .getPublisher(request: PokemonListEndpoint.get(after: item).make(with: baseUrl))
             .tryMap(RemoteMapper<PokemonListRemote>.map)
             .tryMap(PokemonListRemoteMapper.map)
-            .map { items in
-                Paginated(items: items, loadMorePublisher: (items.last?.id).map { id in { [self] in makeRemoteListLoader(after: id ) }})
-            }
+            .eraseToAnyPublisher()
+    }
+    
+    private func makePaginatedRemoteListLoaderWithLocalFallback() -> AnyPublisher<Paginated<PokemonListItem>, Error> {
+        makeRemoteListLoader()
+            .caching(to: localListLoader)
+            .fallback(to: localListLoader.loadPublisher)
+            .map(makeFirstPage)
+            .eraseToAnyPublisher()
+    }
+    
+    private func makeFirstPage(list: PokemonList) -> Paginated<PokemonListItem> {
+        makePage(list: list, after: list.last)
+    }
+    
+    private func makePage(list: PokemonList, after item: PokemonListItem?) -> Paginated<PokemonListItem> {
+        Paginated(items: list, loadMorePublisher: item.map { item in
+            { self.makePublisherForNextPage(after: item) }
+        })
+    }
+    
+    private func makePublisherForNextPage(after item: PokemonListItem?) -> AnyPublisher<Paginated<PokemonListItem>, Error> {
+        localListLoader.loadPublisher()
+            .zip(makeRemoteListLoader(after: item))
+            .map { ($0 + $1, $1.last) }
+            .map(makePage)
+            .caching(to: localListLoader)
             .eraseToAnyPublisher()
     }
     
     private func makeImageLoader(url: URL) -> AnyPublisher<Data, Error> {
         httpClient
             .getPublisher(url: url)
-            .delay(for: 3, scheduler: ImmediateScheduler.shared)
             .tryMap(RemoteDataMapper.map)
             .eraseToAnyPublisher()
     }

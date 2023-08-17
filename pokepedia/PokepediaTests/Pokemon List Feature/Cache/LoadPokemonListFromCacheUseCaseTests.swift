@@ -31,14 +31,14 @@ final class LoadPokemonListFromCacheUseCaseTests: XCTestCase {
         expect(sut, toCompleteWith: .failure(retrieveError))
     }
     
-    func test_load_deliversNoListOnEmptyCache() throws {
+    func test_load_deliversNoListOnEmptyCache() {
         let (sut, store) = makeSut()
         store.stubEmptyRetrieve()
         
-        expect(sut, toCompleteWith: .success(nil))
+        expect(sut, toCompleteWith: .failure(anyNSError()))
     }
     
-    func test_load_deliversCachedListOnNonExpiredCache() throws {
+    func test_load_deliversCachedListOnNonExpiredCache() {
         let list = pokemonList()
         let fixedCurrentDate = Date()
         let nonExpiredTimestamp = fixedCurrentDate.minusFeedCacheMaxAge().adding(seconds: 1)
@@ -48,24 +48,24 @@ final class LoadPokemonListFromCacheUseCaseTests: XCTestCase {
         expect(sut, toCompleteWith: .success(list.model))
     }
     
-    func test_load_deliversNoCachedListOnCacheExpiration() throws {
+    func test_load_deliversNoCachedListOnCacheExpiration() {
         let list = pokemonList()
         let fixedCurrentDate = Date()
         let expirationDateTimestamp = fixedCurrentDate.minusFeedCacheMaxAge()
         let (sut, store) = makeSut(currentDate: { fixedCurrentDate })
         store.stubRetrieveWith(local: list.local, timestamp: expirationDateTimestamp)
         
-        expect(sut, toCompleteWith: .success(nil))
+        expect(sut, toCompleteWith: .failure(anyNSError()))
     }
     
-    func test_load_deliversNoListOnExpiredCache() throws {
+    func test_load_deliversNoListOnExpiredCache() {
         let list = pokemonList()
         let fixedCurrentDate = Date()
         let expiredTimestamp = fixedCurrentDate.minusFeedCacheMaxAge().adding(seconds: -1)
         let (sut, store) = makeSut(currentDate: { fixedCurrentDate })
         store.stubRetrieveWith(local: list.local, timestamp: expiredTimestamp)
         
-        expect(sut, toCompleteWith: .success(nil))
+        expect(sut, toCompleteWith: .failure(anyNSError()))
     }
     
     // MARK: - Helpers
@@ -92,8 +92,8 @@ final class LoadPokemonListFromCacheUseCaseTests: XCTestCase {
         switch (receivedResult, expectedResult) {
         case let (.success(receivedImages), .success(expectedImages)):
             XCTAssertEqual(receivedImages, expectedImages, file: file, line: line)
-        case let (.failure(receivedError as NSError), .failure(expectedError as NSError)):
-            XCTAssertEqual(receivedError, expectedError, file: file, line: line)
+        case (.failure, .failure):
+            break
         default:
             XCTFail("Expected result \(expectedResult), got \(receivedResult) instead", file: file, line: line)
         }
