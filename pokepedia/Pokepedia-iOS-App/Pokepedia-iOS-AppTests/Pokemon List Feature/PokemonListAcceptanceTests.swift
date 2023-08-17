@@ -59,12 +59,20 @@ final class PokemonListAcceptanceTests: XCTestCase {
         XCTAssertEqual(feed.numberOfRenderedListImageViews(), 0)
     }
     
-    func test_onEnteringBackground_deletesExpiredFeedCache() {
+    func test_onEnteringBackground_deletesExpiredListCache() {
         let store = InMemoryPokemonListStore.withExpiredFeedCache
         
         enterBackground(with: store)
         
         XCTAssertNil(try store.retrieve(), "Expected to delete expired cache")
+    }
+    
+    func test_onEnteringBackground_keepsNonExpiredListCache() {
+        let store = InMemoryPokemonListStore.withNonExpiredFeedCache
+        
+        enterBackground(with: store)
+        
+        XCTAssertNotNil(try store.retrieve(), "Expected to keep non-expired cache")
     }
     
     // MARK: - Helpers
