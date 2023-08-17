@@ -13,7 +13,13 @@ import CoreData
 
 class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     var window: UIWindow?
-
+    
+    
+    private let baseUrl = URL(string: "http://127.0.0.1:8080")!
+    private let storeUrl = NSPersistentContainer
+        .defaultDirectoryURL()
+        .appendingPathComponent("feed-store.sqlite")
+    
     private lazy var httpClient: HTTPClient = {
         let session = URLSession(configuration: .ephemeral)
         session.configuration.urlCache = nil
@@ -21,9 +27,6 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         return client
     }()
     
-    private let storeUrl = NSPersistentContainer
-        .defaultDirectoryURL()
-        .appendingPathComponent("feed-store.sqlite")
     private lazy var store: PokemonListStore & PokemonListImageStore = {
         do {
             return try CoreDataPokemonListStore(storeUrl: storeUrl)
@@ -32,8 +35,6 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
             return InMemoryPokemonListStore()
         }
     }()
-    
-    private let baseUrl = URL(string: "http://127.0.0.1:8080")!
     
     private lazy var localListLoader: LocalPokemonListLoader = {
         LocalPokemonListLoader(store: store)
@@ -104,11 +105,12 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     }
     
     private func makeListIconLoader(url: URL) -> AnyPublisher<Data, Error> {
-        localListImageLoader.loadImageDataPublisher(from: url)
-            
-            .fallback {
-                self.makeListImageRemoteLoader(for: url)
-                    .caching(to: self.localListImageLoader, using: url)
+        let makeRemote = makeListImageRemoteLoader
+        return localListImageLoader
+            .loadImageDataPublisher(from: url)
+            .fallback { [localListImageLoader] in
+                makeRemote(url)
+                    .caching(to: localListImageLoader, using: url)
             }
             .eraseToAnyPublisher()
     }
