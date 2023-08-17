@@ -19,6 +19,12 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         .defaultDirectoryURL()
         .appendingPathComponent("feed-store.sqlite")
     
+    private lazy var scheduler: AnyDispatchQueueScheduler = DispatchQueue(
+        label: "com.essentialdeveloper.infra.queue",
+        qos: .userInitiated,
+        attributes: .concurrent
+    ).eraseToAnyScheduler()
+    
     private lazy var httpClient: HTTPClient = {
         let session = URLSession(configuration: .ephemeral)
         session.configuration.urlCache = nil
@@ -45,11 +51,13 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     
     convenience init(
         httpClient: HTTPClient,
-        store: PokemonListStore & PokemonListImageStore
+        store: PokemonListStore & PokemonListImageStore,
+        scheduler: AnyDispatchQueueScheduler
     ) {
         self.init()
         self.httpClient = httpClient
         self.store = store
+        self.scheduler = scheduler
     }
 
     func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
@@ -85,6 +93,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
             .caching(to: localListLoader)
             .fallback(to: localListLoader.loadPublisher)
             .map(makeFirstPage)
+            .subscribe(on: scheduler)
             .eraseToAnyPublisher()
     }
     
@@ -104,6 +113,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
             .map { ($0 + $1, $1.last) }
             .map(makePage)
             .caching(to: localListLoader)
+            .subscribe(on: scheduler)
             .eraseToAnyPublisher()
     }
     
@@ -115,6 +125,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
                 makeRemote(url)
                     .caching(to: localListImageLoader, using: url)
             }
+            .subscribe(on: scheduler)
             .eraseToAnyPublisher()
     }
     
