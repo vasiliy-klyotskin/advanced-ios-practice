@@ -58,6 +58,10 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         configureWindow()
     }
     
+    func sceneWillResignActive(_ scene: UIScene) {
+        try? localListLoader.validateCache()
+    }
+    
     func configureWindow() {
         let pokemonListVc = PokemonListUIComposer.compose(
             loader: makePaginatedRemoteListLoaderWithLocalFallback,

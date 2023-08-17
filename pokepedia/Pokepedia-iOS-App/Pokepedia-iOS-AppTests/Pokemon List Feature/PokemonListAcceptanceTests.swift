@@ -59,6 +59,14 @@ final class PokemonListAcceptanceTests: XCTestCase {
         XCTAssertEqual(feed.numberOfRenderedListImageViews(), 0)
     }
     
+    func test_onEnteringBackground_deletesExpiredFeedCache() {
+        let store = InMemoryPokemonListStore.withExpiredFeedCache
+        
+        enterBackground(with: store)
+        
+        XCTAssertNil(try store.retrieve(), "Expected to delete expired cache")
+    }
+    
     // MARK: - Helpers
     
     private func launch(
@@ -129,5 +137,10 @@ final class PokemonListAcceptanceTests: XCTestCase {
                 "name": "any"
             ]
         ]
+    }
+    
+    private func enterBackground(with store: InMemoryPokemonListStore) {
+        let sut = SceneDelegate(httpClient: HTTPClientStub.offline, store: store)
+        sut.sceneWillResignActive(UIApplication.shared.connectedScenes.first!)
     }
 }

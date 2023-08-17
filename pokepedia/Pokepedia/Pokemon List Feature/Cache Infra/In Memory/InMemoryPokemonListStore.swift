@@ -11,7 +11,9 @@ public final class InMemoryPokemonListStore {
     private var listCache: CachedPokemonList?
     private var listImagesCache = [URL: Data]()
     
-    public init() {}
+    public init(listCache: CachedPokemonList? = nil) {
+        self.listCache = listCache
+    }
 }
 
 extension InMemoryPokemonListStore: PokemonListStore {
