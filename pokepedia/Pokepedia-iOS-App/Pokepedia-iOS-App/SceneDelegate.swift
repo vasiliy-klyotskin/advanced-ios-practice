@@ -9,6 +9,7 @@ import UIKit
 import Pokepedia_iOS
 import Pokepedia
 import Combine
+import CoreData
 
 class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     var window: UIWindow?
@@ -20,14 +21,26 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         return client
     }()
     
+    private let storeUrl = NSPersistentContainer
+        .defaultDirectoryURL()
+        .appendingPathComponent("feed-store.sqlite")
     private lazy var store: PokemonListStore & PokemonListImageStore = {
-        InMemoryPokemonListStore()
+        do {
+            return try CoreDataPokemonListStore(storeUrl: storeUrl)
+        } catch {
+            assertionFailure("Failed to instantiate CoreData store with error: \(error.localizedDescription)")
+            return InMemoryPokemonListStore()
+        }
     }()
     
     private let baseUrl = URL(string: "http://127.0.0.1:8080")!
     
     private lazy var localListLoader: LocalPokemonListLoader = {
         LocalPokemonListLoader(store: store)
+    }()
+    
+    private lazy var localListImageLoader: LocalPokemonListImageLoader = {
+        LocalPokemonListImageLoader(store: store)
     }()
     
     convenience init(
@@ -48,7 +61,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     func configureWindow() {
         let pokemonListVc = PokemonListUIComposer.compose(
             loader: makePaginatedRemoteListLoaderWithLocalFallback,
-            imageLoader: makeImageLoader
+            imageLoader: makeListIconLoader
         )
         let navigationController = UINavigationController(rootViewController: pokemonListVc)
         window?.rootViewController = navigationController
@@ -90,9 +103,18 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
             .eraseToAnyPublisher()
     }
     
-    private func makeImageLoader(url: URL) -> AnyPublisher<Data, Error> {
-        httpClient
-            .getPublisher(url: url)
+    private func makeListIconLoader(url: URL) -> AnyPublisher<Data, Error> {
+        localListImageLoader.loadImageDataPublisher(from: url)
+            
+            .fallback {
+                self.makeListImageRemoteLoader(for: url)
+                    .caching(to: self.localListImageLoader, using: url)
+            }
+            .eraseToAnyPublisher()
+    }
+    
+    private func makeListImageRemoteLoader(for url: URL) -> AnyPublisher<Data, Error> {
+        httpClient.getPublisher(url: url)
             .tryMap(RemoteDataMapper.map)
             .eraseToAnyPublisher()
     }

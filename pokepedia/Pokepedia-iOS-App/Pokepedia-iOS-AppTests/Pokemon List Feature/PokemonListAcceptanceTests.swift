@@ -11,9 +11,8 @@ import Pokepedia_iOS
 import Pokepedia
 
 final class PokemonListAcceptanceTests: XCTestCase {
-    
     func test_onLaunch_displaysRemoteListWhenUserHasConnectivity() {
-        let list = launch(httpClient: .online(stub: response), store: .empty)
+        let list = launch(httpClient: .online(response), store: .empty)
         
         XCTAssertEqual(list.numberOfRenderedListImageViews(), 2)
         XCTAssertEqual(list.renderedListImageData(at: 0), makeImageData0())
@@ -35,6 +34,23 @@ final class PokemonListAcceptanceTests: XCTestCase {
         XCTAssertEqual(list.renderedListImageData(at: 1), makeImageData1())
         XCTAssertEqual(list.renderedListImageData(at: 2), makeImageData2())
         XCTAssertFalse(list.canLoadMore)
+    }
+    
+    func test_onLaunch_displaysCachedRemoteListWhenCustomerHasNoConnectivity() {
+        let sharedStore = InMemoryPokemonListStore.empty
+        
+        let onlineList = launch(httpClient: .online(response), store: sharedStore)
+        onlineList.simulatePokemonListItemViewVisible(at: 0)
+        onlineList.simulatePokemonListItemViewVisible(at: 1)
+        onlineList.simulateLoadMoreListAction()
+        onlineList.simulatePokemonListItemViewVisible(at: 2)
+        
+        let offlineList = launch(httpClient: .offline, store: sharedStore)
+        
+        XCTAssertEqual(offlineList.numberOfRenderedListImageViews(), 3)
+        XCTAssertEqual(offlineList.renderedListImageData(at: 0), makeImageData0())
+        XCTAssertEqual(offlineList.renderedListImageData(at: 1), makeImageData1())
+        XCTAssertEqual(offlineList.renderedListImageData(at: 2), makeImageData2())
     }
     
     // MARK: - Helpers

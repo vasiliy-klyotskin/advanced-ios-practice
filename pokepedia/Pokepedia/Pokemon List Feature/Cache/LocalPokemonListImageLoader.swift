@@ -12,7 +12,7 @@ public protocol PokemonListImageStore {
     func insertImage(data: Data, for url: URL) throws
 }
 
-public final class LocalPokemonListImageLoader {
+public final class LocalPokemonListImageLoader: PokemonListImageCache {
     private let store: PokemonListImageStore
 
     public init(store: PokemonListImageStore) {

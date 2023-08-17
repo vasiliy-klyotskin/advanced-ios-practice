@@ -30,7 +30,7 @@ extension HTTPClientStub {
         .init(stub: { _ in .failure(NSError(domain: "no connectivity", code: -1)) })
     }
     
-    static func online(stub: @escaping (URL) -> (Data, HTTPURLResponse)) -> HTTPClientStub {
+    static func online(_ stub: @escaping (URL) -> (Data, HTTPURLResponse)) -> HTTPClientStub {
         .init(stub: { .success(stub($0)) })
     }
 }
