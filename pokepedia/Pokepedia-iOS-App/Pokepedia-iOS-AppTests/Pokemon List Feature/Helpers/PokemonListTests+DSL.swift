@@ -77,6 +77,28 @@ extension ListViewController {
         listPokemonItemView(at: index) as? ListPokemonItemCell
     }
     
+    @discardableResult
+    func simulateListImageViewNotVisible(at row: Int) -> ListPokemonItemCell? {
+        let view = simulatePokemonListItemViewVisible(at: row)
+        
+        let delegate = tableView.delegate
+        let index = IndexPath(row: row, section: pokemonListSectionNumber)
+        delegate?.tableView?(tableView, didEndDisplaying: view!, forRowAt: index)
+        
+        return view
+    }
+    
+    @discardableResult
+    func simulateListImageBecomingVisibleAgain(at row: Int) -> ListPokemonItemCell? {
+        let view = simulateListImageViewNotVisible(at: row)
+        
+        let delegate = tableView.delegate
+        let index = IndexPath(row: row, section: pokemonListSectionNumber)
+        delegate?.tableView?(tableView, willDisplay: view!, forRowAt: index)
+        
+        return view
+    }
+    
     func listPokemonItemView(at index: Int) -> UIView? {
         tableView.dataSource?.tableView(tableView, cellForRowAt: .init(row: index, section: pokemonListSectionNumber))
     }

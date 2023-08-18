@@ -44,7 +44,8 @@ final class PokemonListSnapshotTests: XCTestCase {
         return stubs.map { stub in
             let controller = ListPokemonItemViewController(
                 viewModel: stub.viewModel,
-                onImageRequest: stub.didRequestImage
+                onImageRequest: stub.didRequestImage,
+                onCancelRequest: {}
             )
             stub.controller = controller
             return CellController(id: UUID(), controller)

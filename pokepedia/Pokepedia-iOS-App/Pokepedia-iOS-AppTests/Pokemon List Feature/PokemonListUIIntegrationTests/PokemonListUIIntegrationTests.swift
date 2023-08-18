@@ -333,6 +333,18 @@ final class PokemonListUIIntegrationTests: XCTestCase {
         XCTAssertEqual(view?.isReloadControlShown, false, "Expected no reloading control when view is reused")
     }
     
+    func test_pokemonImageView_cancelsRequestAfterImageViewIsNotVisibleAnymore() {
+        let pokemon0 = makeListPokemon()
+        let (sut, loader) = makeSut()
+        sut.loadViewIfNeeded()
+        loader.completeListLoading(with: [pokemon0], at: 0)
+        let notVisibleView = sut.simulateListImageViewNotVisible(at: 0)
+        
+        loader.completeImageLoading(at: 0)
+        
+        XCTAssertNil(notVisibleView?.renderedImage, "Expected no image after request cancellation and finishing loading with success")
+    }
+    
     func test_loadImageCompletion_dispatchesFromBackgroundToMainThread() {
         let (loader, _, _) = setupForShownItems()
         let image = makeImage().pngData()

@@ -24,7 +24,8 @@ enum ListPokemonItemUIComposer {
         )
         let controller = ListPokemonItemViewController(
             viewModel: viewModel,
-            onImageRequest: loadingAdapter.load
+            onImageRequest: loadingAdapter.load,
+            onCancelRequest: loadingAdapter.cancel
         )
         loadingAdapter.presenter = .init(
             view: WeakProxy(controller),

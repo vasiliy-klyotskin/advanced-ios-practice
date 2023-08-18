@@ -11,12 +11,18 @@ import Pokepedia
 public final class ListPokemonItemViewController: NSObject, UITableViewDataSource, UITableViewDelegate {
     private let viewModel: ListPokemonItemViewModel<UIColor>
     private let onImageRequest: () -> Void
+    private let onCancelRequest: () -> Void
     
     private var cell: ListPokemonItemCell?
     
-    public init(viewModel: ListPokemonItemViewModel<UIColor>, onImageRequest: @escaping () -> Void) {
+    public init(
+        viewModel: ListPokemonItemViewModel<UIColor>,
+        onImageRequest: @escaping () -> Void,
+        onCancelRequest: @escaping () -> Void
+    ) {
         self.viewModel = viewModel
         self.onImageRequest = onImageRequest
+        self.onCancelRequest = onCancelRequest
     }
     
     public func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int { 1 }
@@ -28,6 +34,10 @@ public final class ListPokemonItemViewController: NSObject, UITableViewDataSourc
         cell?.configure(with: viewModel)
         onImageRequest()
         return cell!
+    }
+    
+    public func tableView(_ tableView: UITableView, didEndDisplaying cell: UITableViewCell, forRowAt indexPath: IndexPath) {
+        onCancelRequest()
     }
     
     private func releaseCell() {
