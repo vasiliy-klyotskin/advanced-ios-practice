@@ -62,6 +62,7 @@ public final class ListPokemonItemCell: UITableViewCell {
     
     func display(isLoading: Bool) {
         if isLoading {
+            pokemonIconView.isHidden = true
             activityIndicator.startAnimating()
         } else {
             activityIndicator.stopAnimating()

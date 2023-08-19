@@ -46,6 +46,7 @@ public final class ListPokemonItemViewController: NSObject, UITableViewDataSourc
     
     private func releaseCell() {
         cell = nil
+        onCancelRequest()
     }
 }
 
