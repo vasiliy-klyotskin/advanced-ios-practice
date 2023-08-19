@@ -40,6 +40,10 @@ public final class ListPokemonItemViewController: NSObject, UITableViewDataSourc
         onCancelRequest()
     }
     
+    public func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
+        onImageRequest()
+    }
+    
     private func releaseCell() {
         cell = nil
     }

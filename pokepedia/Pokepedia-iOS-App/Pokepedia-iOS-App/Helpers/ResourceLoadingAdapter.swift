@@ -41,5 +41,6 @@ final class ResourceLoadingPresentationAdapter<Resource, View: ResourceView> {
     func cancel() {
         cancellable?.cancel()
         cancellable = nil
+        isLoading = false
     }
 }

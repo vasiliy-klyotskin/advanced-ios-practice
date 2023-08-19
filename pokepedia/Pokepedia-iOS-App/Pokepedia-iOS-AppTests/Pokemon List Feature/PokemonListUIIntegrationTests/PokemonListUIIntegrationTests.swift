@@ -324,8 +324,8 @@ final class PokemonListUIIntegrationTests: XCTestCase {
         sut.loadViewIfNeeded()
         loader.completeListLoading(with: [pokemon0], at: 0)
         let view = sut.simulatePokemonListItemViewVisible(at: 0)
-        loader.completeImageLoading(at: 0)
         
+        loader.completeImageLoading(at: 0)
         view?.prepareForReuse()
         
         XCTAssertEqual(view?.renderedImage, nil, "Expected no image when view is reused")
@@ -338,11 +338,31 @@ final class PokemonListUIIntegrationTests: XCTestCase {
         let (sut, loader) = makeSut()
         sut.loadViewIfNeeded()
         loader.completeListLoading(with: [pokemon0], at: 0)
-        let notVisibleView = sut.simulateListImageViewNotVisible(at: 0)
+        let view = sut.simulateListImageViewNotVisible(at: 0)
         
         loader.completeImageLoading(at: 0)
         
-        XCTAssertNil(notVisibleView?.renderedImage, "Expected no image after request cancellation and finishing loading with success")
+        XCTAssertEqual(view?.renderedImage, nil, "Expected no image after request cancellation and finishing loading with success")
+    }
+    
+    func test_pokemonImageView_setupImageAfterImageViewIsVisibleAgain() {
+        let pokemon0 = makeListPokemon()
+        let (sut, loader) = makeSut()
+        sut.loadViewIfNeeded()
+        loader.completeListLoading(with: [pokemon0], at: 0)
+        
+        let view = sut.simulateListImageBecomingVisibleAgain(at: 0)
+        loader.completeImageLoading(at: 0)
+        
+        XCTAssertEqual(view?.renderedImage, nil, "Expected no image after first request is succeed and view is visible again")
+        XCTAssertEqual(view?.isLoading, true, "Expected loading after first request is succeed and view is visible again")
+        XCTAssertEqual(view?.isReloadControlShown, false, "Expected no reloading control after first request is succeed and view is visible again")
+        
+        loader.completeImageLoading(at: 1)
+        
+        XCTAssertNotNil(view?.renderedImage, "Expected image after second request is succeed and view is visible again")
+        XCTAssertEqual(view?.isLoading, false, "Expected no loading after second request is succeed and view is visible again")
+        XCTAssertEqual(view?.isReloadControlShown, false, "Expected no reloading control after second request is succeed and view is visible again")
     }
     
     func test_loadImageCompletion_dispatchesFromBackgroundToMainThread() {
