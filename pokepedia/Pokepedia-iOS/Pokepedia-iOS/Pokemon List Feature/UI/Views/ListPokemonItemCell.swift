@@ -41,6 +41,7 @@ public final class ListPokemonItemCell: UITableViewCell {
     }
     
     private func configureUI() {
+        selectionStyle = .none
         content.fit(in: contentView)
         reloadButton.addTarget(self, action: #selector(onReloadTapped), for: .touchUpInside)
         nameLabel.adjustsFontForContentSizeCategory = true
