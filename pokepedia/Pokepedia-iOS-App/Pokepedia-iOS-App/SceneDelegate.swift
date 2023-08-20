@@ -114,27 +114,21 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
             .map { ($0 + $1, $1.last) }
             .map(makePage)
             .caching(to: localListLoader)
-            .delay(for: 2, scheduler: scheduler)
             .subscribe(on: scheduler)
             .eraseToAnyPublisher()
     }
     
     private func makeListIconLoader(url: URL) -> AnyPublisher<Data, Error> {
-        let makeRemote = makeListImageRemoteLoader
         return localListImageLoader
             .loadImageDataPublisher(from: url)
-            .fallback { [localListImageLoader] in
-                makeRemote(url)
+            .fallback { [httpClient, localListImageLoader, scheduler] in
+                httpClient.getPublisher(url: url)
+                    .tryMap(RemoteDataMapper.map)
                     .caching(to: localListImageLoader, using: url)
+                    .subscribe(on: scheduler)
+                    .eraseToAnyPublisher()
             }
-            .delay(for: 2, scheduler: scheduler)
             .subscribe(on: scheduler)
-            .eraseToAnyPublisher()
-    }
-    
-    private func makeListImageRemoteLoader(for url: URL) -> AnyPublisher<Data, Error> {
-        httpClient.getPublisher(url: url)
-            .tryMap(RemoteDataMapper.map)
             .eraseToAnyPublisher()
     }
 }
