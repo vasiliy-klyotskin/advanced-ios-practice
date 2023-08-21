@@ -8,11 +8,27 @@
 import XCTest
 
 final class DetailPokemonStoreSpy {
+    enum Message: Equatable {
+        case retrieve(Int)
+    }
     
+    func retrieve(for id: Int) {
+        receivedMessages.append(.retrieve(id))
+    }
+    
+    var receivedMessages: [Message] = []
 }
 
 final class LocalDetailPokemonLoader {
+    private let store: DetailPokemonStoreSpy
     
+    init(store: DetailPokemonStoreSpy) {
+        self.store = store
+    }
+    
+    func load(for id: Int) throws -> Any? {
+        store.retrieve(for: id)
+    }
 }
 
 final class LoadDetailPokemonUseCaseTests: XCTestCase {
@@ -21,14 +37,19 @@ final class LoadDetailPokemonUseCaseTests: XCTestCase {
         
         XCTAssertTrue(store.receivedMessages.isEmpty)
     }
-//    
-//    func test_load_requestsCacheRetrieval() {
-//        let (sut, store) = makeSut()
-//        
-//        _ = try? sut.load()
-//        
-//        XCTAssertEqual(store.receivedMessages, [.retrieval])
-//    }
+    
+    func test_load_requestsCacheRetrieval() {
+        
+        let ids = [1, 2, 3, 0]
+        
+        ids.forEach { id in
+            let (sut, store) = makeSut()
+            
+            _ = try? sut.load(for: id)
+            
+            XCTAssertEqual(store.receivedMessages, [.retrieve(id)], "Expected retrieve to be called with id: \(id)")
+        }
+    }
 //    
 //    func test_load_failsOnRetrievalError() {
 //        let (sut, store) = makeSut()
@@ -81,9 +102,9 @@ final class LoadDetailPokemonUseCaseTests: XCTestCase {
         currentDate: @escaping () -> Date = Date.init,
         file: StaticString = #filePath,
         line: UInt = #line
-    ) -> (LocalDetailPokemonLoader, PokemonListStoreSpy) {
-        let store = PokemonListStoreSpy()
-        let sut = LocalDetailPokemonLoader()
+    ) -> (LocalDetailPokemonLoader, DetailPokemonStoreSpy) {
+        let store = DetailPokemonStoreSpy()
+        let sut = LocalDetailPokemonLoader(store: store)
         trackForMemoryLeaks(store, file: file, line: line)
         trackForMemoryLeaks(sut, file: file, line: line)
         return (sut, store)
