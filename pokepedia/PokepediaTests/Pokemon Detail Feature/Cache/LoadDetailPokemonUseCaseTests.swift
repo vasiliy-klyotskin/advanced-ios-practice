@@ -12,10 +12,14 @@ final class DetailPokemonStoreSpy {
         case retrieve(Int)
     }
     
-    var retrieveResults: [Int: Result<Any, NSError>] = [:]
+    var retrieveResults: [Int: Result<Any?, NSError>] = [:]
     
     func stubRetrieve(for id: Int, with error: NSError) {
         retrieveResults[id] = .failure(error)
+    }
+    
+    func stubEmptyRetrieve(for id: Int) {
+        retrieveResults[id] = .success(nil)
     }
     
     func retrieve(for id: Int) throws -> Any? {
@@ -28,14 +32,18 @@ final class DetailPokemonStoreSpy {
 }
 
 final class LocalDetailPokemonLoader {
+    enum Error: Swift.Error { case empty }
+    
     private let store: DetailPokemonStoreSpy
     
     init(store: DetailPokemonStoreSpy) {
         self.store = store
     }
     
-    func load(for id: Int) throws -> Any? {
-        try store.retrieve(for: id)
+    func load(for id: Int) throws -> Any {
+        let local = try store.retrieve(for: id)
+        guard let local else { throw Error.empty }
+        return local
     }
 }
 
@@ -65,13 +73,15 @@ final class LoadDetailPokemonUseCaseTests: XCTestCase {
             expect(sut, for: id, toCompleteWith: .failure(retrieveError))
         }
     }
-//    
-//    func test_load_deliversNoListOnEmptyCache() {
-//        let (sut, store) = makeSut()
-//        store.stubEmptyRetrieve()
-//        
-//        expect(sut, toCompleteWith: .failure(anyNSError()))
-//    }
+    
+    func test_load_deliversNoPokemonOnEmptyCache() {
+        ids.forEach { id in
+            let (sut, store) = makeSut()
+            store.stubEmptyRetrieve(for: id)
+            
+            expect(sut, for: id, toCompleteWith: .failure(anyNSError()))
+        }
+    }
 //    
 //    func test_load_deliversCachedListOnNonExpiredCache() {
 //        let list = pokemonList()
