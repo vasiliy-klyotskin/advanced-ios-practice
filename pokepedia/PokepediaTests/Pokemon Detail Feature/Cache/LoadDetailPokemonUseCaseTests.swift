@@ -47,9 +47,6 @@ final class LoadDetailPokemonUseCaseTests: XCTestCase {
     }
     
     func test_load_requestsCacheRetrieval() {
-        
-        let ids = [1, 2, 3, 0]
-        
         ids.forEach { id in
             let (sut, store) = makeSut()
             
@@ -60,8 +57,6 @@ final class LoadDetailPokemonUseCaseTests: XCTestCase {
     }
     
     func test_load_failsOnRetrievalError() {
-        let ids = [1, 2, 3, 0]
-        
         ids.forEach { id in
             let (sut, store) = makeSut()
             let retrieveError = anyNSError()
@@ -109,6 +104,8 @@ final class LoadDetailPokemonUseCaseTests: XCTestCase {
 //}
     
     // MARK: - Helpers
+    
+    private let ids = [0, 1, 2, 3]
     
     private func makeSut(
         currentDate: @escaping () -> Date = Date.init,
