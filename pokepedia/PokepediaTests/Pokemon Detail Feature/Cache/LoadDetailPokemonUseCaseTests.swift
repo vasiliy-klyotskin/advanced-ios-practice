@@ -12,8 +12,16 @@ final class DetailPokemonStoreSpy {
         case retrieve(Int)
     }
     
-    func retrieve(for id: Int) {
+    var retrieveResults: [Int: Result<Any, NSError>] = [:]
+    
+    func stubRetrieve(for id: Int, with error: NSError) {
+        retrieveResults[id] = .failure(error)
+    }
+    
+    func retrieve(for id: Int) throws -> Any? {
         receivedMessages.append(.retrieve(id))
+        let result = retrieveResults[id] ?? .failure(anyNSError())
+        return try result.get()
     }
     
     var receivedMessages: [Message] = []
@@ -27,7 +35,7 @@ final class LocalDetailPokemonLoader {
     }
     
     func load(for id: Int) throws -> Any? {
-        store.retrieve(for: id)
+        try store.retrieve(for: id)
     }
 }
 
@@ -50,14 +58,18 @@ final class LoadDetailPokemonUseCaseTests: XCTestCase {
             XCTAssertEqual(store.receivedMessages, [.retrieve(id)], "Expected retrieve to be called with id: \(id)")
         }
     }
-//    
-//    func test_load_failsOnRetrievalError() {
-//        let (sut, store) = makeSut()
-//        let retrieveError = anyNSError()
-//        store.stubRetrieve(with: retrieveError)
-//        
-//        expect(sut, toCompleteWith: .failure(retrieveError))
-//    }
+    
+    func test_load_failsOnRetrievalError() {
+        let ids = [1, 2, 3, 0]
+        
+        ids.forEach { id in
+            let (sut, store) = makeSut()
+            let retrieveError = anyNSError()
+            store.stubRetrieve(for: id, with: anyNSError())
+            
+            expect(sut, for: id, toCompleteWith: .failure(retrieveError))
+        }
+    }
 //    
 //    func test_load_deliversNoListOnEmptyCache() {
 //        let (sut, store) = makeSut()
@@ -110,20 +122,21 @@ final class LoadDetailPokemonUseCaseTests: XCTestCase {
         return (sut, store)
     }
     
-//    private func expect(
-//        _ sut: LocalPokemonListLoader,
-//        toCompleteWith expectedResult: Result<PokemonList?, Error>,
-//        file: StaticString = #filePath,
-//        line: UInt = #line
-//    ) {
-//        let receivedResult = Result { try sut.load() }
-//        switch (receivedResult, expectedResult) {
+    private func expect(
+        _ sut: LocalDetailPokemonLoader,
+        for id: Int,
+        toCompleteWith expectedResult: Result<Any?, Error>,
+        file: StaticString = #filePath,
+        line: UInt = #line
+    ) {
+        let receivedResult = Result { try sut.load(for: id) }
+        switch (receivedResult, expectedResult) {
 //        case let (.success(receivedImages), .success(expectedImages)):
 //            XCTAssertEqual(receivedImages, expectedImages, file: file, line: line)
-//        case (.failure, .failure):
-//            break
-//        default:
-//            XCTFail("Expected result \(expectedResult), got \(receivedResult) instead", file: file, line: line)
-//        }
-//    }
+        case (.failure, .failure):
+            break
+        default:
+            XCTFail("Expected result \(expectedResult), got \(receivedResult) instead. Id: \(id)", file: file, line: line)
+        }
+    }
 }
