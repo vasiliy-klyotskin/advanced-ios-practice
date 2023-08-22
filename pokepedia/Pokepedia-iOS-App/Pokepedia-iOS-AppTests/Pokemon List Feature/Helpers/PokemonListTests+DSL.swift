@@ -99,6 +99,11 @@ extension ListViewController {
         return view
     }
     
+    func simulateItemSelection(at row: Int) {
+        let index = IndexPath(row: row, section: pokemonListSectionNumber)
+        tableView.delegate?.tableView?(tableView, didSelectRowAt: index)
+    }
+    
     func listPokemonItemView(at index: Int) -> UIView? {
         tableView.dataSource?.tableView(tableView, cellForRowAt: .init(row: index, section: pokemonListSectionNumber))
     }

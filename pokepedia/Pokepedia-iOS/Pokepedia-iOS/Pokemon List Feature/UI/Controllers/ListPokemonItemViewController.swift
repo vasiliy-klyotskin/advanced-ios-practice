@@ -12,17 +12,20 @@ public final class ListPokemonItemViewController: NSObject, UITableViewDataSourc
     private let viewModel: ListPokemonItemViewModel<UIColor>
     private let onImageRequest: () -> Void
     private let onCancelRequest: () -> Void
+    private let onSelection: () -> Void
     
     private var cell: ListPokemonItemCell?
     
     public init(
         viewModel: ListPokemonItemViewModel<UIColor>,
-        onImageRequest: @escaping () -> Void,
-        onCancelRequest: @escaping () -> Void
+        onImageRequest: @escaping () -> Void = {},
+        onCancelRequest: @escaping () -> Void = {},
+        onSelection: @escaping () -> Void = {}
     ) {
         self.viewModel = viewModel
         self.onImageRequest = onImageRequest
         self.onCancelRequest = onCancelRequest
+        self.onSelection = onSelection
     }
     
     public func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int { 1 }
@@ -42,6 +45,10 @@ public final class ListPokemonItemViewController: NSObject, UITableViewDataSourc
     
     public func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
         onImageRequest()
+    }
+    
+    public func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        onSelection()
     }
     
     private func releaseCell() {

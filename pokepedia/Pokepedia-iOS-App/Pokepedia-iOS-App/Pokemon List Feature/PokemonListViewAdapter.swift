@@ -17,15 +17,18 @@ final class PokemonListViewAdapter: ResourceView {
     private var currentList: [PokemonListItem: CellController]
     private weak var listController: ListViewController?
     private let imageLoader: Loader
+    private let onItemSelected: (PokemonListItem) -> Void
     
     init(
         listController: ListViewController,
         imageLoader: @escaping Loader,
-        currentList: [PokemonListItem: CellController] = [:]
+        currentList: [PokemonListItem: CellController] = [:],
+        onItemSelected: @escaping (PokemonListItem) -> Void
     ) {
         self.listController = listController
         self.imageLoader = imageLoader
         self.currentList = currentList
+        self.onItemSelected = onItemSelected
     }
 
     func display(viewModel paginated: Paginated<PokemonListItem>) {
@@ -44,7 +47,8 @@ final class PokemonListViewAdapter: ResourceView {
             viewAdapter: PokemonListViewAdapter(
                 listController: listController,
                 imageLoader: imageLoader,
-                currentList: currentList
+                currentList: currentList,
+                onItemSelected: onItemSelected
             ),
             loadMore: loadMore
         )
@@ -56,9 +60,11 @@ final class PokemonListViewAdapter: ResourceView {
             if let controller = currentList[item] {
                 return controller
             }
-            let controller = ListPokemonItemUIComposer.compose(item: item) { [imageLoader] in
-                imageLoader(item.imageUrl)
-            }
+            let controller = ListPokemonItemUIComposer.compose(
+                item: item,
+                loader: { [imageLoader] in imageLoader(item.imageUrl) },
+                onSelection: { [onItemSelected] in onItemSelected(item) }
+            )
             let cellController = CellController(id: item, controller)
             currentList[item] = cellController
             return cellController

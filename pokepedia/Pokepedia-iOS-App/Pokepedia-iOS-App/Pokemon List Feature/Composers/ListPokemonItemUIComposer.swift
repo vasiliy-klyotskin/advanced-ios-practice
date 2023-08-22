@@ -15,7 +15,8 @@ enum ListPokemonItemUIComposer {
     
     static func compose(
         item: PokemonListItem,
-        loader: @escaping () -> AnyPublisher<ListPokemonItemImage, Error>
+        loader: @escaping () -> AnyPublisher<ListPokemonItemImage, Error>,
+        onSelection: @escaping () -> Void
     ) -> ListPokemonItemViewController {
         let loadingAdapter = PresentationAdapter(loader: loader)
         let viewModel = PokemonListPresenter.map(
@@ -25,7 +26,8 @@ enum ListPokemonItemUIComposer {
         let controller = ListPokemonItemViewController(
             viewModel: viewModel,
             onImageRequest: loadingAdapter.load,
-            onCancelRequest: loadingAdapter.cancel
+            onCancelRequest: loadingAdapter.cancel,
+            onSelection: onSelection
         )
         loadingAdapter.presenter = .init(
             view: WeakProxy(controller),

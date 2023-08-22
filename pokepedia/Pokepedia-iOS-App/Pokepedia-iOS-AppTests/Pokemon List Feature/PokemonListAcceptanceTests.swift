@@ -75,6 +75,18 @@ final class PokemonListAcceptanceTests: XCTestCase {
         XCTAssertNotNil(try store.retrieve(), "Expected to keep non-expired cache")
     }
     
+    func test_onSelectItem_transfersToPokemonDetail() {
+        let list = launch(httpClient: .online(response), store: .empty)
+        let selectedPokemonId = 0
+        
+        list.simulateItemSelection(at: selectedPokemonId)
+        RunLoop.main.run(until: .init())
+        
+        let detail = list.navigationController?.viewControllers.last as? ListViewController
+        let title = detail?.title
+        XCTAssertEqual(title, name(for: selectedPokemonId))
+    }
+    
     // MARK: - Helpers
     
     private func launch(
@@ -139,12 +151,16 @@ final class PokemonListAcceptanceTests: XCTestCase {
         [
             "id": id,
             "iconUrl": iconUrl,
-            "name": "any",
+            "name": name(for: id),
             "physicalType": [
                 "color": "any",
                 "name": "any"
             ]
         ]
+    }
+    
+    private func name(for id: Int) -> String {
+        "name-\(id)"
     }
     
     private func enterBackground(with store: InMemoryPokemonListStore) {

@@ -15,15 +15,21 @@ public enum PokemonListUIComposer {
     
     public static func compose(
         loader: @escaping () -> AnyPublisher<Paginated<PokemonListItem>, Error>,
-        imageLoader: @escaping (URL) -> AnyPublisher<ListPokemonItemImage, Error>
+        imageLoader: @escaping (URL) -> AnyPublisher<ListPokemonItemImage, Error>,
+        onItemSelected: @escaping (PokemonListItem) -> Void = { _ in }
     ) -> ListViewController {
         let loadingAdapter = PresentationAdapter(loader: loader)
         let listController = ListViewController(
             onRefresh: loadingAdapter.load,
             onViewDidLoad: PokemonListCells.register
         )
+        let viewAdapter = PokemonListViewAdapter(
+            listController: listController,
+            imageLoader: imageLoader,
+            onItemSelected: onItemSelected
+        )
         loadingAdapter.presenter = .init(
-            view: PokemonListViewAdapter(listController: listController, imageLoader: imageLoader),
+            view: viewAdapter,
             loadingView: WeakProxy(listController),
             errorView: WeakProxy(listController)
         )

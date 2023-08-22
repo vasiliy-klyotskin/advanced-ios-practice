@@ -50,6 +50,8 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         LocalPokemonListImageLoader(store: store)
     }()
     
+    private let navigationController = UINavigationController()
+    
     convenience init(
         httpClient: HTTPClient,
         store: PokemonListStore & PokemonListImageStore,
@@ -74,9 +76,10 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     func configureWindow() {
         let pokemonListVc = PokemonListUIComposer.compose(
             loader: makePaginatedRemoteListLoaderWithLocalFallback,
-            imageLoader: makeListIconLoader
+            imageLoader: makeListIconLoader,
+            onItemSelected: navigateToDetail
         )
-        let navigationController = UINavigationController(rootViewController: pokemonListVc)
+        navigationController.viewControllers = [pokemonListVc]
         window?.rootViewController = navigationController
         window?.makeKeyAndVisible()
     }
@@ -130,5 +133,35 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
             }
             .subscribe(on: scheduler)
             .eraseToAnyPublisher()
+    }
+    
+    
+    private func navigateToDetail(from listItem: PokemonListItem) {
+        let pokemonDetail = PokemonDetailUIComposer.compose(
+            title: listItem.name,
+            loader: detailLoader(for: listItem),
+            imageLoader: detailImageLoader(for: listItem)
+        )
+        navigationController.pushViewController(pokemonDetail, animated: true)
+    }
+    
+    private func detailLoader(for listItem: PokemonListItem) -> () -> AnyPublisher<DetailPokemon, Error> {
+        {
+            Deferred {
+                Future { completion in
+                    completion(.failure(NSError()))
+                }
+            }.eraseToAnyPublisher()
+        }
+    }
+    
+    private func detailImageLoader(for listItem: PokemonListItem) -> (URL) -> AnyPublisher<Data, Error> {
+        { url in
+            Deferred {
+                Future { completion in
+                    completion(.failure(NSError()))
+                }
+            }.eraseToAnyPublisher()
+        }
     }
 }
