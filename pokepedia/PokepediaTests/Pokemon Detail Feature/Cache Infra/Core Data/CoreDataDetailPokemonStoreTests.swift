@@ -19,6 +19,14 @@ final class CoreDataDetailPokemonStoreTests: XCTestCase {
         }
     }
     
+    func test_retrieveForValidation_returnsEmptyOnEmptyCache() throws {
+        let sut = makeSut()
+        
+        let validationRetrieval = try sut.retrieveForValidation()
+        
+        XCTAssertEqual(validationRetrieval, [])
+    }
+    
     // MARK: - Helpers
     
     private func makeSut(file: StaticString = #filePath, line: UInt = #line) -> DetailPokemonStore {

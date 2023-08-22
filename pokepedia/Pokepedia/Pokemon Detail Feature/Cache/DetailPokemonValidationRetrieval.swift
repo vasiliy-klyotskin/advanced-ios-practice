@@ -7,7 +7,7 @@
 
 import Foundation
 
-public struct DetailPokemonValidationRetrieval {
+public struct DetailPokemonValidationRetrieval: Equatable {
     public let timestamp: Date
     public let id: Int
     
