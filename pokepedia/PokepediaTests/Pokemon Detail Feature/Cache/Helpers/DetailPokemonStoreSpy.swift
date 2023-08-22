@@ -9,8 +9,8 @@ import Foundation
 import Pokepedia
 
 final class DetailPokemonStoreSpy {
-    typealias ValidationRetrieval = LocalDetailPokemonLoader.ValidationRetrieval
-    typealias Cache = LocalDetailPokemonLoader.Cache
+    typealias ValidationRetrieval = DetailPokemonValidationRetrieval
+    typealias Cache = DetailPokemonCache
     
     enum Message: Equatable {
         case retrieval
