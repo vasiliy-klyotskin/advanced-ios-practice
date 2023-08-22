@@ -39,7 +39,9 @@ public final class CoreDataDetailPokemonStore: DetailPokemonStore {
     }
     
     public func deleteAll() {
-        
+        try? performSync { context in
+            ManagedDetailPokemonCache.deleteCache(in: context)
+        }
     }
     
     public func retrieve(for id: Int) -> DetailPokemonCache? {
@@ -69,28 +71,5 @@ public final class CoreDataDetailPokemonStore: DetailPokemonStore {
         var result: Result<R, Error>!
         context.performAndWait { result = Result { try action(context) } }
         return try result.get()
-    }
-}
-
-extension DetailPokemonCache {
-    func managedPokemon(id: Int, context: NSManagedObjectContext) -> ManagedDetailPokemon {
-        let pokemon = ManagedDetailPokemon.newUniqueInstance(for: id, in: context)
-        pokemon.timestamp = timestamp
-        pokemon.id = id
-        pokemon.genus = local.info.genus
-        pokemon.flavorText = local.info.flavorText
-        pokemon.imageUrl = local.info.imageUrl
-        pokemon.name = local.info.name
-        pokemon.abilities = NSOrderedSet(array: local.abilities.map {
-            let ability = ManagedDetailPokemonAbility(context: context)
-            ability.damageClass = $0.damageClass
-            ability.damageColor = $0.damageClassColor
-            ability.type = $0.type
-            ability.typeColor = $0.typeColor
-            ability.title = $0.title
-            ability.subtitle = $0.subtitle
-            return ability
-        })
-        return pokemon
     }
 }

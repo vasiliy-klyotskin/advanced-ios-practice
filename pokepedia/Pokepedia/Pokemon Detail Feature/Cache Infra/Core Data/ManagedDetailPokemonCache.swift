@@ -13,9 +13,9 @@ public class ManagedDetailPokemonCache: NSManagedObject {
 }
 
 extension ManagedDetailPokemonCache {
-//    static func deleteCache(in context: NSManagedObjectContext) throws {
-//        try find(in: context).map(context.delete).map(context.save)
-//    }
+    static func deleteCache(in context: NSManagedObjectContext) {
+        try? find(in: context).map(context.delete).map(context.save)
+    }
     
     static func retrievals(in context: NSManagedObjectContext) throws -> [DetailPokemonValidationRetrieval] {
         try find(in: context)?.details

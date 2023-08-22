@@ -20,6 +20,6 @@
         <relationship name="detail" maxCount="1" deletionRule="Nullify" destinationEntity="ManagedDetailPokemon" inverseName="abilities" inverseEntity="ManagedDetailPokemon"/>
     </entity>
     <entity name="ManagedDetailPokemonCache" representedClassName=".ManagedDetailPokemonCache" syncable="YES">
-        <relationship name="details" toMany="YES" deletionRule="Nullify" destinationEntity="ManagedDetailPokemon" inverseName="cache" inverseEntity="ManagedDetailPokemon"/>
+        <relationship name="details" toMany="YES" deletionRule="Cascade" destinationEntity="ManagedDetailPokemon" inverseName="cache" inverseEntity="ManagedDetailPokemon"/>
     </entity>
 </model>
