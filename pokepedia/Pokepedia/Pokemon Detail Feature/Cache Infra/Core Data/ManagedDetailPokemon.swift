@@ -12,20 +12,37 @@ public class ManagedDetailPokemon: NSManagedObject {
     @NSManaged var id: Int
     @NSManaged var name: String
     @NSManaged var imageUrl: URL
+    @NSManaged var imageData: Data?
     @NSManaged var genus: String
     @NSManaged var flavorText: String
     @NSManaged var timestamp: Date
 
     @NSManaged var abilities: NSOrderedSet
     @NSManaged var cache: ManagedDetailPokemonCache
+    
+    var local: LocalDetailPokemon {
+        .init(
+            info: .init(imageUrl: imageUrl, id: id, name: name, genus: genus, flavorText: flavorText),
+            abilities: abilities.compactMap {
+                ($0 as? ManagedDetailPokemonAbility)?.local
+            }
+        )
+    }
 }
 
 extension ManagedDetailPokemon {
     static func first(with id: Int, in context: NSManagedObjectContext) -> ManagedDetailPokemon? {
-        let request = NSFetchRequest<ManagedDetailPokemon>(entityName: entity().name!)
-        request.predicate = NSPredicate(format: "%K = %@", argumentArray: [#keyPath(ManagedDetailPokemon.id), id])
-        request.fetchLimit = 1
-        return try? context.fetch(request).first
+        let predicate = NSPredicate(format: "%K = %@", argumentArray: [#keyPath(ManagedDetailPokemon.id), id])
+        return try? first(predicate: predicate, context: context)
+    }
+    
+    static func first(with url: URL, in context: NSManagedObjectContext) throws -> ManagedDetailPokemon? {
+        let predicate = NSPredicate(format: "%K = %@", argumentArray: [#keyPath(ManagedDetailPokemon.imageUrl), url])
+        return try first(predicate: predicate, context: context)
+    }
+    
+    static func imageData(for url: URL, in context: NSManagedObjectContext) throws -> Data? {
+        try first(with: url, in: context)?.imageData
     }
     
     static func delete(for id: Int, in context: NSManagedObjectContext) {
@@ -39,13 +56,11 @@ extension ManagedDetailPokemon {
         return ManagedDetailPokemon(context: context)
     }
     
-    var local: LocalDetailPokemon {
-        .init(
-            info: .init(imageUrl: imageUrl, id: id, name: name, genus: genus, flavorText: flavorText),
-            abilities: abilities.compactMap {
-                ($0 as? ManagedDetailPokemonAbility)?.local
-            }
-        )
+    private static func first(predicate: NSPredicate, context: NSManagedObjectContext) throws -> ManagedDetailPokemon? {
+        let request = NSFetchRequest<ManagedDetailPokemon>(entityName: entity().name!)
+        request.predicate = predicate
+        request.fetchLimit = 1
+        return try context.fetch(request).first
     }
 }
 
