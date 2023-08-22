@@ -45,7 +45,28 @@ final class CoreDataDetailPokemonStoreTests: XCTestCase {
         let receivedValidationRetrieval = try sut.retrieveForValidation()
         
         let expectedRetrievals = ids.map { validationRetrieval(for: $0) }
-        XCTAssertEqual(receivedValidationRetrieval, expectedRetrievals)
+        XCTAssertEqual(Set(receivedValidationRetrieval), Set(expectedRetrievals))
+    }
+    
+    func test_deleteForId_deletesCacheForParticularId() throws {
+        let sut = makeSut()
+        sut.insert(cache(for: 0), for: 0)
+        sut.insert(cache(for: 7), for: 7)
+        
+        sut.delete(for: 7)
+        
+        XCTAssertEqual(sut.retrieve(for: 0), cache(for: 0))
+        XCTAssertEqual(sut.retrieve(for: 7), nil)
+    }
+    
+    func test_deleteForId_affectsValidationRetrieval() {
+        let sut = makeSut()
+        sut.insert(cache(for: 0), for: 0)
+        sut.insert(cache(for: 7), for: 7)
+        
+        sut.delete(for: 7)
+        
+        XCTAssertEqual(try sut.retrieveForValidation(), [validationRetrieval(for: 0)])
     }
     
     // MARK: - Helpers

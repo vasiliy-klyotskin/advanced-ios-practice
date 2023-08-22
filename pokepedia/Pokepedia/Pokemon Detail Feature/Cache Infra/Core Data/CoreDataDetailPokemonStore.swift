@@ -34,9 +34,7 @@ public final class CoreDataDetailPokemonStore: DetailPokemonStore {
     
     public func retrieveForValidation() throws -> [DetailPokemonValidationRetrieval] {
         try performSync { context in
-            Result {
-                try ManagedDetailPokemonCache.retrievals(in: context)
-            }
+            try ManagedDetailPokemonCache.retrievals(in: context)
         }
     }
     
@@ -46,32 +44,30 @@ public final class CoreDataDetailPokemonStore: DetailPokemonStore {
     
     public func retrieve(for id: Int) -> DetailPokemonCache? {
         try? performSync { context in
-            Result {
-                let managedPokemon = try ManagedDetailPokemon.first(with: id, in: context)
-                return .init(timestamp: managedPokemon.timestamp, local: managedPokemon.local)
-            }
+            let managedPokemon = ManagedDetailPokemon.first(with: id, in: context)
+            return managedPokemon.map { .init(timestamp: $0.timestamp, local: $0.local) }
         }
     }
     
     public func delete(for id: Int) {
-        
+        try? performSync { context in
+            ManagedDetailPokemon.delete(for: id, in: context)
+        }
     }
     
     public func insert(_ cache: DetailPokemonCache, for id: Int) {
         try? performSync { context in
-            Result {
-                let container = ManagedDetailPokemonCache.instance(in: context)
-                let managedPokemon = cache.managedPokemon(id: id, context: context)
-                managedPokemon.cache = container
-                try context.save()
-            }
+            let container = ManagedDetailPokemonCache.instance(in: context)
+            let managedPokemon = cache.managedPokemon(id: id, context: context)
+            managedPokemon.cache = container
+            try? context.save()
         }
     }
     
-    func performSync<R>(_ action: (NSManagedObjectContext) -> Result<R, Error>) throws -> R {
+    func performSync<R>(_ action: (NSManagedObjectContext) throws -> R) throws -> R {
         let context = self.context
         var result: Result<R, Error>!
-        context.performAndWait { result = action(context) }
+        context.performAndWait { result = Result { try action(context) } }
         return try result.get()
     }
 }

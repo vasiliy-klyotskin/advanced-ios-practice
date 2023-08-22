@@ -20,22 +20,16 @@ public class ManagedDetailPokemon: NSManagedObject {
     @NSManaged var cache: ManagedDetailPokemonCache
 }
 
-fileprivate struct Empty: Error {}
-
 extension ManagedDetailPokemon {
-    static func first(with id: Int, in context: NSManagedObjectContext) throws -> ManagedDetailPokemon {
+    static func first(with id: Int, in context: NSManagedObjectContext) -> ManagedDetailPokemon? {
         let request = NSFetchRequest<ManagedDetailPokemon>(entityName: entity().name!)
         request.predicate = NSPredicate(format: "%K = %@", argumentArray: [#keyPath(ManagedDetailPokemon.id), id])
         request.fetchLimit = 1
-        if let managedPokemon = try context.fetch(request).first {
-            return managedPokemon
-        } else {
-            throw Empty()
-        }
+        return try? context.fetch(request).first
     }
     
-    private static func delete(for id: Int, in context: NSManagedObjectContext) {
-        guard let pokemon = try? first(with: id, in: context) else { return }
+    static func delete(for id: Int, in context: NSManagedObjectContext) {
+        guard let pokemon = first(with: id, in: context) else { return }
         context.delete(pokemon)
         try? context.save()
     }
