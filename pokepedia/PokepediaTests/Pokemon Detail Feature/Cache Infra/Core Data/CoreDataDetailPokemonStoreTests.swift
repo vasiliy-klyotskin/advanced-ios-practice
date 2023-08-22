@@ -9,7 +9,7 @@ import XCTest
 import Pokepedia
 
 final class CoreDataDetailPokemonStoreTests: XCTestCase {
-    func test_retrieveForId_returnsEmptyOnEmptyCache() throws {
+    func test_retrieveForId_returnsEmptyOnEmptyCache() {
         ids.forEach { id in
             let sut = makeSut()
             
@@ -27,7 +27,7 @@ final class CoreDataDetailPokemonStoreTests: XCTestCase {
         XCTAssertEqual(validationRetrieval, [])
     }
     
-    func test_retrieveForId_returnsCacheForIdWhenCacheIsNotEmpty() throws {
+    func test_retrieveForId_returnsCacheForIdWhenCacheIsNotEmpty() {
         let sut = makeSut()
         insertCacheForIds(sut: sut)
         
@@ -36,6 +36,16 @@ final class CoreDataDetailPokemonStoreTests: XCTestCase {
             
             XCTAssertEqual(retrieval, cache(for: id))
         }
+    }
+    
+    func test_retrieveForValidation_returnsValidationRetrievalWhenCacheIsNotEmpty() throws {
+        let sut = makeSut()
+        insertCacheForIds(sut: sut)
+        
+        let receivedValidationRetrieval = try sut.retrieveForValidation()
+        
+        let expectedRetrievals = ids.map { validationRetrieval(for: $0) }
+        XCTAssertEqual(receivedValidationRetrieval, expectedRetrievals)
     }
     
     // MARK: - Helpers
@@ -52,6 +62,11 @@ final class CoreDataDetailPokemonStoreTests: XCTestCase {
     private func cache(for id: Int) -> DetailPokemonCache {
         let date = Date.distantPast.addingTimeInterval(TimeInterval(id))
         return .init(timestamp: date, local: localDetail(for: id).local)
+    }
+    
+    private func validationRetrieval(for id: Int) -> DetailPokemonValidationRetrieval {
+        let cache = cache(for: id)
+        return .init(timestamp: cache.timestamp, id: id)
     }
     
     private func insertCacheForIds(sut: DetailPokemonStore) {

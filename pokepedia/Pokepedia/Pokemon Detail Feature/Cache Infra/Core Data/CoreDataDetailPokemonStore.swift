@@ -33,7 +33,11 @@ public final class CoreDataDetailPokemonStore: DetailPokemonStore {
     }
     
     public func retrieveForValidation() throws -> [DetailPokemonValidationRetrieval] {
-        []
+        try performSync { context in
+            Result {
+                try ManagedDetailPokemonCache.retrievals(in: context)
+            }
+        }
     }
     
     public func deleteAll() {

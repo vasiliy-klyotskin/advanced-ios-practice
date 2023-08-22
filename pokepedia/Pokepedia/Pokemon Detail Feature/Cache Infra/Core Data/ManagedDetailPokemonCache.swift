@@ -17,12 +17,18 @@ extension ManagedDetailPokemonCache {
 //        try find(in: context).map(context.delete).map(context.save)
 //    }
     
-    static func instance(in context: NSManagedObjectContext) -> ManagedDetailPokemonCache {
-        return find(in: context) ?? .init(context: context)
+    static func retrievals(in context: NSManagedObjectContext) throws -> [DetailPokemonValidationRetrieval] {
+        try find(in: context)?.details
+            .compactMap { $0 as? ManagedDetailPokemon }
+            .map { .init(timestamp: $0.timestamp, id: $0.id) } ?? []
     }
     
-    private static func find(in context: NSManagedObjectContext) -> ManagedDetailPokemonCache? {
+    static func instance(in context: NSManagedObjectContext) -> ManagedDetailPokemonCache {
+        return (try? find(in: context)) ?? .init(context: context)
+    }
+    
+    private static func find(in context: NSManagedObjectContext) throws -> ManagedDetailPokemonCache? {
         let request = NSFetchRequest<ManagedDetailPokemonCache>(entityName: entity().name!)
-        return try? context.fetch(request).first
+        return try context.fetch(request).first
     }
 }

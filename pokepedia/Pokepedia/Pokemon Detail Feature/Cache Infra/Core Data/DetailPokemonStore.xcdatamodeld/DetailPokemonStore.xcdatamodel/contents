@@ -8,7 +8,7 @@
         <attribute name="name" attributeType="String"/>
         <attribute name="timestamp" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
         <relationship name="abilities" toMany="YES" deletionRule="Nullify" ordered="YES" destinationEntity="ManagedDetailPokemonAbility" inverseName="detail" inverseEntity="ManagedDetailPokemonAbility"/>
-        <relationship name="cache" maxCount="1" deletionRule="Nullify" destinationEntity="ManagedDetailPokemonCache" inverseName="detailPokemons" inverseEntity="ManagedDetailPokemonCache"/>
+        <relationship name="cache" maxCount="1" deletionRule="Nullify" destinationEntity="ManagedDetailPokemonCache" inverseName="details" inverseEntity="ManagedDetailPokemonCache"/>
     </entity>
     <entity name="ManagedDetailPokemonAbility" representedClassName=".ManagedDetailPokemonAbility" syncable="YES">
         <attribute name="damageClass" attributeType="String"/>
@@ -20,6 +20,6 @@
         <relationship name="detail" maxCount="1" deletionRule="Nullify" destinationEntity="ManagedDetailPokemon" inverseName="abilities" inverseEntity="ManagedDetailPokemon"/>
     </entity>
     <entity name="ManagedDetailPokemonCache" representedClassName=".ManagedDetailPokemonCache" syncable="YES">
-        <relationship name="detailPokemons" toMany="YES" deletionRule="Nullify" destinationEntity="ManagedDetailPokemon" inverseName="cache" inverseEntity="ManagedDetailPokemon"/>
+        <relationship name="details" toMany="YES" deletionRule="Nullify" destinationEntity="ManagedDetailPokemon" inverseName="cache" inverseEntity="ManagedDetailPokemon"/>
     </entity>
 </model>
