@@ -23,6 +23,7 @@ extension InMemoryPokemonListStore: PokemonListStore {
     
     public func delete() throws {
         listCache = nil
+        listImagesCache = [:]
     }
     
     public func insert(local: LocalPokemonList, timestamp: Date) throws {

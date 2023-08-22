@@ -24,6 +24,7 @@ extension InMemoryDetailPokemonStore: DetailPokemonStore {
     
     public func deleteAll() {
         cache = [:]
+        imageCache = [:]
     }
     
     public func retrieve(for id: Int) -> DetailPokemonCache? {
@@ -31,7 +32,10 @@ extension InMemoryDetailPokemonStore: DetailPokemonStore {
     }
     
     public func delete(for id: Int) {
+        let pokemon = cache[id]
         cache[id] = nil
+        guard let pokemon else { return }
+        imageCache[pokemon.local.info.imageUrl] = nil
     }
     
     public func insert(_ cache: DetailPokemonCache, for id: Int) {
