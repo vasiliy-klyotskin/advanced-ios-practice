@@ -80,6 +80,15 @@ final class CoreDataDetailPokemonStoreTests: XCTestCase {
         }
     }
     
+    func test_deleteAll_cauesesValidationRetrievalsAreEmpty() throws {
+        let sut = makeSut()
+        insertCacheForIds(sut: sut)
+        
+        sut.deleteAll()
+        
+        XCTAssertEqual(try sut.retrieveForValidation(), [])
+    }
+    
     // MARK: - Helpers
     
     private func makeSut(file: StaticString = #filePath, line: UInt = #line) -> DetailPokemonStore {
