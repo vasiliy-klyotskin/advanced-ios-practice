@@ -10,14 +10,18 @@ import Pokepedia
 
 final class DetailPokemonStoreSpy: DetailPokemonStore {
     typealias ValidationRetrieval = LocalDetailPokemonLoader.ValidationRetrieval
+    typealias Insertion = LocalDetailPokemonLoader.Insertion
     
     enum Message: Equatable {
         case retrieval
         case deletion
         case deletionForId(Int)
+        case insertionForId(Int, Insertion)
     }
     
+    var receivedMessages: [Message] = []
     var retrieveResult: Result<[ValidationRetrieval], Error> = .failure(anyNSError())
+    var deletionForIdResult: Result<Void, Error> = .failure(anyNSError())
     
     func retrieve() throws -> [ValidationRetrieval] {
         receivedMessages.append(.retrieval)
@@ -28,9 +32,16 @@ final class DetailPokemonStoreSpy: DetailPokemonStore {
         receivedMessages.append(.deletion)
     }
     
-    func delete(for id: Int) {
+    func delete(for id: Int) throws {
         receivedMessages.append(.deletionForId(id))
+        try deletionForIdResult.get()
     }
+    
+    func insert(_ cache: Pokepedia.LocalDetailPokemonLoader.Insertion, for id: Int) {
+        receivedMessages.append(.insertionForId(id, cache))
+    }
+    
+    // MARK: - Stub Retrieve
     
     func stubRetrieve(with error: NSError) {
         retrieveResult = .failure(error)
@@ -44,5 +55,13 @@ final class DetailPokemonStoreSpy: DetailPokemonStore {
         retrieveResult = .success(retrieval)
     }
     
-    var receivedMessages: [Message] = []
+    // MARK: - Stub Deletion For ID
+    
+    func stubDeletion(for id: Int, with error: NSError) {
+        deletionForIdResult = .failure(error)
+    }
+    
+    func stubDeletionWithSuccess(for id: Int) {
+        deletionForIdResult = .success(())
+    }
 }
