@@ -1,5 +1,5 @@
 //
-//  InMemoryPokemonListImageStoreTests.swift
+//  InMemoryImageStoreTests.swift
 //  PokepediaTests
 //
 //  Created by Василий Клецкин on 8/6/23.
@@ -8,7 +8,7 @@
 import XCTest
 import Pokepedia
 
-final class InMemoryPokemonListImageStoreTests: XCTestCase, PokemonListImageStoreSpecs {
+final class InMemoryImageStoreTests: XCTestCase, ImageStoreSpecs {
     func test_retrieveImageData_deliversNotFoundWhenEmpty() {
         let sut = makeSut()
         

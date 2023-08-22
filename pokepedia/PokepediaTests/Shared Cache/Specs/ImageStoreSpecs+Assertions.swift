@@ -1,5 +1,5 @@
 //
-//  PokemonListImageStoreSpecs+Assertions.swift
+//  ImageStoreSpecs+Assertions.swift
 //  PokepediaTests
 //
 //  Created by Василий Клецкин on 8/6/23.
@@ -8,9 +8,9 @@
 import XCTest
 import Pokepedia
 
-extension PokemonListImageStoreSpecs where Self: XCTestCase {
+extension ImageStoreSpecs where Self: XCTestCase {
     func assertThatRetrieveImageDataDeliversNotFoundWhenEmpty(
-        _ sut: PokemonListImageStore,
+        _ sut: ImageStore,
         file: StaticString = #filePath,
         line: UInt = #line
     ) {
@@ -18,7 +18,7 @@ extension PokemonListImageStoreSpecs where Self: XCTestCase {
     }
     
     func assertThatRetrieveImageDataDeliversNotFoundWhenStoredDataURLDoesNotMatch(
-        _ sut: PokemonListImageStore,
+        _ sut: ImageStore,
         imageUrl: URL? = nil,
         file: StaticString = #filePath,
         line: UInt = #line
@@ -32,7 +32,7 @@ extension PokemonListImageStoreSpecs where Self: XCTestCase {
     }
     
     func assertThatRetrieveImageDataDeliversFoundDataWhenThereIsAStoredImageDataMatchingURL(
-        _ sut: PokemonListImageStore,
+        _ sut: ImageStore,
         imageUrl matchingUrl: URL? = nil,
         file: StaticString = #filePath,
         line: UInt = #line
@@ -46,7 +46,7 @@ extension PokemonListImageStoreSpecs where Self: XCTestCase {
     }
     
     func assertThatRetrieveImageDataDeliversLastInsertedValue(
-        _ sut: PokemonListImageStore,
+        _ sut: ImageStore,
         imageUrl url: URL? = nil,
         file: StaticString = #filePath,
         line: UInt = #line

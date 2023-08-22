@@ -35,7 +35,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         return client
     }()
     
-    lazy var store: PokemonListStore & PokemonListImageStore = {
+    lazy var store: PokemonListStore & ImageStore = {
         do {
             return try CoreDataPokemonListStore(storeUrl: storeUrl)
         } catch {
@@ -46,7 +46,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     
     convenience init(
         scheduler: AnyDispatchQueueScheduler,
-        store: PokemonListStore & PokemonListImageStore,
+        store: PokemonListStore & ImageStore,
         httpClient: HTTPClient
     ) {
         self.init()

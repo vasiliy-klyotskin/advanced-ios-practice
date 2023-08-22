@@ -1,5 +1,5 @@
 //
-//  FailableRetrievePokemonListImageStoreSpecs+Assertions.swift
+//  FailableRetrieveImageStoreSpecs+Assertions.swift
 //  PokepediaTests
 //
 //  Created by Василий Клецкин on 8/6/23.
@@ -8,9 +8,9 @@
 import XCTest
 import Pokepedia
 
-extension FailableRetrievePokemonListImageStoreSpecs where Self: XCTestCase {
+extension FailableRetrieveImageStoreSpecs where Self: XCTestCase {
     func assertThatRetrieveImageDataDeliversFailureOnRetrievalError(
-        _ sut: PokemonListImageStore,
+        _ sut: ImageStore,
         file: StaticString = #filePath,
         line: UInt = #line
     ) {

@@ -16,13 +16,13 @@ final class PokemonListFeatureComposer {
     private let baseUrl: URL
     private let scheduler: AnyDispatchQueueScheduler
     private let localListLoader: LocalPokemonListLoader
-    private let localListImageLoader: LocalPokemonListImageLoader
+    private let localListImageLoader: LocalImageLoader
     private let httpClient: HTTPClient
     
     init(
         scheduler: AnyDispatchQueueScheduler,
         baseUrl: URL,
-        store: PokemonListStore & PokemonListImageStore,
+        store: PokemonListStore & ImageStore,
         httpClient: HTTPClient
     ) {
         self.scheduler = scheduler

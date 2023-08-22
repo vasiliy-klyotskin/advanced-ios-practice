@@ -1,5 +1,5 @@
 //
-//  PokemonListImageStoreSpecs.swift
+//  ImageStoreSpecs.swift
 //  PokepediaTests
 //
 //  Created by Василий Клецкин on 8/6/23.
@@ -8,19 +8,19 @@
 import XCTest
 import Pokepedia
 
-protocol PokemonListImageStoreSpecs {
+protocol ImageStoreSpecs {
     func test_retrieveImageData_deliversNotFoundWhenEmpty()
     func test_retrieveImageData_deliversNotFoundWhenStoredDataURLDoesNotMatch()
     func test_retrieveImageData_deliversFoundDataWhenThereIsAStoredImageDataMatchingURL()
     func test_retrieveImageData_deliversLastInsertedValue()
 }
 
-protocol FailableRetrievePokemonListImageStoreSpecs: PokemonListImageStoreSpecs {
+protocol FailableRetrieveImageStoreSpecs: ImageStoreSpecs {
     func test_retrieveImageData_deliversFailureOnRetrievalError()
 }
 
-protocol FailableInsertPokemonListImageStoreSpecs: PokemonListImageStoreSpecs {
+protocol FailableInsertImageStoreSpecs: ImageStoreSpecs {
     func test_insertImageData_deliversFailureOnInsertionError()
 }
 
-typealias FailablePokemonListImageStoreSpecs = FailableRetrievePokemonListImageStoreSpecs & FailableInsertPokemonListImageStoreSpecs
+typealias FailableImageStoreSpecs = FailableRetrieveImageStoreSpecs & FailableInsertImageStoreSpecs

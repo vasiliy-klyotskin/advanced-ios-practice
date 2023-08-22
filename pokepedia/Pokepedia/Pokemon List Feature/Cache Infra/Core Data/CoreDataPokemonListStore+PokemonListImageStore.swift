@@ -1,5 +1,5 @@
 //
-//  CoreDataPokemonListStore+PokemonListImageStore.swift
+//  CoreDataPokemonListStore+ImageStore.swift
 //  Pokepedia
 //
 //  Created by Василий Клецкин on 8/4/23.
@@ -7,7 +7,7 @@
 
 import Foundation
 
-extension CoreDataPokemonListStore: PokemonListImageStore {
+extension CoreDataPokemonListStore: ImageStore {
     public func retrieveImage(for url: URL) throws -> Data? {
         try performSync { context in
             Result {

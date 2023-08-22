@@ -1,5 +1,5 @@
 //
-//  PokemonListImageStoreSpy.swift
+//  ImageStoreSpy.swift
 //  PokepediaTests
 //
 //  Created by Василий Клецкин on 8/3/23.
@@ -8,7 +8,7 @@
 import Pokepedia
 import Foundation
 
-final class PokemonListImageStoreSpy: PokemonListImageStore {
+final class ImageStoreSpy: ImageStore {
     enum Message: Equatable {
         case retrieve(dataFor: URL)
         case insert(data: Data, url: URL)

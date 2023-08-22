@@ -1,5 +1,5 @@
 //
-//  CachePokemonListImageUseCaseTests.swift
+//  CacheImageUseCaseTests.swift
 //  PokepediaTests
 //
 //  Created by Василий Клецкин on 8/4/23.
@@ -8,7 +8,7 @@
 import XCTest
 import Pokepedia
 
-final class CachePokemonListImageUseCaseTests: XCTestCase {
+final class CacheImageUseCaseTests: XCTestCase {
     func test_init_doesNotMessageStoreUponCreation() {
         let (_, store) = makeSut()
         
@@ -42,16 +42,16 @@ final class CachePokemonListImageUseCaseTests: XCTestCase {
     
     // MARK: - Helpers
     
-    private func makeSut(file: StaticString = #filePath, line: UInt = #line) -> (LocalPokemonListImageLoader, PokemonListImageStoreSpy) {
-        let store = PokemonListImageStoreSpy()
-        let sut = LocalPokemonListImageLoader(store: store)
+    private func makeSut(file: StaticString = #filePath, line: UInt = #line) -> (LocalImageLoader, ImageStoreSpy) {
+        let store = ImageStoreSpy()
+        let sut = LocalImageLoader(store: store)
         trackForMemoryLeaks(store, file: file, line: line)
         trackForMemoryLeaks(sut, file: file, line: line)
         return (sut, store)
     }
     
     private func expect(
-        _ sut: LocalPokemonListImageLoader,
+        _ sut: LocalImageLoader,
         toCompleteWith expectedResult: Result<Void, Error>,
         file: StaticString = #filePath,
         line: UInt = #line

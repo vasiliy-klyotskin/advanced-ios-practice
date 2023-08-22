@@ -73,7 +73,7 @@ final class PokepediaCacheIntegrationTests: XCTestCase {
         expect(listLoaderToPerformSave, toLoad: nil)
     }
     
-    // MARK: - LocalPokemonListImageLoader (CoreDataPokemonListImageStore) Tests
+    // MARK: - LocalImageLoader (CoreDataImageStore) Tests
     
     func test_loadImageData_deliversSavedDataOnASeparateInstance() {
         let imageLoaderToPerformSave = makeImageLoader()
@@ -121,10 +121,10 @@ final class PokepediaCacheIntegrationTests: XCTestCase {
         return loader
     }
     
-    private func makeImageLoader(file: StaticString = #filePath, line: UInt = #line) -> LocalPokemonListImageLoader {
+    private func makeImageLoader(file: StaticString = #filePath, line: UInt = #line) -> LocalImageLoader {
         let storeUrl = testSpecificStoreURL()
         let store = try! CoreDataPokemonListStore(storeUrl: storeUrl)
-        let loader = LocalPokemonListImageLoader(store: store)
+        let loader = LocalImageLoader(store: store)
         trackForMemoryLeaks(store, file: file, line: line)
         trackForMemoryLeaks(loader, file: file, line: line)
         return loader
@@ -155,7 +155,7 @@ final class PokepediaCacheIntegrationTests: XCTestCase {
         }
     }
     
-    private func save(_ data: Data, for url: URL, with loader: LocalPokemonListImageLoader, file: StaticString = #filePath, line: UInt = #line) {
+    private func save(_ data: Data, for url: URL, with loader: LocalImageLoader, file: StaticString = #filePath, line: UInt = #line) {
         do {
             try loader.save(data, for: url)
         } catch {
@@ -163,7 +163,7 @@ final class PokepediaCacheIntegrationTests: XCTestCase {
         }
     }
     
-    private func expect(_ sut: LocalPokemonListImageLoader, toLoad expectedData: Data, for url: URL, file: StaticString = #filePath, line: UInt = #line) {
+    private func expect(_ sut: LocalImageLoader, toLoad expectedData: Data, for url: URL, file: StaticString = #filePath, line: UInt = #line) {
         do {
             let loadedData = try sut.loadImageData(from: url)
             XCTAssertEqual(loadedData, expectedData, file: file, line: line)

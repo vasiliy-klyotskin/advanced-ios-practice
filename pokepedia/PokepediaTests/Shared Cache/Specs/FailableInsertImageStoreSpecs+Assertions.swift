@@ -1,5 +1,5 @@
 //
-//  FailableInsertPokemonListImageStoreSpecs+Assertions.swift
+//  FailableInsertImageStoreSpecs+Assertions.swift
 //  PokepediaTests
 //
 //  Created by Василий Клецкин on 8/6/23.
@@ -8,9 +8,9 @@
 import XCTest
 import Pokepedia
 
-extension FailableInsertPokemonListImageStoreSpecs where Self: XCTestCase {
+extension FailableInsertImageStoreSpecs where Self: XCTestCase {
     func assertThatInsertImageDataDeliversFailureOnInsertionError(
-        _ sut: PokemonListImageStore,
+        _ sut: ImageStore,
         file: StaticString = #filePath,
         line: UInt = #line
     ) {

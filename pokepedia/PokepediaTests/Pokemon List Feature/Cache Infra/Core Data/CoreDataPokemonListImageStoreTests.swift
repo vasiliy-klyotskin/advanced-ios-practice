@@ -1,5 +1,5 @@
 //
-//  CoreDataPokemonListImageDataStoreTests.swift
+//  CoreDataImageDataStoreTests.swift
 //  PokepediaTests
 //
 //  Created by Василий Клецкин on 8/4/23.
@@ -9,7 +9,7 @@ import XCTest
 import Pokepedia
 import CoreData
 
-final class CoreDataPokemonListImageStoreTests: XCTestCase, FailablePokemonListImageStoreSpecs {
+final class CoreDataImageStoreTests: XCTestCase, FailableImageStoreSpecs {
     func test_retrieveImageData_deliversNotFoundWhenEmpty() {
         let (sut, _) = makeSut()
         

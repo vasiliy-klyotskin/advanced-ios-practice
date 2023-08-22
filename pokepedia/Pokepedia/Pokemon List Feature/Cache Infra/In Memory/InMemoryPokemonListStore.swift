@@ -30,7 +30,7 @@ extension InMemoryPokemonListStore: PokemonListStore {
     }
 }
 
-extension InMemoryPokemonListStore: PokemonListImageStore {
+extension InMemoryPokemonListStore: ImageStore {
     public func retrieveImage(for url: URL) throws -> Data? {
         listImagesCache[url]
     }

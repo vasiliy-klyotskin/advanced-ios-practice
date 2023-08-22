@@ -1,5 +1,5 @@
 //
-//  LoadPokemonListImageFromCacheUseCaseTests.swift
+//  LoadImageFromCacheUseCaseTests.swift
 //  PokepediaTests
 //
 //  Created by Василий Клецкин on 8/3/23.
@@ -8,7 +8,7 @@
 import XCTest
 import Pokepedia
 
-final class LoadPokemonListImageFromCacheUseCaseTests: XCTestCase {
+final class LoadImageFromCacheUseCaseTests: XCTestCase {
     func test_init_doesNotMessageStoreUponCreation() {
         let (_, store) = makeSut()
         
@@ -36,7 +36,7 @@ final class LoadPokemonListImageFromCacheUseCaseTests: XCTestCase {
         let (sut, store) = makeSut()
         store.stubRetrieveWithEmpty()
         
-        expect(sut, toCompleteWith: .failure(LocalPokemonListImageLoader.LoadError.notFound))
+        expect(sut, toCompleteWith: .failure(LocalImageLoader.LoadError.notFound))
     }
     
     func test_loadImageDataFromURL_deliversStoredDataOnFoundData() {
@@ -49,16 +49,16 @@ final class LoadPokemonListImageFromCacheUseCaseTests: XCTestCase {
     
     // MARK: - Helpers
     
-    private func makeSut(file: StaticString = #filePath, line: UInt = #line) -> (LocalPokemonListImageLoader, PokemonListImageStoreSpy) {
-        let store = PokemonListImageStoreSpy()
-        let sut = LocalPokemonListImageLoader(store: store)
+    private func makeSut(file: StaticString = #filePath, line: UInt = #line) -> (LocalImageLoader, ImageStoreSpy) {
+        let store = ImageStoreSpy()
+        let sut = LocalImageLoader(store: store)
         trackForMemoryLeaks(store, file: file, line: line)
         trackForMemoryLeaks(sut, file: file, line: line)
         return (sut, store)
     }
     
     private func expect(
-        _ sut: LocalPokemonListImageLoader,
+        _ sut: LocalImageLoader,
         toCompleteWith expectedResult: Result<Data, Error>,
         file: StaticString = #filePath,
         line: UInt = #line

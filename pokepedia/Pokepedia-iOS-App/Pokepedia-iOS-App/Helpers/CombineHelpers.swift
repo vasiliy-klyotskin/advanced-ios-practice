@@ -68,7 +68,7 @@ public extension LocalPokemonListLoader {
     }
 }
 
-public extension LocalPokemonListImageLoader {
+public extension LocalImageLoader {
     typealias Publisher = AnyPublisher<Data, Error>
     
     func loadImageDataPublisher(from url: URL) -> Publisher {
@@ -83,14 +83,14 @@ public extension LocalPokemonListImageLoader {
     }
 }
 
-extension PokemonListImageCache {
+extension ImageCache {
     func saveIgnoringResult(_ data: Data, for url: URL) {
         try? save(data, for: url)
     }
 }
 
 extension Publisher where Output == Data {
-    func caching(to cache: PokemonListImageCache, using url: URL) -> AnyPublisher<Output, Failure> {
+    func caching(to cache: ImageCache, using url: URL) -> AnyPublisher<Output, Failure> {
         handleEvents(receiveOutput: { data in
             cache.saveIgnoringResult(data, for: url)
         }).eraseToAnyPublisher()

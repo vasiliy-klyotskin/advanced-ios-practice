@@ -1,5 +1,5 @@
 //
-//  PokemonListImageStoreSpecs+Helpers.swift
+//  ImageStoreSpecs+Helpers.swift
 //  PokepediaTests
 //
 //  Created by Василий Клецкин on 8/6/23.
@@ -8,9 +8,9 @@
 import XCTest
 import Pokepedia
 
-extension PokemonListImageStoreSpecs where Self: XCTestCase {
+extension ImageStoreSpecs where Self: XCTestCase {
     func expect(
-        _ sut: PokemonListImageStore,
+        _ sut: ImageStore,
         toCompleteRetrievalWith expectedResult: Result<Data?, Error>,
         for url: URL,
         file: StaticString = #filePath,

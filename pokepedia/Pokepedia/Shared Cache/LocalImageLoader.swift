@@ -1,5 +1,5 @@
 //
-//  LocalPokemonListImageLoader.swift
+//  LocalImageLoader.swift
 //  Pokepedia
 //
 //  Created by Василий Клецкин on 8/3/23.
@@ -7,15 +7,15 @@
 
 import Foundation
 
-public protocol PokemonListImageStore {
+public protocol ImageStore {
     func retrieveImage(for url: URL) throws -> Data?
     func insertImage(data: Data, for url: URL) throws
 }
 
-public final class LocalPokemonListImageLoader: PokemonListImageCache {
-    private let store: PokemonListImageStore
+public final class LocalImageLoader: ImageCache {
+    private let store: ImageStore
 
-    public init(store: PokemonListImageStore) {
+    public init(store: ImageStore) {
         self.store = store
     }
     
