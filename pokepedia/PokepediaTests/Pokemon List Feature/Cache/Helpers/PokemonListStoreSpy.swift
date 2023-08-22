@@ -8,7 +8,7 @@
 import Foundation
 import Pokepedia
 
-final class PokemonListStoreSpy: PokemonListStore {
+final class PokemonListStoreSpy {
     enum Message: Equatable {
         case retrieval
         case deletion
@@ -19,23 +19,6 @@ final class PokemonListStoreSpy: PokemonListStore {
     var deletionResult: Result<Void, Error> = .failure(anyNSError())
     var insertionResult: Result<Void, Error> = .failure(anyNSError())
     var receivedMessages: [Message] = []
-    
-    func retrieve() throws -> CachedPokemonList? {
-        receivedMessages.append(.retrieval)
-        return try retrieveResult.get()
-    }
-    
-    func delete() throws {
-        receivedMessages.append(.deletion)
-        try deletionResult.get()
-    }
-    
-    func insert(local: LocalPokemonList, timestamp: Date) throws {
-        receivedMessages.append(.insertion(timestamp: timestamp, local: local))
-        try insertionResult.get()
-    }
-    
-    // MARK: - Retrieval
     
     func stubRetrieve(with error: Error) {
         retrieveResult = .failure(error)
@@ -49,8 +32,6 @@ final class PokemonListStoreSpy: PokemonListStore {
         retrieveResult = .success(nil)
     }
     
-    // MARK: - Deletion
-    
     func stubDeletion(with error: Error) {
         deletionResult = .failure(error)
     }
@@ -59,13 +40,28 @@ final class PokemonListStoreSpy: PokemonListStore {
         deletionResult = .success(())
     }
     
-    // MARK: - Insertion
-    
     func stubInsertion(with error: Error) {
         insertionResult = .failure(error)
     }
     
     func stubInsertionWithSuccess() {
         insertionResult = .success(())
+    }
+}
+
+extension PokemonListStoreSpy: PokemonListStore {
+    func retrieve() throws -> CachedPokemonList? {
+        receivedMessages.append(.retrieval)
+        return try retrieveResult.get()
+    }
+    
+    func delete() throws {
+        receivedMessages.append(.deletion)
+        try deletionResult.get()
+    }
+    
+    func insert(local: LocalPokemonList, timestamp: Date) throws {
+        receivedMessages.append(.insertion(timestamp: timestamp, local: local))
+        try insertionResult.get()
     }
 }

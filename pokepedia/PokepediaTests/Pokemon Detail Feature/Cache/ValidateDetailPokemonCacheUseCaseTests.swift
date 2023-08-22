@@ -17,7 +17,7 @@ final class ValidateDetailPokemonCacheUseCaseTests: XCTestCase {
     
     func test_validateCache_deletesCacheOnRetrievalError() {
         let (sut, store) = makeSut()
-        store.stubRetrieve(with: anyNSError())
+        store.stubRetrieveForValidation(with: anyNSError())
 
         sut.validateCache()
 
@@ -26,7 +26,7 @@ final class ValidateDetailPokemonCacheUseCaseTests: XCTestCase {
 
     func test_validateCache_doesNotDeleteCacheOnEmptyCache() {
         let (sut, store) = makeSut()
-        store.stubEmptyRetrieve()
+        store.stubEmptyRetrieveForValidation()
 
         sut.validateCache()
 
@@ -39,7 +39,7 @@ final class ValidateDetailPokemonCacheUseCaseTests: XCTestCase {
         let expired = fixedCurrentDate.minusDetailCacheMaxAge().adding(seconds: -1)
         let notExpired = fixedCurrentDate.minusDetailCacheMaxAge().adding(seconds: 1)
         let expirationDate = fixedCurrentDate.minusDetailCacheMaxAge()
-        store.stubRetrieveWith([
+        store.stubRetrieveForValidationWith([
             .init(timestamp: expired, id: 0),
             .init(timestamp: expirationDate, id: 1),
             .init(timestamp: notExpired, id: 2),
@@ -71,15 +71,5 @@ final class ValidateDetailPokemonCacheUseCaseTests: XCTestCase {
         trackForMemoryLeaks(store, file: file, line: line)
         trackForMemoryLeaks(sut, file: file, line: line)
         return (sut, store)
-    }
-}
-
-extension Date {
-    func minusDetailCacheMaxAge() -> Date {
-        return adding(days: -detailCacheMaxAgeInDays)
-    }
-    
-    private var detailCacheMaxAgeInDays: Int {
-        return 1
     }
 }
