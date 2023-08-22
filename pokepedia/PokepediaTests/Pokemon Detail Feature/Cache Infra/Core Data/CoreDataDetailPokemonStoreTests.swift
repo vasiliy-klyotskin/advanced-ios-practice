@@ -8,85 +8,53 @@
 import XCTest
 import Pokepedia
 
-final class CoreDataDetailPokemonStoreTests: XCTestCase {
+final class CoreDataDetailPokemonStoreTests: XCTestCase, DetailPokemonStoreSpecs {
     func test_retrieveForId_returnsEmptyOnEmptyCache() {
-        ids.forEach { id in
-            let sut = makeSut()
-            
-            let retrieval = sut.retrieve(for: id)
-            
-            XCTAssertEqual(retrieval, nil)
-        }
+        let sut = { self.makeSut() }
+        
+        assertThat_retrieveForId_returnsEmptyOnEmptyCache(sut: sut)
     }
     
     func test_retrieveForValidation_returnsEmptyOnEmptyCache() throws {
         let sut = makeSut()
         
-        let validationRetrieval = try sut.retrieveForValidation()
-        
-        XCTAssertEqual(validationRetrieval, [])
+        try assertThat_retrieveForValidation_returnsEmptyOnEmptyCache(sut: sut)
     }
     
     func test_retrieveForId_returnsCacheForIdWhenCacheIsNotEmpty() {
         let sut = makeSut()
-        insertCacheForIds(sut: sut)
         
-        ids.forEach { id in
-            let retrieval = sut.retrieve(for: id)
-            
-            XCTAssertEqual(retrieval, cache(for: id))
-        }
+        assertThat_retrieveForId_returnsCacheForIdWhenCacheIsNotEmpty(sut: sut)
     }
     
     func test_retrieveForValidation_returnsValidationRetrievalWhenCacheIsNotEmpty() throws {
         let sut = makeSut()
-        insertCacheForIds(sut: sut)
         
-        let receivedValidationRetrieval = try sut.retrieveForValidation()
-        
-        let expectedRetrievals = ids.map { validationRetrieval(for: $0) }
-        XCTAssertEqual(Set(receivedValidationRetrieval), Set(expectedRetrievals))
+        try assertThat_retrieveForValidation_returnsValidationRetrievalWhenCacheIsNotEmpty(sut: sut)
     }
     
-    func test_deleteForId_deletesCacheForParticularId() throws {
+    func test_deleteForId_deletesCacheForParticularId() {
         let sut = makeSut()
-        sut.insert(cache(for: 0), for: 0)
-        sut.insert(cache(for: 7), for: 7)
         
-        sut.delete(for: 7)
-        
-        XCTAssertEqual(sut.retrieve(for: 0), cache(for: 0))
-        XCTAssertEqual(sut.retrieve(for: 7), nil)
+        assertThat_deleteForId_deletesCacheForParticularId(sut: sut)
     }
     
-    func test_deleteForId_affectsValidationRetrieval() {
+    func test_deleteForId_affectsValidationRetrieval() throws {
         let sut = makeSut()
-        sut.insert(cache(for: 0), for: 0)
-        sut.insert(cache(for: 7), for: 7)
         
-        sut.delete(for: 7)
-        
-        XCTAssertEqual(try sut.retrieveForValidation(), [validationRetrieval(for: 0)])
+        try assertThat_deleteForId_affectsValidationRetrieval(sut: sut)
     }
     
     func test_deleteAll_removesAllPokemons() {
         let sut = makeSut()
-        insertCacheForIds(sut: sut)
         
-        sut.deleteAll()
-        
-        ids.forEach { id in
-            XCTAssertEqual(sut.retrieve(for: id), nil)
-        }
+        assertThat_deleteAll_removesAllPokemons(sut: sut)
     }
     
     func test_deleteAll_cauesesValidationRetrievalsAreEmpty() throws {
         let sut = makeSut()
-        insertCacheForIds(sut: sut)
         
-        sut.deleteAll()
-        
-        XCTAssertEqual(try sut.retrieveForValidation(), [])
+        try assertThat_DeleteAll_cauesesValidationRetrievalsAreEmpty(sut: sut)
     }
     
     // MARK: - Helpers
@@ -96,23 +64,5 @@ final class CoreDataDetailPokemonStoreTests: XCTestCase {
         let sut = try! CoreDataDetailPokemonStore(storeUrl: storeURL)
         trackForMemoryLeaks(sut, file: file, line: line)
         return sut
-    }
-    
-    private let ids = [0, 1, 2]
-    
-    private func cache(for id: Int) -> DetailPokemonCache {
-        let date = Date.distantPast.addingTimeInterval(TimeInterval(id))
-        return .init(timestamp: date, local: localDetail(for: id).local)
-    }
-    
-    private func validationRetrieval(for id: Int) -> DetailPokemonValidationRetrieval {
-        let cache = cache(for: id)
-        return .init(timestamp: cache.timestamp, id: id)
-    }
-    
-    private func insertCacheForIds(sut: DetailPokemonStore) {
-        ids.forEach { id in
-            sut.insert(cache(for: id), for: id)
-        }
     }
 }
