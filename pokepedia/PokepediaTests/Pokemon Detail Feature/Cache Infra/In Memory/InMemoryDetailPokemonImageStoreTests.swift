@@ -1,14 +1,15 @@
 //
-//  InMemoryImageStoreTests.swift
+//  InMemoryDetailPokemonImageStoreTests.swift
 //  PokepediaTests
 //
-//  Created by Василий Клецкин on 8/6/23.
+//  Created by Василий Клецкин on 8/22/23.
 //
 
-import XCTest
+import Foundation
 import Pokepedia
+import XCTest
 
-final class InMemoryPokemonListImageStoreTests: XCTestCase, ImageStoreSpecs {
+final class InMemoryDetailPokemonImageStoreTests: XCTestCase, ImageStoreSpecs {
     func test_retrieveImageData_deliversNotFoundWhenEmpty() {
         let sut = makeSut()
         
@@ -35,8 +36,8 @@ final class InMemoryPokemonListImageStoreTests: XCTestCase, ImageStoreSpecs {
     
     // MARK: - Helpers
     
-    private func makeSut(file: StaticString = #filePath, line: UInt = #line) -> InMemoryPokemonListStore {
-        let sut = InMemoryPokemonListStore()
+    private func makeSut(file: StaticString = #filePath, line: UInt = #line) -> InMemoryDetailPokemonStore {
+        let sut = InMemoryDetailPokemonStore()
         trackForMemoryLeaks(sut, file: file, line: line)
         return sut
     }
