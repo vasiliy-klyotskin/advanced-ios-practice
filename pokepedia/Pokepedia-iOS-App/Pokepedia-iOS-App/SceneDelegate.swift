@@ -15,25 +15,27 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     var window: UIWindow?
     
     private let baseUrl = URL(string: "http://127.0.0.1:8080")!
+    
     private let storeUrl = NSPersistentContainer
         .defaultDirectoryURL()
         .appendingPathComponent("feed-store.sqlite")
-    private let pageSize = 50
     
     private lazy var scheduler: AnyDispatchQueueScheduler = DispatchQueue(
-        label: "com.essentialdeveloper.infra.queue",
+        label: "klyotskin.pokepedia.infra.queue",
         qos: .userInitiated,
         attributes: .concurrent
     ).eraseToAnyScheduler()
     
-    private lazy var httpClient: HTTPClient = {
+    private let navigationController = UINavigationController()
+    
+    lazy var httpClient: HTTPClient = {
         let session = URLSession(configuration: .ephemeral)
         session.configuration.urlCache = nil
         let client = URLSessionHTTPClient(session: session)
         return client
     }()
     
-    private lazy var store: PokemonListStore & PokemonListImageStore = {
+    lazy var store: PokemonListStore & PokemonListImageStore = {
         do {
             return try CoreDataPokemonListStore(storeUrl: storeUrl)
         } catch {
@@ -42,25 +44,15 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         }
     }()
     
-    private lazy var localListLoader: LocalPokemonListLoader = {
-        LocalPokemonListLoader(store: store)
-    }()
-    
-    private lazy var localListImageLoader: LocalPokemonListImageLoader = {
-        LocalPokemonListImageLoader(store: store)
-    }()
-    
-    private let navigationController = UINavigationController()
-    
     convenience init(
-        httpClient: HTTPClient,
+        scheduler: AnyDispatchQueueScheduler,
         store: PokemonListStore & PokemonListImageStore,
-        scheduler: AnyDispatchQueueScheduler
+        httpClient: HTTPClient
     ) {
         self.init()
+        self.scheduler = scheduler
         self.httpClient = httpClient
         self.store = store
-        self.scheduler = scheduler
     }
 
     func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
@@ -70,98 +62,23 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     }
     
     func sceneWillResignActive(_ scene: UIScene) {
-        try? localListLoader.validateCache()
+        try? LocalPokemonListLoader(store: store).validateCache()
     }
     
     func configureWindow() {
-        let pokemonListVc = PokemonListUIComposer.compose(
-            loader: makePaginatedRemoteListLoaderWithLocalFallback,
-            imageLoader: makeListIconLoader,
-            onItemSelected: navigateToDetail
-        )
-        navigationController.viewControllers = [pokemonListVc]
+        let pokemonList = PokemonListFeatureComposer(
+            scheduler: scheduler,
+            baseUrl: baseUrl,
+            store: store,
+            httpClient: httpClient
+        ).compose(onItemSelected: navigateToDetail)
+        navigationController.viewControllers = [pokemonList]
         window?.rootViewController = navigationController
         window?.makeKeyAndVisible()
     }
     
-    private func makeRemoteListLoader(after item: PokemonListItem? = nil) -> AnyPublisher<PokemonList, Error> {
-        httpClient
-            .getPublisher(request: PokemonListEndpoint.get(after: item, limit: pageSize).make(with: baseUrl))
-            .tryMap(RemoteMapper<PokemonListRemote>.map)
-            .tryMap(PokemonListRemoteMapper.map)
-            .eraseToAnyPublisher()
-    }
-    
-    private func makePaginatedRemoteListLoaderWithLocalFallback() -> AnyPublisher<Paginated<PokemonListItem>, Error> {
-        makeRemoteListLoader()
-            .caching(to: localListLoader)
-            .fallback(to: localListLoader.loadPublisher)
-            .map(makeFirstPage)
-            .subscribe(on: scheduler)
-            .eraseToAnyPublisher()
-    }
-    
-    private func makeFirstPage(list: PokemonList) -> Paginated<PokemonListItem> {
-        makePage(list: list, after: list.last)
-    }
-    
-    private func makePage(list: PokemonList, after item: PokemonListItem?) -> Paginated<PokemonListItem> {
-        Paginated(items: list, loadMorePublisher: item.map { item in
-            { self.makePublisherForNextPage(after: item) }
-        })
-    }
-    
-    private func makePublisherForNextPage(after item: PokemonListItem?) -> AnyPublisher<Paginated<PokemonListItem>, Error> {
-        localListLoader.loadPublisher()
-            .zip(makeRemoteListLoader(after: item))
-            .map { ($0 + $1, $1.last) }
-            .map(makePage)
-            .caching(to: localListLoader)
-            .subscribe(on: scheduler)
-            .eraseToAnyPublisher()
-    }
-    
-    private func makeListIconLoader(url: URL) -> AnyPublisher<Data, Error> {
-        return localListImageLoader
-            .loadImageDataPublisher(from: url)
-            .fallback { [httpClient, localListImageLoader, scheduler] in
-                httpClient.getPublisher(url: url)
-                    .tryMap(RemoteDataMapper.map)
-                    .caching(to: localListImageLoader, using: url)
-                    .subscribe(on: scheduler)
-                    .eraseToAnyPublisher()
-            }
-            .subscribe(on: scheduler)
-            .eraseToAnyPublisher()
-    }
-    
-    
     private func navigateToDetail(from listItem: PokemonListItem) {
-        let pokemonDetail = PokemonDetailUIComposer.compose(
-            title: listItem.name,
-            loader: detailLoader(for: listItem),
-            imageLoader: detailImageLoader(for: listItem)
-        )
+        let pokemonDetail = PokemonDetailFeatureComposer().compose(for: listItem)
         navigationController.pushViewController(pokemonDetail, animated: true)
-    }
-    
-    private func detailLoader(for listItem: PokemonListItem) -> () -> AnyPublisher<DetailPokemon, Error> {
-        {
-            Deferred {
-                Future { completion in
-                    completion(.failure(NSError()))
-                }
-            }.eraseToAnyPublisher()
-        }
-    }
-    
-    private func detailImageLoader(for listItem: PokemonListItem) -> (URL) -> AnyPublisher<Data, Error> {
-        { url in
-            Deferred {
-                Future { completion in
-                    completion(.failure(NSError()))
-                }
-            }.eraseToAnyPublisher()
-        }
     }
 }

@@ -21,6 +21,8 @@
 		D66787D92A29F4F900F8CC3C /* CombineHelpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = D66787D82A29F4F900F8CC3C /* CombineHelpers.swift */; };
 		D66787DD2A2A0F6900F8CC3C /* ResourceLoadingAdapter.swift in Sources */ = {isa = PBXBuildFile; fileRef = D66787DC2A2A0F6900F8CC3C /* ResourceLoadingAdapter.swift */; };
 		D66787DF2A2A0FC100F8CC3C /* PokemonListViewAdapter.swift in Sources */ = {isa = PBXBuildFile; fileRef = D66787DE2A2A0FC100F8CC3C /* PokemonListViewAdapter.swift */; };
+		D690E83F2A94A0E3000596ED /* PokemonListFeatureComposer.swift in Sources */ = {isa = PBXBuildFile; fileRef = D690E83E2A94A0E3000596ED /* PokemonListFeatureComposer.swift */; };
+		D690E8412A94AA72000596ED /* PokemonDetailFeatureComposer.swift in Sources */ = {isa = PBXBuildFile; fileRef = D690E8402A94AA72000596ED /* PokemonDetailFeatureComposer.swift */; };
 		D6A4C8EA2A2129AB0065ECF4 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6A4C8E92A2129AB0065ECF4 /* AppDelegate.swift */; };
 		D6A4C8EC2A2129AB0065ECF4 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6A4C8EB2A2129AB0065ECF4 /* SceneDelegate.swift */; };
 		D6A4C8F62A2129AB0065ECF4 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D6A4C8F42A2129AB0065ECF4 /* LaunchScreen.storyboard */; };
@@ -83,6 +85,8 @@
 		D66787D82A29F4F900F8CC3C /* CombineHelpers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CombineHelpers.swift; sourceTree = "<group>"; };
 		D66787DC2A2A0F6900F8CC3C /* ResourceLoadingAdapter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResourceLoadingAdapter.swift; sourceTree = "<group>"; };
 		D66787DE2A2A0FC100F8CC3C /* PokemonListViewAdapter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PokemonListViewAdapter.swift; sourceTree = "<group>"; };
+		D690E83E2A94A0E3000596ED /* PokemonListFeatureComposer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PokemonListFeatureComposer.swift; sourceTree = "<group>"; };
+		D690E8402A94AA72000596ED /* PokemonDetailFeatureComposer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PokemonDetailFeatureComposer.swift; sourceTree = "<group>"; };
 		D6A4C8E62A2129AB0065ECF4 /* Pokepedia-iOS-App.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Pokepedia-iOS-App.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		D6A4C8E92A2129AB0065ECF4 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		D6A4C8EB2A2129AB0065ECF4 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -138,6 +142,7 @@
 		D62EF3A82A598ED300CE968B /* Composers */ = {
 			isa = PBXGroup;
 			children = (
+				D690E83E2A94A0E3000596ED /* PokemonListFeatureComposer.swift */,
 				D6360FE82A234C1200A28F11 /* PokemonListUIComposer.swift */,
 				D6B958E32A2A21CF0050DCB9 /* ListPokemonItemUIComposer.swift */,
 				D64089512A83583500B70823 /* LoadMorePokemonItemsUIComposer.swift */,
@@ -250,6 +255,7 @@
 		D6BF59732A722CEC008175E5 /* Composers */ = {
 			isa = PBXGroup;
 			children = (
+				D690E8402A94AA72000596ED /* PokemonDetailFeatureComposer.swift */,
 				D6BF59562A71A767008175E5 /* PokemonDetailUIComposer.swift */,
 				D6BF59712A722CE8008175E5 /* PokemonDetailInfoUIComposer.swift */,
 			);
@@ -414,9 +420,11 @@
 				D6EC8BB52A265018004A525E /* WeakProxy.swift in Sources */,
 				D6B958E42A2A21CF0050DCB9 /* ListPokemonItemUIComposer.swift in Sources */,
 				D6BF596C2A72264C008175E5 /* PokemonDetailViewAdapter.swift in Sources */,
+				D690E83F2A94A0E3000596ED /* PokemonListFeatureComposer.swift in Sources */,
 				D6BF59722A722CE8008175E5 /* PokemonDetailInfoUIComposer.swift in Sources */,
 				D6BF59572A71A767008175E5 /* PokemonDetailUIComposer.swift in Sources */,
 				D66787D92A29F4F900F8CC3C /* CombineHelpers.swift in Sources */,
+				D690E8412A94AA72000596ED /* PokemonDetailFeatureComposer.swift in Sources */,
 				D6360FE92A234C1200A28F11 /* PokemonListUIComposer.swift in Sources */,
 				D6A4C8EA2A2129AB0065ECF4 /* AppDelegate.swift in Sources */,
 				D66787DD2A2A0F6900F8CC3C /* ResourceLoadingAdapter.swift in Sources */,
