@@ -62,10 +62,7 @@ final class DetailPokemonCacheIntegrationTests: XCTestCase {
         let loaderToPerformValidation = makeListLoader()
         let loaderToPerformLoad = makeListLoader()
         let list = pokemonList().model
-        
-        ids.forEach { id in
-            loaderToPerformSave.save(detail: localDetail(for: id).model)
-        }
+        saveDetailsForIds(sut: loaderToPerformSave)
         
         loaderToPerformValidation.validateCache()
 
@@ -78,10 +75,7 @@ final class DetailPokemonCacheIntegrationTests: XCTestCase {
         let loaderToPerformSave = makeListLoader(currentDate: .distantPast)
         let loaderToPerformValidation = makeListLoader(currentDate: Date())
         let loaderToPerformLoad = makeListLoader()
-        
-        ids.forEach { id in
-            loaderToPerformSave.save(detail: localDetail(for: id).model)
-        }
+        saveDetailsForIds(sut: loaderToPerformSave)
         
         loaderToPerformValidation.validateCache()
 
@@ -139,6 +133,12 @@ final class DetailPokemonCacheIntegrationTests: XCTestCase {
     }
     
     private let ids = [0, 1, 2]
+    
+    private func saveDetailsForIds(sut: LocalDetailPokemonLoader) {
+        ids.forEach { id in
+            sut.save(detail: localDetail(for: id).model)
+        }
+    }
     
 //    private func makeImageLoader(file: StaticString = #filePath, line: UInt = #line) -> LocalImageLoader {
 //        let storeUrl = testSpecificStoreURL()
