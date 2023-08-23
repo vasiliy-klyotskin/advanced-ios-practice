@@ -56,18 +56,23 @@ final class DetailPokemonCacheIntegrationTests: XCTestCase {
             expect(loaderToPerformLoad, for: id, toLoad: latestDetail)
         }
     }
-//
-//    func test_validateListCache_doesNotDeleteRecentlySavedList() {
-//        let listLoaderToPerformSave = makeListLoader()
-//        let listLoaderToPerformValidation = makeListLoader()
-//        let listLoaderToPerformLoad = makeListLoader()
-//        let list = pokemonList().model
-//
-//        save(list, with: listLoaderToPerformSave)
-//        validateCache(with: listLoaderToPerformValidation)
-//
-//        expect(listLoaderToPerformLoad, toLoad: list)
-//    }
+
+    func test_validateListCache_doesNotDeleteRecentlySavedList() {
+        let loaderToPerformSave = makeListLoader()
+        let loaderToPerformValidation = makeListLoader()
+        let loaderToPerformLoad = makeListLoader()
+        let list = pokemonList().model
+        
+        ids.forEach { id in
+            loaderToPerformSave.save(detail: localDetail(for: id).model)
+        }
+        
+        loaderToPerformValidation.validateCache()
+
+        ids.forEach { id in
+            expect(loaderToPerformLoad, for: id, toLoad: localDetail(for: id).model)
+        }
+    }
 //
 //    func test_validateListCache_deletesListSavedInADistantPast() {
 //        let listLoaderToPerformSave = makeListLoader(currentDate: .distantPast)
