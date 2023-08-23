@@ -36,6 +36,17 @@ final class PokepediaAPIEndToEndTests: XCTestCase {
         }
     }
     
+    func test_e2eApi_returnsExpectedDetail() {
+        switch getDetailResult() {
+        case .success(let receivedDetail):
+            XCTAssertEqual(receivedDetail, expectedDetail())
+        case .failure(let error):
+            XCTFail("Expected success but got error: \(error.localizedDescription)")
+        default:
+            XCTFail("Expected success but got no result")
+        }
+    }
+    
     // MARK: - Helpers
     
     private func getListResult(file: StaticString = #filePath, line: UInt = #line) -> Result<PokemonList, Error>? {
@@ -69,6 +80,25 @@ final class PokepediaAPIEndToEndTests: XCTestCase {
             result = receivedResult.flatMap { (data, response) in
                 Result { try dataMapping(data, response) }
             }
+            exp.fulfill()
+        }
+        wait(for: [exp], timeout: 5)
+        return result
+    }
+    
+    private func getDetailResult(file: StaticString = #filePath, line: UInt = #line) -> Result<DetailPokemon, Error>? {
+        let session = URLSession(configuration: .ephemeral)
+        let client = URLSessionHTTPClient(session: session)
+        let request = DetailPokemonEndpoint.get(0).make(with: baseUrl)
+        let dtoMapping = RemoteMapper<DetailPokemonRemote>.map
+        let modelMapping = DetailPokemonRemoteMapper.map
+        
+        var result: Result<DetailPokemon, Error>?
+        let exp = expectation(description: "Waiting for request to be completed")
+        client.perform(request) { receivedResult in
+            result = receivedResult.flatMap { (data, response) in
+                Result { try dtoMapping(data, response) }
+            }.map(modelMapping)
             exp.fulfill()
         }
         wait(for: [exp], timeout: 5)
@@ -142,5 +172,27 @@ final class PokepediaAPIEndToEndTests: XCTestCase {
             .init(color: "901000", name: "Color name 13"),
             .init(color: "910000", name: "Color name 14"),
         ][index]
+    }
+    
+    private func expectedDetail() -> DetailPokemon {
+        .init(
+            info: .init(
+                imageUrl: URL(string: "http://detail-image-0.com")!,
+                id: 0,
+                name: "name",
+                genus: "genus",
+                flavorText: "flavor"
+            ),
+            abilities: [
+                .init(
+                    title: "title",
+                    subtitle: "subtitle",
+                    damageClass: "damage",
+                    damageClassColor: "damageColor",
+                    type: "type",
+                    typeColor: "typeColor"
+                )
+            ]
+        )
     }
 }
