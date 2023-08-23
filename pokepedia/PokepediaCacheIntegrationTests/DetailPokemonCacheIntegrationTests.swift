@@ -20,7 +20,7 @@ final class DetailPokemonCacheIntegrationTests: XCTestCase {
     
     // MARK: - LocalPokemonListLoader (CoreDataPokemonListStore) Tests
     
-    func test_loadList_deliversNoListOnEmptyCache() {
+    func test_loadDetail_deliversNoListOnEmptyCache() {
         let detailLoader = makeListLoader()
         
         ids.forEach { id in
@@ -28,7 +28,7 @@ final class DetailPokemonCacheIntegrationTests: XCTestCase {
         }
     }
     
-    func test_loadList_deliversListSavedOnASeparateInstance() {
+    func test_loadDetail_deliversListSavedOnASeparateInstance() {
         let loaderToPerformSave = makeListLoader()
         let loaderToPerformLoad = makeListLoader()
         
@@ -40,19 +40,22 @@ final class DetailPokemonCacheIntegrationTests: XCTestCase {
             expect(loaderToPerformLoad, for: id, toLoad: detail)
         }
     }
-//
-//    func test_saveList_overridesListSavedOnASeparateInstance() {
-//        let listLoaderToPerformFirstSave = makeListLoader()
-//        let listLoaderToPerformLastSave = makeListLoader()
-//        let listLoaderToPerformLoad = makeListLoader()
-//        let firstList = pokemonList().model
-//        let latestList = pokemonList().model
-//
-//        save(firstList, with: listLoaderToPerformFirstSave)
-//        save(latestList, with: listLoaderToPerformLastSave)
-//
-//        expect(listLoaderToPerformLoad, toLoad: latestList)
-//    }
+
+    func test_saveDetail_overridesListSavedOnASeparateInstance() {
+        let loaderToPerformFirstSave = makeListLoader()
+        let loaderToPerformLastSave = makeListLoader()
+        let loaderToPerformLoad = makeListLoader()
+        
+        ids.forEach { id in
+            let firstDetail = localDetail(for: id).model
+            let latestDetail = localDetail(for: id).model
+
+            loaderToPerformFirstSave.save(detail: firstDetail)
+            loaderToPerformLastSave.save(detail: latestDetail)
+
+            expect(loaderToPerformLoad, for: id, toLoad: latestDetail)
+        }
+    }
 //
 //    func test_validateListCache_doesNotDeleteRecentlySavedList() {
 //        let listLoaderToPerformSave = makeListLoader()
