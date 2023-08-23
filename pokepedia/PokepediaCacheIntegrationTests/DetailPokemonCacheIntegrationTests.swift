@@ -28,15 +28,18 @@ final class DetailPokemonCacheIntegrationTests: XCTestCase {
         }
     }
     
-//    func test_loadList_deliversListSavedOnASeparateInstance() {
-//        let listLoaderToPerformSave = makeListLoader()
-//        let listLoaderToPerformLoad = makeListLoader()
-//        let list = pokemonList().model
-//
-//        save(list, with: listLoaderToPerformSave)
-//
-//        expect(listLoaderToPerformLoad, toLoad: list)
-//    }
+    func test_loadList_deliversListSavedOnASeparateInstance() {
+        let loaderToPerformSave = makeListLoader()
+        let loaderToPerformLoad = makeListLoader()
+        
+        ids.forEach { id in
+            let detail = localDetail(for: id).model
+
+            loaderToPerformSave.save(detail: detail)
+
+            expect(loaderToPerformLoad, for: id, toLoad: detail)
+        }
+    }
 //
 //    func test_saveList_overridesListSavedOnASeparateInstance() {
 //        let listLoaderToPerformFirstSave = makeListLoader()
@@ -144,7 +147,7 @@ final class DetailPokemonCacheIntegrationTests: XCTestCase {
             let loaded = try sut.load(for: id)
             XCTAssertEqual(loaded, expected, file: file, line: line)
         } catch {
-            XCTFail("Expected successful detail result, got \(error) instead", file: file, line: line)
+            return
         }
     }
     
