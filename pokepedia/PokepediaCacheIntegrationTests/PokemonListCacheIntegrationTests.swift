@@ -73,7 +73,7 @@ final class PokemonListCacheIntegrationTests: XCTestCase {
         expect(listLoaderToPerformSave, toLoad: nil)
     }
     
-    // MARK: - LocalImageLoader (CoreDataImageStore) Tests
+    // MARK: - LocalImageLoader (CoreDataPokemonListImageStore) Tests
     
     func test_loadImageData_deliversSavedDataOnASeparateInstance() {
         let imageLoaderToPerformSave = makeImageLoader()

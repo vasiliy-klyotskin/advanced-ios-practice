@@ -18,7 +18,7 @@ final class DetailPokemonCacheIntegrationTests: XCTestCase {
         undoStoreSideEffects()
     }
     
-    // MARK: - LocalPokemonListLoader (CoreDataPokemonListStore) Tests
+    // MARK: - LocalDetailPokemonLoader (CoreDataPokemonListStore) Tests
     
     func test_loadDetail_deliversNoListOnEmptyCache() {
         let detailLoader = makeListLoader()
@@ -84,38 +84,39 @@ final class DetailPokemonCacheIntegrationTests: XCTestCase {
         }
     }
 
-//    // MARK: - LocalImageLoader (CoreDataImageStore) Tests
-//
-//    func test_loadImageData_deliversSavedDataOnASeparateInstance() {
-//        let imageLoaderToPerformSave = makeImageLoader()
-//        let imageLoaderToPerformLoad = makeImageLoader()
-//        let listLoader = makeListLoader()
-//        let list = pokemonList().model
-//        let imageUrl = list.first!.imageUrl
-//        let dataToSave = Data("any data".utf8)
-//
-//        save(list, with: listLoader)
-//        save(dataToSave, for: imageUrl, with: imageLoaderToPerformSave)
-//
-//        expect(imageLoaderToPerformLoad, toLoad: dataToSave, for: imageUrl)
-//    }
-//
-//    func test_saveImageData_overridesSavedImageDataOnASeparateInstance() {
-//        let imageLoaderToPerformFirstSave = makeImageLoader()
-//        let imageLoaderToPerformLastSave = makeImageLoader()
-//        let imageLoaderToPerformLoad = makeImageLoader()
-//        let feedLoader = makeListLoader()
-//        let list = pokemonList().model
-//        let imageUrl = list.first!.imageUrl
-//        let firstImageData = Data("first".utf8)
-//        let lastImageData = Data("last".utf8)
-//
-//        save(list, with: feedLoader)
-//        save(firstImageData, for: imageUrl, with: imageLoaderToPerformFirstSave)
-//        save(lastImageData, for: imageUrl, with: imageLoaderToPerformLastSave)
-//
-//        expect(imageLoaderToPerformLoad, toLoad: lastImageData, for: imageUrl)
-//    }
+    // MARK: - LocalImageLoader (CoreDataDetailPokemonImageStore) Tests
+
+    func test_loadImageData_deliversSavedDataOnASeparateInstance() {
+        let loaderToPerformSave = makeImageLoader()
+        let loaderToPerformLoad = makeImageLoader()
+        let detailLoader = makeListLoader()
+        let detail = localDetail(for: 0).model
+        let imageUrl = detail.info.imageUrl
+        let dataToSave = Data("any data".utf8)
+
+        detailLoader.save(detail: detail)
+        save(dataToSave, for: imageUrl, with: loaderToPerformSave)
+
+        expect(loaderToPerformLoad, toLoad: dataToSave, for: imageUrl)
+    }
+
+    func test_saveImageData_overridesSavedImageDataOnASeparateInstance() {
+        let loaderToPerformFirstSave = makeImageLoader()
+        let loaderToPerformLastSave = makeImageLoader()
+        let loaderToPerformLoad = makeImageLoader()
+        let detailLoader = makeListLoader()
+        let detail = localDetail(for: 0).model
+        let imageUrl = detail.info.imageUrl
+        let firstImageData = Data("first".utf8)
+        let lastImageData = Data("last".utf8)
+
+        detailLoader.save(detail: detail)
+        save(firstImageData, for: imageUrl, with: loaderToPerformFirstSave)
+        save(lastImageData, for: imageUrl, with: loaderToPerformLastSave)
+
+        
+        expect(loaderToPerformLoad, toLoad: lastImageData, for: imageUrl)
+    }
     
     // MARK: - Helpers
     
@@ -140,14 +141,14 @@ final class DetailPokemonCacheIntegrationTests: XCTestCase {
         }
     }
     
-//    private func makeImageLoader(file: StaticString = #filePath, line: UInt = #line) -> LocalImageLoader {
-//        let storeUrl = testSpecificStoreURL()
-//        let store = try! CoreDataPokemonListStore(storeUrl: storeUrl)
-//        let loader = LocalImageLoader(store: store)
-//        trackForMemoryLeaks(store, file: file, line: line)
-//        trackForMemoryLeaks(loader, file: file, line: line)
-//        return loader
-//    }
+    private func makeImageLoader(file: StaticString = #filePath, line: UInt = #line) -> LocalImageLoader {
+        let storeUrl = testSpecificStoreURL()
+        let store = try! CoreDataDetailPokemonStore(storeUrl: storeUrl)
+        let loader = LocalImageLoader(store: store)
+        trackForMemoryLeaks(store, file: file, line: line)
+        trackForMemoryLeaks(loader, file: file, line: line)
+        return loader
+    }
     
     private func expect(
         _ sut: LocalDetailPokemonLoader,
@@ -164,22 +165,22 @@ final class DetailPokemonCacheIntegrationTests: XCTestCase {
         }
     }
     
-//    private func save(_ data: Data, for url: URL, with loader: LocalImageLoader, file: StaticString = #filePath, line: UInt = #line) {
-//        do {
-//            try loader.save(data, for: url)
-//        } catch {
-//            XCTFail("Expected to save image data successfully, got error: \(error)", file: file, line: line)
-//        }
-//    }
-//
-//    private func expect(_ sut: LocalImageLoader, toLoad expectedData: Data, for url: URL, file: StaticString = #filePath, line: UInt = #line) {
-//        do {
-//            let loadedData = try sut.loadImageData(from: url)
-//            XCTAssertEqual(loadedData, expectedData, file: file, line: line)
-//        } catch {
-//            XCTFail("Expected successful image data result, got \(error) instead", file: file, line: line)
-//        }
-//    }
+    private func expect(_ sut: LocalImageLoader, toLoad expectedData: Data, for url: URL, file: StaticString = #filePath, line: UInt = #line) {
+        do {
+            let loadedData = try sut.loadImageData(from: url)
+            XCTAssertEqual(loadedData, expectedData, file: file, line: line)
+        } catch {
+            XCTFail("Expected successful image data result, got \(error) instead", file: file, line: line)
+        }
+    }
+    
+    private func save(_ data: Data, for url: URL, with loader: LocalImageLoader, file: StaticString = #filePath, line: UInt = #line) {
+        do {
+            try loader.save(data, for: url)
+        } catch {
+            XCTFail("Expected to save image data successfully, got error: \(error)", file: file, line: line)
+        }
+    }
     
     private func testSpecificStoreURL() -> URL {
         return cachesDirectory().appendingPathComponent("\(type(of: self)).store")
