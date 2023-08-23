@@ -73,18 +73,23 @@ final class DetailPokemonCacheIntegrationTests: XCTestCase {
             expect(loaderToPerformLoad, for: id, toLoad: localDetail(for: id).model)
         }
     }
-//
-//    func test_validateListCache_deletesListSavedInADistantPast() {
-//        let listLoaderToPerformSave = makeListLoader(currentDate: .distantPast)
-//        let listLoaderToPerformValidation = makeListLoader(currentDate: Date())
-//        let list = pokemonList().model
-//
-//        save(list, with: listLoaderToPerformSave)
-//        validateCache(with: listLoaderToPerformValidation)
-//
-//        expect(listLoaderToPerformSave, toLoad: nil)
-//    }
-//
+
+    func test_validateListCache_deletesListSavedInADistantPast() {
+        let loaderToPerformSave = makeListLoader(currentDate: .distantPast)
+        let loaderToPerformValidation = makeListLoader(currentDate: Date())
+        let loaderToPerformLoad = makeListLoader()
+        
+        ids.forEach { id in
+            loaderToPerformSave.save(detail: localDetail(for: id).model)
+        }
+        
+        loaderToPerformValidation.validateCache()
+
+        ids.forEach { id in
+            expect(loaderToPerformLoad, for: id, toLoad: nil)
+        }
+    }
+
 //    // MARK: - LocalImageLoader (CoreDataImageStore) Tests
 //
 //    func test_loadImageData_deliversSavedDataOnASeparateInstance() {
