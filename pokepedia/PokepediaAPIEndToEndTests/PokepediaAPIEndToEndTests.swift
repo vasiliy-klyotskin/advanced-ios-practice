@@ -26,7 +26,7 @@ final class PokepediaAPIEndToEndTests: XCTestCase {
     }
     
     func test_e2eApi_returnsListItemIcon() {
-        switch getListItemIconResult() {
+        switch getImageResult(for: listIconUrl()) {
         case .success(let data):
             XCTAssertFalse(data.isEmpty, "Data should not be empty")
         case .failure(let error):
@@ -40,6 +40,17 @@ final class PokepediaAPIEndToEndTests: XCTestCase {
         switch getDetailResult() {
         case .success(let receivedDetail):
             XCTAssertEqual(receivedDetail, expectedDetail())
+        case .failure(let error):
+            XCTFail("Expected success but got error: \(error.localizedDescription)")
+        default:
+            XCTFail("Expected success but got no result")
+        }
+    }
+    
+    func test_e2eApi_returnsDetailImage() {
+        switch getImageResult(for: detailImageUrl()) {
+        case .success(let data):
+            XCTAssertFalse(data.isEmpty, "Data should not be empty")
         case .failure(let error):
             XCTFail("Expected success but got error: \(error.localizedDescription)")
         default:
@@ -68,10 +79,10 @@ final class PokepediaAPIEndToEndTests: XCTestCase {
         return result
     }
     
-    private func getListItemIconResult(file: StaticString = #filePath, line: UInt = #line) -> Result<Data, Error>? {
+    private func getImageResult(for url: URL, file: StaticString = #filePath, line: UInt = #line) -> Result<Data, Error>? {
         let session = URLSession(configuration: .ephemeral)
         let client = URLSessionHTTPClient(session: session)
-        let request = URLRequest(url: listIconUrl())
+        let request = URLRequest(url: url)
         let dataMapping = RemoteDataMapper.map
         
         var result: Result<Data, Error>?
@@ -112,6 +123,10 @@ final class PokepediaAPIEndToEndTests: XCTestCase {
     
     private func listIconUrl() -> URL {
         URL(string: "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/1.png")!
+    }
+    
+    private func detailImageUrl() -> URL {
+        URL(string: "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/1.png")!
     }
     
     private func expectedItem(for index: Int) -> PokemonListItem {
