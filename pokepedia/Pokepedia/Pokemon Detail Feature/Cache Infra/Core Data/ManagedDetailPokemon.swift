@@ -60,6 +60,7 @@ extension ManagedDetailPokemon {
         let request = NSFetchRequest<ManagedDetailPokemon>(entityName: entity().name!)
         request.predicate = predicate
         request.fetchLimit = 1
+        request.returnsObjectsAsFaults = false
         return try context.fetch(request).first
     }
 }

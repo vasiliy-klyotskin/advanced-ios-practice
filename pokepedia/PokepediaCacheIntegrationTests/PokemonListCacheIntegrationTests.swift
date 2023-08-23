@@ -1,6 +1,6 @@
 //
-//  PokepediaCacheIntegrationTests.swift
-//  PokepediaCacheIntegrationTests
+//  PokemonListCacheIntegrationTests.swift
+//  PokemonListCacheIntegrationTests
 //
 //  Created by Василий Клецкин on 8/7/23.
 //
@@ -8,7 +8,7 @@
 import XCTest
 import Pokepedia
 
-final class PokepediaCacheIntegrationTests: XCTestCase {
+final class PokemonListCacheIntegrationTests: XCTestCase {
     override func setUp() {
         super.setUp()
         setupEmptyStoreState()

@@ -29,8 +29,10 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     private let navigationController = UINavigationController()
     
     lazy var httpClient: HTTPClient = {
-        let session = URLSession(configuration: .ephemeral)
-        session.configuration.urlCache = nil
+        let config = URLSessionConfiguration.default
+        config.requestCachePolicy = .reloadIgnoringLocalCacheData
+        config.urlCache = nil
+        let session = URLSession(configuration: config)
         let client = URLSessionHTTPClient(session: session)
         return client
     }()

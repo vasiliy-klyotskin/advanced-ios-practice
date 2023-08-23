@@ -53,8 +53,16 @@ extension ManagedPokemonListItem {
             managed.specialColor = local.specialType?.color
             managed.specialName = local.specialType?.name
             managed.imageUrl = local.imageUrl
+            managed.imageData = context.userInfo[local.imageUrl] as? Data
             return managed
         })
+        context.userInfo.removeAllObjects()
         return items
+    }
+    
+    override func prepareForDeletion() {
+        super.prepareForDeletion()
+        
+        managedObjectContext?.userInfo[imageUrl] = imageData
     }
 }

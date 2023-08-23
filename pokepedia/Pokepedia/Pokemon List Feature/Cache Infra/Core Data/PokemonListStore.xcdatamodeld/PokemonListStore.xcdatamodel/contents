@@ -2,7 +2,7 @@
 <model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="21754" systemVersion="22E261" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
     <entity name="ManagedPokemonListCache" representedClassName="ManagedPokemonListCache" syncable="YES">
         <attribute name="timestamp" attributeType="Date" usesScalarValueType="NO"/>
-        <relationship name="pokemonList" optional="YES" toMany="YES" deletionRule="Nullify" ordered="YES" destinationEntity="ManagedPokemonListItem" inverseName="cache" inverseEntity="ManagedPokemonListItem"/>
+        <relationship name="pokemonList" optional="YES" toMany="YES" deletionRule="Cascade" ordered="YES" destinationEntity="ManagedPokemonListItem" inverseName="cache" inverseEntity="ManagedPokemonListItem"/>
     </entity>
     <entity name="ManagedPokemonListItem" representedClassName="ManagedPokemonListItem" syncable="YES">
         <attribute name="id" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES"/>
