@@ -26,7 +26,7 @@ public final class LocalDetailPokemonLoader {
         case empty, expired
     }
     
-    public init(store: DetailPokemonStore, currentDate: @escaping () -> Date) {
+    public init(store: DetailPokemonStore, currentDate: @escaping () -> Date = Date.init) {
         self.store = store
         self.currentDate = currentDate
     }

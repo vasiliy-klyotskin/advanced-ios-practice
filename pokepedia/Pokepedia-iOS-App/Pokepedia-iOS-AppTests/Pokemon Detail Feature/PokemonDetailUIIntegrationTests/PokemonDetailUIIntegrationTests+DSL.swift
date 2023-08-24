@@ -33,7 +33,7 @@ extension DetailPokemonInfoCell {
         !reloadButton.isHidden
     }
     
-    var renderedImage: Data? {
+    var detailRenderedImage: Data? {
         pokemonImageView.image?.pngData()
     }
     
@@ -70,15 +70,15 @@ extension TitleCell {
 
 extension ListViewController {
     func pokemonDetailInfoView() -> UIView? {
-        tableView.dataSource?.tableView(tableView, cellForRowAt: .init(row: 0, section: detailSectionNumber))
+        tableView.dataSource?.tableView(tableView, cellForRowAt: .init(row: infoViewRow, section: detailSectionNumber))
     }
     
     func pokemonDetailAbilitiesTitleView() -> UIView? {
-        tableView.dataSource?.tableView(tableView, cellForRowAt: .init(row: 1, section: detailSectionNumber))
+        tableView.dataSource?.tableView(tableView, cellForRowAt: .init(row: abilitiesTitleRow, section: detailSectionNumber))
     }
     
     func pokemonDetailAbilityView(for index: Int) -> UIView? {
-        tableView.dataSource?.tableView(tableView, cellForRowAt: .init(row: index + 2, section: detailSectionNumber))
+        tableView.dataSource?.tableView(tableView, cellForRowAt: .init(row: abilityRow(for: index), section: detailSectionNumber))
     }
     
     func numberOfRenderedAbilities() -> Int {
@@ -91,8 +91,12 @@ extension ListViewController {
     
     @discardableResult
     func simulatePokemonDetailInfoViewVisible() -> DetailPokemonInfoCell? {
-        listPokemonItemView(at: 0) as? DetailPokemonInfoCell
+        pokemonDetailInfoView() as? DetailPokemonInfoCell
     }
     
+    var infoViewRow: Int { 0 }
+    var abilitiesTitleRow: Int { 1 }
+    func abilityRow(for index: Int) -> Int { index + 2 }
     var detailSectionNumber: Int { 0 }
+    
 }

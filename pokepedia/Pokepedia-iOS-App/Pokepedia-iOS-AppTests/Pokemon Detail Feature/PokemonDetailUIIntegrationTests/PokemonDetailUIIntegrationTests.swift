@@ -162,24 +162,24 @@ final class PokemonDetailUIIntegrationTests: XCTestCase {
         loader.completeDetailLoading(with: pokemon, at: 0)
         
         let view = sut.simulatePokemonDetailInfoViewVisible()
-        XCTAssertEqual(view?.renderedImage, nil, "Expected no rendered image for the view initially")
+        XCTAssertEqual(view?.detailRenderedImage, nil, "Expected no rendered image for the view initially")
 
         loader.completeImageLoadingWithError(at: 0)
-        XCTAssertEqual(view?.renderedImage, nil, "Expected no rendered image for the view when an image loading is failed")
+        XCTAssertEqual(view?.detailRenderedImage, nil, "Expected no rendered image for the view when an image loading is failed")
 
         view?.simulateReload()
-        XCTAssertEqual(view?.renderedImage, nil, "Expected no rendered image for the view when an image loading is reloaded")
+        XCTAssertEqual(view?.detailRenderedImage, nil, "Expected no rendered image for the view when an image loading is reloaded")
         
         let invalidImage = Data("ivalid data".utf8)
         loader.completeImageLoading(with: invalidImage, at: 1)
-        XCTAssertEqual(view?.renderedImage, nil, "Expected no rendered image for the view when an invalid image is loaded")
+        XCTAssertEqual(view?.detailRenderedImage, nil, "Expected no rendered image for the view when an invalid image is loaded")
 
         view?.simulateReload()
-        XCTAssertEqual(view?.renderedImage, nil, "Expected no rendered image for the view when an image loading is reloaded")
+        XCTAssertEqual(view?.detailRenderedImage, nil, "Expected no rendered image for the view when an image loading is reloaded")
         
         let image = makeImage().pngData()
         loader.completeImageLoading(with: image, at: 2)
-        XCTAssertEqual(view?.renderedImage, image, "Expected a rendered image for the view when the image is loaded successfuly")
+        XCTAssertEqual(view?.detailRenderedImage, image, "Expected a rendered image for the view when the image is loaded successfuly")
     }
 
     func test_loadDetailImageCompletion_dispatchesFromBackgroundToMainThread() {

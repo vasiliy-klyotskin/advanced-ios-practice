@@ -46,6 +46,15 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         }
     }()
     
+    lazy var detail: PokemonListStore & ImageStore = {
+        do {
+            return try CoreDataPokemonListStore(storeUrl: storeUrl)
+        } catch {
+            assertionFailure("Failed to instantiate CoreData store with error: \(error.localizedDescription)")
+            return InMemoryPokemonListStore()
+        }
+    }()
+    
     convenience init(
         scheduler: AnyDispatchQueueScheduler,
         store: PokemonListStore & ImageStore,
@@ -80,7 +89,11 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     }
     
     private func navigateToDetail(from listItem: PokemonListItem) {
-        let pokemonDetail = PokemonDetailFeatureComposer().compose(for: listItem)
+        let pokemonDetail = PokemonDetailFeatureComposer(
+            scheduler: scheduler,
+            baseUrl: baseUrl,
+            httpClient: httpClient
+        ).compose(for: listItem)
         navigationController.pushViewController(pokemonDetail, animated: true)
     }
 }
