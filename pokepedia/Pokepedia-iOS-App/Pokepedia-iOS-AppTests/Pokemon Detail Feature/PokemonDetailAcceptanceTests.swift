@@ -34,20 +34,15 @@ final class DetailPokemonAcceptanceTests: XCTestCase {
         XCTAssertEqual(info?.nameText, detailPokemonName)
         XCTAssertEqual(info?.detailRenderedImage, makeImageData())
     }
-//
-//    func test_onLaunch_displaysEmptyListWhenUserHasNoConnectivityAndNoCache() {
-//        let feed = launch(httpClient: .offline, store: .empty)
-//
-//        XCTAssertEqual(feed.numberOfRenderedListImageViews(), 0)
-//    }
-//
-//    func test_onEnteringBackground_deletesExpiredListCache() {
-//        let store = InMemoryPokemonListStore.withExpiredFeedCache
-//
-//        enterBackground(with: store)
-//
-//        XCTAssertNil(try store.retrieve(), "Expected to delete expired cache")
-//    }
+
+    func test_onEnteringBackground_deletesExpiredListCache() {
+        let store = InMemoryDetailPokemonStore.withExpiredDetailCache(for: detailId)
+
+        enterBackground(with: store)
+
+        XCTAssertEqual(store.cache, [:])
+        XCTAssertEqual(store.imageCache, [:])
+    }
 //
 //    func test_onEnteringBackground_keepsNonExpiredListCache() {
 //        let store = InMemoryPokemonListStore.withNonExpiredFeedCache
@@ -77,14 +72,7 @@ final class DetailPokemonAcceptanceTests: XCTestCase {
     ) -> ListViewController {
         let sut = SceneDelegate(
             scheduler: .immediateOnMainQueue,
-            listStore: InMemoryPokemonListStore(listCache: .init(local: [
-                .init(
-                    id: detailId,
-                    name: detailPokemonName,
-                    imageUrl: anyURL(),
-                    physicalType: .init(color: "any", name: "any"),
-                    specialType: nil)
-            ], timestamp: .init())),
+            listStore: InMemoryPokemonListStore(listCache: listCacheForTransitionToDetail()),
             detailStore: store,
             httpClient: httpClient
         )
@@ -99,6 +87,10 @@ final class DetailPokemonAcceptanceTests: XCTestCase {
         return nav?.topViewController as! ListViewController
     }
     
+    private var detailId: Int { 0 }
+    private var detailPokemonName: String { "Detail Pokemon Name" }
+    private var imageUrl: URL { URL(string: "http://any-url.com/detail-image-0")! }
+    
     private func response(for url: URL) -> (Data, HTTPURLResponse) {
         let response = HTTPURLResponse(url: url, statusCode: 200, httpVersion: nil, headerFields: nil)!
         return (makeData(for: url), response)
@@ -106,14 +98,11 @@ final class DetailPokemonAcceptanceTests: XCTestCase {
     
     private func makeData(for url: URL) -> Data {
         switch url.path {
-        case "/detail-image-0": return makeImageData()
         case "/detail": return makeDetailData()
-        case "/list": return makeListData()
+        case "/detail-image-0": return makeImageData()
         default: return Data()
         }
     }
-    
-    private func makeImageData() -> Data { UIImage.make(withColor: .red).pngData()! }
     
     private func makeDetailData() -> Data {
         return try! JSONSerialization.data(withJSONObject: [
@@ -126,45 +115,58 @@ final class DetailPokemonAcceptanceTests: XCTestCase {
         ] as [String : Any])
     }
     
-    private func makeListData() -> Data {
-        return try! JSONSerialization.data(withJSONObject: [[
-            "id": detailId,
-            "iconUrl": anyURL().absoluteString,
-            "name": "any",
-            "physicalType": [
-                "color": "any",
-                "name": "any"
-            ]
-        ] as [String : Any]])
+    private func makeImageData() -> Data { UIImage.make(withColor: .red).pngData()! }
+    
+    private func listCacheForTransitionToDetail() -> CachedPokemonList{
+        .init(local: [
+            .init(
+                id: detailId,
+                name: detailPokemonName,
+                imageUrl: anyURL(),
+                physicalType: .init(color: "any", name: "any"),
+                specialType: nil
+            )
+        ], timestamp: .init())
     }
     
-    private var detailId: Int {
-        0
+    private func enterBackground(with store: InMemoryDetailPokemonStore) {
+        let sut = SceneDelegate(
+            scheduler: .immediateOnMainQueue,
+            listStore: InMemoryPokemonListStore(),
+            detailStore: store,
+            httpClient: HTTPClientStub.offline
+        )
+        
+        sut.sceneWillResignActive(UIApplication.shared.connectedScenes.first!)
     }
-    
-    private var detailPokemonName: String {
-        "Detail Pokemon Name"
-    }
-
-    private var imageUrl: URL {
-        URL(string: "http://any-url.com/detail-image-0")!
-    }
-    
-//    private func enterBackground(with store: InMemoryPokemonListStore) {
-//        let sut = SceneDelegate(scheduler: .immediateOnMainQueue, store: store, httpClient: HTTPClientStub.offline)
-//        sut.sceneWillResignActive(UIApplication.shared.connectedScenes.first!)
-//    }
 }
 
 
 extension InMemoryDetailPokemonStore {
     static var empty: InMemoryDetailPokemonStore { .init() }
     
-//    static func withExpiredDetailCache(for id: Int) -> InMemoryDetailPokemonStore {
-//        .init(cache: [id: .init(timestamp: .distantFuture, local: lo)], imageCache: [:])
-//    }
-//    
-//    static var withNonExpiredDetailCache: InMemoryDetailPokemonStore {
-//        .init(listCache: .init(local: [], timestamp: Date()))
-//    }
+    static func withExpiredDetailCache(for id: Int) -> InMemoryDetailPokemonStore {
+        let local = anyLocal(for: id)
+        let cache = [id: DetailPokemonCache(timestamp: .distantPast, local: local)]
+        return .init(cache: cache, imageCache: [local.info.imageUrl: Data("any data".utf8)])
+    }
+
+    static func withNonExpiredDetailCache(for id: Int) -> InMemoryDetailPokemonStore {
+        let local = anyLocal(for: id)
+        let cache = [id: DetailPokemonCache(timestamp: Date(), local: local)]
+        return .init(cache: cache, imageCache: [local.info.imageUrl: Data("any data".utf8)])
+    }
+    
+    private static func anyLocal(for id: Int) -> LocalDetailPokemon {
+        .init(
+            info: .init(
+                imageUrl: anyURL(),
+                id: id,
+                name: "any",
+                genus: "any",
+                flavorText: "any"
+            ),
+            abilities: []
+        )
+    }
 }

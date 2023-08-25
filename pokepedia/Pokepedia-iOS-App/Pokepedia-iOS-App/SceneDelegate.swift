@@ -80,6 +80,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     
     func sceneWillResignActive(_ scene: UIScene) {
         try? LocalPokemonListLoader(store: listStore).validateCache()
+        LocalDetailPokemonLoader(store: detailStore).validateCache()
     }
     
     func configureWindow() {

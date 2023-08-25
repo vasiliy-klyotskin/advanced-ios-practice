@@ -8,8 +8,8 @@
 import Foundation
 
 public final class InMemoryDetailPokemonStore {
-    private var cache: [Int: DetailPokemonCache]
-    private var imageCache: [URL: Data]
+    public var cache: [Int: DetailPokemonCache]
+    public var imageCache: [URL: Data]
     
     public init(cache: [Int : DetailPokemonCache] = [:], imageCache: [URL: Data] = [:]) {
         self.cache = cache
