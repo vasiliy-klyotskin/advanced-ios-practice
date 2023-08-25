@@ -24,6 +24,7 @@
 		D68E837F2A96831000F1FACE /* PokemonDetailAcceptanceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D68E837E2A96831000F1FACE /* PokemonDetailAcceptanceTests.swift */; };
 		D690E83F2A94A0E3000596ED /* PokemonListFeatureComposer.swift in Sources */ = {isa = PBXBuildFile; fileRef = D690E83E2A94A0E3000596ED /* PokemonListFeatureComposer.swift */; };
 		D690E8412A94AA72000596ED /* PokemonDetailFeatureComposer.swift in Sources */ = {isa = PBXBuildFile; fileRef = D690E8402A94AA72000596ED /* PokemonDetailFeatureComposer.swift */; };
+		D692A38A2A98DDCD0062D07D /* InMemoryDetailPokemonStore+DSL.swift in Sources */ = {isa = PBXBuildFile; fileRef = D692A3892A98DDCD0062D07D /* InMemoryDetailPokemonStore+DSL.swift */; };
 		D6A4C8EA2A2129AB0065ECF4 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6A4C8E92A2129AB0065ECF4 /* AppDelegate.swift */; };
 		D6A4C8EC2A2129AB0065ECF4 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6A4C8EB2A2129AB0065ECF4 /* SceneDelegate.swift */; };
 		D6A4C8F62A2129AB0065ECF4 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D6A4C8F42A2129AB0065ECF4 /* LaunchScreen.storyboard */; };
@@ -89,6 +90,7 @@
 		D68E837E2A96831000F1FACE /* PokemonDetailAcceptanceTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PokemonDetailAcceptanceTests.swift; sourceTree = "<group>"; };
 		D690E83E2A94A0E3000596ED /* PokemonListFeatureComposer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PokemonListFeatureComposer.swift; sourceTree = "<group>"; };
 		D690E8402A94AA72000596ED /* PokemonDetailFeatureComposer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PokemonDetailFeatureComposer.swift; sourceTree = "<group>"; };
+		D692A3892A98DDCD0062D07D /* InMemoryDetailPokemonStore+DSL.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "InMemoryDetailPokemonStore+DSL.swift"; sourceTree = "<group>"; };
 		D6A4C8E62A2129AB0065ECF4 /* Pokepedia-iOS-App.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Pokepedia-iOS-App.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		D6A4C8E92A2129AB0065ECF4 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		D6A4C8EB2A2129AB0065ECF4 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -166,7 +168,6 @@
 			children = (
 				D652296D2A70607100C81F05 /* PokemonDetailUIIntegrationTests.swift */,
 				D6BF595C2A71ACBB008175E5 /* PokemonDetailUIIntegrationTests+Assertions.swift */,
-				D6BF595E2A71AE64008175E5 /* PokemonDetailUIIntegrationTests+DSL.swift */,
 				D6BF595A2A71AACF008175E5 /* PokemonDetailMockLoader.swift */,
 			);
 			path = PokemonDetailUIIntegrationTests;
@@ -191,6 +192,15 @@
 				D64F14192A5F190A00F88826 /* PokemonListMockLoader.swift */,
 			);
 			path = PokemonListUIIntegrationTests;
+			sourceTree = "<group>";
+		};
+		D692A3882A98DD770062D07D /* Helpers */ = {
+			isa = PBXGroup;
+			children = (
+				D6BF595E2A71AE64008175E5 /* PokemonDetailUIIntegrationTests+DSL.swift */,
+				D692A3892A98DDCD0062D07D /* InMemoryDetailPokemonStore+DSL.swift */,
+			);
+			path = Helpers;
 			sourceTree = "<group>";
 		};
 		D6A4C8DD2A2129AB0065ECF4 = {
@@ -241,6 +251,7 @@
 			children = (
 				D68E837E2A96831000F1FACE /* PokemonDetailAcceptanceTests.swift */,
 				D652296C2A70603B00C81F05 /* PokemonDetailUIIntegrationTests */,
+				D692A3882A98DD770062D07D /* Helpers */,
 			);
 			path = "Pokemon Detail Feature";
 			sourceTree = "<group>";
@@ -395,6 +406,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D692A38A2A98DDCD0062D07D /* InMemoryDetailPokemonStore+DSL.swift in Sources */,
 				D652296E2A70607100C81F05 /* PokemonDetailUIIntegrationTests.swift in Sources */,
 				D6274D562A8D41BA008A2706 /* InMemoryPokemonListStore+DSL.swift in Sources */,
 				D68E837F2A96831000F1FACE /* PokemonDetailAcceptanceTests.swift in Sources */,

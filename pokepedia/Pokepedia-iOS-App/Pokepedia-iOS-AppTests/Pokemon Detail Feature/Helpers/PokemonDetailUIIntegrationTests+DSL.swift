@@ -98,5 +98,4 @@ extension ListViewController {
     var abilitiesTitleRow: Int { 1 }
     func abilityRow(for index: Int) -> Int { index + 2 }
     var detailSectionNumber: Int { 0 }
-    
 }

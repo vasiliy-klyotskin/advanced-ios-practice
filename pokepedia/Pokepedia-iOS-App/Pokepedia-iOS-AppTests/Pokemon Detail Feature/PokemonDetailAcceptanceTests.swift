@@ -43,26 +43,15 @@ final class DetailPokemonAcceptanceTests: XCTestCase {
         XCTAssertEqual(store.cache, [:])
         XCTAssertEqual(store.imageCache, [:])
     }
-//
-//    func test_onEnteringBackground_keepsNonExpiredListCache() {
-//        let store = InMemoryPokemonListStore.withNonExpiredFeedCache
-//
-//        enterBackground(with: store)
-//
-//        XCTAssertNotNil(try store.retrieve(), "Expected to keep non-expired cache")
-//    }
-//
-//    func test_onSelectItem_transfersToPokemonDetail() {
-//        let list = launch(httpClient: .online(response), store: .empty)
-//        let selectedPokemonId = 0
-//
-//        list.simulateItemSelection(at: selectedPokemonId)
-//        RunLoop.main.run(until: .init())
-//
-//        let detail = list.navigationController?.viewControllers.last as? ListViewController
-//        let title = detail?.title
-//        XCTAssertEqual(title, name(for: selectedPokemonId))
-//    }
+
+    func test_onEnteringBackground_keepsNonExpiredListCache() {
+        let store =  InMemoryDetailPokemonStore.withNonExpiredDetailCache(for: detailId)
+
+        enterBackground(with: store)
+
+        XCTAssertFalse(store.cache.isEmpty)
+        XCTAssertFalse(store.imageCache.isEmpty)
+    }
     
     // MARK: - Helpers
     
@@ -138,35 +127,5 @@ final class DetailPokemonAcceptanceTests: XCTestCase {
         )
         
         sut.sceneWillResignActive(UIApplication.shared.connectedScenes.first!)
-    }
-}
-
-
-extension InMemoryDetailPokemonStore {
-    static var empty: InMemoryDetailPokemonStore { .init() }
-    
-    static func withExpiredDetailCache(for id: Int) -> InMemoryDetailPokemonStore {
-        let local = anyLocal(for: id)
-        let cache = [id: DetailPokemonCache(timestamp: .distantPast, local: local)]
-        return .init(cache: cache, imageCache: [local.info.imageUrl: Data("any data".utf8)])
-    }
-
-    static func withNonExpiredDetailCache(for id: Int) -> InMemoryDetailPokemonStore {
-        let local = anyLocal(for: id)
-        let cache = [id: DetailPokemonCache(timestamp: Date(), local: local)]
-        return .init(cache: cache, imageCache: [local.info.imageUrl: Data("any data".utf8)])
-    }
-    
-    private static func anyLocal(for id: Int) -> LocalDetailPokemon {
-        .init(
-            info: .init(
-                imageUrl: anyURL(),
-                id: id,
-                name: "any",
-                genus: "any",
-                flavorText: "any"
-            ),
-            abilities: []
-        )
     }
 }
