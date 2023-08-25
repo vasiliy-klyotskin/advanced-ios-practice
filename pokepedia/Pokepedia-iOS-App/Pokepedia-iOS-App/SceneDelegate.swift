@@ -16,9 +16,13 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     
     private let baseUrl = URL(string: "http://127.0.0.1:8080")!
     
-    private let storeUrl = NSPersistentContainer
+    private let listStoreUrl = NSPersistentContainer
         .defaultDirectoryURL()
-        .appendingPathComponent("feed-store.sqlite")
+        .appendingPathComponent("list-store.sqlite")
+    
+    private let detailStoreUrl = NSPersistentContainer
+        .defaultDirectoryURL()
+        .appendingPathComponent("detail-store.sqlite")
     
     private lazy var scheduler: AnyDispatchQueueScheduler = DispatchQueue(
         label: "klyotskin.pokepedia.infra.queue",
@@ -37,33 +41,35 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         return client
     }()
     
-    lazy var store: PokemonListStore & ImageStore = {
+    lazy var listStore: PokemonListStore & ImageStore = {
         do {
-            return try CoreDataPokemonListStore(storeUrl: storeUrl)
+            return try CoreDataPokemonListStore(storeUrl: listStoreUrl)
         } catch {
             assertionFailure("Failed to instantiate CoreData store with error: \(error.localizedDescription)")
             return InMemoryPokemonListStore()
         }
     }()
     
-    lazy var detail: PokemonListStore & ImageStore = {
+    lazy var detailStore: DetailPokemonStore & ImageStore = {
         do {
-            return try CoreDataPokemonListStore(storeUrl: storeUrl)
+            return try CoreDataDetailPokemonStore(storeUrl: detailStoreUrl)
         } catch {
             assertionFailure("Failed to instantiate CoreData store with error: \(error.localizedDescription)")
-            return InMemoryPokemonListStore()
+            return InMemoryDetailPokemonStore()
         }
     }()
-    
+
     convenience init(
         scheduler: AnyDispatchQueueScheduler,
-        store: PokemonListStore & ImageStore,
+        listStore: PokemonListStore & ImageStore,
+        detailStore: DetailPokemonStore & ImageStore,
         httpClient: HTTPClient
     ) {
         self.init()
         self.scheduler = scheduler
         self.httpClient = httpClient
-        self.store = store
+        self.listStore = listStore
+        self.detailStore = detailStore
     }
 
     func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
@@ -73,14 +79,14 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     }
     
     func sceneWillResignActive(_ scene: UIScene) {
-        try? LocalPokemonListLoader(store: store).validateCache()
+        try? LocalPokemonListLoader(store: listStore).validateCache()
     }
     
     func configureWindow() {
         let pokemonList = PokemonListFeatureComposer(
             scheduler: scheduler,
             baseUrl: baseUrl,
-            store: store,
+            store: listStore,
             httpClient: httpClient
         ).compose(onItemSelected: navigateToDetail)
         navigationController.viewControllers = [pokemonList]
@@ -92,7 +98,8 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         let pokemonDetail = PokemonDetailFeatureComposer(
             scheduler: scheduler,
             baseUrl: baseUrl,
-            httpClient: httpClient
+            httpClient: httpClient,
+            store: detailStore
         ).compose(for: listItem)
         navigationController.pushViewController(pokemonDetail, animated: true)
     }

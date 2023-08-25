@@ -93,7 +93,12 @@ final class PokemonListAcceptanceTests: XCTestCase {
         httpClient: HTTPClientStub,
         store: InMemoryPokemonListStore
     ) -> ListViewController {
-        let sut = SceneDelegate(scheduler: .immediateOnMainQueue, store: store, httpClient: httpClient)
+        let sut = SceneDelegate(
+            scheduler: .immediateOnMainQueue,
+            listStore: store,
+            detailStore: InMemoryDetailPokemonStore(),
+            httpClient: httpClient
+        )
         sut.window = UIWindow(frame: CGRect(x: 0, y: 0, width: 1, height: 1))
         sut.configureWindow()
         
@@ -164,7 +169,7 @@ final class PokemonListAcceptanceTests: XCTestCase {
     }
     
     private func enterBackground(with store: InMemoryPokemonListStore) {
-        let sut = SceneDelegate(scheduler: .immediateOnMainQueue, store: store, httpClient: HTTPClientStub.offline)
+        let sut = SceneDelegate(scheduler: .immediateOnMainQueue, listStore: store, detailStore: InMemoryDetailPokemonStore(), httpClient: HTTPClientStub.offline)
         sut.sceneWillResignActive(UIApplication.shared.connectedScenes.first!)
     }
 }

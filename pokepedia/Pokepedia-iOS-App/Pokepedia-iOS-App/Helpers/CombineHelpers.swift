@@ -55,6 +55,19 @@ public extension Paginated {
     }
 }
 
+public extension LocalDetailPokemonLoader {
+    typealias Publisher = AnyPublisher<DetailPokemon, Error>
+    
+    func loadPublisher(for id: Int) -> Publisher {
+        return Deferred {
+            Future { completion in
+                completion(Result { try self.load(for: id) })
+            }
+        }
+        .eraseToAnyPublisher()
+    }
+}
+
 public extension LocalPokemonListLoader {
     typealias Publisher = AnyPublisher<PokemonList, Error>
     
@@ -114,6 +127,12 @@ extension Publisher {
     
     func caching(to cache: PokemonListCache) -> AnyPublisher<Output, Failure> where Output == Paginated<PokemonListItem> {
         handleEvents(receiveOutput: cache.saveIgnoringResult).eraseToAnyPublisher()
+    }
+}
+
+extension Publisher {
+    func caching(to cache: DetailPokemonSaveCache) -> AnyPublisher<Output, Failure> where Output == DetailPokemon {
+        handleEvents(receiveOutput: cache.save(detail:)).eraseToAnyPublisher()
     }
 }
 

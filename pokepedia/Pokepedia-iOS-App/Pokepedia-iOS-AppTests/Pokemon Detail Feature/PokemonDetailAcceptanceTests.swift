@@ -13,7 +13,7 @@ import Pokepedia_iOS
 import Pokepedia
 
 final class DetailPokemonAcceptanceTests: XCTestCase {
-    func test_onLaunch_displaysRemoteListWhenUserHasConnectivity() {
+    func test_onLaunch_displaysRemoteDetailWhenUserHasConnectivity() {
         let detail = launch(httpClient: .online(response), store: .empty)
         
         let info = detail.simulatePokemonDetailInfoViewVisible()
@@ -22,22 +22,18 @@ final class DetailPokemonAcceptanceTests: XCTestCase {
         XCTAssertEqual(info?.detailRenderedImage, makeImageData())
     }
     
-//    func test_onLaunch_displaysCachedRemoteListWhenCustomerHasNoConnectivity() {
-//        let sharedStore = InMemoryPokemonListStore.empty
-//
-//        let onlineList = launch(httpClient: .online(response), store: sharedStore)
-//        onlineList.simulatePokemonListItemViewVisible(at: 0)
-//        onlineList.simulatePokemonListItemViewVisible(at: 1)
-//        onlineList.simulateLoadMoreListAction()
-//        onlineList.simulatePokemonListItemViewVisible(at: 2)
-//
-//        let offlineList = launch(httpClient: .offline, store: sharedStore)
-//
-//        XCTAssertEqual(offlineList.numberOfRenderedListImageViews(), 3)
-//        XCTAssertEqual(offlineList.renderedListImageData(at: 0), makeImageData0())
-//        XCTAssertEqual(offlineList.renderedListImageData(at: 1), makeImageData1())
-//        XCTAssertEqual(offlineList.renderedListImageData(at: 2), makeImageData2())
-//    }
+    func test_onLaunch_displaysCachedDetailWhenUserHasNoConnectivity() {
+        let sharedStore = InMemoryDetailPokemonStore()
+        
+        let onlineDetail = launch(httpClient: .online(response), store: sharedStore)
+        onlineDetail.simulatePokemonDetailInfoViewVisible()
+
+        let offlineDetail = launch(httpClient: .offline, store: sharedStore)
+        let info = offlineDetail.simulatePokemonDetailInfoViewVisible()
+
+        XCTAssertEqual(info?.nameText, detailPokemonName)
+        XCTAssertEqual(info?.detailRenderedImage, makeImageData())
+    }
 //
 //    func test_onLaunch_displaysEmptyListWhenUserHasNoConnectivityAndNoCache() {
 //        let feed = launch(httpClient: .offline, store: .empty)
@@ -77,9 +73,21 @@ final class DetailPokemonAcceptanceTests: XCTestCase {
     
     private func launch(
         httpClient: HTTPClientStub,
-        store: InMemoryPokemonListStore
+        store: InMemoryDetailPokemonStore
     ) -> ListViewController {
-        let sut = SceneDelegate(scheduler: .immediateOnMainQueue, store: store, httpClient: httpClient)
+        let sut = SceneDelegate(
+            scheduler: .immediateOnMainQueue,
+            listStore: InMemoryPokemonListStore(listCache: .init(local: [
+                .init(
+                    id: detailId,
+                    name: detailPokemonName,
+                    imageUrl: anyURL(),
+                    physicalType: .init(color: "any", name: "any"),
+                    specialType: nil)
+            ], timestamp: .init())),
+            detailStore: store,
+            httpClient: httpClient
+        )
         sut.window = UIWindow(frame: CGRect(x: 0, y: 0, width: 1, height: 1))
         sut.configureWindow()
         let nav = sut.window?.rootViewController as? UINavigationController
@@ -145,5 +153,18 @@ final class DetailPokemonAcceptanceTests: XCTestCase {
 //    private func enterBackground(with store: InMemoryPokemonListStore) {
 //        let sut = SceneDelegate(scheduler: .immediateOnMainQueue, store: store, httpClient: HTTPClientStub.offline)
 //        sut.sceneWillResignActive(UIApplication.shared.connectedScenes.first!)
+//    }
+}
+
+
+extension InMemoryDetailPokemonStore {
+    static var empty: InMemoryDetailPokemonStore { .init() }
+    
+//    static func withExpiredDetailCache(for id: Int) -> InMemoryDetailPokemonStore {
+//        .init(cache: [id: .init(timestamp: .distantFuture, local: lo)], imageCache: [:])
+//    }
+//    
+//    static var withNonExpiredDetailCache: InMemoryDetailPokemonStore {
+//        .init(listCache: .init(local: [], timestamp: Date()))
 //    }
 }

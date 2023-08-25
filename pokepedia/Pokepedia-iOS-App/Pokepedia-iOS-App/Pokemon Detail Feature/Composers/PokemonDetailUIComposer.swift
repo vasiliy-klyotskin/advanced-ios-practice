@@ -24,12 +24,11 @@ public enum PokemonDetailUIComposer {
             onRefresh: loadingAdapter.load,
             onViewDidLoad: PokemonDetailCells.register
         )
-        let presenter = Presetner(
+        loadingAdapter.presenter = .init(
             view: PokemonDetailViewAdapter(controller: controller, loader: imageLoader),
             loadingView: WeakProxy(controller),
             errorView: WeakProxy(controller)
         )
-        loadingAdapter.presenter = presenter
         controller.title = title
         return controller
     }

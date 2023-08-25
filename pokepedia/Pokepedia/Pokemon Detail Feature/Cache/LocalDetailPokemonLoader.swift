@@ -48,7 +48,7 @@ extension LocalDetailPokemonLoader {
     }
 }
 
-extension LocalDetailPokemonLoader {
+extension LocalDetailPokemonLoader: DetailPokemonSaveCache {
     public func save(detail: DetailPokemon) {
         let id = detail.info.id
         store.delete(for: id)
