@@ -58,11 +58,11 @@ public final class LoadingResourcePresenter<Resource, View: ResourceView> {
     }
     
     public func didFinishLWithResource(_ resource: Resource) {
-        loadingView.display(loadingViewModel: .init(isLoading: false))
         if let mapped = try? mapping(resource) {
             view.display(viewModel: mapped)
         } else {
             errorView.display(errorViewModel: .init(errorMessage: Self.loadError))
         }
+        loadingView.display(loadingViewModel: .init(isLoading: false))
     }
 }
