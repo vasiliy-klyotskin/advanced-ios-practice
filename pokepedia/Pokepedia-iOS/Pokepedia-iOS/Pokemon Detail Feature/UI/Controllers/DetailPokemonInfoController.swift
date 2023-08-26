@@ -8,7 +8,7 @@
 import UIKit
 import Pokepedia
 
-public final class DetailPokemonInfoController: NSObject, UITableViewDataSource {
+public final class DetailPokemonInfoController: NSObject, UITableViewDataSource, UITableViewDelegate {
     private let viewModel: DetailPokemonInfoViewModel
     private let onImageRequest: () -> Void
     private var cell: DetailPokemonInfoCell?
@@ -26,6 +26,10 @@ public final class DetailPokemonInfoController: NSObject, UITableViewDataSource 
         cell?.onReload = onImageRequest
         onImageRequest()
         return cell!
+    }
+    
+    public func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
+        self.cell?.makeImageContainerCircular()
     }
 }
 

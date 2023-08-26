@@ -84,6 +84,11 @@ public final class ListViewController: UITableViewController, ResourceLoadingVie
         dl?.tableView?(tableView, didEndDisplaying: cell, forRowAt: indexPath)
     }
     
+    public override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        let dl = cellController(at: indexPath)?.delegate
+        return dl?.tableView?(tableView, heightForRowAt: indexPath) ?? UITableView.automaticDimension
+    }
+    
     private func cellController(at indexPath: IndexPath) -> CellController? {
         dataSource.itemIdentifier(for: indexPath)
     }

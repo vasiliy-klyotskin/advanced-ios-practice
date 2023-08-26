@@ -31,11 +31,6 @@ public final class DetailPokemonInfoCell: UITableViewCell {
         fatalError("init(coder:) has not been implemented")
     }
     
-    public override func layoutSubviews() {
-        super.layoutSubviews()
-        makeImageContainerCircular()
-    }
-    
     func configure(with viewModel: DetailPokemonInfoViewModel) {
         idLabel.text = viewModel.id
         nameLabel.text = viewModel.name
@@ -92,9 +87,10 @@ public final class DetailPokemonInfoCell: UITableViewCell {
         activityIndicator.alpha = 0.7
     }
     
-    private func makeImageContainerCircular() {
+    func makeImageContainerCircular() {
+        layoutIfNeeded()
         let radius: CGFloat = imageContainer.bounds.size.width / 2.0
-        imageContainer.clipsToBounds = true
+        imageContainer.clipsToBounds = false
         imageContainer.layer.cornerRadius = radius
     }
     
