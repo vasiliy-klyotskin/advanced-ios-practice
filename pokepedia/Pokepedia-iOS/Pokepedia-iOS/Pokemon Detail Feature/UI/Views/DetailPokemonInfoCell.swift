@@ -51,8 +51,11 @@ public final class DetailPokemonInfoCell: UITableViewCell {
     }
     
     func display(image: UIImage) {
-        pokemonImageView.image = image
         pokemonImageView.isHidden = false
+        pokemonImageView.image = image
+        UIView.animate(withDuration: 1) { [weak self] in
+            self?.pokemonImageView.alpha = 1
+        }
     }
     
     private func configureUI() {
