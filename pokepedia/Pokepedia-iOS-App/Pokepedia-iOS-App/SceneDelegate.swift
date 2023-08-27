@@ -33,12 +33,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     private let navigationController = UINavigationController()
     
     lazy var httpClient: HTTPClient = {
-        let config = URLSessionConfiguration.default
-        config.requestCachePolicy = .reloadIgnoringLocalCacheData
-        config.urlCache = nil
-        let session = URLSession(configuration: config)
-        let client = URLSessionHTTPClient(session: session)
-        return client
+        URLSessionHTTPClient(session: .init(configuration: .ephemeral))
     }()
     
     lazy var listStore: PokemonListStore & ImageStore = {
@@ -72,7 +67,11 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         self.detailStore = detailStore
     }
 
-    func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
+    func scene(
+        _ scene: UIScene,
+        willConnectTo session: UISceneSession,
+        options connectionOptions: UIScene.ConnectionOptions
+    ) {
         guard let scene = (scene as? UIWindowScene) else { return }
         window = UIWindow(windowScene: scene)
         configureWindow()

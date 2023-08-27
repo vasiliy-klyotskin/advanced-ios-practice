@@ -24,6 +24,10 @@ public final class ListPokemonItemCell: UITableViewCell {
     @IBOutlet weak var reloadButton: UIButton!
     @IBOutlet weak var content: UIView!
     
+    @IBAction private func onReloadTap(_ sender: UIButton) {
+        onReuse?()
+    }
+    
     public override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         loadFromNib()
@@ -43,7 +47,6 @@ public final class ListPokemonItemCell: UITableViewCell {
     private func configureUI() {
         selectionStyle = .none
         content.fit(in: contentView)
-        reloadButton.addTarget(self, action: #selector(onReloadTapped), for: .touchUpInside)
         nameLabel.adjustsFontForContentSizeCategory = true
         nameLabel.font = .standard(size: .title, weight: .semibold)
         idLabel.font = .standard(size: .body, weight: .regular)
@@ -78,10 +81,6 @@ public final class ListPokemonItemCell: UITableViewCell {
     func display(image: UIImage) {
         pokemonIconView.image = image
         pokemonIconView.isHidden = false
-    }
-    
-    @objc private func onReloadTapped(_ sender: UIButton) {
-        onReload?()
     }
     
     private func reset() {

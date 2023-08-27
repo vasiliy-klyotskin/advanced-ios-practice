@@ -14,7 +14,10 @@ final class PokemonDetailViewAdapter: ResourceView {
     private weak var controller: ListViewController?
     private let loader: (URL) -> AnyPublisher<DetailPokemonImage, Error>
     
-    init(controller: ListViewController, loader: @escaping (URL) ->  AnyPublisher<DetailPokemonImage, Error>) {
+    init(
+        controller: ListViewController,
+        loader: @escaping (URL) ->  AnyPublisher<DetailPokemonImage, Error>
+    ) {
         self.controller = controller
         self.loader = loader
     }

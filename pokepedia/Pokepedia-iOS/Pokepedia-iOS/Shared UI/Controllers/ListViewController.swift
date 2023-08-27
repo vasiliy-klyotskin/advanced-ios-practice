@@ -65,7 +65,6 @@ public final class ListViewController: UITableViewController, ResourceLoadingVie
             snapshot.appendSections([section])
             snapshot.appendItems(cellControllers, toSection: section)
         }
-        // TODO: Tests don't pass if I use controller with animations because of memory leak.
         dataSource.apply(snapshot, animatingDifferences: false)
     }
     

@@ -24,7 +24,13 @@ public struct LocalDetailPokemonInfo: Equatable, Hashable {
     public let genus: String
     public let flavorText: String
     
-    public init(imageUrl: URL, id: Int, name: String, genus: String, flavorText: String) {
+    public init(
+        imageUrl: URL,
+        id: Int,
+        name: String,
+        genus: String,
+        flavorText: String
+    ) {
         self.imageUrl = imageUrl
         self.id = id
         self.name = name
@@ -43,7 +49,14 @@ public struct LocalDetailPokemonAbility: Equatable {
     public let type: String
     public let typeColor: String
     
-    public init(title: String, subtitle: String, damageClass: String, damageClassColor: String, type: String, typeColor: String) {
+    public init(
+        title: String,
+        subtitle: String,
+        damageClass: String,
+        damageClassColor: String,
+        type: String,
+        typeColor: String
+    ) {
         self.title = title
         self.subtitle = subtitle
         self.damageClass = damageClass

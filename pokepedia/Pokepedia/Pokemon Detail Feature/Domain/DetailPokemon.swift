@@ -43,7 +43,14 @@ public struct DetailPokemonAbility: Equatable {
     public let type: String
     public let typeColor: String
     
-    public init(title: String, subtitle: String, damageClass: String, damageClassColor: String, type: String, typeColor: String) {
+    public init(
+        title: String,
+        subtitle: String,
+        damageClass: String,
+        damageClassColor: String,
+        type: String,
+        typeColor: String
+    ) {
         self.title = title
         self.subtitle = subtitle
         self.damageClass = damageClass

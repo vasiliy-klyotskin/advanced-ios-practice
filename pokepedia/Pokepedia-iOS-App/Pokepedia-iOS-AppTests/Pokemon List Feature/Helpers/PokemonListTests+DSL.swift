@@ -39,7 +39,7 @@ extension ListPokemonItemCell {
     
     func simulateReload() {
         onReload?()
-        // TODO: Tests crushes when I call this method although there are not troubles in setting selector to the button. Fix it
+        // TODO: Tests crush when I call this method although there are no troubles with setting selector to the button.
         // reloadButton.simulate(event: .touchUpInside)
     }
 }
