@@ -44,6 +44,9 @@
 		D6E445652A25CE8700E388A7 /* Pokepedia_iOS.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = D6E445632A25CE8700E388A7 /* Pokepedia_iOS.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		D6EC8BAF2A264997004A525E /* SharedTestHelpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6EC8BAE2A264997004A525E /* SharedTestHelpers.swift */; };
 		D6EC8BB52A265018004A525E /* WeakProxy.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6EC8BB42A265018004A525E /* WeakProxy.swift */; };
+		D6EFF92D2A9B2A7300E3B612 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D6EFF92C2A9B25E500E3B612 /* Assets.xcassets */; };
+		D6EFF92E2A9B2A9000E3B612 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D6A4C8F42A2129AB0065ECF4 /* LaunchScreen.storyboard */; };
+		D6EFF92F2A9B2AD500E3B612 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D6EFF92C2A9B25E500E3B612 /* Assets.xcassets */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -111,6 +114,7 @@
 		D6E445632A25CE8700E388A7 /* Pokepedia_iOS.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = Pokepedia_iOS.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		D6EC8BAE2A264997004A525E /* SharedTestHelpers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SharedTestHelpers.swift; sourceTree = "<group>"; };
 		D6EC8BB42A265018004A525E /* WeakProxy.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeakProxy.swift; sourceTree = "<group>"; };
+		D6EFF92C2A9B25E500E3B612 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -232,6 +236,7 @@
 				D6A4C8E92A2129AB0065ECF4 /* AppDelegate.swift */,
 				D6A4C8EB2A2129AB0065ECF4 /* SceneDelegate.swift */,
 				D6A4C8F42A2129AB0065ECF4 /* LaunchScreen.storyboard */,
+				D6EFF92C2A9B25E500E3B612 /* Assets.xcassets */,
 				D6A4C8F72A2129AB0065ECF4 /* Info.plist */,
 			);
 			path = "Pokepedia-iOS-App";
@@ -388,6 +393,8 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D6EFF92E2A9B2A9000E3B612 /* LaunchScreen.storyboard in Resources */,
+				D6EFF92D2A9B2A7300E3B612 /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -395,6 +402,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D6EFF92F2A9B2AD500E3B612 /* Assets.xcassets in Resources */,
 				D6A4C8F62A2129AB0065ECF4 /* LaunchScreen.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -552,6 +560,7 @@
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = dwarf;
+				DEVELOPMENT_ASSET_PATHS = "Pokepedia-iOS-App";
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
@@ -611,6 +620,7 @@
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				DEVELOPMENT_ASSET_PATHS = "Pokepedia-iOS-App";
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
@@ -635,15 +645,19 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = NO;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_ASSET_PATHS = "";
 				DEVELOPMENT_TEAM = G9R86P7VXT;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = "Pokepedia-iOS-App/Info.plist";
+				INFOPLIST_KEY_CFBundleDisplayName = Pokepedia;
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.utilities";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
-				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen.storyboard;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
 				IPHONEOS_DEPLOYMENT_TARGET = 16.4;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -666,15 +680,19 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = NO;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_ASSET_PATHS = "";
 				DEVELOPMENT_TEAM = G9R86P7VXT;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = "Pokepedia-iOS-App/Info.plist";
+				INFOPLIST_KEY_CFBundleDisplayName = Pokepedia;
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.utilities";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
-				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen.storyboard;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
 				IPHONEOS_DEPLOYMENT_TARGET = 16.4;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
