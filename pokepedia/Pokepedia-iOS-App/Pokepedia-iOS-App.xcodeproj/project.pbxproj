@@ -27,7 +27,6 @@
 		D692A38A2A98DDCD0062D07D /* InMemoryDetailPokemonStore+DSL.swift in Sources */ = {isa = PBXBuildFile; fileRef = D692A3892A98DDCD0062D07D /* InMemoryDetailPokemonStore+DSL.swift */; };
 		D6A4C8EA2A2129AB0065ECF4 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6A4C8E92A2129AB0065ECF4 /* AppDelegate.swift */; };
 		D6A4C8EC2A2129AB0065ECF4 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6A4C8EB2A2129AB0065ECF4 /* SceneDelegate.swift */; };
-		D6A4C8F62A2129AB0065ECF4 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D6A4C8F42A2129AB0065ECF4 /* LaunchScreen.storyboard */; };
 		D6B958E42A2A21CF0050DCB9 /* ListPokemonItemUIComposer.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6B958E32A2A21CF0050DCB9 /* ListPokemonItemUIComposer.swift */; };
 		D6BF59572A71A767008175E5 /* PokemonDetailUIComposer.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6BF59562A71A767008175E5 /* PokemonDetailUIComposer.swift */; };
 		D6BF59592A71AA67008175E5 /* ListViewController+DSL.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6BF59582A71AA67008175E5 /* ListViewController+DSL.swift */; };
@@ -45,7 +44,6 @@
 		D6EC8BAF2A264997004A525E /* SharedTestHelpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6EC8BAE2A264997004A525E /* SharedTestHelpers.swift */; };
 		D6EC8BB52A265018004A525E /* WeakProxy.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6EC8BB42A265018004A525E /* WeakProxy.swift */; };
 		D6EFF92D2A9B2A7300E3B612 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D6EFF92C2A9B25E500E3B612 /* Assets.xcassets */; };
-		D6EFF92E2A9B2A9000E3B612 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D6A4C8F42A2129AB0065ECF4 /* LaunchScreen.storyboard */; };
 		D6EFF92F2A9B2AD500E3B612 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D6EFF92C2A9B25E500E3B612 /* Assets.xcassets */; };
 /* End PBXBuildFile section */
 
@@ -97,7 +95,6 @@
 		D6A4C8E62A2129AB0065ECF4 /* Pokepedia-iOS-App.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Pokepedia-iOS-App.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		D6A4C8E92A2129AB0065ECF4 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		D6A4C8EB2A2129AB0065ECF4 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
-		D6A4C8F52A2129AB0065ECF4 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		D6A4C8F72A2129AB0065ECF4 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		D6B958E32A2A21CF0050DCB9 /* ListPokemonItemUIComposer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListPokemonItemUIComposer.swift; sourceTree = "<group>"; };
 		D6BF59562A71A767008175E5 /* PokemonDetailUIComposer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PokemonDetailUIComposer.swift; sourceTree = "<group>"; };
@@ -235,7 +232,6 @@
 				D6EC8BB32A26500B004A525E /* Helpers */,
 				D6A4C8E92A2129AB0065ECF4 /* AppDelegate.swift */,
 				D6A4C8EB2A2129AB0065ECF4 /* SceneDelegate.swift */,
-				D6A4C8F42A2129AB0065ECF4 /* LaunchScreen.storyboard */,
 				D6EFF92C2A9B25E500E3B612 /* Assets.xcassets */,
 				D6A4C8F72A2129AB0065ECF4 /* Info.plist */,
 			);
@@ -393,7 +389,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				D6EFF92E2A9B2A9000E3B612 /* LaunchScreen.storyboard in Resources */,
 				D6EFF92D2A9B2A7300E3B612 /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -403,7 +398,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				D6EFF92F2A9B2AD500E3B612 /* Assets.xcassets in Resources */,
-				D6A4C8F62A2129AB0065ECF4 /* LaunchScreen.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -465,17 +459,6 @@
 			targetProxy = D65A2E152A2342D000C9168F /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
-
-/* Begin PBXVariantGroup section */
-		D6A4C8F42A2129AB0065ECF4 /* LaunchScreen.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				D6A4C8F52A2129AB0065ECF4 /* Base */,
-			);
-			name = LaunchScreen.storyboard;
-			sourceTree = "<group>";
-		};
-/* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
 		D65A2E182A2342D000C9168F /* Debug */ = {
