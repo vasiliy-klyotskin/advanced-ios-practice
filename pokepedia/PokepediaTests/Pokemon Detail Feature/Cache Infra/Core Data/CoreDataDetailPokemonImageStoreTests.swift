@@ -7,6 +7,7 @@
 
 import XCTest
 import Pokepedia
+import CoreData
 
 final class CoreDataDetailPokemonImageStoreTests: XCTestCase, FailableImageStoreSpecs {
     func test_retrieveImageData_deliversNotFoundWhenEmpty() {

@@ -61,7 +61,6 @@ final class DetailPokemonCacheIntegrationTests: XCTestCase {
         let loaderToPerformSave = makeListLoader()
         let loaderToPerformValidation = makeListLoader()
         let loaderToPerformLoad = makeListLoader()
-        let list = pokemonList().model
         saveDetailsForIds(sut: loaderToPerformSave)
         
         loaderToPerformValidation.validateCache()

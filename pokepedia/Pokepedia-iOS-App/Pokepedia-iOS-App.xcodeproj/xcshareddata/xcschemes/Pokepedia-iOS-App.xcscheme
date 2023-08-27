@@ -33,19 +33,6 @@
             default = "YES">
          </TestPlanReference>
       </TestPlans>
-      <Testables>
-         <TestableReference
-            skipped = "NO"
-            parallelizable = "YES">
-            <BuildableReference
-               BuildableIdentifier = "primary"
-               BlueprintIdentifier = "D65A2E102A2342D000C9168F"
-               BuildableName = "Pokepedia-iOS-AppTests.xctest"
-               BlueprintName = "Pokepedia-iOS-AppTests"
-               ReferencedContainer = "container:Pokepedia-iOS-App.xcodeproj">
-            </BuildableReference>
-         </TestableReference>
-      </Testables>
    </TestAction>
    <LaunchAction
       buildConfiguration = "Debug"
