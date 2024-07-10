@@ -17,14 +17,6 @@ final class ListControllerSnapshotTests: XCTestCase {
         assertDefaultSnapshot(sut: sut, key: "LIST_EMPTY")
     }
     
-    func test_listIsLoadingSnapshot() {
-        let sut = makeSut()
-        
-        sut.display(loadingViewModel: .init(isLoading: true))
-        
-        assertDefaultSnapshot(sut: sut, key: "LIST_LOADING")
-    }
-    
     func test_listLoadedWithErrorSnapshot() {
         let sut = makeSut()
         

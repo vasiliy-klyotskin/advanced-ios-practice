@@ -11,6 +11,7 @@ import UIKit
 public final class ListViewController: UITableViewController, ResourceLoadingView, ResourceErrorView {
     private var onRefresh: (() -> Void)?
     private var onViewDidLoad: ((ListViewController) -> Void)?
+    private var isAppeared = false
     
     let errorView = ErrorView()
     
@@ -34,8 +35,15 @@ public final class ListViewController: UITableViewController, ResourceLoadingVie
         refreshControl = UIRefreshControl()
         refreshControl?.addTarget(self, action: #selector(refresh), for: .valueChanged)
         tableView.tableHeaderView = errorView.makeContainer()
-        refresh()
         onViewDidLoad?(self)
+    }
+    
+    public override func viewIsAppearing(_ animated: Bool) {
+        super.viewIsAppearing(animated)
+        if !isAppeared {
+            refresh()
+            isAppeared = true
+        }
     }
     
     public override func viewDidLayoutSubviews() {
@@ -57,6 +65,7 @@ public final class ListViewController: UITableViewController, ResourceLoadingVie
     
     public func display(errorViewModel: ErrorViewModel) {
         errorView.message = errorViewModel.errorMessage
+        tableView.sizeTableHeaderToFit()
     }
 
     public func display(sections: [CellController]...) {

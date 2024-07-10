@@ -11,7 +11,7 @@ final class PokemonDetailUIIntegrationTests: XCTestCase {
     func test_pokemonDetail_hasTitle() throws {
         let (sut, _) = makeSut()
         
-        sut.loadViewIfNeeded()
+        sut.simulateAppearance()
         
         XCTAssertEqual(sut.title, pokemonDetailTitle)
     }
@@ -20,7 +20,7 @@ final class PokemonDetailUIIntegrationTests: XCTestCase {
         let (sut, loader) = makeSut()
         XCTAssertEqual(loader.loadDetailCallCount, 0, "Expected no loading requests before view is loaded")
 
-        sut.loadViewIfNeeded()
+        sut.simulateAppearance()
         XCTAssertEqual(loader.loadDetailCallCount, 1, "Expected a loading request once view is loaded")
 
         sut.simulateUserInitiatedReload()
@@ -38,7 +38,7 @@ final class PokemonDetailUIIntegrationTests: XCTestCase {
     func test_loadingDetailIndicator_isVisibleWhileLoadingDetail() {
         let (sut, loader) = makeSut()
 
-        sut.loadViewIfNeeded()
+        sut.simulateAppearance()
         XCTAssertTrue(sut.isShowingLoadingIndicator, "Expected loading indicator once view is loaded")
 
         loader.completeDetailLoading(with: makeDetailPokemon(), at: 0)
@@ -49,12 +49,15 @@ final class PokemonDetailUIIntegrationTests: XCTestCase {
 
         loader.completeDetailLoadingWithError(at: 1)
         XCTAssertFalse(sut.isShowingLoadingIndicator, "Expected no loading indicator once user initiated loading completes with error")
+        
+        sut.simulateAppearance()
+        XCTAssertFalse(sut.isShowingLoadingIndicator, "Expected no loading indicator after appearing again")
     }
 
     func test_loadDetailCompletion_rendersErrorMessageOnErrorUntilNextReload() {
         let (sut, loader) = makeSut()
 
-        sut.loadViewIfNeeded()
+        sut.simulateAppearance()
         XCTAssertEqual(sut.errorMessage, nil, "Expected no error message once view is loaded")
 
         loader.completeDetailLoadingWithError(at: 0)
@@ -72,7 +75,7 @@ final class PokemonDetailUIIntegrationTests: XCTestCase {
         let pokemon1 = makeDetailPokemon()
         let (sut, loader) = makeSut()
 
-        sut.loadViewIfNeeded()
+        sut.simulateAppearance()
         assertThat(sut, isRendering: nil)
 
         loader.completeDetailLoading(with: pokemon0, at: 0)
@@ -89,7 +92,7 @@ final class PokemonDetailUIIntegrationTests: XCTestCase {
 
     func test_loadListCompletion_dispatchesFromBackgroundToMainThread() {
         let (sut, loader) = makeSut()
-        sut.loadViewIfNeeded()
+        sut.simulateAppearance()
 
         let exp = expectation(description: "Wait for background queue")
         DispatchQueue.global().async {
@@ -104,7 +107,7 @@ final class PokemonDetailUIIntegrationTests: XCTestCase {
     func test_pokemonInfoView_loadsImageURLWhenVisible() {
         let pokemon = makeDetailPokemon()
         let (sut, loader) = makeSut()
-        sut.loadViewIfNeeded()
+        sut.simulateAppearance()
         loader.completeDetailLoading(with: pokemon, at: 0)
 
         XCTAssertEqual(loader.imageUrls, [], "Expected no image URL requests until views become visible")
@@ -120,7 +123,7 @@ final class PokemonDetailUIIntegrationTests: XCTestCase {
     func test_pokemonInfoViewImageLoadingIndicator_isVisibleWhileLoadingImage() {
         let pokemon = makeDetailPokemon()
         let (sut, loader) = makeSut()
-        sut.loadViewIfNeeded()
+        sut.simulateAppearance()
         loader.completeDetailLoading(with: pokemon, at: 0)
 
         let view = sut.simulatePokemonDetailInfoViewVisible()
@@ -139,7 +142,7 @@ final class PokemonDetailUIIntegrationTests: XCTestCase {
     func test_pokemonDetailInfoImageReloadControl_isVisibleWhenImageLoadingIsFailed() {
         let pokemon = makeDetailPokemon()
         let (sut, loader) = makeSut()
-        sut.loadViewIfNeeded()
+        sut.simulateAppearance()
         loader.completeDetailLoading(with: pokemon, at: 0)
 
         let view = sut.simulatePokemonDetailInfoViewVisible()
@@ -158,7 +161,7 @@ final class PokemonDetailUIIntegrationTests: XCTestCase {
     func test_pokemonDetailImageView_imageVisibility() {
         let pokemon = makeDetailPokemon()
         let (sut, loader) = makeSut()
-        sut.loadViewIfNeeded()
+        sut.simulateAppearance()
         loader.completeDetailLoading(with: pokemon, at: 0)
         
         let view = sut.simulatePokemonDetailInfoViewVisible()
@@ -186,7 +189,7 @@ final class PokemonDetailUIIntegrationTests: XCTestCase {
         let pokemon = makeDetailPokemon()
         let (sut, loader) = makeSut()
         let image = makeImage().pngData()
-        sut.loadViewIfNeeded()
+        sut.simulateAppearance()
         loader.completeDetailLoading(with: pokemon, at: 0)
         
         _ = sut.simulatePokemonDetailInfoViewVisible()

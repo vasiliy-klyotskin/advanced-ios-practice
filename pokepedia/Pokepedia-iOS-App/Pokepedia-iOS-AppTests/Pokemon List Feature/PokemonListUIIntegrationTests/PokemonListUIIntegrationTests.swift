@@ -18,7 +18,7 @@ final class PokemonListUIIntegrationTests: XCTestCase {
     func test_pokemonList_hasTitle() throws {
         let (sut, _) = makeSut()
         
-        sut.loadViewIfNeeded()
+        sut.simulateAppearance()
         
         XCTAssertEqual(sut.title, pokemonListTitle)
     }
@@ -27,7 +27,7 @@ final class PokemonListUIIntegrationTests: XCTestCase {
         let (sut, loader) = makeSut()
         XCTAssertEqual(loader.loadListCallCount, 0, "Expected no loading requests before view is loaded")
         
-        sut.loadViewIfNeeded()
+        sut.simulateAppearance()
         XCTAssertEqual(loader.loadListCallCount, 1, "Expected a loading request once view is loaded")
         
         sut.simulateUserInitiatedReload()
@@ -45,7 +45,7 @@ final class PokemonListUIIntegrationTests: XCTestCase {
     func test_loadingListIndicator_isVisibleWhileLoadingList() {
         let (sut, loader) = makeSut()
         
-        sut.loadViewIfNeeded()
+        sut.simulateAppearance()
         XCTAssertTrue(sut.isShowingLoadingIndicator, "Expected loading indicator once view is loaded")
         
         loader.completeListLoading(at: 0)
@@ -56,12 +56,15 @@ final class PokemonListUIIntegrationTests: XCTestCase {
         
         loader.completeListLoadingWithError(at: 1)
         XCTAssertFalse(sut.isShowingLoadingIndicator, "Expected no loading indicator once user initiated loading completes with error")
+        
+        sut.simulateAppearance()
+        XCTAssertFalse(sut.isShowingLoadingIndicator, "Expected no loading indicator after appearing again")
     }
     
     func test_loadListCompletion_rendersErrorMessageOnErrorUntilNextReload() {
         let (sut, loader) = makeSut()
         
-        sut.loadViewIfNeeded()
+        sut.simulateAppearance()
         XCTAssertEqual(sut.errorMessage, nil, "Expected no error message once view is loaded")
         
         loader.completeListLoadingWithError(at: 0)
@@ -79,7 +82,7 @@ final class PokemonListUIIntegrationTests: XCTestCase {
         let pokemon1 = makeListPokemon(specialType: itemType())
         let (sut, loader) = makeSut()
         
-        sut.loadViewIfNeeded()
+        sut.simulateAppearance()
         assertThat(sut, isRendering: [])
         
         loader.completeListLoading(with: [pokemon0, pokemon1], at: 0)
@@ -96,7 +99,7 @@ final class PokemonListUIIntegrationTests: XCTestCase {
     
     func test_loadListCompletion_dispatchesFromBackgroundToMainThread() {
         let (sut, loader) = makeSut()
-        sut.loadViewIfNeeded()
+        sut.simulateAppearance()
         
         let exp = expectation(description: "Wait for background queue")
         DispatchQueue.global().async {
@@ -110,7 +113,7 @@ final class PokemonListUIIntegrationTests: XCTestCase {
     
     func test_loadMoreActions_requestMoreFromLoader() {
         let (sut, loader) = makeSut()
-        sut.loadViewIfNeeded()
+        sut.simulateAppearance()
         loader.completeListLoading(at: 0)
         
         XCTAssertEqual(loader.loadMoreCallCount, 0, "Expected no requests before until load more action")
@@ -137,7 +140,7 @@ final class PokemonListUIIntegrationTests: XCTestCase {
     func test_loadingMoreIndicator_isVisibleWhileLoadingMore() {
         let (sut, loader) = makeSut()
         
-        sut.loadViewIfNeeded()
+        sut.simulateAppearance()
         XCTAssertFalse(sut.isShowingLoadMoreListIndicator, "Expected no loading indicator once view is loaded")
         
         loader.completeListLoading(at: 0)
@@ -158,7 +161,7 @@ final class PokemonListUIIntegrationTests: XCTestCase {
     
     func test_loadMoreCompletion_rendersErrorMessageOnError() {
         let (sut, loader) = makeSut()
-        sut.loadViewIfNeeded()
+        sut.simulateAppearance()
         loader.completeListLoading(at: 0)
         
         sut.simulateLoadMoreListAction()
@@ -173,7 +176,7 @@ final class PokemonListUIIntegrationTests: XCTestCase {
     
     func test_tapOnLoadMoreErrorView_loadsMore() {
         let (sut, loader) = makeSut()
-        sut.loadViewIfNeeded()
+        sut.simulateAppearance()
         loader.completeListLoading(at: 0)
         
         sut.simulateLoadMoreListAction()
@@ -189,7 +192,7 @@ final class PokemonListUIIntegrationTests: XCTestCase {
     
     func test_loadMoreCompletion_dispatchesFromBackgroundToMainThread() {
         let (sut, loader) = makeSut()
-        sut.loadViewIfNeeded()
+        sut.simulateAppearance()
         loader.completeListLoading(at: 0)
         sut.simulateLoadMoreListAction()
         
@@ -207,7 +210,7 @@ final class PokemonListUIIntegrationTests: XCTestCase {
         let pokemon0 = makeListPokemon()
         let pokemon1 = makeListPokemon()
         let (sut, loader) = makeSut()
-        sut.loadViewIfNeeded()
+        sut.simulateAppearance()
         loader.completeListLoading(with: [pokemon0, pokemon1], at: 0)
         
         XCTAssertEqual(loader.imageUrls, [], "Expected no image URL requests until views become visible")
@@ -231,7 +234,7 @@ final class PokemonListUIIntegrationTests: XCTestCase {
         let pokemon0 = makeListPokemon()
         let pokemon1 = makeListPokemon()
         let (sut, loader) = makeSut()
-        sut.loadViewIfNeeded()
+        sut.simulateAppearance()
         loader.completeListLoading(with: [pokemon0, pokemon1], at: 0)
         
         let view0 = sut.simulatePokemonListItemViewVisible(at: 0)
@@ -308,7 +311,7 @@ final class PokemonListUIIntegrationTests: XCTestCase {
     func test_pokemonImageView_doesNotShowImageAfterReuse() {
         let pokemon0 = makeListPokemon()
         let (sut, loader) = makeSut()
-        sut.loadViewIfNeeded()
+        sut.simulateAppearance()
         loader.completeListLoading(with: [pokemon0], at: 0)
         let view = sut.simulatePokemonListItemViewVisible(at: 0)
         
@@ -321,7 +324,7 @@ final class PokemonListUIIntegrationTests: XCTestCase {
     func test_pokemonImageView_displaysImageAfterReuseWhenFirstRequestIsNotFinished() {
         let pokemon0 = makeListPokemon()
         let (sut, loader) = makeSut()
-        sut.loadViewIfNeeded()
+        sut.simulateAppearance()
         loader.completeListLoading(with: [pokemon0], at: 0)
         
         let view = sut.simulatePokemonListItemViewVisible(at: 0)
@@ -335,7 +338,7 @@ final class PokemonListUIIntegrationTests: XCTestCase {
     func test_pokemonImageView_resetsToDefaultStateAfterReuse() {
         let pokemon0 = makeListPokemon()
         let (sut, loader) = makeSut()
-        sut.loadViewIfNeeded()
+        sut.simulateAppearance()
         loader.completeListLoading(with: [pokemon0], at: 0)
         let view = sut.simulatePokemonListItemViewVisible(at: 0)
         
@@ -350,7 +353,7 @@ final class PokemonListUIIntegrationTests: XCTestCase {
     func test_pokemonImageView_cancelsRequestAfterImageViewIsNotVisibleAnymore() {
         let pokemon0 = makeListPokemon()
         let (sut, loader) = makeSut()
-        sut.loadViewIfNeeded()
+        sut.simulateAppearance()
         loader.completeListLoading(with: [pokemon0], at: 0)
         let view = sut.simulateListImageViewNotVisible(at: 0)
         
@@ -362,7 +365,7 @@ final class PokemonListUIIntegrationTests: XCTestCase {
     func test_pokemonImageView_setupImageAfterImageViewIsVisibleAgain() {
         let pokemon0 = makeListPokemon()
         let (sut, loader) = makeSut()
-        sut.loadViewIfNeeded()
+        sut.simulateAppearance()
         loader.completeListLoading(with: [pokemon0], at: 0)
         
         let view = sut.simulateListImageBecomingVisibleAgain(at: 0)
@@ -398,7 +401,7 @@ final class PokemonListUIIntegrationTests: XCTestCase {
         let pokemon1 = makeListPokemon()
         let (sut, loader) = makeSut(file: file, line: line)
         
-        sut.loadViewIfNeeded()
+        sut.simulateAppearance()
         loader.completeListLoading(with: [pokemon0, pokemon1], at: 0)
         let view0 = sut.simulatePokemonListItemViewVisible(at: 0)
         let view1 = sut.simulatePokemonListItemViewVisible(at: 1)

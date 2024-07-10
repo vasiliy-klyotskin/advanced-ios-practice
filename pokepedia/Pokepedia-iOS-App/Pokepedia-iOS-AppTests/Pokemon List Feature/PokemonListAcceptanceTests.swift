@@ -103,7 +103,9 @@ final class PokemonListAcceptanceTests: XCTestCase {
         sut.configureWindow()
         
         let nav = sut.window?.rootViewController as? UINavigationController
-        return nav?.topViewController as! ListViewController
+        let list = nav?.topViewController as! ListViewController
+        list.simulateAppearance()
+        return list
     }
     
     private func response(for url: URL) -> (Data, HTTPURLResponse) {

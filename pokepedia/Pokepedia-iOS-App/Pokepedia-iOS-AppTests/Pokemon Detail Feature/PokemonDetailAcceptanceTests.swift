@@ -70,10 +70,13 @@ final class DetailPokemonAcceptanceTests: XCTestCase {
         let nav = sut.window?.rootViewController as? UINavigationController
         
         let list = nav?.topViewController as! ListViewController
+        list.simulateAppearance()
         list.simulateItemSelection(at: detailId)
         RunLoop.main.run(until: .init())
         
-        return nav?.topViewController as! ListViewController
+        let detail = nav?.topViewController as! ListViewController
+        detail.simulateAppearance()
+        return detail
     }
     
     private var detailId: Int { 0 }
