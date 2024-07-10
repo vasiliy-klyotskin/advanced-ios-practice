@@ -44,6 +44,22 @@ The Pokemon Feed iOS Application includes a comprehensive testing suite:
 
 This app was made during the iOS Lead Essentials course! Thanks to Mike and Caio for providing such a solid content
 
+## Running the Backend
+
+To start the backend, follow these steps:
+
+1. Navigate to the backend directory:
+   ```sh
+   cd backend
+   ```
+
+2. Run the backend using Vapor:
+   ```sh
+   vapor run
+   ```
+
+Make sure you have Vapor installed and configured properly before running the commands.
+
 ## Certificate
 
 [Certificate.pdf](https://github.com/vasiliy-klyotskin/essential-developer-practice/files/13810157/Certificate.pdf)
