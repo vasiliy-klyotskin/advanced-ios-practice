@@ -29,18 +29,18 @@ struct SnapshotConfiguration {
 	}
     
     private static func traitCollection(for contentSize: UIContentSizeCategory, style: UIUserInterfaceStyle) -> UITraitCollection {
-        UITraitCollection(traitsFrom: [
-            .init(forceTouchCapability: .unavailable),
-            .init(layoutDirection: .leftToRight),
-            .init(preferredContentSizeCategory: contentSize),
-            .init(userInterfaceIdiom: .phone),
-            .init(horizontalSizeClass: .compact),
-            .init(verticalSizeClass: .regular),
-            .init(displayScale: 3),
-            .init(accessibilityContrast: .normal),
-            .init(displayGamut: .P3),
-            .init(userInterfaceStyle: style)
-        ])
+        return UITraitCollection(mutations: { builder in
+            builder.forceTouchCapability = .unavailable
+            builder.layoutDirection = .leftToRight
+            builder.preferredContentSizeCategory = contentSize
+            builder.userInterfaceIdiom = .phone
+            builder.horizontalSizeClass = .compact
+            builder.verticalSizeClass = .regular
+            builder.displayScale = 3
+            builder.accessibilityContrast = .normal
+            builder.displayGamut = .P3
+            builder.userInterfaceStyle = style
+        })
     }
 }
 
@@ -61,7 +61,7 @@ private final class SnapshotWindow: UIWindow {
 	}
 	
 	override var traitCollection: UITraitCollection {
-		return UITraitCollection(traitsFrom: [super.traitCollection, configuration.traitCollection])
+        configuration.traitCollection
 	}
 	
 	func snapshot() -> UIImage {
