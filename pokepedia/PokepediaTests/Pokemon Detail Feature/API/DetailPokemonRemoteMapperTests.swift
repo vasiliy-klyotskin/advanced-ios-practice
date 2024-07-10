@@ -2,7 +2,7 @@
 //  DetailPokemonRemoteMapperTests.swift
 //  PokepediaTests
 //
-//  Created by Василий Клецкин on 7/25/23.
+//  Created by Vasiliy Klyotskin on 7/25/23.
 //
 
 import XCTest

@@ -2,7 +2,7 @@
 //  RemoteMapper.swift
 //  Pokepedia
 //
-//  Created by Василий Клецкин on 5/16/23.
+//  Created by Vasiliy Klyotskin on 5/16/23.
 //
 
 import Foundation

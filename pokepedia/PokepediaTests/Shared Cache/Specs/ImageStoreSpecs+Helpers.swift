@@ -2,7 +2,7 @@
 //  ImageStoreSpecs+Helpers.swift
 //  PokepediaTests
 //
-//  Created by Василий Клецкин on 8/6/23.
+//  Created by Vasiliy Klyotskin on 8/6/23.
 //
 
 import XCTest

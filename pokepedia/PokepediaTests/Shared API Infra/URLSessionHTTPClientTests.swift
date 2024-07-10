@@ -2,7 +2,7 @@
 //  URLSessionHTTPClientTests.swift
 //  PokepediaTests
 //
-//  Created by Василий Клецкин on 13.05.2023.
+//  Created by Vasiliy Klyotskin on 13.05.2023.
 //
 
 import XCTest

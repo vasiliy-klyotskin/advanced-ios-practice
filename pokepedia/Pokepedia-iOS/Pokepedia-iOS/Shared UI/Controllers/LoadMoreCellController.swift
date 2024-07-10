@@ -2,7 +2,7 @@
 //  LoadMoreCellController.swift
 //  Pokepedia-iOS
 //
-//  Created by Василий Клецкин on 8/9/23.
+//  Created by Vasiliy Klyotskin on 8/9/23.
 //
 
 import UIKit

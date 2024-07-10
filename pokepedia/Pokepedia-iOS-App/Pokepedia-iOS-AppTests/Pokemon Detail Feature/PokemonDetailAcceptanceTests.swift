@@ -2,7 +2,7 @@
 //  PokemonDetailAcceptanceTests.swift
 //  Pokepedia-iOS-AppTests
 //
-//  Created by Василий Клецкин on 8/23/23.
+//  Created by Vasiliy Klyotskin on 8/23/23.
 //
 
 import Foundation

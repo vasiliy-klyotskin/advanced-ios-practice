@@ -2,7 +2,7 @@
 //  UIImage+Creation.swift
 //  Pokepedia-iOS-AppTests
 //
-//  Created by Василий Клецкин on 6/19/23.
+//  Created by Vasiliy Klyotskin on 6/19/23.
 //
 
 import UIKit

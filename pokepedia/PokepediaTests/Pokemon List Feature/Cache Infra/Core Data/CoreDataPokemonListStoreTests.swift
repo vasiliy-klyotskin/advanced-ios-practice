@@ -2,7 +2,7 @@
 //  CoreDataLocalPokemonListStoreTests.swift
 //  PokepediaTests
 //
-//  Created by Василий Клецкин on 8/2/23.
+//  Created by Vasiliy Klyotskin on 8/2/23.
 //
 
 import XCTest

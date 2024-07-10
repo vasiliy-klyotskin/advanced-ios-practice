@@ -2,7 +2,7 @@
 //  PokemonListEndpoint.swift
 //  Pokepedia
 //
-//  Created by Василий Клецкин on 8/15/23.
+//  Created by Vasiliy Klyotskin on 8/15/23.
 //
 
 import Foundation

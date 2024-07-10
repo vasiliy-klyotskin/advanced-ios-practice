@@ -2,7 +2,7 @@
 //  UITableView+Dequeue.swift
 //  Pokepedia-iOS
 //
-//  Created by Василий Клецкин on 7/28/23.
+//  Created by Vasiliy Klyotskin on 7/28/23.
 //
 
 import UIKit

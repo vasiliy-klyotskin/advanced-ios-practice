@@ -2,7 +2,7 @@
 //  Views.swift
 //  Pokepedia-iOS
 //
-//  Created by Василий Клецкин on 7/27/23.
+//  Created by Vasiliy Klyotskin on 7/27/23.
 //
 
 import UIKit

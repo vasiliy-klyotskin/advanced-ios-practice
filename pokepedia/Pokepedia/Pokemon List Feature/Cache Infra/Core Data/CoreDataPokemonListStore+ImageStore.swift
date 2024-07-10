@@ -2,7 +2,7 @@
 //  CoreDataPokemonListStore+ImageStore.swift
 //  Pokepedia
 //
-//  Created by Василий Клецкин on 8/4/23.
+//  Created by Vasiliy Klyotskin on 8/4/23.
 //
 
 import Foundation

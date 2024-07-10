@@ -2,7 +2,7 @@
 //  PokemonListViewAdapter.swift
 //  Pokepedia-iOS-App
 //
-//  Created by Василий Клецкин on 6/2/23.
+//  Created by Vasiliy Klyotskin on 6/2/23.
 //
 
 import UIKit

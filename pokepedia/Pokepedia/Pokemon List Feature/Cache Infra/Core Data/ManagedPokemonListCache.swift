@@ -2,7 +2,7 @@
 //  ManagedPokemonListCache+CoreDataClass.swift
 //  
 //
-//  Created by Василий Клецкин on 8/3/23.
+//  Created by Vasiliy Klyotskin on 8/3/23.
 //
 //
 

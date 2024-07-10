@@ -2,7 +2,7 @@
 //  XCTestCase+MemoryLeakTracking.swift
 //  Pokepedia-iOS-AppTests
 //
-//  Created by Василий Клецкин on 5/29/23.
+//  Created by Vasiliy Klyotskin on 5/29/23.
 //
 
 import XCTest

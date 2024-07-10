@@ -2,7 +2,7 @@
 //  UIFont+Creation.swift
 //  Pokepedia-iOS
 //
-//  Created by Василий Клецкин on 7/16/23.
+//  Created by Vasiliy Klyotskin on 7/16/23.
 //
 
 import UIKit

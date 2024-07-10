@@ -2,7 +2,7 @@
 //  DetailPokemonEndpointTests.swift
 //  PokepediaTests
 //
-//  Created by Василий Клецкин on 8/20/23.
+//  Created by Vasiliy Klyotskin on 8/20/23.
 //
 
 import XCTest

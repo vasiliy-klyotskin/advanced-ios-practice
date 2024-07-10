@@ -2,7 +2,7 @@
 //  DetailPokemonCacheIntegrationTests.swift
 //  PokepediaCacheIntegrationTests
 //
-//  Created by Василий Клецкин on 8/22/23.
+//  Created by Vasiliy Klyotskin on 8/22/23.
 //
 import XCTest
 import Pokepedia

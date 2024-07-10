@@ -2,7 +2,7 @@
 //  ManagedDetailPokemonAbility.swift
 //  Pokepedia
 //
-//  Created by Василий Клецкин on 8/22/23.
+//  Created by Vasiliy Klyotskin on 8/22/23.
 //
 
 import CoreData

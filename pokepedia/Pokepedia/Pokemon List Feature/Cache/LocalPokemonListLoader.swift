@@ -2,7 +2,7 @@
 //  LocalPokemonListLoader.swift
 //  Pokepedia
 //
-//  Created by Василий Клецкин on 7/31/23.
+//  Created by Vasiliy Klyotskin on 7/31/23.
 //
 
 import Foundation

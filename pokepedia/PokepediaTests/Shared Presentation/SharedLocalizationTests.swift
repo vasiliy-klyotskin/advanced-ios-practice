@@ -2,7 +2,7 @@
 //  SharedLocalizationTests.swift
 //  PokepediaTests
 //
-//  Created by Василий Клецкин on 5/22/23.
+//  Created by Vasiliy Klyotskin on 5/22/23.
 //
 
 import XCTest

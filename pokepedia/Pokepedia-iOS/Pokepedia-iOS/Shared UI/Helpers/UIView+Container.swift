@@ -2,7 +2,7 @@
 //  UIView+Container.swift
 //  Pokepedia-iOS
 //
-//  Created by Василий Клецкин on 7/12/23.
+//  Created by Vasiliy Klyotskin on 7/12/23.
 //
 
 import UIKit

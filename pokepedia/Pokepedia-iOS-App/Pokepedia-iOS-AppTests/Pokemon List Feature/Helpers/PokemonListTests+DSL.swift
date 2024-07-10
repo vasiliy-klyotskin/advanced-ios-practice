@@ -2,7 +2,7 @@
 //  PokemonListUIIntegrationTests+DSL.swift
 //  Pokepedia-iOS-AppTests
 //
-//  Created by Василий Клецкин on 5/31/23.
+//  Created by Vasiliy Klyotskin on 5/31/23.
 //
 
 import UIKit
